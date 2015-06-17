@@ -48,6 +48,25 @@
 \usepackage{booktabs}
 \usepackage[stable]{footmisc}
 
+\usepackage[autostyle]{csquotes}
+
+\usepackage[
+    backend=biber,
+    style=authoryear-icomp,
+    sortlocale=de_DE,
+    natbib=true,
+    url=false,
+    doi=true,
+    eprint=false
+]{biblatex}
+
+\addbibresource{bibliography.bib}
+
+\usepackage[]{hyperref}
+\hypersetup{
+    colorlinks=true,
+}
+
 \setlength{\emergencystretch}{1em}
 
 \setlength{\parindent}{0pt} %Unterbindet das Einrücken
@@ -340,8 +359,7 @@
 \setcounter{page}{1}
 \pagenumbering{arabic}
 
-\include{chapters/einleitung}
-\include{chapters/einleitung}
+\include{chapters/immersed_boundary_methods}
 
 \newpage
 \thispagestyle{empty}
@@ -353,9 +371,7 @@
 % %\cleardoublepage
 
 
-
-\bibliography{Thesis}
-\bibliographystyle{abbrv}
+\printbibliography
 
 %\include{danksagung}
 \end{document}
