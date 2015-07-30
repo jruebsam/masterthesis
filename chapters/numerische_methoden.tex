@@ -3,49 +3,64 @@
 \section{GPGPU Computing mit CUDA}
 \section{Finite Differenzen Verfahren}
 \section{Validierung}
-\section{Immersed Boundary Methoden}
-
 \newpage
 
-\subsection{Einleitung}
+\chapter{Immersed Boundary Methoden}
+
+\begin{figure}[!bp]
+  \centering
+  \subfloat[kartesisches Gitter]{\includegraphics[width=0.4\textwidth]{gfx/immersed_boundary_methods/general_partition_triangle.jpg}\label{fig:f1}}
+  \hfill
+  \subfloat[unstrukturiertes Gitter]{\includegraphics[width=0.4\textwidth]{gfx/immersed_boundary_methods/general_partition_triangle.jpg}\label{fig:f2}}
+  \caption{Beispiele für numerische Gitter}
+\end{figure}
+
+\section{Einleitung}
 Die bisher eingeführten Methoden eignen sich um auf einfachen Geometrien Simulationen durchzuführen.
-Wenn die Ränder des Simulations-Gebietes nicht mehr mit dem numerischen Gitter übereinstimmen lassen sich die in Abschnitt () eingeführten Randbedingungen nicht mehr verwenden.
-Das Problem lässt sich durch die Einführung eines an den Rand angepassten Gitter umgehen (s.Abb.), führt allerdings zu einem deutlich höheren Aufwand in den numerischen Berechnungen.
-Zudem ist nicht eindeutig geklärt  unter welchen weiteren Performance-Einbussen sich das neue Gitter in der GPGPU-Implementierung verwenden lässt, da Bedingungen wie
-z.B. Coalesced Readings  (s.Abbschnitt x) durch die unstrukturierten Daten deulich erschwert wäre.
+Wenn die Ränder des Simulations-Gebietes nicht mehr mit dem numerischen Gitter übereinstimmen, lassen
+sich die in Abschnitt () eingeführten Randbedingungen nicht mehr verwenden.
+Das Problem lässt sich durch die Einführung eines an den Rand angepassten Gitter umgehen (s.Abb. \label{fig:f1}),
+führt allerdings zu einem deutlich höheren Aufwand in den numerischen Berechnungen.
+Die Berechnung des Gitters kann sehr aufwendig werden und es ist nicht eindeutig klar unter welchen
+Performance-Einbussen sich das neue Gitter in der GPGPU-Implementierung verwenden lässt, da Bedingungen wie
+z.B. Coalesced Readings  (s.Abbschnitt x) durch die unstrukturierten Daten deulich erschwert wären.
 Eine Alternative die in dieser Arbeit verwendet wird sind  sog. Immersed Boundary Methoden.
+
+
 - Beschreibung allgemein verschiedene immersed boundary methoden direkt /exp/ imp etc
-- hier einfache methoden wegen gpu
+    -erstmal peskin et al.
+    -im prinzip 3 verschiedene ansätze continuous / direct /  ghost cell methoden
+    - hier einfache methoden wegen gpu
 
 
 
-\subsection{No-Slip-Boundaries}
+\section{No-Slip-Boundaries}
 - zunächst gehen wir nur auf den fall einer der geschwindigkeiten ein bllabla
 Folgende Verfahren formel mit kraftterm
 weiterer abschnitt temperatur / no-flux
 
-\subsubsection{Volume Penalization}
+\subsection{Volume Penalization}
 -allgemeinsch beschreibung paper zitat, zitat dipl. lüllff.
 -idee dämpungsterm in der dgl
 -problem instabilität
 
-\subsubsection{Direct Forcing}
+\subsection{Direct Forcing}
 -Paper quote
 -vgl volume penalization warum keine instablilität
 -formeln
 -implementierung
 
-\subsubsection{Direct Forcing mit Volume Fraction}
+\subsection{Direct Forcing mit Volume Fraction}
 -paper quote formeln
 -implementierung beispiel
 
-\subsubsection{Direct Forcing mit Interpolation}
+\section{Direct Forcing mit Interpolation}
 -paper quote formeln
 -implementierung beispiel
 
-\subsection{Methoden-Vergleich und numerische Validierung}
+\section{Methoden-Vergleich und numerische Validierung}
 Blabla
-\subsubsection{Validierung mit MASA}
+\subsection{Validierung mit MASA}
 -validierung mit masa für alle verfahren oben.. cube /evtl zylinder?
 -vegl. und argumentation ränder ehh auf null.
 
