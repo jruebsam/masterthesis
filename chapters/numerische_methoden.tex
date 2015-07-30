@@ -1,13 +1,70 @@
 \chapter{Numerische Methoden}
 \section{Einleitung}
-\section{Finite Differenzen Verfahren}
 \section{GPGPU Computing mit CUDA}
+\section{Finite Differenzen Verfahren}
 \section{Validierung}
-\section{CFD-Simulationen in complexen Geometrien}
+\section{Immersed Boundary Methoden}
+
+\newpage
 
 \subsection{Einleitung}
-Die bisher eingeführten Methoden eigen sich sehr gut um auf einfachen Geometrien Simulationen durchzuführen.
-Problematisch wird es dann, wenn die Ränder des Simulationsraums nicht mehr mit dem numerischen Gitter übereinstimmen.
-Dies ist exemplarisch in (XXXX) für einen Zylinder dargestellt.
----
-Testui tusit s \cite{boyd2003nonlinear} uiae uiae
+Die bisher eingeführten Methoden eignen sich um auf einfachen Geometrien Simulationen durchzuführen.
+Wenn die Ränder des Simulations-Gebietes nicht mehr mit dem numerischen Gitter übereinstimmen lassen sich die in Abschnitt () eingeführten Randbedingungen nicht mehr verwenden.
+Das Problem lässt sich durch die Einführung eines an den Rand angepassten Gitter umgehen (s.Abb.), führt allerdings zu einem deutlich höheren Aufwand in den numerischen Berechnungen.
+Zudem ist nicht eindeutig geklärt  unter welchen weiteren Performance-Einbussen sich das neue Gitter in der GPGPU-Implementierung verwenden lässt, da Bedingungen wie
+z.B. Coalesced Readings  (s.Abbschnitt x) durch die unstrukturierten Daten deulich erschwert wäre.
+Eine Alternative die in dieser Arbeit verwendet wird sind  sog. Immersed Boundary Methoden.
+- Beschreibung allgemein verschiedene immersed boundary methoden direkt /exp/ imp etc
+- hier einfache methoden wegen gpu
+
+
+
+\subsection{No-Slip-Boundaries}
+- zunächst gehen wir nur auf den fall einer der geschwindigkeiten ein bllabla
+Folgende Verfahren formel mit kraftterm
+weiterer abschnitt temperatur / no-flux
+
+\subsubsection{Volume Penalization}
+-allgemeinsch beschreibung paper zitat, zitat dipl. lüllff.
+-idee dämpungsterm in der dgl
+-problem instabilität
+
+\subsubsection{Direct Forcing}
+-Paper quote
+-vgl volume penalization warum keine instablilität
+-formeln
+-implementierung
+
+\subsubsection{Direct Forcing mit Volume Fraction}
+-paper quote formeln
+-implementierung beispiel
+
+\subsubsection{Direct Forcing mit Interpolation}
+-paper quote formeln
+-implementierung beispiel
+
+\subsection{Methoden-Vergleich und numerische Validierung}
+Blabla
+\subsubsection{Validierung mit MASA}
+-validierung mit masa für alle verfahren oben.. cube /evtl zylinder?
+-vegl. und argumentation ränder ehh auf null.
+
+\subsubsection{Plane Poiseuille Flow}
+\subsubsection{Poiseuille Flow im Zylinder}
+
+\subsubsection{Zusammenfassung}
+
+
+\subsection{No-Flux-Boundaries}
+
+\subsubsection{'Variable Konduktivität'}
+
+
+
+
+
+
+
+
+
+
