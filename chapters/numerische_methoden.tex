@@ -99,6 +99,12 @@ Da die Strömung in der Kanalmitte am stärksten ist gilt zudem:
 z_{max} &= \frac{h_1+h_2}{2}\Rightarrow v_{max} = A\left(h_1h_2 - \frac{(h_1 + h_2)^2}{4}\right)
 \end{align}
 Für die Strömung lässt sich die Reynoldszahl dann gemäß $Re \propto \frac{v_{max}}{D}$  bestimmen.
+\begin{figure}[!hbtp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{gfx/immersed_boundary_methods/vp_flow.png}\label{fig:vp_flow}
+  \caption{Geschwindigkeistprofile im Kanal bei Variation der Dämpfungskonstante $\nu$ und Reynoldszahl $Re=500$.}
+\end{figure}
+
 
 \paragraph*{Setup}\mbox{}\\
 Um die Abhängigkeit des Fehlers von der Dämpfungskonstante zu betrachten wurde ein Kanal mit $l_x=1$, $l_y=1$ und $l_z=2$ sowie $h_1=0.25$, $h_2=0.75$.
@@ -106,25 +112,27 @@ betrachtet. Die Maskierungsfunction ergibt sich damit gemäß $H(z) = (z>h1) & (
 Für die Reynoldszahl wurden Werte im Intervall $Re \in [100, 500]$ verwendet, die Dämpfungskonstante wurde zwischen $\nu \in [1e-5, 0.1]$ variert, während der Zeitschritt mit $dt =1e-5$ konstant gehalten wurde. Die genauen Angaben für alle Parameter sind in (Anhang Tab.X) zu finden.
 
 \paragraph*{Ergebnisse}\mbox{}\\
-Zunächst ist in Abb.X das Geschwindigkeitsprofil der Strömung für $Re=X$ dargstellt. Es lässt sich bereits qualitativ sehr gut erkennen, dass für eine
-starke Dämfung die Kanalströmung an den Grenzen $h_1$ und $h_2$ verschwindet. Je kleiner Die Dämpfungrate ist desto stärker entwickelt
-sich im Rand ein Geschwindigkeitsprofil. Um sicherzustellen dass sich das Profil vollständig entwickelt hat wurde die Simulation bis zu dem
-Zeitpunkt fortgegeführt in welchem die kinetische Energie einen stationären Wert erreicht, s.Abb.X(b).
-
+Zunächst ist in Abb. \ref{fig:vp_flow} das Geschwindigkeitsprofil der Strömung für $Re=500$ exemplarisch dargstellt. Es lässt sich bereits qualitativ sehr gut erkennen, dass für eine
+starke Dämfung die Kanalströmung an den Grenzen $h_1$ und $h_2$ verschwindet und gut mit der dem theoretischen Profil übereinstimmt.
+Bei einem Verringern der Dämpfungrate entwickelt sich im Rand ein Geschwindigkeitsprofil.
+Um sicherzustellen dass sich das Profil vollständig entwickelt wurde die Simulation bis zu dem Zeitpunkt fortgegeführt
+ in welchem die kinetische Energie des Systems einen stationären Wert erreicht. Anschließend wurde der absolute und relative Fehler mit Formel (X) berechnet,
+dabei wurde das theoretische Profil gemäß () verwendet. Die Ergebnisse sind in Abbildung \ref{fig:vp_error} dargestellt.
 
 \begin{figure}[!bp]
   \centering
-  \includegraphics[width=1.0\textwidth]{gfx/immersed_boundary_methods/vp_flow.png}\label{fig:f4}
-  \caption{Beispiele für numerische Gitter}
+  \includegraphics[width=1.0\textwidth]{gfx/immersed_boundary_methods/vp_error.png}\label{fig:vp_error}
+  \caption{Absoluter und relativer Fehler in Abhängigkeit von Dämpfungskonsante $\nu$ und Reynoldszahl $Re$.}
 \end{figure}
 
-
-
--plot beispiel flow
--plot fehler gegen nu
--streifen diskussion
--blabla
-
+Bei beiden Fehler lässt sich ein Abfall bis $\nu=1e-4$ erkennen, anschließend kommt es zu einem minimalen Anstieg.
+Betrachtet man den absoluten Fehler, so fällt auf das im Bereich $\nu>5\cdot10^{-3}$, mit steigender Reynoldszahl, der Fehler zunimmt.
+Dies entspricht zunächst der Erwartung, da das Geschwindigkeitsprofil mit steigender Reynoldszahl stärker an der Wand zerrt.
+Allerdings kommt es im Bereich $\nu \in [1e-3 - 1e-2]$ zu einem umgekehrten Verhalten, der Fehler nimmt mit der Reynoldszahl ab,
+Du Ursache hierfür liess sich nicht eindeutig klären.
+Für den relativen Fehler lässt sich ein Abfall mit steigender Reynoldszahl beobachten. Da $\vec{f} \propto (\vec{v}-\vec{v_0})  \propto Re$ wird der Reibunsterm
+proportional zur Reynoldszahl skaliert. Der Fehler durch den Rand ändert sich, im Vergleich zum Geschwindigskeitsprofil kaum, wodurch der Abfall zustande kommt.
+Der relative Fehler fällt bei $\nu=1e-4=10\Delta t$ auf unter 1\%, wodurch dieser Wert als geeignet angesehen werden kann für zukünftige Simulationen mit der Volume-Penalization Methode.
 
 
 \subsection{Direct Forcing}
