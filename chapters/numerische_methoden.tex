@@ -130,12 +130,27 @@ Betrachtet man den absoluten Fehler, so fällt auf das im Bereich $\nu>5\cdot10^
 Dies entspricht zunächst der Erwartung, da das Geschwindigkeitsprofil mit steigender Reynoldszahl stärker an der Wand zerrt.
 Allerdings kommt es im Bereich $\nu \in [1e-3 - 1e-2]$ zu einem umgekehrten Verhalten, der Fehler nimmt mit der Reynoldszahl ab,
 Du Ursache hierfür liess sich nicht eindeutig klären.
+-Fluktuation  im Rand
 Für den relativen Fehler lässt sich ein Abfall mit steigender Reynoldszahl beobachten. Da $\vec{f} \propto (\vec{v}-\vec{v_0})  \propto Re$ wird der Reibunsterm
 proportional zur Reynoldszahl skaliert. Der Fehler durch den Rand ändert sich, im Vergleich zum Geschwindigskeitsprofil kaum, wodurch der Abfall zustande kommt.
 Der relative Fehler fällt bei $\nu=1e-4=10\Delta t$ auf unter 1\%, wodurch dieser Wert als geeignet angesehen werden kann für zukünftige Simulationen mit der Volume-Penalization Methode.
 
+\subsection{Direct Forcing Methode}
+Während die Volume Penalization Methode die Geschwindigkeit ausserhalb des Volumens nicht vollständig auf Null setzt,
+ kann dies durch eine implizite Berechnung des Dämpfungsterm erreichtwerden. Es stellt sich heraus das dieser Ansatz equivalent
+  zu der Direct Forcing Methode ist, die erstmals von [] verwendet und in [] beschrieben wird.
+Betrachten wir zunächst den diskretisierten Zeitschritt
+\begin{align}
+    \frac{\vec{u}^{n+1} -\vec{u}^n}{\Delta t} = \mathsrc{L} + \vec{f}\\
+\end{align}
+wobei $\mathsrc{L}$ den diskretiesierten Operatoren der PDE entspricht.
+Für einen Punkt auf dem Rand des Volumens soll nun die Randbedingung $\vec{u}^{n+1} = \vec{u}_0$ eingehalten werden.
+Mit Formel () folgt
+\begin{align}
+    \frac{\vec{u}_0 -\vec{u}^n}{\Delta t} = \mathsrc{L} + \vec{f} \Rightarrow \vec{f} = \frac{\vec{u}_0 -\vec{u}^n}{\Delta t\cdot \mathsrc{L}}\\
+\end{align}
+Mit der Annahme dass der Rand mit dem numerischen Gitter übereinstimmt ist es nicht nötig den Kraftterm zur berechnen, stattdessen lässt sich der Schritt vereinfachen in dem der Randwert nach  jedem Zeitschritt direkt auf die gewünschte Randbedingung gesetzt wird. Durch die implizite Behandlung kommt es zu keiner weiter Stabilitätsbedingung.
 
-\subsection{Direct Forcing}
 -Paper quote
 -vgl volume penalization warum keine instablilität
 -formeln
