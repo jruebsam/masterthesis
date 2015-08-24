@@ -36,10 +36,12 @@ def main():
     d = np.load('data/direct_forcing/dfo2.npy')
     dfreo2, dfl2relo2, dfl2abso2 = d.T
 
+    f, (ax1, ax2) = plt.subplots(1, 2)
 
-    plt.plot(res, l2rel, 'o--', label=r'V.P. with $\nu=1e-4$')
-    plt.plot(dfre, dfl2rel, 'o--', label='direct forcing O4')
-    plt.plot(dfreo2, dfl2relo2, 'o--', label='direct forcing O2')
+
+    ax1.plot(res, l2rel, 'o--', label=r'V.P. with $\nu=1e-4$')
+    ax1.plot(dfre, dfl2rel, 'o--', label='direct forcing O4')
+    ax1.plot(dfreo2, dfl2relo2, 'o--', label='direct forcing O2')
 
     plt.xlabel(r'$Re$')
     plt.ylabel(r'$l_2$-Fehler')
