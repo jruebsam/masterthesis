@@ -4,13 +4,54 @@
 
 Eine numerische Modellierung setzt zunächst eine exakte theoretische Beschreibung des strömungsmechanischen Problems vorraus.
 Daher soll in diesem Abschnitt auf die theoretischen Grundlagen der Strömungsmechanik eines inkompressiblen Fluids eingegangen werden.
-Anschließend werden die Grundgleichungen für verschiedene Systeme erweitert die im Laufe dieser Arbeit betrachtet wurden.
-Dazu gehört die Strömung in rotierenden Systemen sowie das Rayleigh-Benard-System.
+Auf eine exakte mathematische Herleitung wird dabei verzichtet, der interessierte Leser sei auf [Ferziger?] oder z.B. [rritton?] verwiesen.
+Anschließend werden die Grundgleichungen für verschiedene Systeme erweitert, dazu gehört die Strömung in rotierenden Systemen sowie das Rayleigh-Benard-System.
 
 \section{Die Navier-Stokes Gleichung}
-I was often using any of the available “lorem ipsum”
-I was often using any of the available “lorem ipsum”
 
-\subsection{jawohl}
-I was often using any of the available “lorem ipsum”
-I was often using any of the available “lorem ipsum”
+Für die Charakterisierung einer Strömung in einem Gebiet $\Omega \in \mathbb{R}^3$ werden die folgenden Skalare betrachtet.
+\begin{description}
+    \item[$\bm{\vec{v}_x}$, $\bm{\vec{v}_y}$, $\bm{\vec{v}_z}$] Geschwindigkeit in x, y, z Richtung
+    \item[$\bm{\rho}$] Dichte
+    \item[$\bm{p}$] Druck
+\end{description}
+
+Betrachten wir zunächst ein abschlossenes Teilvolumen $V \in \Omega$ mit einem normalen Vektor $\dif \vec{S}$.
+So ergibt sich die Massenbilanz aus der zeitlichen Änderung der Dichte und dem Massenfluss aus dem Volumen.
+
+\begin{align}
+    \frac{\dif m}{\dif t} &= \frac{\dif}{\dif t} \int_{V}\dif V \rho(t)  = -\int_{\partial V} \rho \vec{v}\dif \vec{s} \\
+\end{align}
+
+Unter der Annahme der Massenerhaltung und der Verwendung des Gaußschen Integralsatz folgt
+die Kontinuitätsgleichung
+
+\begin{align}
+     \int_{V} \left( \frac{\partial \rho}{\partial t}  + \nabla(\rho \vec{u}) \right) = 0 \Rightarrow \frac{\partial \rho}{\partial t}  + \nabla(\rho \vec{u}) \\
+\end{align}
+
+für inkompressible Fluide $\rho = \rho_0}$ vereinfacht sich die Gleichung zu
+
+\begin{align}
+    \nabla \cdot \vec{u} &= 0\\
+\end{align}
+
+Im analogon zur Newtonschen Bewegungsleichung eines Teilchens betrachten wir in der Strömungsmechanik die Impulsgleichung für ein infinitesimales Fluidelement.
+Der Impuls ändert sich in Abhängigkeit von der Zeit und durch die Bewegung des Fluidelements durch das Geschwindigkeitsfeld. Das Verhalten wird durch die substantielle Ableitung beschrieben.
+UMSCHREIBEN OBEN FALSCH U UND V TAUSCHEN AUF UU
+
+\begin{align}
+    \pdn[f]{t} &= \pdn[f]{t} + \vec{u}\vec{\nabla}f = \pdn[f]{t} + u\pdn[f]{x} v\pdn[f]{y}+ w\pdn[f]{z} \\
+\end{align}
+
+
+- erläuterung friction tensor
+- f ext
+
+Damit lautet die Navier-Stokes Gleichung für ein inkompressibles Fluid.
+\begin{align}
+    \pdn[u]{t} + \vec{u} \cdot \vec{\nabla} \vec{u} &= - \frac{1}{\rho} \nabla p + \nu LAPLACE \vec{u} + \vec{F}_{ext}\\
+\end{align}
+
+
+
