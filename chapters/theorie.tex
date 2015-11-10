@@ -50,8 +50,34 @@ UMSCHREIBEN OBEN FALSCH U UND V TAUSCHEN AUF UU
 
 Damit lautet die Navier-Stokes Gleichung für ein inkompressibles Fluid.
 \begin{align}
-    \pdn[u]{t} + \vec{u} \cdot \vec{\nabla} \vec{u} &= - \frac{1}{\rho} \nabla p + \nu LAPLACE \vec{u} + \vec{F}_{ext}\\
+    \pdn[u]{t} + \vec{u} \cdot \vec{\nabla} \vec{u} &= - \frac{1}{\rho} \nabla p + \nu \Delta \vec{u} + \vec{F}_{ext}\\
 \end{align}
+
+\section{Rotierendes System}
+Wir betrachten nun ein rotierendes System welches  sich relativ zu einem Inertialsystem um die Rotationsachse $\vec{\Omega}$ dreht. Nach [] gilt
+\begin{align}
+    \left\pdn[\vec{r}]{t} \right|_{Inert.} &= \left\pdn[\vec{r}]{\vec{t}}\right|_{Rot.} + \Omega \times \vec{r} \\
+\end{align}
+Damit folgt für die Beschleunigung eines Punktes im rotierenden System
+\begin{align}
+    \pdn[u]{t} = -\pdn[]{t^2}(\Omega \times \vec{r}) = -2\Omega \times \vec{u} - \Omega \times (\Omega \times \vec{r}) \\
+\end{align}
+
+
+
+
+-Coriolis Kraft Herleiten
+-Enddimensionalisierung
+-intertialwellen
+-reflektion etc
+
+\section{Rayleigh-Benard System}
+-temperatur
+-entdim
+-instabilität
+-bilder
+
+
 
 
 
