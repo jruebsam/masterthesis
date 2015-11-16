@@ -36,16 +36,26 @@ Für ein inkompressibles Fluid mit konstanter Dichte verschwindet zusätzlich di
 Analog zu der Newtonschen Bewegungsleichung eines Teilchens betrachten wir in der Strömungsmechanik die Impulsgleichung für ein infinitesimales Fluidelement.
 Die Geschwindigkeit ändert sich dabei nicht nur mit der Zeit sondern auch durch die Bewegung mit der Strömung. Bewegt sich das Fluidelement in einen
 Bereich höherer Geschwindigkeit muss dies zu einer Erhöhung des eigenen Impulses führen.
-Die gesamte zeitliche Änderung ist dann über  die subtantielle Ableitung gegeben
+Die zeitliche Änderung ist dann über die subtantielle Ableitung gegeben, die allgemein für ein Skalar $S$ gemäß
 
 \begin{align}
-    \frac{\Dif \vec{u}}{\dif t} &= \pdn[f]{t} + \vec{u}\vec{\nabla}f = \pdn[f]{t} + u\pdn[f]{x} v\pdn[f]{y}+ w\pdn[f]{z}
+    \frac{\Dif S}{\dif t} &:= \pdn[S]{t} + \vec{u}\vec{\nabla}S = \pdn[S]{t} + u\pdn[S]{x} + v\pdn[S]{y}+ w\pdn[S]{z}
 \end{align}
+
+definiert ist.
+Weiterhin müssen wir die Kräfte betrachten die auf das Fluidelement wirken. Hier lässt sich zwischen in- und externe Kräften $F_{ext}$ unterscheiden.
+Die internenen Kräfte sind gegeben durch die Druckkraft und die Viskosität.
+
+-Druck
+-Viskostität Newton gleichung
 
 Damit lautet die Navier-Stokes Gleichung für ein inkompressibles Fluid.
 \begin{align}
     \pdn[u]{t} + \vec{u} \cdot \vec{\nabla} \vec{u} &= - \frac{1}{\rho} \nabla p + \nu \Delta \vec{u} + \vec{F}_{ext}\\
 \end{align}
+
+-Randbedingungen
+-Enddimensionalisierung
 
 \section{Rotierendes System}
 Wir betrachten nun ein rotierendes System welches  sich relativ zu einem Inertialsystem um die Rotationsachse $\vec{\Omega}$ dreht. Nach [] gilt
@@ -57,11 +67,7 @@ Damit folgt für die Beschleunigung eines Punktes im rotierenden System
     \pdn[u]{t} = -\pdn[]{t^2}(\Omega \times \vec{r}) = -2\Omega \times \vec{u} - \Omega \times (\Omega \times \vec{r})
 \end{align}
 
-
-
-
 -Coriolis Kraft Herleiten
--Enddimensionalisierung
 -intertialwellen
 -reflektion etc
 
