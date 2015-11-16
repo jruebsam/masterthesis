@@ -9,44 +9,38 @@ Anschließend werden die Grundgleichungen für verschiedene Systeme erweitert, d
 
 \section{Die Navier-Stokes Gleichung}
 
-Für die Charakterisierung einer Strömung in einem Gebiet $\Omega \in \mathbb{R}^3$ werden die folgenden Skalare betrachtet.
-\begin{description}
-    \item[$\bm{\vec{v}_x}$, $\bm{\vec{v}_y}$, $\bm{\vec{v}_z}$] Geschwindigkeit in x, y, z Richtung
-    \item[$\bm{\rho}$] Dichte
-    \item[$\bm{p}$] Druck
-\end{description}
+Für die Charakterisierung einer Strömung an einem Punkt $\vec{r} = (x, y, z)^T$  im Gebiet $\Omega \subset \mathbb{R}^3$ betrachten wir zunächst
+die Geschwindigkeit $\vec{u}(\vec{r}, t) = (u, v, w)^T \in \mathbb{R}^3$ und die Dichteverteilung $\rho(\vec{r}) \in \mathbb{R}$.
 
-Betrachten wir zunächst ein abschlossenes Teilvolumen $V \in \Omega$ mit einem normalen Vektor $\dif \vec{S}$.
-So ergibt sich die Massenbilanz aus der zeitlichen Änderung der Dichte und dem Massenfluss aus dem Volumen.
+\subsection{Kontinuitätsgleichung}
 
-\begin{align}
-    \frac{\dif m}{\dif t} &= \frac{\dif}{\dif t} \int_{V}\dif V \rho(t)  = -\int_{\partial V} \rho \vec{v}\dif \vec{s} \\
-\end{align}
-
-Unter der Annahme der Massenerhaltung und der Verwendung des Gaußschen Integralsatz folgt
-die Kontinuitätsgleichung
+Sei nun $V \subset \Omega$  ein abschlossenes Teilvolumen mit einem zu seiner Oberfläche $\partial V$ gegebenen normalen Vektor $\dif \vec{S}$.
+Infolge der Massenerhaltung können wir annehmen, dass sich die Gesamtmasse innerhalb von V nur ändert wenn ein
+Transport $\propto \vec{u}\dif \vec{S}$ in- oder aus dem Volumen stattfindet.
+Mathematisch präziser formuliert und mit Verwendung des Satz von Gauß (*) folgt die integrale Form der Kontinuitätsgleichung.
 
 \begin{align}
-     \int_{V} \left( \frac{\partial \rho}{\partial t}  + \nabla(\rho \vec{u}) \right) = 0 \Rightarrow \frac{\partial \rho}{\partial t}  + \nabla(\rho \vec{u}) \\
+    \frac{\dif}{\dif t} \int_{V}\dif V \rho(t) =  \int_{V}\dif V \frac{\dif \rho}{\dif t}  &= \underbrace{-\int_{\partial V}
+     \rho \vec{u}\dif \vec{S}}_{\mathrm{Massenfluss} \atop \mathrm{durch \ } \partial V} \overset{*}{=} -\int_V \dif V \vec{\nabla}\vec{u}
 \end{align}
 
-für inkompressible Fluide $\rho = \rho_0}$ vereinfacht sich die Gleichung zu
+Durch Bildung des Limes $V\rightarrow 0$ ergibt sich die differentielle Form zu
 
 \begin{align}
-    \nabla \cdot \vec{u} &= 0\\
+     \frac{\partial \rho}{\partial t}  + \nabla(\rho \vec{u}) = 0 \overset{\rho = \mathrm{const.}}{\Rightarrow} \nabla \cdot \vec{u} &= 0
 \end{align}
+Für ein inkompressibles Fluid mit konstanter Dichte verschwindet zusätzlich die zeitliche Änderung $\partial_t \rho$.
 
-Im analogon zur Newtonschen Bewegungsleichung eines Teilchens betrachten wir in der Strömungsmechanik die Impulsgleichung für ein infinitesimales Fluidelement.
-Der Impuls ändert sich in Abhängigkeit von der Zeit und durch die Bewegung des Fluidelements durch das Geschwindigkeitsfeld. Das Verhalten wird durch die substantielle Ableitung beschrieben.
-UMSCHREIBEN OBEN FALSCH U UND V TAUSCHEN AUF UU
+\subsection{Impulsgleichung}
+
+Analog zu der Newtonschen Bewegungsleichung eines Teilchens betrachten wir in der Strömungsmechanik die Impulsgleichung für ein infinitesimales Fluidelement.
+Die Geschwindigkeit ändert sich dabei nicht nur mit der Zeit sondern auch durch die Bewegung mit der Strömung. Bewegt sich das Fluidelement in einen
+Bereich höherer Geschwindigkeit muss dies zu einer Erhöhung des eigenen Impulses führen.
+Die gesamte zeitliche Änderung ist dann über  die subtantielle Ableitung gegeben
 
 \begin{align}
-    \pdn[f]{t} &= \pdn[f]{t} + \vec{u}\vec{\nabla}f = \pdn[f]{t} + u\pdn[f]{x} v\pdn[f]{y}+ w\pdn[f]{z} \\
+    \frac{\Dif \vec{u}}{\dif t} &= \pdn[f]{t} + \vec{u}\vec{\nabla}f = \pdn[f]{t} + u\pdn[f]{x} v\pdn[f]{y}+ w\pdn[f]{z}
 \end{align}
-
-
-- erläuterung friction tensor
-- f ext
 
 Damit lautet die Navier-Stokes Gleichung für ein inkompressibles Fluid.
 \begin{align}
@@ -56,11 +50,11 @@ Damit lautet die Navier-Stokes Gleichung für ein inkompressibles Fluid.
 \section{Rotierendes System}
 Wir betrachten nun ein rotierendes System welches  sich relativ zu einem Inertialsystem um die Rotationsachse $\vec{\Omega}$ dreht. Nach [] gilt
 \begin{align}
-    \left\pdn[\vec{r}]{t} \right|_{Inert.} &= \left\pdn[\vec{r}]{\vec{t}}\right|_{Rot.} + \Omega \times \vec{r} \\
+    \left\pdn[\vec{r}]{t} \right|_{Inert.} &= \left\pdn[\vec{r}]{\vec{t}}\right|_{Rot.} + \Omega \times \vec{r}
 \end{align}
 Damit folgt für die Beschleunigung eines Punktes im rotierenden System
 \begin{align}
-    \pdn[u]{t} = -\pdn[]{t^2}(\Omega \times \vec{r}) = -2\Omega \times \vec{u} - \Omega \times (\Omega \times \vec{r}) \\
+    \pdn[u]{t} = -\pdn[]{t^2}(\Omega \times \vec{r}) = -2\Omega \times \vec{u} - \Omega \times (\Omega \times \vec{r})
 \end{align}
 
 
