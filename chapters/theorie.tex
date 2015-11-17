@@ -47,33 +47,48 @@ Weiterhin müssen wir die Kräfte betrachten die auf das Fluidelement wirken. Hi
 Die internenen Kräfte sind gegeben durch den Druck und die innere Reibung.
 Im folgendenen sei der Druck definiert als $p(\vec{r}) \in \mathbb{R}$. Bei vorliegen eines Druckgradientens wird sich ein Fluidelement in Richtung des niedrigen Druckes
 also entgegen den Gradienten bewegen. Die Druckkraft ist daher gegeben als $-\nabla p$.
--Viskostität Newton gleichung
--kinetamitische visko
-
-Ergänzen wir die oben beschriebenen Terme in die Impulsgleichung $\rho \frac{\Dif \vec{u}}{\dif t} = \vec{F}_{tot}$ so erhalten wir,
+Bewegen sich Fluidelemente mit unterschiedlicher Geschwindigkeit zueinander so führt dies zu einer Scherspannung $\tau$, welche
+für ein newtonsches Fluid linear von der Schergeschwindigkeit $\gamma$ abhängt. Für die Reibungskraft gilt daher  $\tau = \nu \nabla\vec{u}$.
+Ergänzen wir die oben beschriebenen Terme in die Impulsgleichung so erhalten wir,
 \begin{align}
-    \pdn[u]{t} + \vec{u} \cdot \vec{\nabla} \vec{u} &= - \frac{1}{\rho} \nabla p + \nu \Delta \vec{u} + \vec{F}_{ext}\\
+    \pdn[u]{t} + \vec{u} \cdot \vec{\nabla} \vec{u} &= - \frac{1}{\rho} \nabla p + \nu \Delta \vec{u} + \vec{F}_{ext}
 \end{align}
 mit der kinematischen Viskosität $\nu = \mu /\rhp$.
 
 -poissongleichung
 -energiegleichung
 
+\subsection{Anfangs- und Randbedingungen}
+
 -Randbedingungen
+
+\subsection{Entdimensionalisierung}
+
 -Enddimensionalisierung
 
-
 \section{Rotierendes System}
-Wir betrachten nun ein rotierendes System welches  sich relativ zu einem Inertialsystem um die Rotationsachse $\vec{\Omega}$ dreht. Nach [] gilt
+Wir betrachten nun ein rotierendes System welches  sich relativ zu einem Inertialsystem um die Rotationsachse $\vec{\Omega}$ dreht.
+Für zeitliche Ableitung im rotierenden System ergibt sich nach [] der Operator
 \begin{align}
-    \left\pdn[\vec{r}]{t} \right|_{Inert.} &= \left\pdn[\vec{r}]{\vec{t}}\right|_{Rot.} + \Omega \times \vec{r}
+    \left\pdn[]{t} \right|_{Inert.} &= \left\pdn[]{\vec{t}}\right|_{Rot.} + \Omega \times
 \end{align}
-Damit folgt für die Beschleunigung eines Punktes im rotierenden System
+Damit erhalten wir für die Beschleunigung eines Punktes im rotierenden System
 \begin{align}
-    \pdn[u]{t} = -\pdn[]{t^2}(\Omega \times \vec{r}) = -2\Omega \times \vec{u} - \Omega \times (\Omega \times \vec{r})
+    \pdn[\vec{u}]{t} = -\pdn[]{t^2}(\Omega \times \vec{r}) = -\underbrace{2\Omega \times \vec{u}}_{I} - \underbrace{\Omega \times (\Omega \times \vec{r}}_{II})
 \end{align}
 
--Coriolis Kraft Herleiten
+Die beiden Terme auf der rechten Seite entsprechen der Corioliskraft (I) und der Zentrifugalkraft (II). Während die Corioliskraft abhängig von der Geschwindigkeit ist
+kann die Zentrifugalkraft auch in Form eines Potentials dargestellt werden []
+\begin{align}
+    \Omega \times (\Omega \times \vec{r}) = - \nabla(\frac{1}{2}\Omega^2\vec{r}^{'2}) = -\Phi
+\end{align}
+wobei $\vec{r}^'$ der Abstand zur Drehachse ist. Durch Substitution $p^* = p - \Phi$
+erhalten wir die Navier-Stokes Gleichung für das rotierende System \footnote{Im folgenden wird meinen wir mit $p$ immer $p^*$ }.
+\begin{align}
+    \pdn[u]{t} + 2\Omega \times \vec{u} +  \vec{u} \cdot \vec{\nabla} \vec{u} &= - \frac{1}{\rho} \nabla p + \nu \Delta \vec{u} + \vec{F}_{ext}
+\end{align}
+
+-kenngrößen
 -intertialwellen
 -reflektion etc
 
