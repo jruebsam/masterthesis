@@ -36,7 +36,7 @@ Für ein inkompressibles Fluid mit konstanter Dichte verschwindet zusätzlich di
 Analog zu der Newtonschen Bewegungsleichung eines Teilchens betrachten wir in der Strömungsmechanik die Impulsgleichung für ein infinitesimales Fluidelement.
 Die Geschwindigkeit ändert sich dabei nicht nur mit der Zeit sondern auch durch die Bewegung mit der Strömung. Bewegt sich das Fluidelement in einen
 Bereich höherer Geschwindigkeit muss dies zu einer Erhöhung des eigenen Impulses führen.
-Die zeitliche Änderung ist dann über die subtantielle Ableitung gegeben, die allgemein für ein Skalar $S$ gemäß
+Die zeitliche Änderung ist dann über die subtantielle Ableitung gegeben, die allgemein für einen Skalar $S$ gemäß
 
 \begin{align}
     \frac{\Dif S}{\dif t} &:= \pdn[S]{t} + \vec{u}\vec{\nabla}S = \pdn[S]{t} + u\pdn[S]{x} + v\pdn[S]{y}+ w\pdn[S]{z}
@@ -44,18 +44,24 @@ Die zeitliche Änderung ist dann über die subtantielle Ableitung gegeben, die a
 
 definiert ist.
 Weiterhin müssen wir die Kräfte betrachten die auf das Fluidelement wirken. Hier lässt sich zwischen in- und externe Kräften $F_{ext}$ unterscheiden.
-Die internenen Kräfte sind gegeben durch die Druckkraft und die Viskosität.
-
--Druck
+Die internenen Kräfte sind gegeben durch den Druck und die innere Reibung.
+Im folgendenen sei der Druck definiert als $p(\vec{r}) \in \mathbb{R}$. Bei vorliegen eines Druckgradientens wird sich ein Fluidelement in Richtung des niedrigen Druckes
+also entgegen den Gradienten bewegen. Die Druckkraft ist daher gegeben als $-\nabla p$.
 -Viskostität Newton gleichung
+-kinetamitische visko
 
-Damit lautet die Navier-Stokes Gleichung für ein inkompressibles Fluid.
+Ergänzen wir die oben beschriebenen Terme in die Impulsgleichung $\rho \frac{\Dif \vec{u}}{\dif t} = \vec{F}_{tot}$ so erhalten wir,
 \begin{align}
     \pdn[u]{t} + \vec{u} \cdot \vec{\nabla} \vec{u} &= - \frac{1}{\rho} \nabla p + \nu \Delta \vec{u} + \vec{F}_{ext}\\
 \end{align}
+mit der kinematischen Viskosität $\nu = \mu /\rhp$.
+
+-poissongleichung
+-energiegleichung
 
 -Randbedingungen
 -Enddimensionalisierung
+
 
 \section{Rotierendes System}
 Wir betrachten nun ein rotierendes System welches  sich relativ zu einem Inertialsystem um die Rotationsachse $\vec{\Omega}$ dreht. Nach [] gilt
