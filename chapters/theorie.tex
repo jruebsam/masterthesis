@@ -7,7 +7,7 @@ Daher soll in diesem Abschnitt auf die theoretischen Grundlagen der Strömungsme
 Auf eine exakte mathematische Herleitung wird dabei verzichtet, der interessierte Leser sei auf [Ferziger?] oder z.B. [rritton?] verwiesen.
 Anschließend werden die Grundgleichungen für verschiedene Systeme erweitert, dazu gehört die Strömung in rotierenden Systemen sowie das Rayleigh-Benard-System.
 
-\section{Die Navier-Stokes Gleichung}
+\section{Die Bewegungsgleichungen}
 
 Für die Charakterisierung einer Strömung an einem Punkt $\vec{r} = (x, y, z)^T$  im Gebiet $\Omega \subset \mathbb{R}^3$ betrachten wir zunächst
 die Geschwindigkeit $\vec{u}(\vec{r}, t) = (u, v, w)^T \in \mathbb{R}^3$ und die Dichteverteilung $\rho(\vec{r}) \in \mathbb{R}$.
@@ -31,7 +31,7 @@ Durch Bildung des Limes $V\rightarrow 0$ ergibt sich die differentielle Form zu
 \end{align}
 Für ein inkompressibles Fluid mit konstanter Dichte verschwindet zusätzlich die zeitliche Änderung $\partial_t \rho$.
 
-\subsection{Impulsgleichung}
+\subsection{Navier-Stokes Gleichung}
 
 Analog zu der Newtonschen Bewegungsleichung eines Teilchens betrachten wir in der Strömungsmechanik die Impulsgleichung für ein infinitesimales Fluidelement.
 Die Geschwindigkeit ändert sich dabei nicht nur mit der Zeit sondern auch durch die Bewegung mit der Strömung. Bewegt sich das Fluidelement in einen
@@ -47,24 +47,52 @@ Weiterhin müssen wir die Kräfte betrachten die auf das Fluidelement wirken. Hi
 Die internenen Kräfte sind gegeben durch den Druck und die innere Reibung.
 Im folgendenen sei der Druck definiert als $p(\vec{r}) \in \mathbb{R}$. Bei vorliegen eines Druckgradientens wird sich ein Fluidelement in Richtung des niedrigen Druckes
 also entgegen den Gradienten bewegen. Die Druckkraft ist daher gegeben als $-\nabla p$.
+ÜBERARBEITEN
 Bewegen sich Fluidelemente mit unterschiedlicher Geschwindigkeit zueinander so führt dies zu einer Scherspannung $\tau$, welche
 für ein newtonsches Fluid linear von der Schergeschwindigkeit $\gamma$ abhängt. Für die Reibungskraft gilt daher  $\tau = \nu \nabla\vec{u}$.
-Ergänzen wir die oben beschriebenen Terme in die Impulsgleichung so erhalten wir,
+ÜBERARBEITEN
+Ergänzen wir die oben beschriebenen Terme in die Impulsgleichung so erhalten wir die Navier-Stoken gleichung
 \begin{align}
     \pdn[u]{t} + \vec{u} \cdot \vec{\nabla} \vec{u} &= - \frac{1}{\rho} \nabla p + \nu \Delta \vec{u} + \vec{F}_{ext}
 \end{align}
-mit der kinematischen Viskosität $\nu = \mu /\rhp$.
-
--poissongleichung
--energiegleichung
+mit der kinematischen Viskosität $\nu = \mu /\rho$.
+Zusammen mit der Kontinuitätsgleichung besteht nun ein überbestimmtes Gleichungssystem um die
+zeitliche Entwicklung des Systems zu bestimmen.
 
 \subsection{Anfangs- und Randbedingungen}
-
--Randbedingungen
+Für eine eindeutige Lösung ist es weiterhin nötig den Anfangszustand des Systems vorzugeben.
+Bei der numerischen Lösung ist zu beachten, dass z.B. eine Instabilität eine gewisse Störung des Systems vorraussetzt.
+Da numerische Fluktuationen sehr viel kleiner sind als im Experimen, kann es in diesem Fall sinnvoll sein
+ein Zufallsrauschen in den einzelnen Variablen vorzugeben.
+Weiterhin muss das Verhalten der Ränder des Systems eindeutig definiert sein.
+Im Verlaufe der Arbeit werden die folgenden Ränder betrachtet
+\begin{description}
+    \item[No-Slip ()] Die Geschwindigkeit am Rand ist Null, $\vec{u} = (0, 0, 0)^T$.
+    \item[No-Flux ()] Die Ableitung einer Größe am Rand ist Null z.B. $\pdn[p]{\vec{n}} = 0$.
+    \item[Free-Slip ()] Die Geschwindigkeitskompontente senkrecht zur Wand verschwindet.
+    \item[Peridodisch ()] Blablabla.
+\end{description}
+hierbei bezeichnet $R$ den Rand.
 
 \subsection{Entdimensionalisierung}
 
 -Enddimensionalisierung
+
+\subsection{Method AK  und so zusammenfassung}
+
+
+Für die numerische Lösung der Gleichungen wird die Methode der künstlichen Kompressibiltät verwendet, welche in Abschitt ()
+ausführlicher betrachtet wird. Der Vollständigkeit halber soll erwähnt werden, dass die Bewegungsgleichung
+
+
+
+
+
+
+-poissongleichung
+-methode künstliche kompressibilität
+-energiegleichung
+
 
 \section{Rotierendes System}
 Wir betrachten nun ein rotierendes System welches  sich relativ zu einem Inertialsystem um die Rotationsachse $\vec{\Omega}$ dreht.
