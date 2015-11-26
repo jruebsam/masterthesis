@@ -33,9 +33,26 @@ Nun haben wir die Möglichkeit $x$ durch $x_{i+1}$ oder $x_{i-1}$ zu ersetzen. N
     \left(\pdn[f]{x}\right)_i &\approx \frac{f_{i+1} - f_{i-1}}{2\Delta x}
 \end{align}
 
-Die dritte Approximation ergibt sich durch Mittelung über die ersten beiden.
+\begin{figure}[!tpb]
+  \centering
+  \includegraphics[width=0.6\textwidth]{gfx/numerik/fd_dummy.png}\label{fig:fd_schema}
+  \caption{Approximation einer Funktion durch finite Differenznen}
+\end{figure}
+
+Die Approximation () enspricht für $dx>0$ der Definition der Ableitung und wird als Vorwärtsdifferenz bezeichnet,
+während () als Rückwärtsdifferenz bezeichnet wird.
+Die dritte Approximation () ergibt sich durch Mittelung über die ersten beiden Variante und wird als zentrierte Differenz bezeichnet.
+Vergleicht man die grafische Darstellung der Terme in Abbildung () so sieht man hier bereits,
+dass die zentrierte Differenz die Steigung der Funktion am Punkt $x_i$ exakter approximieren kann.
+
+\paragraph{Lokaler Abschneidefehler}\mbox{}\\
+
+Der Abschneidefelher $T_{ik}$ bezeichnet den lokalen Diskretisierungsfehler welcher durch die Approximation entsteht.
+Die Berechnung erfolgt dur einsetzen
+-beispielrechnung
 
 
+\paragraph{Stabilitätsanalyse}\mbox{}\\
 
 -beispiel erste abl dann zweit
 -stabilität konstistenz - konvergenz etc
@@ -43,21 +60,22 @@ Die dritte Approximation ergibt sich durch Mittelung über die ersten beiden.
 -peclet zahl
 -upwind schema
 
-\begin{figure}[!tpb]
-  \centering
-  \includegraphics[width=0.6\textwidth]{gfx/numerik/fd_dummy.png}\label{fig:fd_schema}
-  \caption{Approximation einer Funktion durch finite Differenznen}
-\end{figure}
 
-\section{Runge Kutta}
--runge kutta richardson etc
+\section{Runge Kutta Verfahren}
+Für die zeitliche Diskretierung wird ein Runge-Kutta Verfahren dritter Ordnung verwendet.
+Ein Vorteil des Verfahrens dritter Ordnung ist die Stabilität gegenüber Oszillationen bei CFD-Problemen [QUOTE].
+Allgemein wird bei der Herleitung
 
+-warum ordnung 3
+-runge kutta williamson etc
+-stabilität
+-fehler
 
-\Section{Artificial Kompressibility
+\newpage
+
+\section{Artificial Kompressibility
 - bewegungsgleichungen
 - druckterm diskussion
     -exkurs laplace gleichung
-
-
 
 -beispiel rayleigh benard diskretisierung
