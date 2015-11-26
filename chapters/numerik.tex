@@ -1,22 +1,25 @@
 \chapter{Numerische Methoden}
+
 \section{Einleitung}
 
--peclet zahl
--runge kutta richardson etc
--
+Mit den in Kapitel () eingeführten Bewegungsgleichungen fehlt uns nur noch die Numerik um die zeitliche Entwicklung eines Models aus
+gegebene Anfangs- und Randbedingungen zu berechnen.
+Für die numerische Lösung von partiellen Differentialgleichungen eignen sich eine Vielzahl an Methoden, für die Berechnung auf
+der GPU-Architektur erweist sich aber insbesondere die Verwendung von Finite Differenzen  auf kartesischen Gittern
+als sehr effektiv (siehe Kapitel ()).
+Während die Finite Differenzen für die räumliche Diskretisierung verwendet werden, wird für die zeitliche Diskretisierung
+das Runge-Kutta Verfahren 3. Ordnung benutzt.
 
 
--motivation vgl
-
--vorstellung numerische methoden finite differenzen motivation in kapitel bla
--exemplarisch 2 ordnung
-
-
-\section{Finite Differenzen Verfahren}
+\section{Finite Differenzen}
 -beispiel erste abl dann zweit
 -stabilität konstistenz - konvergenz etc
 -verfahren höherer ordnung
+-peclet zahl
 -upwind schema
+
+\section{Runge Kutta}
+-runge kutta richardson etc
 
 
 \Section{Artificial Kompressibility
