@@ -1,15 +1,27 @@
 \chapter{GPU Implementierung}
-\section{Einleitung}
--implementierung  im rahmen übernommen  ergänzt durch optimierungen in abschnitt () und
--die in abschnitt () vorgstellten immersed boundary methoden
-- da auf gpu implementiert mit cuda betrachten wir zunächst hardware architektur
 
+\section{Einleitung}
+
+Nachdem das theoretische und numerische Fundament gelegt wurde, soll nun auf die GPU-Implementierung eingegangen werden.
+Dieser Abschnitt bezieht sich auf den grundlegenden Algorithmus, welcher im Rahmen der Master-Arbeit basierend auf einer bestehenden
+CUDA-Implementierung von [] übernommen, erweitert und optimiert wurde.
+Die zusätzlich eingeführten  Immersed Boundary Methoden werden ausführlich in Abschnitt () behandelt.
 
 \section{GPU Architektur}
+- karten varianten c1060 und tesla k20m , datasheet im anhang
 
-\begin{figure}[!tpb]
+-In Abbildung () ist exemplarisch das Speicherlayout der cuda karte dargstellt .
+-Hierbei sei angemerkt das dies in keiner weise dem hardware layou entspricht aber als model
+-für verständnis der algoritmhus am besten
+-z.b. ist der local memory auf der karte im global memory speicherbereich
+
+- lese paper / präsi zur optimierung
+- geschwindigkeiten
+- shared vs global etc
+
+\begin{figure}[!bp]
   \centering
-  \includegraphics[width=0.6\textwidth]{gfx/cuda/cuda.png}\label{fig:gpu_arch}
+  \includegraphics[width=0.8\textwidth]{gfx/cuda/gpu.png}\label{fig:gpu_arch}
   \caption{Speicherlayout einer Nvidia-GPU}
 \end{figure}
 
