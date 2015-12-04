@@ -1,14 +1,41 @@
-\chapter{GPU Implementierung}
+\chapter{Algorithmus und GPU Implementierung}
 
 \section{Einleitung}
 
-Nachdem das theoretische und numerische Fundament gelegt wurde, soll nun auf die GPU-Implementierung eingegangen werden.
+Nachdem das theoretische und numerische Fundament gelegt wurde, soll nun auf die Implementierung  eingegangen werden.
 Dieser Abschnitt bezieht sich auf den grundlegenden Algorithmus, welcher im Rahmen der Master-Arbeit basierend auf einer bestehenden
-CUDA-Implementierung von [] übernommen, erweitert und optimiert wurde.
+Version von [] übernommen, erweitert und optimiert wurde.
 Die zusätzlich eingeführten  Immersed Boundary Methoden werden ausführlich in Abschnitt () behandelt.
 
-\section{GPU Architektur}
-- karten varianten c1060 und tesla k20m , datasheet im anhang
+Für die Parallelisierung  des Codes wurde die nvidia/interface CUDA-API verwendet mit welcher es möglich ist einen Großteil der Berechnungen
+auf die Grafikkarten auszulagern.
+
+-HARDWARE - karten varianten c1060 und tesla k20m , datasheet im anhang
+-beschreibung GPGPU
+
+
+\section{GPGPU mit CUDA}
+
+Bei CUDA \footnote{Computing Uniform Device Architecture} handelt es sich um eine von NVIDIA entwickelte Architektur welche die
+Entwicklung von GPGPU\footnote{General Purpose Computation on Graphics Processing Unit - Allg.
+Bezeichung für Allzweck-Berechnungen auf Grafikprozessoren}-Anwendungen erheblich vereinfacht.
+Dies wird im wesentlichen durch die Abstraktion der Hardwarearchitektur auf die CUDA-API? erreicht.
+Es handelt es sich dabei um eine Sprachrweiterung
+
+- dabei handelt es sich mu eine c/c++ erweiterrte sprache aber auch bindings in python etc
+
+
+
+ eine höhere Programmiersprache erreicht.
+
+- vereinfachung  der architektur abstraktion software layer
+- erzeugung mit nvcc
+
+-toolchain
+
+-speicher vs hardware architektur
+
+
 
 -In Abbildung () ist exemplarisch das Speicherlayout der cuda karte dargstellt .
 -Hierbei sei angemerkt das dies in keiner weise dem hardware layou entspricht aber als model
