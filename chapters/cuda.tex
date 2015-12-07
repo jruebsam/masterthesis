@@ -1,61 +1,56 @@
-\chapter{Algorithmus und GPU Implementierung}
+\chapter{GPGPU-Based Implementation of a finite difference algorithm}
 
-\section{Einleitung}
+\section{Introduction}
 
-Nachdem das theoretische und numerische Fundament gelegt wurde, soll nun auf die Implementierung  eingegangen werden.
-Dieser Abschnitt bezieht sich auf den grundlegenden Algorithmus, welcher im Rahmen der Master-Arbeit basierend auf einer bestehenden
-Version von [] übernommen, erweitert und optimiert wurde.
-Die zusätzlich eingeführten  Immersed Boundary Methoden werden ausführlich in Abschnitt () behandelt.
+Now that we have given an introduction to the theoretical and numerical aspects of the thesis,
+the object of this section is to give an overview of the implemenation of an algorithm using finite difference schemes.
+The source code used for the computations is based on an existing version from [A.Tilgner].
+It was furthermore optimized  and extended by the immersed boundary methods, which will be explained in more detail in chapter (5.).
+Especially in this context we will introduce some aspects of GPGPU\footnote{General Purpose Computation on Graphics Processing Unit - Allg.  Bezeichung für Allzweck-Berechnungen auf Grafikprozessoren}-Computing
+with the CUDA \footnote{Computing Uniform Device Architecture} architecture.
+For the computations the  Tesla C1060 and Tesla K20m GPUs by NVIDIA were used, the complete system configurations can be looked up at (AX.X).
 
-Für die Parallelisierung  des Codes wurde die nvidia/interface CUDA-API verwendet mit welcher es möglich ist einen Großteil der Berechnungen
-auf die Grafikkarten auszulagern.
+\section{GPGPU-Computing with CUDA}
 
--HARDWARE - karten varianten c1060 und tesla k20m , datasheet im anhang
--beschreibung GPGPU
+CUDA is an architecture developed by NVIDIA to enable an easy approach to the Implementation of GPGPU-based algorithms.
+The underlying idea is to hide the complexity of the hardware under a more high oriented and generalized software abstraction layer.
+This is done by introducing some additional programming language extensions i.e. in c/c++\footnote{WIR BENUTZEN C/C++ /PYTHON ETC},
+furthermore it is necessary to use a CUDA suited compiler like NVCC.
+
+For the development of a highly efficient working algorithm, we need to keep in mind the memory architecture used in CUDA, as
+exemplary shown in figure (X).
+
+\begin{figure}[!tbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{gfx/cuda/gpu.png}\label{fig:gpu_arch}
+  \caption{Speicherlayout einer Nvidia-GPU}
+\end{figure}
+
+It should be noted that this layout is not directly related to the underlying hardware.
+The gpu is connected by the pci-express x16 bus to CPU and RAM of the Computer.
+There is some kind of main memory on the gpu which is divided in Global Memory, Constant Memory and Texture Memory.
+
+- what is a block
+    -streaming machine with cuda cores
+    - shared memory
+    -
+
+- what is a thread
+- streaming processor
 
 
-\section{GPGPU mit CUDA}
-
-Bei CUDA \footnote{Computing Uniform Device Architecture} handelt es sich um eine von NVIDIA entwickelte Architektur welche die
-Entwicklung von GPGPU\footnote{General Purpose Computation on Graphics Processing Unit - Allg.
-Bezeichung für Allzweck-Berechnungen auf Grafikprozessoren}-Anwendungen erheblich vereinfacht.
-Dies wird im wesentlichen durch die Abstraktion der Hardwarearchitektur auf die CUDA-API? erreicht.
-Es handelt es sich dabei um eine Sprachrweiterung
-
-- dabei handelt es sich mu eine c/c++ erweiterrte sprache aber auch bindings in python etc
-
-
-
- eine höhere Programmiersprache erreicht.
-
-- vereinfachung  der architektur abstraktion software layer
-- erzeugung mit nvcc
-
--toolchain
-
--speicher vs hardware architektur
-
-
-
--In Abbildung () ist exemplarisch das Speicherlayout der cuda karte dargstellt .
--Hierbei sei angemerkt das dies in keiner weise dem hardware layou entspricht aber als model
--für verständnis der algoritmhus am besten
 -z.b. ist der local memory auf der karte im global memory speicherbereich
 
 - lese paper / präsi zur optimierung
 - geschwindigkeiten
 - shared vs global etc
 
-\begin{figure}[!bp]
-  \centering
-  \includegraphics[width=0.8\textwidth]{gfx/cuda/gpu.png}\label{fig:gpu_arch}
-  \caption{Speicherlayout einer Nvidia-GPU}
-\end{figure}
+\subsection{CUDA syntax example}
 
--bild
--speicher bereiche
 -grid layout function call
+-blocks
 -threadidx etc
+-memcpy
 
 \section{Algorithmus}
 -oder so ?
