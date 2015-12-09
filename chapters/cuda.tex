@@ -77,42 +77,54 @@ For the parallelization of a kernel the CUDA API introduces a new syntax, i.e.
 
 executes the kernel function \texttt{time\_step} on the device in parallel.
 The new syntax element is the bracket \texttt{<<<dimGrid, dimBlock>>>}.
+
+NEUSCHREIBEN
 It defines the dimension of the \textbg{grid} and the \textbg{block} of a kernel:
+During execution time each cuda core is executed as a thread, in an SIMD\footnote{Single Instruction Multiple Device}-like behaviour.
+This means every cuda core on one SM executes the same instruction set simultaneously. To differentiate between different cuda cores,
+each get assigned to a different \textbg{ThreadId}.
+With the declaration of a block dimension, we define how many threads are executed in parallel.
+The block dimension can be up to 3-dimensions. In this case each cuda core will be assigned to a ThreadId in x, y and z direction.
+A collection of threads with this grid structure is called a block.
+Since the
 
-\begin{description}
-    \item[Block] bla
-    \item[Grid] bla
-\end{description}
+The grid dimension describes the
+NEUSCHREIBEN
 
+\begin{figure}[!tbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{gfx/cuda/gpu.png}\label{fig:gpu_grid}
+  \caption{Block and grid layout for a two dimensional array.}
+\end{figure}
 
+To illustrate the usage of grid and block dimensions, let us consider a two-dimensional array of shape 16x16, as shown in figure () .
+In this example \textbg{dimGrid} and \textbg{dimBlock} would be defined by
+\begin{verbatim}
+    dim3 dimBlock(2, 2);
+    dim3 dimGrid(2, 2);
+    int blocksize = 2;
+    blocksize = ...
+\end{verbatim}
 
+A kernel in which each thread accesses exactly one element of the matrix, would have the following form
 
+\begin{verbatim}
+    __global__ void example(vx_array){
+        int id; float c;
+        id = blocksize*BlockIdx.x + blocksize*BlockIdx.y +  threadId.x + threadId.y;
+        //read from vx_array
+        c = vx_array[i];
+        //do some computations ... .
+        c += 2;
+        //write output back to vx_d
+        vx_array[id] = c;
+\end{verbatim}
 
-
-
-
-
-
-
-
-
--blocksize
--gridsize
-
-
-
-
-
--host functions
--memcpy
-
--kernel
--   call
-
-example 1d array
--grid layout function call
--blocks
--threadidx etc
+\subsection{Optimization}
+- coalesceded
+- bank conflicts?
+- teilvolumen nicht rechnen
+\newpage
 
 \section{Algorithm Implementation}
 -oder so ?
@@ -126,10 +138,6 @@ example 1d array
 - vgl o2 vs o4 masa cube
 - bifurcation
 
-\section{Optimization}
-- coalesceded
-- bank conflicts?
-- teilvolumen nicht rechnen
 
 \newpage
 
