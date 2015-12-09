@@ -1,6 +1,5 @@
 \chapter{GPGPU-Based Implementation of a finite difference algorithm}
 
-\section{Introduction}
 
 Now that we have given an introduction to the theoretical and numerical aspects of the thesis,
 the object of this section is to give an overview of the implemenation of an algorithm using finite difference schemes.
@@ -23,8 +22,9 @@ A cuda device contains an array of so called streaming multiprocessors (SM).
 Each of these SMs contains a group of small execution units, which are called cuda cores.
 For the exchange of data between different SMs, cuda cores and the CPU side of the computer, there exists different
 types of memory, as shown  in figure (X).
+\newpage
 
-\begin{figure}[!bp]
+\begin{figure}[!tbp]
   \centering
   \includegraphics[width=0.8\textwidth]{gfx/cuda/gpu.png}\label{fig:gpu_arch}
   \caption{Memory layout of a Nvidia-GPU}
@@ -40,7 +40,6 @@ types of memory, as shown  in figure (X).
                          by all cuda cores of the SM.
                          This memory type is much faster (x100) than the global memory and is really usefull when multiple operations
                          by different cuda cores are carried out on the same data.
-                         \newpage
 
     \item[Register / Local Memory] Each cuda core posseses an own set of registers and local memory.
                                    The register access is even slightly faster as on the shared memory. The local memory access is very slow since
@@ -59,29 +58,46 @@ There exists a different number of versions, supporting a different number of ha
 The ???BLABLAalgorithm in our cases uses the compute capability X.X.
 A majority of the API functions are so called \textbg{host functions}  which are executed by the CPU.
 These functions are used i.e. for storage allocation on the gpu, data transfers and error checking.
-For example the function call
+For example the function calls
 \begin{verbatim}
     cudaMalloc((void **) &vx_d, A);
+    cudaMemCpy((void **) &vx_d, A);
+    cudaMemCpy((void **) &vx_d, A);
 \end{verbatim}
-allocates memory with size A at the pointer vx\_d on the device (GPU). As we can see here, the syntax for host functions is still in C.
+allocates memory with size A at the pointer vx\_d on the device (GPU), then copy it to the device then free it . As we can see here, the syntax for host functions is still in C.
 There are two kinds of function types executed on the device.
-The most import are \textbg{global functions}, which are called by the host and executed on the device.
+The most import are \textbg{global functions} also called kernel, which are called by the host and executed on the device.
 Last but not least there are \textbg{device functions} which are called and executed by the device.
 An example of the syntax for defining these kind of functions is given in Appendix (X.X).
-
-
-The execution of a global function has the following syntax
+For the parallelization of a kernel the CUDA API introduces a new syntax, i.e.
 
 \begin{verbatim}
-    time_step<<<dimGrid,dimBlock>>>(x, y, z);
+    time_step<<<dimGrid,dimBlock>>>(x, y, z, ...);
 \end{verbatim}
 
+executes the kernel function \texttt{time\_step} on the device in parallel.
+The new syntax element is the bracket \texttt{<<<dimGrid, dimBlock>>>}.
+It defines the dimension of the \textbg{grid} and the \textbg{block} of a kernel:
+
+\begin{description}
+    \item[Block] bla
+    \item[Grid] bla
+\end{description}
 
 
 
 
 
-On the host (CPU) side the API offers a nu
+
+
+
+
+
+
+
+
+-blocksize
+-gridsize
 
 
 
