@@ -17,50 +17,92 @@ The underlying idea is to hide the complexity of the hardware under a more high 
 This is done by introducing some additional programming language extensions i.e. in c/c++\footnote{WIR BENUTZEN C/C++ /PYTHON ETC},
 furthermore it is necessary to use a CUDA suited compiler like NVCC.
 
-For the development of a highly efficient working algorithm, we need to keep in mind the memory architecture used in CUDA, as
-exemplary shown in figure (X).
+\subsection{Hardware and Memory Architecture}
 
-\begin{figure}[!tbp]
+A cuda device contains an array of so called streaming multiprocessors (SM).
+Each of these SMs contains a group of small execution units, which are called cuda cores.
+For the exchange of data between different SMs, cuda cores and the CPU side of the computer, there exists different
+types of memory, as shown  in figure (X).
+
+\begin{figure}[!bp]
   \centering
   \includegraphics[width=0.8\textwidth]{gfx/cuda/gpu.png}\label{fig:gpu_arch}
-  \caption{Speicherlayout einer Nvidia-GPU}
+  \caption{Memory layout of a Nvidia-GPU}
 \end{figure}
 
-It should be noted that this layout is not directly related to the underlying hardware.
-The gpu is connected by the pci-express x16 bus to CPU and RAM of the Computer.
-There is some kind of main memory on the gpu which is divided in Global Memory, Constant Memory and Texture Memory.
+\begin{description}
+    \item[Global Memory] The global memory is the largest memory on the gpu and can be accessed by all cuda cores.
+                         It is  used to exchange data with the RAM and distribute it between different SMs.
+                         Reading from the global memory can be quite slow, therefore different optimization approaches exists,
+                         for example the creation of a cached texture- or constant-memory.
 
-- what is a block
-    -streaming machine with cuda cores
-    - shared memory
-    -
+    \item[Shared Memory] Each SM contains a shared memory, much smaller than the global memory \footnote{Around 16kb on c1060 and 64kb on k20m}. It is accessible
+                         by all cuda cores of the SM.
+                         This memory type is much faster (x100) than the global memory and is really usefull when multiple operations
+                         by different cuda cores are carried out on the same data.
+                         \newpage
 
-- what is a thread
-- streaming processor
+    \item[Register / Local Memory] Each cuda core posseses an own set of registers and local memory.
+                                   The register access is even slightly faster as on the shared memory. The local memory access is very slow since
+                                   it is created on the global memory, when the cuda core runs out of resources.
+\end{description}
+
+As a conlusion the algorithm should fulfil the following prerequisites.
+The global memory should be used for data transfer and distribution, with as little as possible global reads.
+Immediatly after the data is transfered to the shared memory there should be as many as possible computations before transfering
+it back. Furthermore all memory accesses should be optimized, see chapter (X.X).
+
+\subsection{CUDA C/C++ API}
+
+The CUDA C/C++ API is an extension of the C programming language.
+There exists a different number of versions, supporting a different number of hardware architectures, def by C.
+The ???BLABLAalgorithm in our cases uses the compute capability X.X.
+A majority of the API functions are so called \textbg{host functions}  which are executed by the CPU.
+These functions are used i.e. for storage allocation on the gpu, data transfers and error checking.
+For example the function call
+\begin{verbatim}
+    cudaMalloc((void **) &vx_d, A);
+\end{verbatim}
+allocates memory with size A at the pointer vx\_d on the device (GPU). As we can see here, the syntax for host functions is still in C.
+There are two kinds of function types executed on the device.
+The most import are \textbg{global functions}, which are called by the host and executed on the device.
+Last but not least there are \textbg{device functions} which are called and executed by the device.
+An example of the syntax for defining these kind of functions is given in Appendix (X.X).
 
 
--z.b. ist der local memory auf der karte im global memory speicherbereich
+The execution of a global function has the following syntax
 
-- lese paper / präsi zur optimierung
-- geschwindigkeiten
-- shared vs global etc
+\begin{verbatim}
+    time_step<<<dimGrid,dimBlock>>>(x, y, z);
+\end{verbatim}
 
-\subsection{CUDA syntax example}
 
+
+
+
+
+On the host (CPU) side the API offers a nu
+
+
+
+
+
+-host functions
+-memcpy
+
+-kernel
+-   call
+
+example 1d array
 -grid layout function call
 -blocks
 -threadidx etc
--memcpy
 
-\section{Algorithmus}
+\section{Algorithm Implementation}
 -oder so ?
 -erläuterung  implementierung
 -speicherverwaltung
 
-\section{Optimierung}
-- coalesceded
-- bank conflicts?
-- teilvolumen nicht rechnen
 
 \section{Validierung}
 - beispiel rayleigh benard system
@@ -68,6 +110,10 @@ There is some kind of main memory on the gpu which is divided in Global Memory, 
 - vgl o2 vs o4 masa cube
 - bifurcation
 
+\section{Optimization}
+- coalesceded
+- bank conflicts?
+- teilvolumen nicht rechnen
 
 \newpage
 
