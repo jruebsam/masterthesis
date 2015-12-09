@@ -97,7 +97,10 @@ NEUSCHREIBEN
   \caption{Block and grid layout for a two dimensional array.}
 \end{figure}
 
-To illustrate the usage of grid and block dimensions, let us consider a two-dimensional array of shape 16x16, as shown in figure () .
+To illustrate the usage of grid and block dimensions, let us consider a two-dimensional array of shape 16x16, as shown in figure ().
+-copy to gpu
+-1dimensional structure
+
 In this example \textbg{dimGrid} and \textbg{dimBlock} would be defined by
 \begin{verbatim}
     dim3 dimBlock(2, 2);
@@ -137,7 +140,6 @@ A kernel in which each thread accesses exactly one element of the matrix, would 
 - masa
 - vgl o2 vs o4 masa cube
 - bifurcation
-
 
 \newpage
 
