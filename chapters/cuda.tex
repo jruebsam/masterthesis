@@ -129,11 +129,75 @@ A kernel in which each thread accesses exactly one element of the matrix, would 
 - teilvolumen nicht rechnen
 \newpage
 
-\section{Algorithm Implementation}
--oder so ?
--erläuterung  implementierung
--speicherverwaltung
+\section{Implementation}
 
+Finally we will explain the implemented algorithm in detail.
+As an example the simulation of a Rayleigh-Benard system with a finite difference scheme of fourth order
+and the third order runge kutta method is  used.
+During execution time the algorithm can be seperated in three parts.
+
+\subsection{Pre processing}
+
+Before integrating the equations of motion we need to define the initial state of our system, as stated in section (X)
+This includes the flow variables but also a set of parameters.
+For one flow variable we need three different memory allocations.
+The first allocation will be one the system RAM.
+-hdf5 python
+
+
+-loading with python api
+- from here one copy to gpu memcpytodevice
+The second and third allocation reside on the global memory of the gpu.
+This is due to the fact that the runge kutta method uses two storage registers, during the timestep execution.
+The fields for all variables are summarized in table (1).
+
+\begin{center}
+    \begin{tabular}{ | l | l | l | l |}
+    \hline
+    Variable & Field on RAM & GPU Field & 2nd GPU Field \\
+    \hline
+    Velocity in x-direction $v_x$  & \texttt{vx}   &  \texttt{vx\_d}   & \texttt{vx2\_d}   \\
+    Velocity in y-direction $v_y$  & \texttt{vy}   &  \texttt{vy\_d}   & \texttt{vy2\_d}   \\
+    Velocity in z-direction $v_z$  & \texttt{vz}   &  \texttt{vz\_d}   & \texttt{vz2\_d}   \\
+    Density  $\rho$  & \texttt{rho}  &  \texttt{rho\_d}  & \texttt{rho2\_d}  \\
+    Temperature $T$ & \texttt{temp} &  \texttt{temp\_d} & \texttt{temp2\_d} \\
+    \hline
+    \end{tabular}
+\end{center}
+
+The parameter set defines different attributes of the system.
+This can be physical attributes like the rayleigh- or prandtl-number, numerical parameters like the grid resolution
+or simple flags for setting the boundary conditions. A list of all possible parameters can be found in Appendix A1.X
+
+
+-table vx2  etc
+-table with constants
+-explanation config file python api
+
+- preloading defining constants
+- 2 arrays
+
+-move to gpu
+-memcpy to symbol speed
+
+\subsection{Main Simulation Loop}
+- the discretized equations are ..
+- with this in mind we need at least a 4 point stencil
+
+- we could use threadid.z for 3d but instead
+
+- picture stencil in action
+
+- for loop
+
+\subsection{Post processing}
+- measurements / output
+
+- zusammenfassung flow diagramm
+
+- erläuterung threads
+
+\section{Python API}
 
 \section{Validierung}
 - beispiel rayleigh benard system
