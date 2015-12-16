@@ -6,6 +6,7 @@ Eine numerische Modellierung setzt zunächst eine exakte theoretische Beschreibu
 Daher soll in diesem Abschnitt auf die theoretischen Grundlagen der Strömungsmechanik eines inkompressiblen Fluids eingegangen werden.
 Auf eine exakte mathematische Herleitung wird dabei verzichtet, der interessierte Leser sei auf [Ferziger?] oder z.B. [rritton?] verwiesen.
 Anschließend werden die Grundgleichungen für verschiedene Systeme erweitert, dazu gehört die Strömung in rotierenden Systemen sowie das Rayleigh-Benard-System.
+\citep{Fadlun2000}, \citet{Fadlun2000}.
 
 \section{Die Bewegungsgleichungen}
 
@@ -98,9 +99,13 @@ a
 \section{Rotierendes System}
 Wir betrachten nun ein rotierendes System welches  sich relativ zu einem Inertialsystem um die Rotationsachse $\vec{\Omega}$ dreht.
 Für zeitliche Ableitung im rotierenden System ergibt sich nach [] der Operator
+
+
+\iffalse
 \begin{align}
-    \left\pdn[]{t} \right|_{Inert.} &= \left\pdn[]{\vec{t}}\right|_{Rot.} + \Omega \times
+    \left\pdn{t} \right|_{Inertial} &= \left\pdn[]{\vec{t}}\right|_{Rotated} + \Omega \times
 \end{align}
+\fi
 Damit erhalten wir für die Beschleunigung eines Punktes im rotierenden System
 \begin{align}
     \pdn[\vec{u}]{t} = -\pdn[]{t^2}(\Omega \times \vec{r}) = -\underbrace{2\Omega \times \vec{u}}_{I} - \underbrace{\Omega \times (\Omega \times \vec{r}}_{II})
@@ -111,7 +116,7 @@ kann die Zentrifugalkraft auch in Form eines Potentials dargestellt werden []
 \begin{align}
     \Omega \times (\Omega \times \vec{r}) = - \nabla(\frac{1}{2}\Omega^2\vec{r}^{'2}) = -\Phi
 \end{align}
-wobei $\vec{r}^'$ der Abstand zur Drehachse ist. Durch Substitution $p^* = p - \Phi$
+wobei $\vec{r}^s$ der Abstand zur Drehachse ist. Durch Substitution $p^* = p - \Phi$
 erhalten wir die Navier-Stokes Gleichung für das rotierende System \footnote{Im folgenden wird meinen wir mit $p$ immer $p^*$ }.
 \begin{align}
     \pdn[u]{t} + 2\Omega \times \vec{u} +  \vec{u} \cdot \vec{\nabla} \vec{u} &= - \frac{1}{\rho} \nabla p + \nu \Delta \vec{u} + \vec{F}_{ext}

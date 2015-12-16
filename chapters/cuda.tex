@@ -56,7 +56,7 @@ it back. Furthermore all memory accesses should be optimized, see chapter (X.X).
 The CUDA C/C++ API is an extension of the C programming language.
 There exists a different number of versions, supporting a different number of hardware architectures, def by C.
 The ???BLABLAalgorithm in our cases uses the compute capability X.X.
-A majority of the API functions are so called \textbg{host functions}  which are executed by the CPU.
+A majority of the API functions are so called \textbf{host functions}  which are executed by the CPU.
 These functions are used i.e. for storage allocation on the gpu, data transfers and error checking.
 For example the function calls
 \begin{verbatim}
@@ -66,8 +66,8 @@ For example the function calls
 \end{verbatim}
 allocates memory with size A at the pointer vx\_d on the device (GPU), then copy it to the device then free it . As we can see here, the syntax for host functions is still in C.
 There are two kinds of function types executed on the device.
-The most import are \textbg{global functions} also called kernel, which are called by the host and executed on the device.
-Last but not least there are \textbg{device functions} which are called and executed by the device.
+The most import are \textbf{global functions} also called kernel, which are called by the host and executed on the device.
+Last but not least there are \textbf{device functions} which are called and executed by the device.
 An example of the syntax for defining these kind of functions is given in Appendix (X.X).
 For the parallelization of a kernel the CUDA API introduces a new syntax, i.e.
 
@@ -79,10 +79,10 @@ executes the kernel function \texttt{time\_step} on the device in parallel.
 The new syntax element is the bracket \texttt{<<<dimGrid, dimBlock>>>}.
 
 NEUSCHREIBEN
-It defines the dimension of the \textbg{grid} and the \textbg{block} of a kernel:
+It defines the dimension of the \textbf{grid} and the \textbf{block} of a kernel:
 During execution time each cuda core is executed as a thread, in an SIMD\footnote{Single Instruction Multiple Device}-like behaviour.
 This means every cuda core on one SM executes the same instruction set simultaneously. To differentiate between different cuda cores,
-each get assigned to a different \textbg{ThreadId}.
+each get assigned to a different \textbf{ThreadId}.
 With the declaration of a block dimension, we define how many threads are executed in parallel.
 The block dimension can be up to 3-dimensions. In this case each cuda core will be assigned to a ThreadId in x, y and z direction.
 A collection of threads with this grid structure is called a block.
@@ -101,7 +101,7 @@ To illustrate the usage of grid and block dimensions, let us consider a two-dime
 -copy to gpu
 -1dimensional structure
 
-In this example \textbg{dimGrid} and \textbg{dimBlock} would be defined by
+In this example \textbf{dimGrid} and \textbf{dimBlock} would be defined by
 \begin{verbatim}
     dim3 dimBlock(2, 2);
     dim3 dimGrid(2, 2);

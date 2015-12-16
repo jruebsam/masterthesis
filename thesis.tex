@@ -1,28 +1,32 @@
+% arara: pdflatex
+% arara: biber
+% arara: pdflatex
+% arara: pdflatex
+\documentclass[11pt,a4paper,headsepline,bibliography=totoc,idxtotoc,DIV12,openright,twoside=true,chapterprefix=on]{scrbook}
+%draft zum Schluss
 
-\documentclass[11pt,a4paper,headsepline,bibliography=totoc,idxtotoc,DIV12,openright,twoside=true,chapterprefix=on]{scrbook} %draft zum Schluss
 \renewcommand*{\chapterheadstartvskip}{\vspace*{5cm}} %rausnehmen scrbook
-% optional: oneside
 %\pagestyle{myheadings}
-
 %\markright{Basics}
+
+
 \addtokomafont{pageheadfoot}{\linespread{1}\selectfont}
-%\usepackage[T1]{fontenc} % Windows
-\usepackage{ucs}
 \usepackage[rflt]{floatflt}
 \usepackage[german]{babel}
 \usepackage{siunitx}
 \usepackage{color}
-%\usepackage[latin1]{inputenc} % Windows
-\usepackage[utf8x]{inputenc}
+
+\usepackage[utf8]{inputenc}
 \usepackage{ulem}
 \usepackage{amsmath,amssymb}
 \usepackage{amsthm}
 %\usepackage{mathtools}
 %\usepackage[dvips]{graphicx}
+
 \usepackage{graphicx}
 %\usepackage[demo]{graphicx}
 \usepackage{caption}
-\usepackage{subcaption}
+%\usepackage{subcaption}
 
 \usepackage{bm}
 
@@ -42,7 +46,7 @@
 %\usepackage{ragged2e}
 \usepackage{caption}
 \captionsetup{format=plain,indention=0cm}
-\usepackage[sort,nocompress]{cite}
+%\usepackage[sort,nocompress]{cite}
 %\usepackage{achicago}
 %\usepackage[authoryear,square]{natbib}
 \usepackage{hyperref}
@@ -66,7 +70,7 @@
     eprint=false
 ]{biblatex}
 
-\addbibresource{~/masterthesis/bibliography/MasterThesis.bib}
+\addbibresource{~/repos/masterthesis/bibliography/MasterThesis.bib}
 
 \usepackage[]{hyperref}
 \hypersetup{
@@ -77,22 +81,9 @@
 
 \setlength{\parindent}{0pt} %Unterbindet das Einrücken
 
-\renewcommand{\proofname}{Beweis}
-
-\theoremstyle{definition}
-\newtheorem{defi}{Definition}
-\newtheorem{bem}[defi]{Bemerkung}
-\newtheorem{bsp}[defi]{Beispiel}
-\theoremstyle{plain}
-\newtheorem{satz}[defi]{Satz}
-\newtheorem{theorem}[defi]{Theorem}
-\newtheorem{lem}[defi]{Lemma}
-\newtheorem{kor}[defi]{Korollar}
-
 \newcommand*\dif{\mathop{}\!\mathrm{d}}
 \newcommand*\Dif{\mathop{}\!\mathrm{D}}
 \newcommand{\pdn}[2][]{\frac{\partial#1}{\partial#2}}
-
 
 \newcommand{\IR}{\mathbb{R}}
 \newcommand{\IB}{\mathbb{B}}
@@ -100,31 +91,11 @@
 \newcommand{\IC}{\mathbb{C}}
 \newcommand{\re}{\mathrm{Re}} % Realteil
 \newcommand{\im}{\mathrm{Im}} % Imaginärteil
-\newcommand{\Bi}{\mathrm{im}} % Bild
-\newcommand{\spec}{\mathrm{spec}}
-\newcommand{\Id}{\mathrm{Id}}
-\newcommand{\p}{\mathrm{P}}
-\newcommand{\sg}{\mathrm{sgn}}
-\newcommand{\Eig}{\mathrm{Eig}}
-%\newcommand{\l}{\lambda}
-%\newcommand{\t}{\tau}
-
-%\newcommand{\todo}{\fixme[inline]}
-\newcommand{\rg}{\text{rank}}
-\newcommand{\sgn}{\text{sgn}}
-\newcommand{\M}{\text{M}}
-\newcommand{\codim}{\text{codim }}
-\newcommand\rP{\text{r}}
-\newcommand\teMSE{\text{MSE}_{\text{test}}}
-\newcommand\trMSE{\text{MSE}_{\text{train}}}
-\newcommand\vMSE{\text{MSE}_{\text{val}}}
-\newcommand\MCC{\text{MCC}}
-\newcommand\Pvalue{\text{p-value}}
-%\DeclarePairedDelimiter\set{\lbrace}{\rbrace}
 
 \usepackage[explicit]{titlesec}
 \usepackage{xcolor}
 \usepackage{lipsum}% just to generate text
+
 
 \titleformat{\section}[block]
   {\Large}{\thesection.~#1}{1em}{}
@@ -148,13 +119,7 @@
   {\hspace*{-110pt}{\color{myrulecolor}\rule{\dimexpr\textwidth+80pt\relax}{3pt}}\Huge}
 \titlespacing*{\chapter}{0pt}{0pt}{30pt}
 
-
-\newenvironment{abstract}{\rightskip1in\itshape}{}
-%\titleformat{\section}[hang]{\Large\scshape}{\thesection}{1em}{}
-
-%\bibliographystyle{apalike}
-
-
+\usepackage{tgpagella}
 
 
 \begin{document}
@@ -173,20 +138,14 @@
        \begin{center}
        \begin{huge}
        %\textbf{Verzweigung in Netzwerken\\[9mm]}
-       \textsc{Titel Thesis auf Deutsch}
+       \textsc{GPU-basierte Immersed Boundary Methoden mit Anwendung auf rotierende und konvektions-getriebene Strömungen}
        \rule{0.9\textwidth}{0.4pt}\\
-       \textsc{Titel Thesis in english\\[1.8cm}
-       %\textsc{Auditory information processing in Orthopteran insects \\[2cm]}% processing of auditory mating cues .... temporal mating
+       \textsc{GPU-based Immersed Boundary Methods with Application to Rotating and Convection-Driven Flows.}\\[1.8cm]
        \end{huge}
        \begin{large}
 	Masterarbeit\\[2cm]
-% 	to obtain the academic degree\\
-% 	Doctor rerum naturalium (Dr. rer. nat.)\\[2cm]
-
 	geschrieben am Institut für Geophysik\\
 	der Georg-August Universität Göttingen\\[2cm]
-	%submitted to the Department of Biology, Chemistry and Pharmacy\\
-% 	of Freie Universität Berlin\\[3cm]
        \end{large}
        \begin{large}
        von\\[.5cm]
@@ -209,179 +168,39 @@
 \vfill
 \noindent \textbf{Die Arbeit wurde im Zeitraum vom XXXX 2014 bis XXXX 2015 in der Arbeitsgruppe "`Fluiddynamik"'
  unter der Betreuung von Prof. Dr. Andreas Tilgner angefertigt. }\\
-%
-% The research presented in this dissertation was carried out from August 2010\\
-% until March 2014 at the Theoretical Neuroscience \& Neuroinformatics
-% group, Freie Universität Berlin, under the supervision of Prof.~Dr.~Martin Nawrot.}\\
+
 \vfill
 \begin{tabbing}
   \hspace{3cm}\=\kill
    Erstgutachterin: \quad  Prof. Dr. Andreas Tilgner - Universität Göttingen\\
-   Zweitgutachter: \quad  Prof. Dr. X Y - Universität Göttingen\\
+   Zweitgutachter: \quad  Prof. Dr. Parlitz - Universität Göttingen\\
 \end{tabbing}
 
 \newpage
 \mbox{}
 \thispagestyle{empty}
 \newpage
-% \mbox{}
-% \thispagestyle{empty}
-% \newpage
-% thispagestyle{empty}
-
-% \vfill
-% \noindent Date of defense:
-% \vfill
-% \vfill
-% \vfill
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \newpage
-
-
-% \newpage
-% \thispagestyle{empty}
-% \vspace{3cm}
-% Für meine Eltern, Helga Meckenhäuser und Wolfram Seidel...
-% \newpage
-% \thispagestyle{empty}
-% \mbox{}
-% \section*{Acknowledgements}
-% First of all, I would like to thank my supervisor Martin Nawrot for the opportunity to work in his interdisciplinary and multicultural research group, for his continuous support, encouragement and openness towards new projects during the past years.
-% \newline
-% \newline
-% I express my gratitude to my experimental collaborators: Matthias Hennig for introducing me to the fascinating world of crickets, for collecting the data for the first project and his clear thoughts for the manuscript; Stefanie Krämer for confiding me to her data from grasshoppers and her patience; Bernhard Ronacher for his ideas and support for finishing the second manuscript. Thanks for providing me with real neuroscientific data!
-% \newline
-% \newline
-% Thanks to all my colleagues. In particular, I want to thank Farzad Farkhooi without whom I would have been stuck in the last year: thanks for the numerous encouraging discussions and helpful remarks on my second project. I also thank Jan Soelter for discussing artificial neural networks over and over again, Thomas Rost for installing packages I could not install, Chris Häusler for his relaxing mood, Michael Schmuker for taking care of Bommel, Evren Pamir for his critical view, Rinaldo Betkiewicz for not loosing control in the polish Milchbar, Joachim Haenicke for his handcreme, and Tara Dezhdar for being a great office mate.
-% \newline
-% \newline
-% I thank Yulia Oganian and Joachim Haenicke how helped to polish this thesis during the final weeks and Florian Rau who never got tired of correcting my writings about crickets and grasshoppers.
-% \newline
-% \newline
-% Many thanks go to my ``ladies'' from Berlin and friends from Hamburg for sharing laughter and tears. Thank you so much for your moral support and love.
-% \newline
-% \newline
-% I dedicate this thesis to my parents Helga Meckenhäuser and Wolfram Seidel to whom I am so grateful for their endless support and encouragement.
-%
-%
-% %irst of all, I would like to thank Martin Nawrot for supervising my PhD project.
-%
-% \newpage
-% \mbox{}
-% \thispagestyle{empty}
-% \newpage
-%
-% \newpage
-% \thispagestyle{plain}
-% \noindent\textbf{This dissertation is based on the following two manuscripts:}
-% \vfill
-% cricket MS
-% \subsubsection*{Critical song features for auditory pattern recognition in crickets}
-% \textit{Authors:}\\
-% Gundula Meckenhäuser$^{1}$, R.~Matthias Hennig$^{2}$, Martin P.~Nawrot$^{1}$\\
-% \textit{Author contributions:}\\ %Research idea by GM, RMH, MPN. Experiments by RMH, Analysis by GM, Manuscript by GM, Revision of the manuscript by MPN, RMH
-% GM, RMH, MPN conceived the reseach idea. RMH designed the experiment. \\
-% GM analyzed the data. GM, MPN wrote the manuscript. RMH revised the manuscript.\\
-% %\\
-% %\textit{Acknowledgments:} We thank Jan Clemens, Florian Rau, Jan SÃ¶lter, and Thomas Rost for fruitful discussion.\\
-% \textit{Manuscript status:}\\ Manuscript has been published in PLoS ONE: doi: 10.1371/journal.pone.0055349 %\citep{Meckenhauser2013}
-%
-%
-%
-% grasshopper MS
-% \bigskip
-% \subsubsection*{Decoding of calling songs and their behavioral relevance from grasshopper auditory neurons}
-% \textit{Authors:} \\
-% Gundula Meckenhäuser$^{1,*}$, Stefanie Krämer$^{2,*}$, Farzad Farkhooi$^{1}$, Bernhard Ronacher$^{2}$, Martin P.~Nawrot$^{1}$\\
-% \textit{Author contributions:} \\
-% SK, BR designed the experiments. SK carried out the experiments. GM, FF, MPN developed ideas for data analysis. SK analyzed behavioral data. GM analyzed behavioral and electrophysiological data. GM, SK, BR, MPN wrote the manuscript. FF revised the manuscript.\\
-%  %E.P. designed the research, collected and analyzed the data, developed the framework
-% %and the model, run the simulations, wrote the paper; J.H. developed the model and revised
-%  %the paper; M.N. developed the model and revised the paper;\\
-%  %\textit{Acknowledgments:} We thank Michael Schmuker for helpful comments on this work. \\
-% \textit{Manuscript status:} \\
-% Manuscript has been submitted to Frontiers in Systems Neuroscience on March, 14th, 2014.
-%
-% \vfill
-% \vfill
-% \noindent\textbf{Author affiliations:}\\
-% $1$ Theoretical Neuroscience \& Neuroinformatics, Institute of Biology, Department of Biology, Chemistry and Pharmacy, Freie Universität Berlin\\
-% $2$ Behavioural Physiology Group, Department of Biology, Humboldt-Universität zu Berlin\\
-% \bigskip
-% $*$ equal contribution
-%
-% \newpage
-% \mbox{}
-% \thispagestyle{empty}
-%
-% \newpage
-% \mbox{}
-% \thispagestyle{empty}
-%
-% \thispagestyle{plain}
-% \section*{Zusammenfassung}
-%
-%
-% Nanocomposite materials are commonly used in many different applications due to their unique combinations of material properties.
-% Here, we try to understand the mechanism of fracture in nanocomposites and the influences of interfaces on fracture in order to learn
-% how to separate nanoscale materials efficiently. We study multilayer systems consisting of polycrystalline titanium and amorphous zirconium
-% oxide. In order to test the length scale dependent behavior of fracture, we vary the layer thicknesses from 10 nm to 100 nm. The multilayers
-% are deformed by using a specially designed in-situ setup inside a TEM with a STM holder.
-%
-% \vspace{2cm}
-% \section*{Summary}
-%
-% Nanocomposite materials are commonly used in many different applications due to their unique combinations of material properties.
-% Here, we try to understand the mechanism of fracture in nanocomposites and the influences of interfaces on fracture in order to learn
-% how to separate nanoscale materials efficiently. We study multilayer systems consisting of polycrystalline titanium and amorphous zirconium
-% oxide. In order to test the length scale dependent behavior of fracture, we vary the layer thicknesses from 10 nm to 100 nm. The multilayers
-% are deformed by using a specially designed in-situ setup inside a TEM with a STM holder.
-%
-% \vfill
-% \vfill
-%
-%
-%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \noindent\textbf{Keywords:} \\
-% insect acoustic communication, neural information processing, pattern recognition, artificial neural network, na\"{\i}ve Bayes classifier
-%
- %classical conditioning, insect brain,
- %honeybee, associative learning, plasticity, neuronal computation, computational modeling
-%\input{titlepage}
-%\setcounter{tocdepth}{1}
 \setcounter{secnumdepth}{3}
+
 %\newpage
 \setcounter{page}{1}
 \addtocontents{toc}{\protect\setstretch{1.15}}
+
 \tableofcontents
 
 \cleardoublepage
 
-%\newpage
-%\thispagestyle{empty}
-%\mbox{}
-%\thispagestyle{empty}
 \setcounter{page}{1}
 \pagenumbering{arabic}
+
 \include{chapters/theorie}
-\include{chapters/numerik}
+%\include{chapters/numerik}
 \include{chapters/cuda}
-\include{chapters/immersed_boundary}
+%\include{chapters/immersed_boundary}
+
 \newpage
 \thispagestyle{empty}
 \mbox{}
-
-% \newpage
-% \thispagestyle{empty}
-% \mbox{}l
-% %\cleardoublepage
-
 
 \printbibliography
 
