@@ -12,16 +12,19 @@ das Runge-Kutta Verfahren 3. Ordnung benutzt.
 
 
 \section{Finite Differenzen}
- Zunächst soll eine kurze Einleitung in die Methode der Finite Differenzen gegeben werden.
- Für eine ausführlichere Herleitung, auf welcher dieser Abschnitt beruht, sei  auf [Peric etc.] verwiesen (REWRITE).
- Wir betrachten hier den eindimensionalen Fall einer stetig differenzierbare Funktion $f(x)$ (defi?), das Ziel ist es nun die Ableitungen
+Zunächst soll eine kurze Einleitung in die Methode der Finite Differenzen gegeben werden.
+Für eine ausführlichere Herleitung, auf welcher dieser Abschnitt beruht, sei  auf [Peric etc.] verwiesen (REWRITE).
+Wir betrachten hier den eindimensionalen Fall einer stetig differenzierbare Funktion $f(x)$ (defi?), das Ziel ist es nun die Ableitungen
+
 \begin{align}
 \pdn[f]{x} \ , \ \pdn[^2f]{x^2}
 \end{align}
- mit einem möglichsten kleinen Fehler zu diskretisieren.
-Betrachten wir die Funktion $f$ auf einem Intervall von 0 bis $L$, so können wir diese durch $N$ äquidistante Punkte $x_i; 0 \seq i \s 100$ approximieren (s.Abb.x).
+
+mit einem möglichsten kleinen Fehler zu diskretisieren.
+Betrachten wir die Funktion $f$ auf einem Intervall von 0 bis $L$, so können wir diese durch $N$ äquidistante Punkte $x_i; 0 seq i s 100$ approximieren (s.Abb.x).
 Der Abstand zwischen zwei Punkten ergibt sich dann als $\Delta x = L/(N - 1)$.
 Betrachten wir $f$ in der Umgebung des Punkt $x_i$ so können wir $f$ über eine Taylor-Entwicklung ausdrücken
+
 \begin{align}
     f(x) = f(x_i) + \left(\pdn[f]{x} \right)_i (x - x_i) + \left(\pdn[^2f]{x^2}\right)_i \frac{(x-x_i)^2}{2!}
 \end{align}
@@ -44,6 +47,7 @@ während () als Rückwärtsdifferenz bezeichnet wird.
 Die dritte Approximation () ergibt sich durch Mittelung über die ersten beiden Variante und wird als zentrierte Differenz bezeichnet.
 Vergleicht man die grafische Darstellung der Terme in Abbildung () so sieht man hier bereits,
 dass die zentrierte Differenz die Steigung der Funktion am Punkt $x_i$ exakter approximieren kann.
+
 
 \paragraph{Lokaler Abschneidefehler}\mbox{}\\
 
@@ -73,9 +77,9 @@ Allgemein wird bei der Herleitung
 
 \newpage
 
-\section{Artificial Kompressibility
-- bewegungsgleichungen
-- druckterm diskussion
-    -exkurs laplace gleichung
+\section{Artificial Kompressibility}
+bewegungsgleichungen
+druckterm diskussion
+exkurs laplace gleichung
+beispiel rayleigh benard diskretisierung
 
--beispiel rayleigh benard diskretisierung

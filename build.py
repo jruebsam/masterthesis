@@ -28,7 +28,8 @@ def main():
 
         cdir = os.getcwd()
         os.chdir(build_dir)
-        os.system('arara thesis.tex')
+        #os.system('arara thesis.tex')
+        os.system('rubber --pdf thesis.tex')
         os.chdir(cdir)
 
     if sys.argv[1] == 'c':

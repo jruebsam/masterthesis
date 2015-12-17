@@ -43,7 +43,7 @@ Das Verfahren wurde in mehreren Publikationen z.B. [bla] erfolgreich verwendet, 
 \begin{wrapfigure}{r}{0.5\textwidth}
   \begin{center}
   \includegraphics[width=0.5\textwidth]{gfx/immersed_boundary_methods/mask.png}\label{fig:mask_vp}
-    \includegraphics[width=0.48\textwidth]{birds}
+  \includegraphics[width=0.5\textwidth]{gfx/immersed_boundary_methods/mask.png}\label{fig:mask_vp}
   \end{center}
   \caption{Maskierungsfunktion $H(x,y,z=const.) = x^2 + y^2 < c$ für einen Zylinder. }
 \end{wrapfigure}
@@ -76,13 +76,15 @@ Fehler zu gewährleisten. Ein einfacher Testfall der sich hierfür betrachen lä
 \paragraph*{Theoretische Beschreibung}\mbox{}\\
 Wir betrachten eine laminare Strömung in x-Richtung die durch einen Druckgefälle $f=-\frac{\partial p}{\partial x}$ angetrieben wird.
 Für die x- und y-Richtung werden periodische Randbedingungen angenommen. In z-Richtung wird das Volumen durch zwei Ebenen bei $h_1$ und $h_2$ begrenzt,
-es gilt $\vec{v}(z=h_1) = \vec_{v}(z=h_2) = 0$.
+es gilt $ \vec{v}(z=h_1) = \vec{v}(z=h_2) = 0$.
 Im stationären Fall lässt sich  die Bewegungsgleichung dann  auf eine Dimension reduzieren, es gilt:
+
 \begin{align}
 \frac{\partial v_x}{\partial t} &= - \frac{\partial p}{\partial x} + D \frac{\partial^2 v_x}{\partial z^2} = 0 \\
 \Rightarrow v_x &= \frac{1}{2D}\frac{\partial p}{\partial x}z^2 + zc_1 + c_2\\
 \end{align}
-Mit $\vec{v}(h_1) = \vec_{v}(h_2) = 0$ und $A:=\frac{1}{2D}\frac{\partial p}{\partial x}$ ergibt sich:
+
+Mit $\vec{v}(h_1) = \vec{v}(h_2) = 0$ und $A:=\frac{1}{2D}\frac{\partial p}{\partial x}$ ergibt sich:
 \begin{align}
 c_1 &= A\frac{h_1^2 -h_2^2}{h_2 - h_1} = -A(h_1+h_2)\\
 c_2 &= A(h_1(h_1 + h_2) - h_1^2) = Ah_1h_2\\
@@ -99,10 +101,9 @@ Für die Strömung lässt sich die Reynoldszahl dann gemäß $Re \propto \frac{v
   \caption{Geschwindigkeistprofile im Kanal bei Variation der Dämpfungskonstante $\nu$ und Reynoldszahl $Re=500$.}
 \end{figure}
 
-
 \paragraph*{Setup}\mbox{}\\
 Um die Abhängigkeit des Fehlers von der Dämpfungskonstante zu betrachten wurde ein Kanal mit $l_x=1$, $l_y=1$ und $l_z=2$ sowie $h_1=0.25$, $h_2=0.75$.
-betrachtet. Die Maskierungsfunction ergibt sich damit gemäß $H(z) = (z>h1) & (z<h2)$.
+betrachtet. Die Maskierungsfunction ergibt sich damit gemäß $H(z) = (z>h1) \wedge (z<h2)$.
 Für die Reynoldszahl wurden Werte im Intervall $Re \in [100, 500]$ verwendet, die Dämpfungskonstante wurde zwischen $\nu \in [1e-5, 0.1]$ variert, während der Zeitschritt mit $dt =1e-5$ konstant gehalten wurde. Die genauen Angaben für alle Parameter sind in (Anhang Tab.X) zu finden.
 
 \paragraph*{Ergebnisse}\mbox{}\\
@@ -137,13 +138,13 @@ Während die Volume Penalization Methode die Geschwindigkeit ausserhalb des Volu
   zu der Direct Forcing Methode ist, die erstmals von [] verwendet und in [] beschrieben wird.
 Betrachten wir zunächst den diskretisierten Zeitschritt
 \begin{align}
-    \frac{\vec{u}^{n+1} -\vec{u}^n}{\Delta t} = \mathsrc{L} + \vec{f}\\
+    \frac{\vec{u}^{n+1} -\vec{u}^n}{\Delta t} = \mathscr{L} + \vec{f}\\
 \end{align}
-wobei $\mathsrc{L}$ den diskretiesierten Operatoren der PDE entspricht.
+wobei $\mathscr{L}$ den diskretiesierten Operatoren der PDE entspricht.
 Für einen Punkt auf dem Rand des Volumens soll nun die Randbedingung $\vec{u}^{n+1} = \vec{u}_0$ eingehalten werden.
 Mit Formel () folgt
 \begin{align}
-    \frac{\vec{u}_0 -\vec{u}^n}{\Delta t} = \mathsrc{L} + \vec{f} \Rightarrow \vec{f} = \frac{\vec{u}_0 -\vec{u}^n}{\Delta t\cdot \mathsrc{L}}\\
+    \frac{\vec{u}_0 -\vec{u}^n}{\Delta t} = \mathscr{L} + \vec{f} \Rightarrow \vec{f} = \frac{\vec{u}_0 -\vec{u}^n}{\Delta t\cdot \mathscr{L}}\\
 \end{align}
 Mit der Annahme dass der Rand mit dem numerischen Gitter übereinstimmt ist es nicht nötig den Kraftterm zur berechnen, stattdessen lässt sich der
 Schritt vereinfachen in dem der Randwert nach  jedem Zeitschritt direkt auf die gewünschte Randbedingung gesetzt wird. Durch die
