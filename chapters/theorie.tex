@@ -1,14 +1,19 @@
-\chapter{Theoretische Grundlagen}
+\chapter{Theoretical Principles}
 
-\section{Einleitung}
+\section{Introduction}
 
-Eine numerische Modellierung setzt zunächst eine exakte theoretische Beschreibung des strömungsmechanischen Problems vorraus.
-Daher soll in diesem Abschnitt auf die theoretischen Grundlagen der Strömungsmechanik eines inkompressiblen Fluids eingegangen werden.
-Auf eine exakte mathematische Herleitung wird dabei verzichtet, der interessierte Leser sei auf [Ferziger?] oder z.B. [rritton?] verwiesen.
-Anschließend werden die Grundgleichungen für verschiedene Systeme erweitert, dazu gehört die Strömung in rotierenden Systemen sowie das Rayleigh-Benard-System.
+Prior to the development of a numerical model, it is necessary to give an exact theoretical description of the
+fluid systems, which are investigated in the context of this thesis.
+Hence this section contains a brief overview of the deriviation and the properties of the fundamental equations of motions.
+For a more detailed description, the interested reader is referred to [], [] and [], on which section () is primary based.\\
+In the second part of this chapter, the equations of motion will be extended for new types of fluid systems.
+This includes a fluid system in a rotating frame of motion and also the temperature coupled Rayleigh-B\'{e}nard system.
+Furthermore the physical properties of these systems will be discussed.
+
 \citep{Fadlun2000}, \citet{Fadlun2000}.
 
 \section{Die Bewegungsgleichungen}
+At any time we examine a viscous, newtonian and incompressible fluid.
 
 Für die Charakterisierung einer Strömung an einem Punkt $\vec{r} = (x, y, z)^T$  im Gebiet $\Omega \subset \mathbb{R}^3$ betrachten wir zunächst
 die Geschwindigkeit $\vec{u}(\vec{r}, t) = (u, v, w)^T \in \mathbb{R}^3$ und die Dichteverteilung $\rho(\vec{r}) \in \mathbb{R}$.
