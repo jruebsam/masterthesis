@@ -74,27 +74,14 @@ Since the fluid domain is spatial restricted it is as well necessary to define t
 In the thesis the following boundary conditions are considered
 
 
-
 \begin{description}
-    \item[Dirichlet boundary condition] The value of a variable is set to a constant value at the boundary.
-                                        In the case where all velocity components are set to zero we refer to noslip boundaries.
-                                        Furthermore if just the velocity component in normal direction to the boundary is zero we refer to FreeSlip boundaries.
-
-    \item[Neumann boundary condition] The gradient of a variable normal to the boundary is set to zero.
-    \item[Peridodic boundaries] Blablabla.
+    \item[No-Slip Boundaries] The value of all velocities component is set to zero $\vec{v}|_{\partial \Omega} = 0$.
+    \item[Free-Slip Boundaries] The velocity component in normal direction to the wall is set to zero, this is fulfilled with $\vec{n}\pdn[v]{\vec{n}} = 0$.
+                                Free-Slip boundaries are used to reduce wall friction or to mimic symmetric bla.
+    \item[No-Flux Boundaries] For a scalar $\phi$ the flux trough the wall is zero which means $\pdn[\phi]{\vec{n}}$.
+                              This boundary conditions is used to avoid mass or energy flux trough the domain boundary.
+    \item[Peridodic boundaries] Periodic boundaries have the same value on opposite sites of the fluid domain.
 \end{description}
-
-ition wiki oder so
-beispiel velocity null
-
-\paragraph{Neumann boundary condition}
-
-definition wiki oder so
-beispiel temperature flux
- wichtig free slip
-
-\paragraph{Periodic boundary condition}
-einfach nurn definition
 
 
 \subsection{Nondimensionalization}
