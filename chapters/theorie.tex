@@ -4,7 +4,7 @@
 
 Prior to the development of a numerical model, it is necessary to give an exact theoretical description of the
 fluid systems, which are investigated in the context of this thesis.
-Hence this section contains a brief overview of the deriviation and the properties of the fundamental equations of motions.
+Hence this section contains a brief overview of the derivation and the properties of the fundamental equations of motions.
 For a more detailed description, the interested reader is referred to [], [] and [], on which section () is primary based.\\
 In the second part of this chapter, the equations will be extended for new types of fluid systems.
 This includes the motion of fluid in a rotating frame of reference and the Rayleigh-B\'{e}nard system.
@@ -51,8 +51,8 @@ Using the same approach, but with setting $\phi = \vec{v}$, results in the momen
 \begin{align}
     \pdn[\rho \vec{u}]{t} + \nabla\left(\rho\vec{u}\vec{u}\right) =  -\nabla p  + \vec{f}_{int} + \vec{f}_{ext}
 \end{align}
-In addition the right handside of the equation consist of the internal and external forces which act on the fluid.
-The external forces depend on the the specific system  we examine i.e. buyont or the coriolis force, whereas the internal forces
+In addition the right hand side of the equation consist of the internal and external forces which act on the fluid.
+The external forces depend on the specific system  we examine i.e. buyont or the coriolis force, whereas the internal forces
 are given by the pressure and the normal and shear stresses of the fluid.
 The pressure forces can be derived as $- \nabla p$.
 The forces induced by normal and shear stresses can be derived by the divergence of the stress tensor $T$.
@@ -64,40 +64,44 @@ Inserting these expression into the momentum equation results in the navier stok
 \end{align}
 
 
-\subsection{Anfangs- und Randbedingungen}
-Für eine eindeutige Lösung ist es weiterhin nötig den Anfangszustand des Systems vorzugeben.
-Bei der numerischen Lösung ist zu beachten, dass z.B. eine Instabilität eine gewisse Störung des Systems vorraussetzt.
-Da numerische Fluktuationen sehr viel kleiner sind als im Experimen, kann es in diesem Fall sinnvoll sein
-ein Zufallsrauschen in den einzelnen Variablen vorzugeben.
-Weiterhin muss das Verhalten der Ränder des Systems eindeutig definiert sein.
-Im Verlaufe der Arbeit werden die folgenden Ränder betrachtet
+\subsection{Initial and Boundary Conditions}
+
+To determine the temporal evolution of the given equations it is necessary to define an initial set of conditions for all variables.
+With respect to a numerical solution it has to be considered that, for example an instability, is always triggered by some kind of disturbance.
+Thus it might be advisable to not choose a trivial solution like a zero velocity field, but instead a solution which quickly evolves in the state
+of the system one wants to achieve. Many times it is useful to add some pseudo random noise to the initial state.\\
+Since the fluid domain is spatial restricted it is as well necessary to define the physical behavior at its boundaries.
+In the thesis the following boundary conditions are considered
+
+
+
 \begin{description}
-    \item[No-Slip ()] Die Geschwindigkeit am Rand ist Null, $\vec{u} = (0, 0, 0)^T$.
-    \item[No-Flux ()] Die Ableitung einer Größe am Rand ist Null z.B. $\pdn[p]{\vec{n}} = 0$.
-    \item[Free-Slip ()] Die Geschwindigkeitskompontente senkrecht zur Wand verschwindet.
-    \item[Peridodisch ()] Blablabla.
+    \item[Dirichlet boundary condition] The value of a variable is set to a constant value at the boundary.
+                                        In the case where all velocity components are set to zero we refer to noslip boundaries.
+                                        Furthermore if just the velocity component in normal direction to the boundary is zero we refer to FreeSlip boundaries.
+
+    \item[Neumann boundary condition] The gradient of a variable normal to the boundary is set to zero.
+    \item[Peridodic boundaries] Blablabla.
 \end{description}
-hierbei bezeichnet $R$ den Rand.
 
-\subsection{Entdimensionalisierung}
+ition wiki oder so
+beispiel velocity null
 
--Enddimensionalisierung
+\paragraph{Neumann boundary condition}
 
-\subsection{Method AK  und so zusammenfassung--}
+definition wiki oder so
+beispiel temperature flux
+ wichtig free slip
 
-
-Für die numerische Lösung der Gleichungen wird die Methode der künstlichen Kompressibiltät verwendet, welche in Abschitt ()
-ausführlicher betrachtet wird. Der Vollständigkeit halber soll erwähnt werden, dass die Bewegungsgleichung
-
-
-
+\paragraph{Periodic boundary condition}
+einfach nurn definition
 
 
+\subsection{Nondimensionalization}
 
--poissongleichung
--methode künstliche kompressibilität !! <-- rausnehmen nur in numerik
-a
--energiegleichung
+Enddimensionalisierung
+
+\subsection{Method AK  und so zusammenfassung}
 
 
 \section{Rotierendes System}
