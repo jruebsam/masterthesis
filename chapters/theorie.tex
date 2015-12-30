@@ -6,64 +6,63 @@ Prior to the development of a numerical model, it is necessary to give an exact 
 fluid systems, which are investigated in the context of this thesis.
 Hence this section contains a brief overview of the deriviation and the properties of the fundamental equations of motions.
 For a more detailed description, the interested reader is referred to [], [] and [], on which section () is primary based.\\
-In the second part of this chapter, the equations of motion will be extended for new types of fluid systems.
-This includes a fluid system in a rotating frame of motion and also the temperature coupled Rayleigh-B\'{e}nard system.
+In the second part of this chapter, the equations will be extended for new types of fluid systems.
+This includes the motion of fluid in a rotating frame of reference and the Rayleigh-B\'{e}nard system.
 Furthermore the physical properties of these systems will be discussed.
 
-\citep{Fadlun2000}, \citet{Fadlun2000}.
+\section{The Equations of Motion}
 
-\section{Die Bewegungsgleichungen}
-At any time we examine a viscous, newtonian and incompressible fluid.
+At any time we examine a viscous, newtonian and incompressible fluid. The equations of motion for such a fluid can be derived by considering the conversation of
+mass and momentum inside a fixed control volume $\Omega \subset \mathbb{R}^3$.
+Within the fluid the momentum at the position $\vec{r} = (x, y, z)^T$  is  characterized by the velocity $\vec{u}(\vec{r}, t) = (u, v, w)^T \in \mathbb{R}^3$,
+meanwhile the mass distribution is given by the density distribution$\rho(\vec{r}) \in \mathbb{R}$.
 
-Für die Charakterisierung einer Strömung an einem Punkt $\vec{r} = (x, y, z)^T$  im Gebiet $\Omega \subset \mathbb{R}^3$ betrachten wir zunächst
-die Geschwindigkeit $\vec{u}(\vec{r}, t) = (u, v, w)^T \in \mathbb{R}^3$ und die Dichteverteilung $\rho(\vec{r}) \in \mathbb{R}$.
+\subsection{Mass Conservation}
 
-\subsection{Kontinuitätsgleichung}
-
-Sei nun $V \subset \Omega$  ein abschlossenes Teilvolumen mit einem zu seiner Oberfläche $\partial V$ gegebenen normalen Vektor $\dif \vec{S}$.
-Infolge der Massenerhaltung können wir annehmen, dass sich die Gesamtmasse innerhalb von V nur ändert wenn ein
-Transport $\propto \vec{u}\dif \vec{S}$ in- oder aus dem Volumen stattfindet.
-Mathematisch präziser formuliert und mit Verwendung des Satz von Gauß (*) folgt die integrale Form der Kontinuitätsgleichung.
+Let $\partial V$ be the enclosing surface and $\vec{n}$ the normal vector to the control volume $\Omega$.
+For any intesive property $\phi$ the reynolds transport theorem states that
+\begin{align}
+    \pdn[]{t} \int_{\Omega_M} \rho \phi \dif \Omega = \pdn[]{t}\int_{\Omega} \rho \phi \dif \Omega + \int_{\partial\Omega} \rho \Phi \vec{v} \vec{n} \dif S
+\end{align}
+where $\Omega_M$ is the volume of our control mass (EXPLANATION? Partial /diff?).
+By setting $\phi = 1$ one obtains the integral form of mass conversation.
 
 \begin{align}
     \frac{\dif}{\dif t} \int_{V}\dif V \rho(t) =  \int_{V}\dif V \frac{\dif \rho}{\dif t}  &= \underbrace{-\int_{\partial V}
      \rho \vec{u}\dif \vec{S}}_{\mathrm{Massenfluss} \atop \mathrm{durch \ } \partial V} \overset{*}{=} -\int_V \dif V \vec{\nabla}\vec{u}
 \end{align}
 
-Durch Bildung des Limes $V\rightarrow 0$ ergibt sich die differentielle Form zu
+In a physical sense this means a change of mass inside $\Omega$ can only occur by a mass transport trough $\partial \Omega$ or by a change in the density.
+The differential form of the equation is obtained by considering an infinitesimal small control volume and applying gauss law
 
 \begin{align}
      \frac{\partial \rho}{\partial t}  + \nabla(\rho \vec{u}) = 0 \overset{\rho = \mathrm{const.}}{\Rightarrow} \nabla \cdot \vec{u} &= 0
 \end{align}
-Für ein inkompressibles Fluid mit konstanter Dichte verschwindet zusätzlich die zeitliche Änderung $\partial_t \rho$.
 
-\subsection{Navier-Stokes Gleichung}
-
-Analog zu der Newtonschen Bewegungsleichung eines Teilchens betrachten wir in der Strömungsmechanik die Impulsgleichung für ein infinitesimales Fluidelement.
-Die Geschwindigkeit ändert sich dabei nicht nur mit der Zeit sondern auch durch die Bewegung mit der Strömung. Bewegt sich das Fluidelement in einen
-Bereich höherer Geschwindigkeit muss dies zu einer Erhöhung des eigenen Impulses führen.
-Die zeitliche Änderung ist dann über die subtantielle Ableitung gegeben, die allgemein für einen Skalar $S$ gemäß
-
+As we investigate an incompressible fluid, which means $\rho = const.$, we get the incompressible continuity equation
 \begin{align}
-    \frac{\Dif S}{\dif t} &:= \pdn[S]{t} + \vec{u}\vec{\nabla}S = \pdn[S]{t} + u\pdn[S]{x} + v\pdn[S]{y}+ w\pdn[S]{z}
+     \frac{\partial \rho}{\partial t}  + \nabla(\rho \vec{u}) = 0 \overset{\rho = \mathrm{const.}}{\Rightarrow} \nabla \cdot \vec{u} &= 0
 \end{align}
 
-definiert ist.
-Weiterhin müssen wir die Kräfte betrachten die auf das Fluidelement wirken. Hier lässt sich zwischen in- und externe Kräften $F_{ext}$ unterscheiden.
-Die internenen Kräfte sind gegeben durch den Druck und die innere Reibung.
-Im folgendenen sei der Druck definiert als $p(\vec{r}) \in \mathbb{R}$. Bei vorliegen eines Druckgradientens wird sich ein Fluidelement in Richtung des niedrigen Druckes
-also entgegen den Gradienten bewegen. Die Druckkraft ist daher gegeben als $-\nabla p$.
-ÜBERARBEITEN
-Bewegen sich Fluidelemente mit unterschiedlicher Geschwindigkeit zueinander so führt dies zu einer Scherspannung $\tau$, welche
-für ein newtonsches Fluid linear von der Schergeschwindigkeit $\gamma$ abhängt. Für die Reibungskraft gilt daher  $\tau = \nu \nabla\vec{u}$.
-ÜBERARBEITEN
-Ergänzen wir die oben beschriebenen Terme in die Impulsgleichung so erhalten wir die Navier-Stoken gleichung
+
+\subsection{Momentum Conservation}
+
+Using the same approach, but with setting $\phi = \vec{v}$, results in the momentum equation
+\begin{align}
+    \pdn[\rho \vec{u}]{t} + \nabla\left(\rho\vec{u}\vec{u}\right) =  -\nabla p  + \vec{f}_{int} + \vec{f}_{ext}
+\end{align}
+In addition the right handside of the equation consist of the internal and external forces which act on the fluid.
+The external forces depend on the the specific system  we examine i.e. buyont or the coriolis force, whereas the internal forces
+are given by the pressure and the normal and shear stresses of the fluid.
+The pressure forces can be derived as $- \nabla p$.
+The forces induced by normal and shear stresses can be derived by the divergence of the stress tensor $T$.
+For an incompressible and newtonian fluid the expression simplifies to $\nu \Delta \vec{u}$ where $\nu$ is the kinematic viscosity of the fluid.
+Inserting these expression into the momentum equation results in the navier stokes equation:
+
 \begin{align}
     \pdn[u]{t} + \vec{u} \cdot \vec{\nabla} \vec{u} &= - \frac{1}{\rho} \nabla p + \nu \Delta \vec{u} + \vec{F}_{ext}
 \end{align}
-mit der kinematischen Viskosität $\nu = \mu /\rho$.
-Zusammen mit der Kontinuitätsgleichung besteht nun ein überbestimmtes Gleichungssystem um die
-zeitliche Entwicklung des Systems zu bestimmen.
+
 
 \subsection{Anfangs- und Randbedingungen}
 Für eine eindeutige Lösung ist es weiterhin nötig den Anfangszustand des Systems vorzugeben.
