@@ -1,6 +1,6 @@
 BUILD_DIR=build
 CHAPTERS=chapters
-LATEXMK_OPTIONS= --pdf --pdflatex="pdflatex -interaction=nonstopmode"  -jobname=build/thesis
+LATEXMK_OPTIONS= --pdf --pdflatex="pdflatex -interaction=batchmode"  -jobname=build/thesis
 
 .PHONY: all main clean
 
