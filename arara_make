@@ -6,7 +6,7 @@ LATEXMK_OPTIONS= --pdf --output-directory=${BUILD_DIR} --pdflatex="pdflatex -int
 all: thesis
 
 thesis: | ${BUILD_DIR}
-	latexmk ${LATEXMK_OPTIONS} thesis.tex
+	python build.py b
 
 clean:
 	rm -rf ${BUILD_DIR}
