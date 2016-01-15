@@ -18,8 +18,14 @@ def main():
 
     if sys.argv[1] == 'b':
         if os.path.isdir(build_dir):
-            shutil.rmtree(build_dir)
-        os.makedirs(build_dir)
+            try:
+                shutil.rmtree(build_dir)
+            except:
+                print 'Build not deleted completely'
+        try:
+            os.makedirs(build_dir)
+        except:
+            print 'Use old build dir'
 
         cdir = os.getcwd()
         copyDirectory(os.path.join(script_dir, 'chapters'), os.path.join(build_dir, 'chapters'))

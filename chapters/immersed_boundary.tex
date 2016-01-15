@@ -3,61 +3,60 @@
 
 \section{Overview of Immersed Boundary Methods}
 
-For many fluid problems it is mandatory to solve the equations of motion with respect to complex-shaped geometries.
+\begin{figure}[!bp]
+  \centering
+  \subfloat[cartesian grid]{\includegraphics[width=0.4\textwidth]{gfx/immersed_boundary_methods/general_partition_triangle.jpg}\label{fig:grid_f1}}
+  \hfil
+  \subfloat[unstructured body-fitted grid]{\includegraphics[width=0.4\textwidth]{gfx/immersed_boundary_methods/general_partition_triangle.jpg}\label{fig:grid_f2}}
+  \caption{Different types of numerical grids}
+\end{figure}
+
+For many fluid problems it is mandatory to solve the equations of motion with respect to complex-shaped geometries \.
 The algorithm introduced in section () is not yet suitable for such a scenario.
-For instance the simulation inside a spheric geometry couldn't be accomplished, since the boundaries
+For instance the simulation inside a spheric geometry is impossible, since the boundaries
 do not coincide with the implemented cartesian grid. Nevertheless there exist different approaches to overcome this problem,
 which shall be introduced here. \\
-The common approach to extend the algorithm would be to use a body-fitted mesh, like shown in figure ().
-However different problems arise with this kind of implementation \citep{Mittal2005}, particullary with a gpu-based algorithm.
-\citet{Mittal2005}, \citet{Tilgner2012}.
+The common approach to extend the algorithm would be to use a body-fitted mesh (see figure \ref{fig:grid_f1}),
+different advantages and disadvantages arise with this kind of implementation (see \citep{Mittal2005}).
+One benefit is a much simpler deployment of the desired boundary condition, due to the overlap of the grid with domain border.
+Furthermore a higher accuracy can be achieved \citep{Gornak2013}.
+However, using an unstructered grid generates plenty of computational overhead, during and before the execution of a simulation.
+The generation of the grid is very complicated in contrast to using a cartesian grid, this can be even more complicated when
+considering moving boundaries.
+Also solving the finite differenc schemes on a curvilinear coordinate system, leads to more calculations on a single grid point.
+The last important aspect is the implementation on the gpu.
+Like discussed in section () it is more efficient to use homogenous storage and calculation pattern on a CUDA-device,
+the use of unstructured data makes this very difficult.
+Altough some attempts exists to solve these difficulties (see i.e. PAP), it is still uncertain if the obtained performance loss would be acceptable.\\
+A set of alternative methods, to resolve the problems described above, are so called Immersed Boundary Methods.
+The term was first mentioned in (PESKIN 1972), for the simulation of blood flow through a heartvale, but has since then been used for a variety of
+methods (MITTAL).  All of them have the idea in common to perform the simulations on a cartesian grid which does not conform to the domain boundary.
+To satisfy the desired boundary conditions additional terms are introduced into the equations of motion.
+In general one can distinguish between contiuous forcing methods and direct forcing methods.
+Continious forcing methods try to mimic the boundary using a localized force which acts on the boundary,
+since the surface is tracked by lagrangian points this methods can be well suited for moving boundaries (MITTAL).
+--CONS CF
+The direct forcing approach tries to satisfies the boundary condition, by imposing it directly to points near the fluid surface for example
+trough an interpolaltion procedure.
+Some of the major drawbacks using the IBM is the loss in  spatial accuracy at the boundary, therefore it can be necessary to use a higher grid resolution
+compared to a body-fitted mesh.  Futhermore the non-conforming (?) boundaries are more difficult implement.
+The benefits of these methods is the use of a cartesian grid, which is much more suited for a gpu-based implementation (see section X).
+As a result the overall performance will probably be in the same order as the original algorithm.
 
 
 
-
-- ziel der thesis erweiterung der algorithmus auf complexe geometrys
-- this can be usually done by using 2 approaches
-    bodyfitted grid
-    - grid generation quote
-    - aufwendig slow und nicht gpus geieignet
-    - beispiel coalescdede reads
-    - da punkte mit rändern übereinstimmen einfache randbedingungen
-
-
-
-    immersed boundary methods:
-    -the idea peskin blabla
-    -different methods
-    in this thesis:
-    -definition of ibm
-    -die verwendung von ibm fast kein geschwindigkeits verlust
-    - aber ränder sind schwieriger zu behandeln
-    - 3 fälle noslip/ noflux / freeslip
-
-Die bisher eingeführten Methoden eignen sich um auf einfachen Geometrien Simulationen durchzuführen.
-Wenn die Ränder des Simulations-Gebietes nicht mehr mit dem numerischen Gitter übereinstimmen, lassen
-sich die in Abschnitt () eingeführten Randbedingungen nicht mehr verwenden.
-Das Problem lässt sich durch die Einführung eines an den Rand angepassten Gitter umgehen (s.Abb. \label{fig:f1}),
-führt allerdings zu einem deutlich höheren Aufwand in den numerischen Berechnungen.
-Die Berechnung des Gitters kann sehr aufwendig werden und es ist nicht eindeutig klar unter welchen
-Performance-Einbussen sich das neue Gitter in der GPGPU-Implementierung verwenden lässt, da Bedingungen wie
-z.B. Coalesced Readings  (s.Abbschnitt x) durch die unstrukturierten Daten deulich erschwert wären.
-Eine Alternative die in dieser Arbeit verwendet wird sind  sog. Immersed Boundary Methoden.
-
+in this thesis:
+-definition of ibm
+-die verwendung von ibm fast kein geschwindigkeits verlust
+- aber ränder sind schwieriger zu behandeln
+- 3 fälle noslip/ noflux / freeslip
+\newpage
 
 - Beschreibung allgemein verschiedene immersed boundary methoden direkt /exp/ imp etc
     -erstmal peskin et al.
     -im prinzip 3 verschiedene ansätze continuous / direct /  ghost cell methoden
     - hier einfache methoden wegen gpu
 
-
-\begin{figure}[!bp]
-  \centering
-  \subfloat[kartesisches Gitter]{\includegraphics[width=0.4\textwidth]{gfx/immersed_boundary_methods/general_partition_triangle.jpg}\label{fig:f1}}
-  \hfill
-  \subfloat[unstrukturiertes Gitter]{\includegraphics[width=0.4\textwidth]{gfx/immersed_boundary_methods/general_partition_triangle.jpg}\label{fig:f2}}
-  \caption{Beispiele für numerische Gitter}
-\end{figure}
 \newpage
 
 %\section{No-Slip-Boundaries}
