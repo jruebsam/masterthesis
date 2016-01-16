@@ -1,6 +1,5 @@
 
 \chapter{Immersed Boundary Methods for No-Slip Walls}
-
 \section{Overview of Immersed Boundary Methods}
 
 \begin{figure}[!bp]
@@ -35,38 +34,22 @@ To satisfy the desired boundary conditions additional terms are introduced into 
 In general one can distinguish between contiuous forcing methods and direct forcing methods.
 Continious forcing methods try to mimic the boundary using a localized force which acts on the boundary,
 since the surface is tracked by lagrangian points this methods can be well suited for moving boundaries (MITTAL).
---CONS CF
+One common problem is that continous forcing can arise to stability problem and numerical oscillations in numericial stiff problem (SOURCE).
 The direct forcing approach tries to satisfies the boundary condition, by imposing it directly to points near the fluid surface for example
 trough an interpolaltion procedure.
 Some of the major drawbacks using the IBM is the loss in  spatial accuracy at the boundary, therefore it can be necessary to use a higher grid resolution
 compared to a body-fitted mesh.  Futhermore the non-conforming (?) boundaries are more difficult implement.
 The benefits of these methods is the use of a cartesian grid, which is much more suited for a gpu-based implementation (see section X).
 As a result the overall performance will probably be in the same order as the original algorithm.
-
-
-
-in this thesis:
--definition of ibm
--die verwendung von ibm fast kein geschwindigkeits verlust
-- aber ränder sind schwieriger zu behandeln
-- 3 fälle noslip/ noflux / freeslip
-\newpage
-
-- Beschreibung allgemein verschiedene immersed boundary methoden direkt /exp/ imp etc
-    -erstmal peskin et al.
-    -im prinzip 3 verschiedene ansätze continuous / direct /  ghost cell methoden
-    - hier einfache methoden wegen gpu
+In the thesis the Implementation of different Immersed Boundary Methods is seperated into three chapters depending on the boundary condition and application.
+This chapter beginns with Implementation of NoSlip-Walls which are the easisest to implement.
+The term Immersed Boundary Method is vaguely defined in literature, in this thesis we refer to it with all methods introduced in the following three chapters.
 
 \newpage
 
-%\section{No-Slip-Boundaries}
-%Für die unterschiedlichen Skalare in den Bousinnesqe gleichungen gibt es eine Vielzahl an möglichen Randbedingungen (s.Abbschnitt. X).
-%Während für die Geschwindigkeitsfelder häufig No- oder Free-Slip Ränder verwendet werden,
-%kommen bei der Temperatur oft NoFlux-Randbedingungen zum Einsatz um einen Wärmeaustausch mit der Umgebung zu unterdrücken.
-%Wie sich heraussgestellt hat ist die Implementierung von NoFlux-wänden mittels IBM wesentlich komplexer.
-%Die einzelnen Randbedingungen wurde daher getrennt voneinander untersucht, zunächst werden NoSlip-Ränder (s. gl. X) betrachtet.
-%
-%\subsection{Volume Penalization}
+\section{IBM-Methods}
+\section{Volume Penalization}
+
 %Die Volume-Penalization Methode ermöglicht es, durch einen Kraftterm der auf die einzelnen Fluidzellen wirkt, mit wenig Aufwand Noslip-Ränder zu implementieren.
 %Das Verfahren wurde in mehreren Publikationen z.B. [bla] erfolgreich verwendet, eine mathematisch exaktere Abhandlung lässt sich z.B. in [bla2] finden.
 %
