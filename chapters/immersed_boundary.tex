@@ -48,107 +48,6 @@ The term Immersed Boundary Method is vaguely defined in literature, in this thes
 
 \section{Implemented IBMs}
 \subsection{Volume Penalization}
-\subsection{Direct Forcing}
-\subsection{Volume fraction}
-\subsection{Interpolation}
-\newpage
-
-\section{Validation}
-
-In order to ensure a correct numerical behaviour of the introduced methods,
-a large part of the thesis deals with the numerical validation.
-Multiple examples from simple to more complex testcases are introduced in this section.
-In general it is necessary to obtain a good evaluation of the numerical truncation error, the numerical stability over longer periods of time
-and the fullfilment of the conversation laws, most importantly mass conservation.
-Grid convergence studys against theoretical and high-resolution numerical solutions  will be performed
-and compared for the different IBMs.
-
-
-\subsection{Laminar Poiseuille-Flow}
-
-\begin{figure}[!bp]
-  \centering
-  \includegraphics[width=0.8\textwidth]{gfx/immersed_boundary_methods/val_volpen/poiseuilleflow.png}\label{b}
-  \caption{Theoretical setup of the poiseuille-flow channel.}
-\end{figure}
-
-%\begin{wrapfigure}{r}{0.5\textwidth}
-%  \begin{center}
-%      \includegraphics[width=0.48\textwidth]{gfx/immersed_boundary_methods/val_volpen/poiseuilleflow.png}
-%   \end{center}
-%          \caption{ paxvleb xvle}
-%\end{wrapfigure}
-
-
-The first testcases is the laminar poiseuille-flow, the theoretical setup is presented in figure ().
-It consist of two infintiy long planes at $z=h_1$ and $z=h_2$, which are oriented parallel to the xy-plane and the distance $\Delta h = h_2 - h_1$ between them.
-Numerically this is realized by using periodic boundaries in xy-direction and no-slip boundaries in z-direction.
-The velocity profile results from an external force, given by a  pressure gradient in x-direction, which is introduced into the naviers-stokes equation.
-No other forces are present furthermore the flow will be independent of the y coordinate,
-hence for the steady state $\partial v_x /\partial t = 0$ the equations of motion can be reduced to:
-
-\begin{align}
-\frac{\partial v_x}{\partial t} &= - \frac{\partial p}{\partial x} + D \frac{\partial^2 v_x}{\partial z^2} = 0
-\end{align}
-
-The equation can simply be integrated twice which yields the solution
-
-\begin{align}
-v_x &= \frac{1}{2D}\frac{\partial p}{\partial x}z^2 + zc_1 + c_2
-\end{align}
-
-Using the noslip-boundary condition $v_x(h_1) = v_x(h_2) = 0$ and furthermore by defining
-$A:=\frac{1}{2D}\frac{\partial p}{\partial x}$ one obtains the additional conditions
-
-\begin{align}
-c_1 &= A\frac{h_1^2 -h_2^2}{h_2 - h_1} = -A(h_1+h_2)\\
-c_2 &= A(h_1(h_1 + h_2) - h_1^2) = Ah_1h_2\\
-\end{align}
-
-The velocity is than given by the quadratic function
-
-\begin{align}
-v_x &= A(z^2 - z(h_1 + h_2) + h_1h_2)
-\end{align}
-
-The maximum velocity and postinon can be obtained by simple calculus
-
-\begin{align}
-z_{max} &= \frac{h_1+h_2}{2} \wedge v_{max} = A\left(h_1h_2 - \frac{(h_1 + h_2)^2}{4}\right)
-\end{align}
-
-With the given theoretical solution, the next objective is the comparison
-to the default implementation, the volume penalization method and the direct forcing method.
-Since we have a flow parallel to the grid  it does not make sence to compare it to the interpolation methods
-In the default setup the noslip-boundaries are realized with the default implementation, like explained in section ().
-For the immersed boundary methdos the upper- and lower boundaries are given by the masking function.
-
-\begin{align}
-H(x, y, z) = \begin{cases}
-                    0, & \text{for \  }  z < h_2 \wedge z>h_1 \\
-                    1, & \text{else}.
-             \end{cases}
-\end{align}
-
-For the comparision with a theoretical solution it is necessary to ensure that the surface grid points match with the total height $h$ of the channel.
-This can be ensured with
-
-
-
-
-
-
-For the comparison of the
-
-
-
-all directions and no-slip b.
-The
-
-The setup is given by two inifinity long  parallel pla
-
-
-
 Die Volume-Penalization Methode ermöglicht es, durch einen Kraftterm der auf die einzelnen Fluidzellen wirkt, mit wenig Aufwand Noslip-Ränder zu implementieren.
 Das Verfahren wurde in mehreren Publikationen z.B. [bla] erfolgreich verwendet, eine mathematisch exaktere Abhandlung lässt sich z.B. in [bla2] finden.
 
@@ -182,26 +81,117 @@ kann im Vergleich zu anderen Verfahren wie z.B. (pseudo-spektrale) eine relativ 
 -vegl. und argumentation ränder ehh auf null.
 -ein beispiel mit vol.pen.
 
-\subsubsection{Validierung : planare Poiseuille Strömung}
-Es stellt sich die Frage in welcher Größenordnung die Dämpfungskonstante $\nu$ der Volume Penalization methode liegen muss, um einen möglichst kleinen
-Fehler zu gewährleisten. Ein einfacher Testfall der sich hierfür betrachen lässt ist eine einfache planare poiseuille strömung, diese ist schematisch in Abb. (x). dargestellt.
-\paragraph*{Theoretische Beschreibung}\mbox{}\\
-Wir betrachten eine laminare Strömung in x-Richtung die durch einen Druckgefälle $f=-\frac{\partial p}{\partial x}$ angetrieben wird.
-Für die x- und y-Richtung werden periodische Randbedingungen angenommen. In z-Richtung wird das Volumen durch zwei Ebenen bei $h_1$ und $h_2$ begrenzt,
-es gilt $ \vec{v}(z=h_1) = \vec{v}(z=h_2) = 0$.
-Im stationären Fall lässt sich  die Bewegungsgleichung dann  auf eine Dimension reduzieren, es gilt:
+\subsection{Direct Forcing}
+\subsection{Volume fraction}
+\subsection{Interpolation}
+\newpage
 
-Für die Strömung lässt sich die Reynoldszahl dann gemäß $Re \propto \frac{v_{max}}{D}$  bestimmen.
+\section{Validation}
+
+In order to ensure a correct numerical behaviour of the introduced methods,
+a large part of the thesis deals with the numerical validation.
+Multiple examples from simple to more complex testcases are introduced in this section.
+In general it is necessary to obtain a good evaluation of the numerical truncation error, the numerical stability over longer periods of time
+and the fullfilment of the conversation laws, most importantly mass conservation.
+Grid convergence studys against theoretical and high-resolution numerical solutions  will be performed
+and compared for the different IBMs.
+
+
+\subsection{Laminar Poiseuille-Flow}
+\subsubsection{Theoretical description}
+
+\begin{figure}[!bp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{gfx/immersed_boundary_methods/val_volpen/poiseuilleflow.png}\label{b}
+  \caption{Theoretical setup of the poiseuille-flow channel.}
+\end{figure}
+
+%\begin{wrapfigure}{r}{0.5\textwidth}
+%  \begin{center}
+%      \includegraphics[width=0.48\textwidth]{gfx/immersed_boundary_methods/val_volpen/poiseuilleflow.png}
+%   \end{center}
+%          \caption{ paxvleb xvle}
+%\end{wrapfigure}
+
+
+The first testcases is the laminar poiseuille-flow, the theoretical setup is presented in figure ().
+It consist of two infintiy long planes at $z=h_1$ and $z=h_2$, which are oriented parallel to the xy-plane and the distance $\Delta h = h_2 - h_1$ between them.
+Numerically this is realized by using periodic boundaries in xy-direction and no-slip boundaries in z-direction.
+The velocity profile results from an external force, given by a  pressure gradient in x-direction, which is introduced into the naviers-stokes equation.
+No other forces are present furthermore the flow will be independent of the y coordinate,
+hence for the steady state $\partial v_x /\partial t = 0$ the equations of motion can be reduced to:
+
+\begin{align}
+\frac{\partial v_x}{\partial t} &= - \frac{\partial p}{\partial x} + \nu \frac{\partial^2 v_x}{\partial z^2} = 0
+\end{align}
+
+The equation can simply be integrated twice which yields the solution
+
+\begin{align}
+v_x &= \frac{1}{2\nu}\frac{\partial p}{\partial x}z^2 + zc_1 + c_2
+\end{align}
+
+Using the noslip-boundary condition $v_x(h_1) = v_x(h_2) = 0$ and furthermore by defining
+$A:=\frac{1}{2\nu}\frac{\partial p}{\partial x}$ one obtains the additional conditions
+
+\begin{align}
+c_1 &= A\frac{h_1^2 -h_2^2}{h_2 - h_1} = -A(h_1+h_2)\\
+c_2 &= A(h_1(h_1 + h_2) - h_1^2) = Ah_1h_2\\
+\end{align}
+
+The velocity is than given by the quadratic function
+
+\begin{align}
+v_x &= A(z^2 - z(h_1 + h_2) + h_1h_2)
+\end{align}
+
+The maximum velocity and postinon can be obtained by simple calculus
+
+\begin{align}
+z_{max} &= \frac{h_1+h_2}{2} \wedge v_{max} = A\left(h_1h_2 - \frac{(h_1 + h_2)^2}{4}\right)
+\end{align}
+
+and the reynolds number of the system is given by
+\begin{align}
+    Re &= \frac{v_{max} }{\nu} = \frac{1}{2\nu^2}\pdn[p]{x}\left(h_1h_2 - \frac{(h_1 + h_2)^2}{4}\right)
+\end{align}
+
+
+
+With the given theoretical solution, the next objective is the comparison
+to the default implementation, the volume penalization method and the direct forcing method.
+Since we have a flow parallel to the grid  it does not make sence to compare it to the interpolation methods
+For the comparision with a theoretical solution it is necessary to ensure that the surface grid points match with the total height $h$ of the channel.
+In the default setup the noslip-boundaries are realized with the default implementation, like explained in section ().
+For the immersed boundary methdos the upper- and lower boundaries are given by the masking function.
+\begin{align}
+H(x, y, z) = \begin{cases}
+                    0, & \text{for \  }  z < h_2 \wedge z>h_1 \\
+                    1, & \text{else}.
+             \end{cases}
+\end{align}
+
+\subsubsection{Test of the Default Implementation}
+
+Before testing the IBMs, it is reasonable to test the default algorithm on the test case, since the geometry is still not curved yet.
+A grid convernce study was executed to analyze the convergence order of the methods. Finite difference stencils of second and
+fourth order were used.
+For the setup
+
+
+\paragraph*{Setup}\mbox{}\\
+For the  numerical setup the parameters were set to $l_x=1$, $l_y=1$, $l_z=1$.
+The reynolds number was set to a constant value of $Re=100$ whereas the resolution was varied between $64 - 128$ with a stepsize of $N = 8$.
+The timestep was set to $dt=1e-5$.
+
+
+\newpage
 \begin{figure}[!hbtp]
   \centering
   \includegraphics[width=0.9\textwidth]{gfx/immersed_boundary_methods/vp_flow.png}\label{fig:vp_flow}
   \caption{Geschwindigkeistprofile im Kanal bei Variation der Dämpfungskonstante $\nu$ und Reynoldszahl $Re=500$.}
 \end{figure}
 
-\paragraph*{Setup}\mbox{}\\
-Um die Abhängigkeit des Fehlers von der Dämpfungskonstante zu betrachten wurde ein Kanal mit $l_x=1$, $l_y=1$ und $l_z=2$ sowie $h_1=0.25$, $h_2=0.75$.
-betrachtet. Die Maskierungsfunction ergibt sich damit gemäß $H(z) = (z>h1) \wedge (z<h2)$.
-Für die Reynoldszahl wurden Werte im Intervall $Re \in [100, 500]$ verwendet, die Dämpfungskonstante wurde zwischen $\nu \in [1e-5, 0.1]$ variert, während der Zeitschritt mit $dt =1e-5$ konstant gehalten wurde. Die genauen Angaben für alle Parameter sind in (Anhang Tab.X) zu finden.
 
 \paragraph*{Ergebnisse}\mbox{}\\
 Zunächst ist in Abb. \ref{fig:vp_flow} das Geschwindigkeitsprofil der Strömung für $Re=500$ exemplarisch dargstellt. Es lässt sich bereits qualitativ sehr gut erkennen, dass für eine
@@ -243,6 +233,7 @@ Mit Formel () folgt
 \begin{align}
     \frac{\vec{u}_0 -\vec{u}^n}{\Delta t} = \mathscr{L} + \vec{f} \Rightarrow \vec{f} = \frac{\vec{u}_0 -\vec{u}^n}{\Delta t\cdot \mathscr{L}}\\
 \end{align}
+
 Mit der Annahme dass der Rand mit dem numerischen Gitter übereinstimmt ist es nicht nötig den Kraftterm zur berechnen, stattdessen lässt sich der
 Schritt vereinfachen in dem der Randwert nach  jedem Zeitschritt direkt auf die gewünschte Randbedingung gesetzt wird. Durch die
 implizite Behandlung kommt es zu keiner weiter Stabilitätsbedingung.
@@ -258,6 +249,39 @@ Da auch dieser Wert auf Null gesetzt wird, kommt es zu einem fehler in der Berec
 
 \begin{figure}[!tpb]
   \centering
+Die Volume-Penalization Methode ermöglicht es, durch einen Kraftterm der auf die einzelnen Fluidzellen wirkt, mit wenig Aufwand Noslip-Ränder zu implementieren.
+Das Verfahren wurde in mehreren Publikationen z.B. [bla] erfolgreich verwendet, eine mathematisch exaktere Abhandlung lässt sich z.B. in [bla2] finden.
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+  \begin{center}
+  \includegraphics[width=0.5\textwidth]{gfx/immersed_boundary_methods/mask.png}\label{fig:mask_vp}
+  \includegraphics[width=0.5\textwidth]{gfx/immersed_boundary_methods/mask.png}\label{fig:mask_vp}
+  \end{center}
+  \caption{Maskierungsfunktion $H(x,y,z=const.) = x^2 + y^2 < c$ für einen Zylinder. }
+\end{wrapfigure}
+
+Das Volumen wird zunächst in einen Fluidbereich und einen festen Wandbereich, wie in Abb.1 dargestellt, unterteilt. Für die Differenzierung der Bereiche während der Simulation wird  eine Maskierungsfunktion
+\begin{align}
+H(x, y, z) = \begin{cases}
+                    0, & \text{für } \vec{x}(x,y,z) \in Fluid, \\
+                    1, & \text{sonst}.
+             \end{cases}
+\end{align}
+verwendet. Als zusätzlicher Kraftterm wird nun eine exponentielle Dämpfung eingeführt die nur auf den Wandbereich des Volumens wirkt.
+\begin{align}
+\vec{f} = \frac{H(x, y, z)}{\nu}(\vec{v} - \vec{v_0})
+\end{align}
+Bei $\vec{v_0}$ handelt es sich um die gewünschte Randbedingung, der Kraftterm ist also proportional zur Auslenkung $\vec{v}$ eines Punktes vom gewünschten Ruhezustand.
+Die Antwort des Kraftterms wird durch die Dämpfungrate $\nu$ reguliert. Je kleiner $\nu$ desto stärker ist die Dämpfungsrate, allerdings kann der Term
+nicht beliebig klein gesetzt werden da die Stabilität für $\nu < dt$ nicht mehr gewährleistet ist [source].
+Da für die Lösung der der Geschwindingskeitsfelder mit der Methode der künstliche Kompressibilität  bereits ein sehr kleiner Zeitschritt verwendet wird (s.Abb. X)
+kann im Vergleich zu anderen Verfahren wie z.B. (pseudo-spektrale) eine relativ starke Dämpfungsrate verwendet werden.
+
+\subsubsection{Validierung mit MASA}
+-validierung mit masa für alle verfahren oben.. cube /evtl zylinder?
+-vegl. und argumentation ränder ehh auf null.
+-ein beispiel mit vol.pen.
+
   \includegraphics[width=0.6\textwidth]{gfx/immersed_boundary_methods/dfo2o4.png}\label{fig:df_o2o4}
   \caption{bla}
 \end{figure}
