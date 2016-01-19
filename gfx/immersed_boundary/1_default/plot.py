@@ -3,6 +3,7 @@ import numpy as np
 import os
 mpl.use('pgf')
 
+
 from scipy import optimize
 
 def figsize(scale):
@@ -44,6 +45,11 @@ def savefig(filename):
     plt.savefig('{}.pgf'.format(filename))
     plt.savefig('{}.pdf'.format(filename))
 
+cmap = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf']
+
+from cycler import cycler
+plt.rc('axes', prop_cycle=(cycler('color', cmap)))
+
 def main():
     dpath = '/home/upgp/jruebsam/finaldata/noslip_validation/poiseuille_flow/1_default'
 
@@ -66,9 +72,9 @@ def main():
     xn = np.linspace(7, 160, 200)
     yn = fitfunc(p1, xn)
 
-    ax.plot(res_o2, l2rel_o2, 'o--', label='o2')
-    ax.plot(res_o4, l2rel_o4, 'o--', label='o4')
     ax.plot(xn, yn, label='fit: $ax^b$ : $b=%.3f$ +- ?' % p1[1])
+    ax.plot(res_o2, l2rel_o2, '^--',  label='2nd-order')
+    ax.plot(res_o4, l2rel_o4, 'h--', label='4th-order')
 
     ax.set_xscale('log')
     ax.set_yscale('log')
