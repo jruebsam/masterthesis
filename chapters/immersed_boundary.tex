@@ -173,26 +173,21 @@ H(x, y, z) = \begin{cases}
 
 \subsubsection{Test of the Default Implementation}
 
-Before testing the IBMs, it is reasonable to test the default algorithm on the test case, since the geometry is still not curved yet.
-A grid convernce study was executed to analyze the convergence order of the methods. Finite difference stencils of second and
-fourth order were used.
-For the setup
-
-
-\paragraph*{Setup}\mbox{}\\
+Initially a grid convergence test was performed with the default implementation of the algorithm, without the use of immersed boundaries.
+For this test case this is still possible since the geometry is non-curved and parallel to the cartesian grid.\\
 For the  numerical setup the parameters were set to $l_x=1$, $l_y=1$, $l_z=1$.
-The reynolds number was set to a constant value of $Re=100$ whereas the resolution was varied between $64 - 128$ with a stepsize of $N = 8$.
-The timestep was set to $dt=1e-5$.
-
-
+The reynolds number was set to a constant value of $Re=100$, whereas the resolution $N$ was varied in the Intervall $[16 - 128]$ with a stepsize of $\Delta N = 8$.
+The timestep was set to $\mathrm{dt}=1e-5$.\\
+The results are shown in figure \ref{fig:ema1}.
 
 \begin{figure}[!bp]
-    \caption{Relative $l_2$-error for second and fourth order schemes of the default algorithm.\label{fig:ema1}}
     \centering
     \input{gfx/immersed_boundary/1_default/relative_l2error.pgf}
+    \caption{Relative $l_2$-error for second and fourth order schemes of the default algorithm.\label{fig:ema1}}
 \end{figure}
 
 \newpage
+
 \begin{figure}[!hbtp]
   \centering
   \includegraphics[width=0.9\textwidth]{gfx/immersed_boundary/vp_flow.png}\label{fig:vp_flow}

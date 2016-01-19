@@ -3,6 +3,8 @@ import numpy as np
 import os
 mpl.use('pgf')
 
+from scipy import optimize
+
 def figsize(scale):
     fig_width_pt = 448.13095 #from latex \the\textwidth
     inches_per_pt = 1.0/72.27
@@ -20,7 +22,7 @@ pgf_with_latex = {                      # setup matplotlib to use latex for outp
     "font.sans-serif": [],
     "font.monospace": [],
     "axes.labelsize": 10,               # LaTeX default is 10pt font.
-    "text.fontsize": 10,
+    "font.size": 10,
     "legend.fontsize": 8,               # Make the legend/label fonts a little smaller
     "xtick.labelsize": 8,
     "ytick.labelsize": 8,
@@ -31,11 +33,9 @@ pgf_with_latex = {                      # setup matplotlib to use latex for outp
         ]
     }
 mpl.rcParams.update(pgf_with_latex)
-
 import matplotlib.pyplot as plt
 
 def newfig(width):
-    plt.clf()
     fig = plt.figure(figsize=figsize(width))
     ax = fig.add_subplot(111)
     return fig, ax
@@ -47,8 +47,7 @@ def savefig(filename):
 def main():
     dpath = '/home/upgp/jruebsam/finaldata/noslip_validation/poiseuille_flow/1_default'
 
-    labels = ['relative']
-    #absolute identisch
+    labels = ['relative'] #absolute identisch zu absolut
 
     f, ax = newfig(0.8)
 
@@ -58,8 +57,18 @@ def main():
     o4_file = np.load(os.path.join(dpath, 'default_o4.npy'))
     res_o4, l2rel_o4, l2abs_o4 = o4_file.T
 
+
+    fitfunc = lambda p, x: p[0]*x**p[1]
+    errfunc = lambda p, x, y: fitfunc(p, x) - y
+    p0 = [1., -2]
+    p1, success = optimize.leastsq(errfunc, p0[:], args=(res_o4, l2rel_o4))
+
+    xn = np.linspace(7, 160, 200)
+    yn = fitfunc(p1, xn)
+
     ax.plot(res_o2, l2rel_o2, 'o--', label='o2')
     ax.plot(res_o4, l2rel_o4, 'o--', label='o4')
+    ax.plot(xn, yn, label='fit: $ax^b$ : $b=%.3f$ +- ?' % p1[1])
 
     ax.set_xscale('log')
     ax.set_yscale('log')
@@ -70,12 +79,10 @@ def main():
     ax.set_xlim(5, 200)
     ax.set_ylim(1e-10, 1e-1)
 
-
     plt.legend()
     plt.grid()
-
-    #plt.show()
     plt.tight_layout()
+    #plt.show()
     savefig('relative_l2error')
 
 if __name__=='__main__':
