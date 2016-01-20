@@ -1,3 +1,5 @@
+import style
+
 import numpy as np
 import matplotlib.pyplot as plt
 import pickle
@@ -15,13 +17,12 @@ def re2pr(re, pmax, h1, h2):
 
 def main():
     fpath = os.path.dirname(os.path.abspath(__file__))
-    outpath = os.path.join(fpath, '..')
+    outpath = fpath
 
     with open('data/vp_o4hd/flows.pkl', 'rb') as f:
         flows =  pickle.load(f)
 
-    f = plt.figure(figsize=(10, 5))
-    ax = f.add_subplot(111)
+    f, ax = style.newfig(0.8)
 
     nus = []
     for nu, flow in flows.iteritems():
@@ -59,8 +60,7 @@ def main():
     ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     plt.grid()
 
-
-    plt.savefig('/'.join([outpath, 'vp_flow.png']), dpi=300)
+    style.savefig('/'.join([outpath, 'vp_profile']))
     #plt.show()
 
 

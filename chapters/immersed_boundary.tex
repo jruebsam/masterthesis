@@ -192,24 +192,39 @@ This behaviour can be explained due to the lack of complexity of the test case. 
 no higher order terms will occur in the numerical solution, hence the second order scheme is capable of a perfect approximation, independent of the
 grid resolution. The remaining error terms, are of the order $10e^{-8}$, which is extremly small and occurs due to the floating point roundoff.
 With this in mind the behavior of the fourth-order scheme is even more unexpected.
-We see a linear decrease of the error on a double logarithic scale.
-The result of a polynomial fit yields a convergence rate of order $\approx 2$.
+We see a linear decrease of the error on the log scale.
+The result of a power/poly?  fit yields a convergence rate of order $\approx 2$.
 Furthermore the error is much larger compared to the second order scheme, between $10e^{-2}$ and $10e^{-5}$.
+The test case reveals that an error exists in the default implementation of the boundarie conditions.
+An explanation can be given with comparison of the theoretical solution. The laplace operator is given by
+ $ \nu \pdn[^2 v_x]{x^2} = 2A = \frac{1}{\nu}\pdn[p]{x}$
+Using the mirroring method creates a discontinuous function at the boundaries, since the laplace operator changes the sign.
+When using the second order method the tree-point-stencil evaluates to the correct value $\pdn[^2 v_x]{x^2} = 1$.
+The five-point-stencil of the fourth orderer scheme evaluates to $\pdn[^2 v_x]{x^2} = 1$, since it uses one point behind the boundary.
+As a result the discontinuity creates an error in the higher order scheme.
 
-- der testcase zeigt das in der implementierung der randbedingunge wie in kapitel  ein fehler entsteht
-- die erklärung mirroring  erzeugt eine nicht stetige funktion an den ecken
-- das problem ist das das verfahren 4 ordnung einen punkt hinter dem rand sieht
-- fazit:
-    -verfahren 4 orndung nicht unbedingnt schlechter da die strömung hier extrem durch die randbedingung ausgeprägt ist
-    - zudem ist der fehler bei hinreichender auflösung mit orndung 10-5 immer noch sehr klein
-    -evtl. da der fehler erst recht späht erkannt wurde keine implementierung aber
-        asymetrische stempel am rand -> problem gpu slowdown ...
+However we have to keep in mind that this test case is strongly dependent of the boundarie condition,
+which is responsible for damping the flow on the sides of the channel and therefore for the overall velocity profile.
+In general we can't say that the fourth order scheme is inferior, it depends how large of an impact
+the boundaries have to the fluid problem.
+For a problem where teh boundarie is not htat import  blabla.
+We have to keep in mind that the error for an acceptable resolution is around (), which is still small(how small?).
+One possibility to avoid this error, would be to use an asymmetrich stencil, for example see [].
+This could also lead to computational overhead due to gpu blabla.
+
+
+
+\subsubsection{Test of the Volume Penalization Method}
+
+- volume fraction method setup
+- nu und re variation
+- diskussion profil
+
 
 \newpage
-
 \begin{figure}[!hbtp]
   \centering
-  \includegraphics[width=0.9\textwidth]{gfx/immersed_boundary/vp_flow.png}\label{fig:vp_flow}
+  \input{gfx/immersed_boundary/2_vp/vp_profile.pgf}\label{fig:vp_flow}
   \caption{Geschwindigkeistprofile im Kanal bei Variation der Dämpfungskonstante $\nu$ und Reynoldszahl $Re=500$.}
 \end{figure}
 
@@ -224,7 +239,7 @@ dabei wurde das theoretische Profil gemäß () verwendet. Die Ergebnisse sind in
 
 \begin{figure}[!bp]
   \centering
-  \includegraphics[width=1.0\textwidth]{gfx/immersed_boundary/vp_error.png}\label{fig:vp_error}
+  \includegraphics[width=1.0\textwidth]{gfx/immersed_boundary/2_vp/vp_error.png}\label{fig:vp_error}
   \caption{Absoluter und relativer Fehler in Abhängigkeit von Dämpfungskonsante $\nu$ und Reynoldszahl $Re$.}
 \end{figure}
 
