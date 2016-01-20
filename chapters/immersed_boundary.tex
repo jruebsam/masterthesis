@@ -181,7 +181,7 @@ H(x, y, z) = \begin{cases}
 
 Initially a grid convergence test was performed with the default implementation of the algorithm, without the use of immersed boundaries.
 For this test case this is still possible since the geometry is non-curved and parallel to the cartesian grid.\\
-For the  numerical setup the parameters were set to $l_x=1$, $l_y=1$, $l_z=1$.
+For the  numerical setup the parameters were set to $l_x=1$, $l_y=0.25$, $l_z=1$.
 The reynolds number was set to a constant value of $Re=500$, whereas the resolution $N$ was varied in the Intervall $[16 - 128]$ with a stepsize of $\Delta N = 8$.
 The timestep was set to $\mathrm{dt}=1e-5$ and the pressure gradient to $\partial p \partial x  = 10$.
 For all resolutions the simulations were performed for finite differcen schemes of second and fourth order.
@@ -214,45 +214,49 @@ This could also lead to computational overhead due to gpu blabla.
 
 
 
-\subsubsection{Test of the Volume Penalization Method}
-
-- volume fraction method setup
-- nu und re variation
-- diskussion profil
-
-
-\newpage
 \begin{figure}[!hbtp]
   \centering
   \input{gfx/immersed_boundary/2_vp/vp_profile.pgf}\label{fig:vp_flow}
   \caption{Geschwindigkeistprofile im Kanal bei Variation der Dämpfungskonstante $\nu$ und Reynoldszahl $Re=500$.}
 \end{figure}
 
+\subsubsection{Test of the Volume Penalization Method}
 
-\paragraph*{Ergebnisse}\mbox{}\\
-Zunächst ist in Abb. \ref{fig:vp_flow} das Geschwindigkeitsprofil der Strömung für $Re=500$ exemplarisch dargstellt. Es lässt sich bereits qualitativ sehr gut erkennen, dass für eine
-starke Dämfung die Kanalströmung an den Grenzen $h_1$ und $h_2$ verschwindet und gut mit der dem theoretischen Profil übereinstimmt.
-Bei einem Verringern der Dämpfungrate entwickelt sich im Rand ein Geschwindigkeitsprofil.
-Um sicherzustellen dass sich das Profil vollständig entwickelt wurde die Simulation bis zu dem Zeitpunkt fortgegeführt
- in welchem die kinetische Energie des Systems einen stationären Wert erreicht. Anschließend wurde der absolute und relative Fehler mit Formel (X) berechnet,
-dabei wurde das theoretische Profil gemäß () verwendet. Die Ergebnisse sind in Abbildung \ref{fig:vp_error} dargestellt.
+The next objective is to investigate the behaviour of the volume penalization method.
+We begin by studying the behavior of the velocity profile, with the variation of the Reynolds-number and the damping parameter $\nu$ in the regime $Re=100-500$ and $\nu=100-100$.
+The numerical setup is equal to the one for the default methods, except we now introduce the masking function (LABELABOVE) with $h_1=0.25$ and $h_2=0.75$.
+To make sure that the channel width is equal to $\Delta h = 1$, the total height was set to $l_z\approx2.01587$. This furthermore ensures that the grid points overlap exactly
+with the masking function at $h_1$ and $h_2$. The resolution was set to $N_x\times N_y\times N_z = 64\times16\times128$.\\
+The resulting velocity profile is exemplarily shown in figure \ref{fig:vp_flow}, for varying $\nu$ and a constant reynolds number $Re=500$.
+It can be noted that with an decrease of $\nu$, the numerical solution converges against the theoretical one.
+The velocity profile inside the fluid domain is given by an offset at the boundary added to the theoretical profile.
+In the masked area of the volume we can see an exponential decrease of the total velocity. This makes sense since the forcing term
+leads to an exponential damped solution like discussed in section ().\\
+For an error estimation, the absolute and relative $l_2$-error were computed inside the fluid domain,
+The results are shown in figure \ref{fig:vp_error}.
 
-\begin{figure}[!bp]
+\begin{figure}[!bpt]
   \centering
   \includegraphics[width=1.0\textwidth]{gfx/immersed_boundary/2_vp/vp_error.png}\label{fig:vp_error}
   \caption{Absoluter und relativer Fehler in Abhängigkeit von Dämpfungskonsante $\nu$ und Reynoldszahl $Re$.}
 \end{figure}
 
-Bei beiden Fehler lässt sich ein Abfall bis $\nu=1e-4$ erkennen, anschließend kommt es zu einem minimalen Anstieg.
-Betrachtet man den absoluten Fehler, so fällt auf das im Bereich $\nu>5\cdot10^{-3}$, mit steigender Reynoldszahl, der Fehler zunimmt.
+- for both error we can see a decrease until $\nu=1e-4$, followed by a slight increase as one can see in the inset
+- what kind of decrease ?
+- the behaviour will be clarified in the following grid convergence study
+- the absolute error is growing with a decrease in the reynoldsnumber for $\nu>5\cdot10^{-3}$.
+- this is as expected since the stress on the wall is larger, in the area
+
+Betrachtet man den absoluten Fehler, so fällt auf das im Bereich , mit steigender Reynoldszahl, der Fehler zunimmt.
 Dies entspricht zunächst der Erwartung, da das Geschwindigkeitsprofil mit steigender Reynoldszahl stärker an der Wand zerrt.
 Allerdings kommt es im Bereich $\nu \in [1e-3 - 1e-2]$ zu einem umgekehrten Verhalten, der Fehler nimmt mit der Reynoldszahl ab,
 Du Ursache hierfür liess sich nicht eindeutig klären.
 Für den relativen Fehler lässt sich ein Abfall mit steigender Reynoldszahl beobachten. Da $\vec{f} \propto (\vec{v}-\vec{v_0})  \propto Re$ wird der Reibunsterm
 proportional zur Reynoldszahl skaliert. Der Fehler durch den Rand ändert sich, im Vergleich zum Geschwindigskeitsprofil kaum, wodurch der Abfall zustande kommt.
 Der relative Fehler fällt bei $\nu=1e-4=10\Delta t$ auf unter 1\%, wodurch dieser Wert als geeignet angesehen werden kann für zukünftige Simulationen mit der Volume-Penalization Methode.
+-todo: fluktuation im rand bei vp?
 
--todo: fluktuation im rand
+-grid convergence study o2 and o4
 
 
 \subsection{Direct Forcing Methode}
