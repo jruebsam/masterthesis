@@ -1,4 +1,5 @@
 import style
+style.setup()
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -25,7 +26,9 @@ def main():
     plot_l2(ax2, l2rel, 2)
 
     plt.subplots_adjust(wspace=0.5)
-    style.savefig('vp_error')#, dpi=300)
+    plt.subplots_adjust(bottom=0.15)
+
+    plt.savefig('vp_error.pdf')
 
 def plot_l2(ax, l2, plotnr):
 
@@ -48,12 +51,13 @@ def plot_l2(ax, l2, plotnr):
     for idx, re in enumerate(allres):
         b = (res == re)
         colorVal = scalarMap.to_rgba(values[idx])
-        ax.plot(nus[b], errors[b], 'o', color=colorVal, label=r'$Re=%i$' % re)
+        ax.plot(nus[b], errors[b], 'o', color=colorVal, label=r'$Re=%i$' % re, ms=5)
 
     inset = inset_axes(ax, width="50%", height="50%", loc=2)
+
     for idx, nu in enumerate(allnus):
         b = (nus == nu)
-        inset.scatter(nus[b], errors[b], c=res[b])
+        inset.scatter(nus[b], errors[b], c=res[b], lw=0.4)
 
     ax.set_xlabel(r'$\nu$')
 

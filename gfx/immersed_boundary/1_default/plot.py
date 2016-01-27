@@ -1,12 +1,11 @@
 import style
+style.setup()
 
 import numpy as np
 import os
 from scipy import optimize
 
 import matplotlib.pyplot as plt
-
-
 
 cmap = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf']
 
@@ -52,7 +51,7 @@ def main():
     plt.grid()
     plt.tight_layout()
     #plt.show()
-    style.savefig('relative_l2error')
+    plt.savefig('relative_l2error.pdf')
 
 if __name__=='__main__':
     main()

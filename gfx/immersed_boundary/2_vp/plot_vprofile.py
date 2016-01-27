@@ -1,4 +1,5 @@
 import style
+style.setup()
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -6,7 +7,6 @@ import pickle
 import os
 import matplotlib.colors as colors
 import matplotlib.cm as cmx
-
 
 def tflow(x, pr, h1, h2, pmax):
     return -1/(2*pr)*pmax*(x**2 - x*(h1 + h2) + h1*h2)
@@ -60,7 +60,7 @@ def main():
     ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     plt.grid()
 
-    style.savefig('/'.join([outpath, 'vp_profile']))
+    plt.savefig('vp_profile.pdf')
     #plt.show()
 
 
