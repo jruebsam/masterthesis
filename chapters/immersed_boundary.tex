@@ -82,6 +82,32 @@ kann im Vergleich zu anderen Verfahren wie z.B. (pseudo-spektrale) eine relativ 
 -ein beispiel mit vol.pen.
 
 \subsection{Direct Forcing}
+Während die Volume Penalization Methode die Geschwindigkeit ausserhalb des Volumens nicht vollständig auf Null setzt,
+ kann dies durch eine implizite Berechnung des Dämpfungsterm erreichtwerden. Es stellt sich heraus das dieser Ansatz equivalent
+  zu der Direct Forcing Methode ist, die erstmals von [] verwendet und in [] beschrieben wird.
+Betrachten wir zunächst den diskretisierten Zeitschritt
+\begin{align}
+    \frac{\vec{u}^{n+1} -\vec{u}^n}{\Delta t} = \mathscr{L} + \vec{f}\\
+\end{align}
+wobei $\mathscr{L}$ den diskretiesierten Operatoren der PDE entspricht.
+Für einen Punkt auf dem Rand des Volumens soll nun die Randbedingung $\vec{u}^{n+1} = \vec{u}_0$ eingehalten werden.
+Mit Formel () folgt
+\begin{align}
+    \frac{\vec{u}_0 -\vec{u}^n}{\Delta t} = \mathscr{L} + \vec{f} \Rightarrow \vec{f} = \frac{\vec{u}_0 -\vec{u}^n}{\Delta t\cdot \mathscr{L}}\\
+\end{align}
+
+Mit der Annahme dass der Rand mit dem numerischen Gitter übereinstimmt ist es nicht nötig den Kraftterm zur berechnen, stattdessen lässt sich der
+Schritt vereinfachen in dem der Randwert nach  jedem Zeitschritt direkt auf die gewünschte Randbedingung gesetzt wird. Durch die
+implizite Behandlung kommt es zu keiner weiter Stabilitätsbedingung.
+Analog zur Volume-Penalization Methode wurde eine Serie von Simulationen für eine planare Poiseuille-Strömung durchgeführt.
+Das Setup enstpricht dem gleichen wie in Abschnitt (X), lediglich das Verfahren wurde entsprechend angepasst und es wurden finite Differenzen Verfahren zweiter und
+vierter Ordnung getestet.
+In Abbildung () ist der relative Fehler, im Vergleich zur Volume Penalization  Methode mit $\nu=1e-4$ dargestellt.
+Für das Verfahren vierter Ordnung liegt der Fehler im Bereich von 1\% und ist im Mittel doppelt so groß wie für die Volume-Penalization Methode.
+Der Fehler für das Verfahren zweiter Ordnung verschwindet hingegen nahezu.
+Das Verhalten lässt sich durch die Verwendung unterschliedlicher Schablonen, wie in Abb() dargestellt,  der finiten differenzen Verfahren erklären.
+Während das Verfahren zweiter Ordnung nur den Randpunkt sieht, liegt bei der vierten Ordnung ein Punkt innerhalb des Randes.
+Da auch dieser Wert auf Null gesetzt wird, kommt es zu einem fehler in der Berechnung von $\nabla u$.
 \subsection{Volume fraction}
 \subsection{Interpolation}
 \newpage
@@ -222,16 +248,18 @@ This could also lead to computational overhead due to gpu blabla.
 
 \subsubsection{Test of the Volume Penalization Method}
 
-The next objective is to investigate the behaviour of the volume penalization method.
-We begin by studying the behavior of the velocity profile, with the variation of the Reynolds-number and the damping parameter $\nu$ in the regime $Re=100-500$ and $\nu=100-100$.
+The next objective is to investigate the error of the volume penalization method.
+We begin by studying the behavior of the velocity profile, with variation of the Reynolds-number and the damping parameter $\nu$, in the regime $Re=100-500$ and $\nu=100-100$.
 The numerical setup is equal to the one for the default methods, except we now introduce the masking function (LABELABOVE) with $h_1=0.25$ and $h_2=0.75$.
 To make sure that the channel width is equal to $\Delta h = 1$, the total height was set to $l_z\approx2.01587$. This furthermore ensures that the grid points overlap exactly
 with the masking function at $h_1$ and $h_2$. The resolution was set to $N_x\times N_y\times N_z = 64\times16\times128$.\\
-The resulting velocity profile is exemplarily shown in figure \ref{fig:vp_flow}, for varying $\nu$ and a constant reynolds number $Re=500$.
+The resulting velocity profile is exemplarily shown in figure \ref{fig:vp_flow}, for varying $\nu$ and a constant reynolds number $Re=500$.\\
 It can be noted that with an decrease of $\nu$, the numerical solution converges against the theoretical one.
-The velocity profile inside the fluid domain is given by an offset at the boundary added to the theoretical profile.
-In the masked area of the volume we can see an exponential decrease of the total velocity. This makes sense since the forcing term
-leads to an exponential damped solution like discussed in section ().\\
+The quadratic part of the velocity profile inside the fluid domain is independent of the damping constant $\nu$.
+Since the damping can not fullfill the exact boundarie conditions, a slight offset is introduced into the velocity profile
+which leads to an offset in the solution.
+In the masked area of the volume we can see an exponential decrease of the total velocity.
+REWRITE THIS This is logical result since the penalization term, leads to an exponential damped solution like discussed in section ().\\
 For an error estimation, the absolute and relative $l_2$-error were computed inside the fluid domain,
 The results are shown in figure \ref{fig:vp_error}.
 
@@ -247,6 +275,9 @@ The results are shown in figure \ref{fig:vp_error}.
 - the absolute error is growing with a decrease in the reynoldsnumber for $\nu>5\cdot10^{-3}$.
 - this is as expected since the stress on the wall is larger, in the area
 
+
+
+
 Betrachtet man den absoluten Fehler, so fällt auf das im Bereich , mit steigender Reynoldszahl, der Fehler zunimmt.
 Dies entspricht zunächst der Erwartung, da das Geschwindigkeitsprofil mit steigender Reynoldszahl stärker an der Wand zerrt.
 Allerdings kommt es im Bereich $\nu \in [1e-3 - 1e-2]$ zu einem umgekehrten Verhalten, der Fehler nimmt mit der Reynoldszahl ab,
@@ -257,107 +288,15 @@ Der relative Fehler fällt bei $\nu=1e-4=10\Delta t$ auf unter 1\%, wodurch dies
 -todo: fluktuation im rand bei vp?
 
 -grid convergence study o2 and o4
+\begin{figure}%
+    \centering
+    \subfloat[label 1]{{\includegraphics{gfx/immersed_boundary/2_vp/vp_convergence.pdf} }}%
+    \qquad
+    \subfloat[label 2]{{\includegraphics{gfx/immersed_boundary/2_vp/vp_convergence.pdf} }}%
+    \caption{2 Figures side by side}%
+    \label{fig:example}%
+\end{figure}
 
 
 \subsection{Direct Forcing Methode}
-Während die Volume Penalization Methode die Geschwindigkeit ausserhalb des Volumens nicht vollständig auf Null setzt,
- kann dies durch eine implizite Berechnung des Dämpfungsterm erreichtwerden. Es stellt sich heraus das dieser Ansatz equivalent
-  zu der Direct Forcing Methode ist, die erstmals von [] verwendet und in [] beschrieben wird.
-Betrachten wir zunächst den diskretisierten Zeitschritt
-\begin{align}
-    \frac{\vec{u}^{n+1} -\vec{u}^n}{\Delta t} = \mathscr{L} + \vec{f}\\
-\end{align}
-wobei $\mathscr{L}$ den diskretiesierten Operatoren der PDE entspricht.
-Für einen Punkt auf dem Rand des Volumens soll nun die Randbedingung $\vec{u}^{n+1} = \vec{u}_0$ eingehalten werden.
-Mit Formel () folgt
-\begin{align}
-    \frac{\vec{u}_0 -\vec{u}^n}{\Delta t} = \mathscr{L} + \vec{f} \Rightarrow \vec{f} = \frac{\vec{u}_0 -\vec{u}^n}{\Delta t\cdot \mathscr{L}}\\
-\end{align}
-
-Mit der Annahme dass der Rand mit dem numerischen Gitter übereinstimmt ist es nicht nötig den Kraftterm zur berechnen, stattdessen lässt sich der
-Schritt vereinfachen in dem der Randwert nach  jedem Zeitschritt direkt auf die gewünschte Randbedingung gesetzt wird. Durch die
-implizite Behandlung kommt es zu keiner weiter Stabilitätsbedingung.
-Analog zur Volume-Penalization Methode wurde eine Serie von Simulationen für eine planare Poiseuille-Strömung durchgeführt.
-Das Setup enstpricht dem gleichen wie in Abschnitt (X), lediglich das Verfahren wurde entsprechend angepasst und es wurden finite Differenzen Verfahren zweiter und
-vierter Ordnung getestet.
-In Abbildung () ist der relative Fehler, im Vergleich zur Volume Penalization  Methode mit $\nu=1e-4$ dargestellt.
-Für das Verfahren vierter Ordnung liegt der Fehler im Bereich von 1\% und ist im Mittel doppelt so groß wie für die Volume-Penalization Methode.
-Der Fehler für das Verfahren zweiter Ordnung verschwindet hingegen nahezu.
-Das Verhalten lässt sich durch die Verwendung unterschliedlicher Schablonen, wie in Abb() dargestellt,  der finiten differenzen Verfahren erklären.
-Während das Verfahren zweiter Ordnung nur den Randpunkt sieht, liegt bei der vierten Ordnung ein Punkt innerhalb des Randes.
-Da auch dieser Wert auf Null gesetzt wird, kommt es zu einem fehler in der Berechnung von $\nabla u$.
-
-\begin{figure}[!tpb]
-  \centering
-Die Volume-Penalization Methode ermöglicht es, durch einen Kraftterm der auf die einzelnen Fluidzellen wirkt, mit wenig Aufwand Noslip-Ränder zu implementieren.
-Das Verfahren wurde in mehreren Publikationen z.B. [bla] erfolgreich verwendet, eine mathematisch exaktere Abhandlung lässt sich z.B. in [bla2] finden.
-
-\begin{wrapfigure}{r}{0.5\textwidth}
-  \begin{center}
-  \includegraphics[width=0.5\textwidth]{gfx/immersed_boundary/mask.png}\label{fig:mask_vp}
-  \includegraphics[width=0.5\textwidth]{gfx/immersed_boundary/mask.png}\label{fig:mask_vp}
-  \end{center}
-  \caption{Maskierungsfunktion $H(x,y,z=const.) = x^2 + y^2 < c$ für einen Zylinder. }
-\end{wrapfigure}
-
-Das Volumen wird zunächst in einen Fluidbereich und einen festen Wandbereich, wie in Abb.1 dargestellt, unterteilt. Für die Differenzierung der Bereiche während der Simulation wird  eine Maskierungsfunktion
-\begin{align}
-H(x, y, z) = \begin{cases}
-                    0, & \text{für } \vec{x}(x,y,z) \in Fluid, \\
-                    1, & \text{sonst}.
-             \end{cases}
-\end{align}
-verwendet. Als zusätzlicher Kraftterm wird nun eine exponentielle Dämpfung eingeführt die nur auf den Wandbereich des Volumens wirkt.
-\begin{align}
-\vec{f} = \frac{H(x, y, z)}{\nu}(\vec{v} - \vec{v_0})
-\end{align}
-Bei $\vec{v_0}$ handelt es sich um die gewünschte Randbedingung, der Kraftterm ist also proportional zur Auslenkung $\vec{v}$ eines Punktes vom gewünschten Ruhezustand.
-Die Antwort des Kraftterms wird durch die Dämpfungrate $\nu$ reguliert. Je kleiner $\nu$ desto stärker ist die Dämpfungsrate, allerdings kann der Term
-nicht beliebig klein gesetzt werden da die Stabilität für $\nu < dt$ nicht mehr gewährleistet ist [source].
-Da für die Lösung der der Geschwindingskeitsfelder mit der Methode der künstliche Kompressibilität  bereits ein sehr kleiner Zeitschritt verwendet wird (s.Abb. X)
-kann im Vergleich zu anderen Verfahren wie z.B. (pseudo-spektrale) eine relativ starke Dämpfungsrate verwendet werden.
-
-\subsubsection{Validierung mit MASA}
--validierung mit masa für alle verfahren oben.. cube /evtl zylinder?
--vegl. und argumentation ränder ehh auf null.
--ein beispiel mit vol.pen.
-
-  \includegraphics[width=0.6\textwidth]{gfx/immersed_boundary/dfo2o4.png}\label{fig:df_o2o4}
-  \caption{bla}
-\end{figure}
-
--Zeitserie
-
--einleitung gekrümmte geometrien
-
-\subsection{Direct Forcing mit Volume Fraction}
--paper quote formeln
--implementierung beispiel
-
-\section{Direct Forcing mit Interpolation}
--paper quote formeln
--implementierung beispiel
-
-\section{Methoden-Vergleich und numerische Validierung}
-In diesem Abschnitt sollen die verschiedenen Methoden über numerische Testfälle validiert und miteinnander
-verglichen werden.
-
-
-\subsubsection{Poiseuille Strömung im Zylinder}
-
-\subsubsection{Zusammenfassung}
-
-
-\subsection{No-Flux-Boundaries}
-
-\subsubsection{'Variable Konduktivität'}
-
-
-
-
-
-
-
-
-
 

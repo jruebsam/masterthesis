@@ -20,7 +20,7 @@ def main():
     with open('data/vp_o4hd/l2rel.pkl', 'rb') as f:
         l2rel =  pickle.load(f)
 
-    f, (ax1, ax2) = plt.subplots(1, 2, figsize=(12*0.5,5*0.5))
+    f, (ax1, ax2) = plt.subplots(1, 2, figsize=style.figsize(0.9))#(12*0.5,5*0.5))
 
     plot_l2(ax1, l2abs, 1)
     plot_l2(ax2, l2rel, 2)

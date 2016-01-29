@@ -21,34 +21,36 @@ def fd_o4(x, dx):
 def main():
     dpath = '/home/upgp/jruebsam/finaldata/noslip_validation/poiseuille_flow/2_vp/'
 
+    f = plt.figure(figsize=style.figsize(0.4))
+    ax = f.add_subplot(111)
+    n, l2rel, l2abs = np.load(os.path.join(dpath, 'o2_out.npy')).T
+    ax.plot(n, l2rel,'o--',  label='o2')
+    n, l2rel, l2abs = np.load(os.path.join(dpath, 'o4_out.npy')).T
+    ax.plot(n, l2rel,'o--',  label='o4')
+    ax.set_xscale('log')
+    ax.set_yscale('log')
+    ax.set_xlabel('TODO->')
+    ax.set_ylabel('$l_2$-relative error')
+
+    """
     o2_prof = np.load(os.path.join(dpath, 'profile_o2.npy'))
     o4_prof = np.load(os.path.join(dpath, 'profile_o4.npy'))
     th_prof = np.load(os.path.join(dpath, 'profile_th.npy'))
 
-    f = plt.figure(figsize=style.figsize(0.8))
-    ax = f.add_subplot(121)
-    ax2 = f.add_subplot(222)
-    ax3 = f.add_subplot(224)
-    ##AX3
+
+    ax1 = f.add_subplot(222)
+    ax2 = f.add_subplot(224)
+
+    #AX1
     z, vx = o2_prof.T
+    z2, vx2 = o4_prof.T
     N = 64
     dx = 1/(N-1.)
-    zl = np.linspace(-1, 0, 64)
-    zr = np.linspace(1, 2, 64)
 
-    nl = np.zeros(N-1)
-
-    #zn = np.hstack((zl[:-1], z, zr[1:]))
-    #vn = np.hstack((nl, vx, nl))
-
-    zn, vn = z, vx
-
-    ax3.plot(zn[1:-1], fd_o2(vn, dx), 'bo--')
-    ax3.plot(zn[2:-2], fd_o4(vn, dx), 'go--')
-    #ax3.plot(zn, vn, 'bo--')
-
-    ax3.set_xlim(-0.1, 0.2)
-    ax3.set_ylim(-1, 10)
+    ax1.plot(z, vx, 'go--')
+    ax1.plot(z2, vx2, 'yo--')
+    ax1.set_xlim(0-dx*2, 0+dx*2)
+    ax1.set_ylim(-1, 1)
 
     ##AX2
     ps = [o2_prof, o4_prof, th_prof]
@@ -58,17 +60,18 @@ def main():
     for profile, m in zip(ps, mss):
         z, vx = profile.T
 
-        ax2.plot(z, vx, m, ms=4, mew=0, lw=1)
+        ax2.plot(z, vx, m, ms=4, mew=0, lw=4)
 
     ax2.set_xlabel(r'z')
     ax2.set_ylabel(r'Velocity $v_x$')
     ax2.set_xlim(-0.1, 0.2)
     ax2.set_ylim(-1, 10)
+    """
 
     plt.grid()
-    plt.tight_layout()
-    plt.show()
-    #style.savefig('vp_convergence')
+    #plt.tight_layout()
+    #plt.show()
+    plt.savefig('vp_convergence.pdf')
 
 if __name__=='__main__':
     main()
