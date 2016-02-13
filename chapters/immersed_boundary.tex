@@ -188,7 +188,7 @@ With the given theoretical solution, the next objective is the comparison
 to the default implementation, the volume penalization method and the direct forcing method.
 Since we have a flow parallel to the grid  it does not make sence to compare it to the interpolation methods
 For the comparision with a theoretical solution it is necessary to ensure that the surface grid points match with the total height $h$ of the channel.
-In the default setup the noslip-boundaries are realized with the default implementation, like explained in section ().
+In the default setup tes gibthe noslip-boundaries are realized with the default implementation, like explained in section ().
 For the immersed boundary methdos the upper- and lower boundaries are given by the masking function.
 \begin{align}
 H(x, y, z) = \begin{cases}
@@ -216,31 +216,26 @@ For the finite difference scheme of second order, the error behaves not as assum
 Instead of the decline one would expect with the decrease of the resolution, the  error is nearly constant.
 This behaviour can be explained due to the lack of complexity of the test case. As the theoretical solution is a polynom of second order
 no higher order terms will occur in the numerical solution, hence the second order scheme is capable of a perfect approximation, independent of the
-grid resolution. The remaining error terms, are of the order $10e^{-8}$, which is extremly small and occurs due to the floating point roundoff.
+grid resolution. The remaining error terms, are of the order $10e^{-8}$, which is extremly small and occur due to the floating point round off.
 With this in mind the behavior of the fourth-order scheme is even more unexpected.
 We see a linear decrease of the error on the log scale.
-The result of a power/poly?  fit yields a convergence rate of order $\approx 2$.
-Furthermore the error is much larger compared to the second order scheme, between $10e^{-2}$ and $10e^{-5}$.
+The result of a power law fit yields a convergence rate of second order.
+Furthermore the error is much larger compared to the second order scheme, there is a decrease from $10e^{-2}$ to $10e^{-5}$.
 The test case reveals that an error exists in the default implementation of the boundarie conditions.
 An explanation can be given with comparison of the theoretical solution. The laplace operator is given by
  $ \nu \pdn[^2 v_x]{x^2} = 2A = \frac{1}{\nu}\pdn[p]{x}$
 Using the mirroring method creates a discontinuous function at the boundaries, since the laplace operator changes the sign.
 When using the second order method the tree-point-stencil evaluates to the correct value $\pdn[^2 v_x]{x^2} = 1$.
 The five-point-stencil of the fourth orderer scheme evaluates to $\pdn[^2 v_x]{x^2} = 1$, since it uses one point behind the boundary.
-As a result the discontinuity creates an error in the higher order scheme.
+As a result the discontinuity creates an error in the higher order scheme.\\
+For this testcase the second order method yields better results, however we
+have to keep in mind that the testcase yields a polynomial solution,
+it is not clear how the results will end up for a complex testcase.
+Furthermore in this testcase the boundaries have a large impact since the pressure gradient is parallel to wall,
+his is not the case in general.
+One possibility to avoid this error, would be to use an asymmetrich stencil, this approach is discussed in section ().
 
-However we have to keep in mind that this test case is strongly dependent of the boundarie condition,
-which is responsible for damping the flow on the sides of the channel and therefore for the overall velocity profile.
-In general we can't say that the fourth order scheme is inferior, it depends how large of an impact
-the boundaries have to the fluid problem.
-For a problem where teh boundarie is not htat import  blabla.
-We have to keep in mind that the error for an acceptable resolution is around (), which is still small(how small?).
-One possibility to avoid this error, would be to use an asymmetrich stencil, for example see [].
-This could also lead to computational overhead due to gpu blabla.
-
-
-
-\begin{figure}[!hbtp]
+\begin{figure}[!b]
   \centering
   \includegraphics{gfx/immersed_boundary/poiseuille_flow/2_vp/vp_profile.pdf}\label{fig:vp_flow}
   \caption{Geschwindigkeistprofile im Kanal bei Variation der Dämpfungskonstante $\nu$ und Reynoldszahl $Re=500$.}
@@ -249,32 +244,40 @@ This could also lead to computational overhead due to gpu blabla.
 \subsubsection{Test of the Volume Penalization Method}
 
 The next objective is to investigate the error of the volume penalization method.
-We begin by studying the behavior of the velocity profile, with variation of the Reynolds-number and the damping parameter $\nu$, in the regime $Re=100-500$ and $\nu=100-100$.
+We begin by studying the behavior of the velocity profile, with variation of the Reynolds-number and the damping parameter $\nu$, in the regime $Re=100-500$ and $\nu=1e-5 - 5e-1$.
 The numerical setup is equal to the one for the default methods, except we now introduce the masking function (LABELABOVE) with $h_1=0.25$ and $h_2=0.75$.
 To make sure that the channel width is equal to $\Delta h = 1$, the total height was set to $l_z\approx2.01587$. This furthermore ensures that the grid points overlap exactly
 with the masking function at $h_1$ and $h_2$. The resolution was set to $N_x\times N_y\times N_z = 64\times16\times128$.\\
-The resulting velocity profile is exemplarily shown in figure \ref{fig:vp_flow}, for varying $\nu$ and a constant reynolds number $Re=500$.\\
+The resulting velocity profile is exemplarily shown in figure \ref{fig:vp_flow}, for varying $\nu$ and a constant reynolds number $Re=500$, for the second order scheme.\\
 It can be noted that with an decrease of $\nu$, the numerical solution converges against the theoretical one.
 The quadratic part of the velocity profile inside the fluid domain is independent of the damping constant $\nu$.
 Since the damping can not fullfill the exact boundarie conditions, a slight offset is introduced into the velocity profile
 which leads to an offset in the solution.
 In the masked area of the volume we can see an exponential decrease of the total velocity.
-REWRITE THIS This is logical result since the penalization term, leads to an exponential damped solution like discussed in section ().\\
-For an error estimation, the absolute and relative $l_2$-error were computed inside the fluid domain,
-The results are shown in figure \ref{fig:vp_error}.
+Since for the steady state
 
-\begin{figure}[!bpt]
+\begin{align}
+ \nu v &= - \nu \frac{\partial^2 v_x}{\partial z^2}  \Rightarrow  v_x = A e^{\sqrt{\kappa v}}
+\end{align}
+where A is given by the offset $v(h_1)$.\\
+For an error estimation, the $l_2$-error was computed.
+The results for the second order scheme are shown in figure \ref{fig:vp_error}.
+
+\begin{figure}[!b]
   \centering
   \includegraphics{gfx/immersed_boundary/poiseuille_flow/2_vp/vp_error.pdf}\label{fig:vp_error}
-  \caption{Absoluter und relativer Fehler in Abhängigkeit von Dämpfungskonsante $\nu$ und Reynoldszahl $Re$.}
+  \caption{Relative $l_2$-error for variable damping rate $\nu$ and reynolds-number $Re$.}
 \end{figure}
 
-- for both error we can see a decrease until $\nu=1e-4$, followed by a slight increase as one can see in the inset
-- what kind of decrease ?
-- the behaviour will be clarified in the following grid convergence study
-- the absolute error is growing with a decrease in the reynoldsnumber for $\nu>5\cdot10^{-3}$.
-- this is as expected since the stress on the wall is larger, in the area
+The error decreases together with the damping rate from $1e-0$ to $1e-4$. Furthermore we can see a decrease of the error of one order
+with an increase in the reynolds number.
+For $nu<1e-3$ and a constant reynolds number we can observe an almost linear decrease in the logarithmic space,
+this yiels a fit law of the form $ e = ax^b$. This shows that the error of this penalization method converges with first order in dependence of $\nu$.
+The decrease for $nu>=1e-3$ can be explained by having a look at figure \ref{fig:vp_flow} again. Since the damping in the masking area is to
+weak the flow sees the real boundaries of the fluid domains, which results in a stronger damping on the flow.
+This is not the case for $nu<1e-3$ since the velocities reaches zero before reaching the boundarie.
 
+The error for the fourth order scheme is yiels
 
 
 
