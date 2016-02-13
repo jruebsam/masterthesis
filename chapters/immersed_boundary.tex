@@ -201,7 +201,7 @@ H(x, y, z) = \begin{cases}
 
 \begin{figure}[!bp]
     \centering
-    \includegraphics{gfx/immersed_boundary/1_default/relative_l2error.pdf}
+    \includegraphics{gfx/immersed_boundary/poiseuille_flow/1_default/relative_l2error.pdf}
     \caption{Relative $l_2$-error for second and fourth order schemes of the default algorithm.\label{fig:ema1}}
 \end{figure}
 
@@ -242,7 +242,7 @@ This could also lead to computational overhead due to gpu blabla.
 
 \begin{figure}[!hbtp]
   \centering
-  \includegraphics{gfx/immersed_boundary/2_vp/vp_profile.pdf}\label{fig:vp_flow}
+  \includegraphics{gfx/immersed_boundary/poiseuille_flow/2_vp/vp_profile.pdf}\label{fig:vp_flow}
   \caption{Geschwindigkeistprofile im Kanal bei Variation der Dämpfungskonstante $\nu$ und Reynoldszahl $Re=500$.}
 \end{figure}
 
@@ -265,7 +265,7 @@ The results are shown in figure \ref{fig:vp_error}.
 
 \begin{figure}[!bpt]
   \centering
-  \includegraphics{gfx/immersed_boundary/2_vp/vp_error.pdf}\label{fig:vp_error}
+  \includegraphics{gfx/immersed_boundary/poiseuille_flow/2_vp/vp_error.pdf}\label{fig:vp_error}
   \caption{Absoluter und relativer Fehler in Abhängigkeit von Dämpfungskonsante $\nu$ und Reynoldszahl $Re$.}
 \end{figure}
 
@@ -288,13 +288,10 @@ Der relative Fehler fällt bei $\nu=1e-4=10\Delta t$ auf unter 1\%, wodurch dies
 -todo: fluktuation im rand bei vp?
 
 -grid convergence study o2 and o4
-\begin{figure}%
-    \centering
-    \subfloat[label 1]{{\includegraphics{gfx/immersed_boundary/2_vp/vp_convergence.pdf} }}%
-    \qquad
-    \subfloat[label 2]{{\includegraphics{gfx/immersed_boundary/2_vp/vp_convergence.pdf} }}%
-    \caption{2 Figures side by side}%
-    \label{fig:example}%
+\begin{figure}[!bpt]
+  \centering
+  \includegraphics{gfx/immersed_boundary/poiseuille_flow/2_vp/vp_convergence.pdf}\label{fig:vp_conv}
+  \caption{Absoluter und relativer Fehler in Abhängigkeit von Dämpfungskonsante $\nu$ und Reynoldszahl $Re$.}
 \end{figure}
 
 
