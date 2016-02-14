@@ -310,12 +310,12 @@ The error increases since for a lower resolution, the velocity profile is closer
   \end{minipage}%
   \begin{minipage}[b]{0.50\textwidth}
     \centering%
-   \begin{tabular}[b]{cccc}\hline
-      Method & Order $n$&  $\Delta_n v_x(B)$ & $\Delta_n v_x(R1)$ \\ \hline
-      Vp & 2 & 0 &  1 \\
-      Vp & 4 & 0 &  1 \\
-      Df & 2 & 0 &  1 \\
-      Df & 4 & 0 &  1 \\ \hline
+   \begin{tabular}[b]{ccccc}\hline
+      Method & Order $n$&  $\Delta_n v_x(B)$ & $\Delta_n v_x(R1) $ \\ \hline
+        Vp. & 2 & 27.4991 & -0.999827\\
+        Vp. & 4 & 3.05024 & 27.4991\\
+        Df. & 2 &   \small{a} & -1.0\\
+        Df. & 4 &   \footnote{No influence since point is set to zero.\label{note_grid_vp}}   & 31.0\\ \hline
     \end{tabular}
     \par\vspace{0pt}
   \end{minipage}
@@ -324,18 +324,13 @@ The error increases since for a lower resolution, the velocity profile is closer
 \label{fig:test}
 \end{figure}
 
-
-The error does not converge towards zero, which means there has to be some discrepancy to the theoretical solution.
-For a constant $\nu$ there is an offset to the theoretical solution, which we allready saw in figure (REF).
-Hence by increasing the resolution the numerical solution converges towards the wrong solution.
-The error increases since for a lower resolution, the velocity profile is closer to the assumed theoretical.
-
-
-
-
-The theoretical
--theoretical solution ...
-
+The explanation for the fourth order convergence has again to do with the discretization error at the boundary.
+Figure () shows schematically the velocity profiles for the volume penalizaton method compared to the theoretical.
+Due to the different  profiles, the numerical evaluation of the laplace operator results
+into different friction rates for the border point \textbf(B), but  also for the first next neighboor in the fluid domain \textbf(R1) when fourth order schemes are used.
+Table () compares the computation of the operator for different methods, as a velocity profile  the steady states from previously carried out simulations were used.
+As we can see for the volume penalization method the second order creates a large error on the boundary however the influence is small compared to the damping force $\nu$.
+For the fourth order scheme at the point R1 the laplacian is evaluated to $\approx 27.5$ which means that there is some error in this evaluation ... damn.
 
 
 \subsection{Direct Forcing Methode}
