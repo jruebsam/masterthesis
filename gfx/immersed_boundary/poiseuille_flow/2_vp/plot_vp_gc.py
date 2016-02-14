@@ -14,7 +14,7 @@ def flow(x, pr, h1, h2, pmax):
     return -1/(2*pr)*pmax*(x**2 - x*(h1 + h2) + h1*h2)
 
 def main():
-    f = plt.figure(figsize=style.figsize(0.8))
+    f = plt.figure(figsize=style.figsize(0.9))
 
     plot_dir = os.getcwd()
     cdir = '/home/upgp/jruebsam/simulations/feb16/week2/3_vp_gc/'
@@ -94,9 +94,9 @@ def main():
         plt.plot(res, l2rel, mark, color = gen.next(), label = r'$\nu = {}$'.format(nu) , mew=0, ms=3, lw=0.5)
 
     os.chdir(plot_dir)
-    plt.subplots_adjust(right=0.8, bottom=0.15)
+    plt.subplots_adjust(right=0.84, bottom=0.15)
     plt.legend(loc='center left', bbox_to_anchor=(1, 0.5),
-                      ncol=1, fancybox=True, shadow=True, fontsize=5)
+                      ncol=1, fancybox=True, shadow=True, fontsize=7)
     plt.yscale('log')
     plt.xscale('log')
     plt.xlabel('Gridpoints N')

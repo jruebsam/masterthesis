@@ -65,7 +65,7 @@ def main():
 
         os.chdir(cdir)
     os.chdir(plot_path)
-    f, ax = style.newfig(0.8)
+    f, ax = style.newfig(0.9)
 
     allnus = sorted(list(set(list(nus))))
     allres = sorted(list(set(list(res))))
@@ -105,9 +105,9 @@ def main():
     plt.xlabel(r'Damping $\nu$')
     plt.ylabel('$l_2$-rel. error')
     plt.xlim(0.8*1e-5, 1e0)
-    plt.subplots_adjust(right=0.85, bottom=0.13)
+    plt.subplots_adjust(right=0.84, bottom=0.13)
     plt.legend(loc='center left', bbox_to_anchor=(1, 0.5),
-                      ncol=1, fancybox=True, shadow=True, fontsize=5)
+                      ncol=1, fancybox=True, shadow=True, fontsize=7)
 
 
     plt.savefig('vp_error.pdf')
