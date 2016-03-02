@@ -18,7 +18,7 @@ def flow(x, pr, h1, h2, pmax):
     return -1/(2*pr)*pmax*(x**2 - x*(h1 + h2) + h1*h2)
 
 def main():
-    dpath = '/home/upgp/jruebsam/simulations/feb16/week2/1_default/'
+    dpath = '/home/upgp/jruebsam/simulations/feb16/week4/1_default/'
     pmax, h1, h2, re = 10., 0, 1, 500
     pr = np.sqrt(0.125*pmax/re)
     paths = ['data/o2', 'data/o4']
@@ -41,7 +41,7 @@ def main():
                 vx = d.root.simdata.vx[-1, 8,8,:]
             try:
                 z = np.linspace(0, 1, len(vx))
-                thflow = flow(z, pr, 0, 1, pmax)
+                thflow = -4*(z**2 - z)
 
                 l2error = pa.l2_error(vx, exact=thflow)
                 l2errorabs = pa.l2_error_abs(vx, exact=thflow)
@@ -55,6 +55,7 @@ def main():
         l2rel, l2abs, res = np.array(l2rel), np.array(l2abs), np.array(res)
         #np.save(path, np.column_stack((res, l2rel, l2abs)))
         ax.plot(res, l2rel, '^--',  label=order)
+
 
         if order == 'o4':
             fitfunc = lambda p, x: p[0]*x**p[1]

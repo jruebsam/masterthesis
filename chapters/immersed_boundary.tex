@@ -148,17 +148,27 @@ No other forces are present furthermore the flow will be independent of the y co
 hence for the steady state $\partial v_x /\partial t = 0$ the equations of motion can be reduced to:
 
 \begin{align}
-\frac{\partial v_x}{\partial t} &= - \frac{\partial p}{\partial x} + \nu \frac{\partial^2 v_x}{\partial z^2} = 0
+\frac{\partial v}{\partial t} &= - \frac{\partial p}{\partial x} + \nu \frac{\partial^2 v_x}{\partial z^2} = 0
 \end{align}
 
+where v is the velocity in x direction.
+For the non-dimenzionalization we choose $r^* = r/L$, $v^*=v/L$, $t^* = \frac{V}{L}$ and $p^* = p \rho V^2$ where $L=\Delta h$ and $V=v_{max}$.
+The non-dimensional equation reads
+
+\begin{align}
+\frac{\partial v}{\partial t} &= - \frac{\partial p}{\partial x} + \frac{1}{Re} \frac{\partial^2 v_x}{\partial z^2} = 0
+\end{align}
+
+with $Re = VL/\nu$.
+For the volume penalization method we furthermore obtain a non-dimensional damping force $-\frac{H}{J}\cdot v$ with $J = VL/\eta$.
 The equation can simply be integrated twice which yields the solution
 
 \begin{align}
-v_x &= \frac{1}{2\nu}\frac{\partial p}{\partial x}z^2 + zc_1 + c_2
+v &= \frac{1}{2}\frac{\partial p}{\partial x}z^2 + zc_1 + c_2
 \end{align}
 
 Using the noslip-boundary condition $v_x(h_1) = v_x(h_2) = 0$ and furthermore by defining
-$A:=\frac{1}{2\nu}\frac{\partial p}{\partial x}$ one obtains the additional conditions
+$A:=\frac{1}{2}\frac{\partial p}{\partial x} Re$ one obtains the additional conditions
 
 \begin{align}
 c_1 &= A\frac{h_1^2 -h_2^2}{h_2 - h_1} = -A(h_1+h_2)\\
@@ -177,13 +187,13 @@ The maximum velocity and postinon can be obtained by simple calculus
 z_{max} &= \frac{h_1+h_2}{2} \wedge v_{max} = A\left(h_1h_2 - \frac{(h_1 + h_2)^2}{4}\right)
 \end{align}
 
-and the reynolds number of the system is given by
+Since $v_{max}$ has to be 1 by definition of the non-dimensionalzation we find
+
 \begin{align}
-    Re &= \frac{v_{max} }{\nu} = \frac{1}{2\nu^2}\pdn[p]{x}\left(h_1h_2 - \frac{(h_1 + h_2)^2}{4}\right)
+\frac{\partial p}{\partial x} &= \frac{2}{Re}\frac{1}{\left(h_1h_2 - \frac{(h_1+h_2)^2}{4} \right)}
 \end{align}
 
-
-
+as a necessary condition for the pressure gradient.\\
 With the given theoretical solution, the next objective is the comparison
 to the default implementation, the volume penalization method and the direct forcing method.
 Since we have a flow parallel to the grid  it does not make sence to compare it to the interpolation methods
@@ -244,7 +254,14 @@ One possibility to avoid this error, would be to use an asymmetrich stencil, thi
 \subsubsection{Test of the Volume Penalization Method}
 
 The next objective is to investigate the error of the volume penalization method.
-We begin by studying the behavior of the velocity profile, with variation of the Reynolds-number and the damping parameter $\nu$, in the regime $Re=100-500$ and $\nu=1e-5 - 5e-1$.
+For this method the additional forcing term REFHERE is introduced into the equations. The non-dimenzionalzation leads to the form
+\begin{align}
+    \vec{f} = \frac{H}{J}v
+\end{align}
+
+with the quantity $J = 123$ as a non-dimensional forcing parameter.
+(MACH NUBMER DISCUSSION HERE) \\
+We begin by studying the behavior of the velocity profile, with variation of the Reynolds-number and the damping $J$, in the regime $Re=100-500$ and $\nu=1e-4 - 5e-1$.
 The numerical setup is equal to the one for the default methods, except we now introduce the masking function (LABELABOVE) with $h_1=0.25$ and $h_2=0.75$.
 To make sure that the channel width is equal to $\Delta h = 1$, the total height was set to $l_z\approx2.01587$. This furthermore ensures that the grid points overlap exactly
 with the masking function at $h_1$ and $h_2$. The resolution was set to $N_x\times N_y\times N_z = 64\times16\times128$.

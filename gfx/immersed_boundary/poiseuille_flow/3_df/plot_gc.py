@@ -16,12 +16,12 @@ cmap = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#
 from cycler import cycler
 plt.rc('axes', prop_cycle=(cycler('color', cmap)))
 
-def flow(x, pr, h1, h2, pmax):
-    return -1/(2*pr)*pmax*(x**2 - x*(h1 + h2) + h1*h2)
+def flow(x, h1, h2):
+    return -4*(x**2 - x*(h1 + h2) + h1*h2)
 
 def main():
     plot_dir = os.getcwd()
-    cdir = '/home/upgp/jruebsam/simulations/feb16/week2/4_df_gc/'
+    cdir = '/home/upgp/jruebsam/simulations/feb16/week4/4_df_gc/'
     os.chdir(cdir)
 
     marker = itertools.cycle(('^', '*', 'x', 'o', 'D'))
@@ -49,16 +49,20 @@ def main():
             vx = vx[l:l+rs]
             z = np.linspace(0, 1, len(vx))
 
-            try:
-                thflow = flow(z, pr, 0, 1, pmax)
-                l2error = pa.l2_error(vx, exact=thflow)
-                l2errorabs = pa.l2_error_abs(vx, exact=thflow)
+            thflow = flow(z, 0, 1)
 
-                l2rel.append(l2error)
-                l2abs.append(l2errorabs)
-                res.append(rs)
-            except:
-                pass
+            """
+            plt.plot(thflow, 'r:')
+            plt.plot(vx, 'bo-')
+            plt.show()
+            """
+
+            l2error = pa.l2_error(vx, exact=thflow)
+            l2errorabs = pa.l2_error_abs(vx, exact=thflow)
+
+            l2rel.append(l2error)
+            l2abs.append(l2errorabs)
+            res.append(rs)
             os.chdir(cp)
 
         l2rel, l2abs, res = np.array(l2rel), np.array(l2abs), np.array(res)
