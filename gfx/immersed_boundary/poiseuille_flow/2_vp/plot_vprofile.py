@@ -9,8 +9,8 @@ import os
 import matplotlib.colors as colors
 import matplotlib.cm as cmx
 
-def tflow(x, pr, h1, h2, pmax):
-    return -1/(2*pr)*pmax*(x**2 - x*(h1 + h2) + h1*h2)
+def tflow(x,  h1, h2):
+    return -4*(x**2 - x*(h1 + h2) + h1*h2)
 
 def re2pr(re, pmax, h1, h2):
         return np.sqrt(-1/(2*re)*pmax*(h1*h2 - 0.25*(h1 + h2)**2))
@@ -18,7 +18,7 @@ def re2pr(re, pmax, h1, h2):
 def main():
     plot_path = os.getcwd()
 
-    dpath = '/home/upgp/jruebsam/simulations/feb16/week2/2_vp_error_nu_re/'
+    dpath = '/home/upgp/jruebsam/simulations/feb16/week4/2_vp_error_nu_re/'
     os.chdir(dpath)
 
     paths = sorted(glob('data/*/*o2*'), key=lambda x: float((x.split('/')[1]).split('_')[-1]))
@@ -64,7 +64,7 @@ def main():
     h1 = (32/127.)*2
     h2 = 2 - h1
     pr = re2pr(re, 10, h1, h2)
-    flow=tflow(z, pr,h1,h2, 10)
+    flow=tflow(z, h1, h2)
     b = flow>-5
     ax.plot(z[b], flow[b], 'k--', label=r'theorie')
 
@@ -72,7 +72,7 @@ def main():
     ax.set_ylabel('Geschwindigkeit v')
 
     ax.set_xlim(0, 2)
-    ax.set_ylim(-3, 22)
+    ax.set_ylim(-0.5, 2)
 
     ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     plt.grid()
