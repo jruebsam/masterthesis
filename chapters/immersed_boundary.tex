@@ -376,3 +376,17 @@ with the condition
 to satisfie $v_{max} = 1$.
 
 
+\begin{align}
+ \nu v &= D \frac{\partial^2 v_x}{\partial z^2}  \Rightarrow  v_x = A e^{\sqrt{\frac{\nu}{D}}v_x}
+\end{align}
+\begin{figure}%
+    \centering
+    \subfloat[label 1]{{
+      \includegraphics{gfx/immersed_boundary/poiseuille_flow/4_sine/relative_l2error.pdf}\label{fig:mask_vp}
+        }}%
+    \qquad
+    \subfloat[label 2]{{
+      \includegraphics{gfx/immersed_boundary/poiseuille_flow/4_sine/relative_l2error_methods.pdf}\label{fig:mask_vp}
+        }}%
+    \label{fig:example}%
+\end{figure}
