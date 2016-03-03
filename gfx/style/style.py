@@ -26,8 +26,10 @@ def figsize(scale):
     fig_size = [fig_width,fig_height]
     return fig_size
 
-def newfig(width):
-    fig = plt.figure(figsize=figsize(width))
+def newfig(width, hscale=1.):
+    w, h =figsize(width)
+    h*=hscale
+    fig = plt.figure(figsize=(w, h))
     ax = fig.add_subplot(111)
     return fig, ax
 

@@ -287,11 +287,6 @@ The results for the second order scheme are shown in figure \ref{fig:vp_error}.
   \caption{Relative $l_2$-error for variable damping rate $\nu$ and reynolds-number $Re$.}
 \end{figure}
 
-\begin{figure}[!b]
-  \centering
-  \includegraphics{gfx/immersed_boundary/poiseuille_flow/2_vp/vp_convergence.pdf}\label{fig:vp_conv}
-  \caption{Absoluter und relativer Fehler in Abhängigkeit von Dämpfungskonsante $\nu$ und Reynoldszahl $Re$.}
-\end{figure}
 
 The error decreases together with the damping rate from $1e-0$ to $1e-4$. For $nu<1e-3$ and a constant reynolds number we can observe an almost linear decrease in the logarithmic space,
 this yiels a fit law of the form $ e = ax^b$. This shows that the error of this penalization method converges with first order in dependence of $\nu$.
@@ -308,6 +303,12 @@ Finally a grid convergence study was carried out, with a constant Reynolds numbe
 The resolution was varied between $N\in [4, 400]$ with $\Delta N = 4$, second and fourth order schemes were tested.
 For the correct solution the theoretical velocity profile (REF) was assumed.
 The results are shown in figure().
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics{gfx/immersed_boundary/poiseuille_flow/2_vp/vp_convergence.pdf}\label{fig:vp_conv}
+  \caption{Absoluter und relativer Fehler in Abhängigkeit von Dämpfungskonsante $\nu$ und Reynoldszahl $Re$.}
+\end{figure}
 One can observe again that a decrease in $\nu$  yields a smaller error.
 For the second order scheme we can see that with an increase in the resolution, the error increases and finally converges against a constant value.
 Even more confusing is the behaviour for the fourth order scheme.
@@ -317,38 +318,61 @@ An explanation of this behaviour can by given by revising the theoretical soluti
 The error does not converge towards zero, which means there has to be some discrepancy to the theoretical solution.
 For a constant $\nu$ there is an offset to the theoretical solution, which we allready saw in figure (REF).
 Hence by increasing the resolution the numerical solution converges towards the wrong solution.
-The error increases since for a lower resolution, the velocity profile is closer to the assumed theoretical.
+The error increases since for a lower resolution, the velocity profile is closer to the assumed theoretical for the second order method.
 
-\begin{figure}[bp]
-  \begin{minipage}[b]{0.50\textwidth}
+\begin{align}
+ \nu v &= D \frac{\partial^2 v_x}{\partial z^2}  \Rightarrow  v_x = A e^{\sqrt{\frac{\nu}{D}}v_x}
+\end{align}
+\begin{figure}%
     \centering
-      \includegraphics{gfx/immersed_boundary/poiseuille_flow/2_vp/stencil.pdf}\label{fig:mask_vp}
-    \par\vspace{0pt}
-  \end{minipage}%
-  \begin{minipage}[b]{0.50\textwidth}
-    \centering%
-   \begin{tabular}[b]{ccccc}\hline
-      Method & Order $n$&  $\Delta_n v_x(B)$ & $\Delta_n v_x(R1) $ \\ \hline
-        Vp. & 2 & 27.4991 & -0.999827\\
-        Vp. & 4 & 3.05024 & 27.4991\\
-        Df. & 2 &   \small{a} & -1.0\\
-        Df. & 4 &   \footnote{No influence since point is set to zero.\label{note_grid_vp}}   & 31.0\\ \hline
-    \end{tabular}
-    \par\vspace{0pt}
-  \end{minipage}
-    \caption{Schematic velocity profile at the boundary point(B), in the fluid (R1, R2) and in the boundary (L1, L2).
-    and Numerical evaluation of the laplacian at B and R1 for different fd-schemes.}
-\label{fig:test}
+    \subfloat[label 1]{{
+      \includegraphics{gfx/immersed_boundary/poiseuille_flow/extra/stencil.pdf}\label{fig:mask_vp}
+        }}%
+    \qquad
+    \subfloat[label 2]{{
+      \includegraphics{gfx/immersed_boundary/poiseuille_flow/3_df/relative_l2error.pdf}\label{fig:mask_vp}
+        }}%
+    \label{fig:example}%
 \end{figure}
+
 
 The explanation for the fourth order convergence has again to do with the discretization error at the boundary.
 Figure () shows schematically the velocity profiles for the volume penalizaton method compared to the theoretical.
 Due to the different  profiles, the numerical evaluation of the laplace operator results
 into different friction rates for the border point \textbf(B), but  also for the first next neighboor in the fluid domain \textbf(R1) when fourth order schemes are used.
-Table () compares the computation of the operator for different methods, as a velocity profile  the steady states from previously carried out simulations were used.
-As we can see for the volume penalization method the second order creates a large error on the boundary however the influence is small compared to the damping force $\nu$.
-For the fourth order scheme at the point R1 the laplacian is evaluated to $\approx 27.5$ which means that there is some error in this evaluation ... damn.
+For the fourth order scheme the laplace operator at the boundary evaluates to a slightly (CALCULATE) negative value), which means the friction at the boundary due to
+viscosity is stronger. The result is a smaller velocity profile which when increasing the resolution starts to overlap best with the theoretical solution at the minimal error.
+Finally when increasing the resolution further the error increases since the method converges towards the same resolution as the second order scheme (IMAGE MAYBE?).
+An attempt has been made to fit the numerical solution to a quadratic profile for the comparision to a theoretical solution but this didn't work due to blabla
+(FIT IDEA NOT WORKING CONVERGENCE AGAINST HIGH RESOLUTION.
 
+\subsection{Direct Forcing Method}
 
-\subsection{Direct Forcing Methode}
+For the comparsion to the direct forcing method another grid convergence study was carried out.  As a parameter we used same as above, the results are shown in figure X.
+-We can see o4 not working reason is the same as we can se in figure n) , the laplacian is wrong caclulated at the point B.
+As a results an error is induced at the boundaries of the domain.
+The second order scheme works perfectly as we compare it to the default implementation.
+
+\subsection{Poiseuille Flow with variable pressure gradient}
+
+Finally
+
+\begin{align}
+\frac{\partial p}{\partial x} &= P_0 \sin(\pi n z)
+\end{align}
+
+solution with the same non-dimensionalization yields
+
+\begin{align}
+ \nu v &=  \sin(\pi n z)
+\end{align}
+
+with the condition
+
+\begin{align}
+ P_0 &= -\frac{\pi^2n^2}{Re}
+\end{align}
+
+to satisfie $v_{max} = 1$.
+
 

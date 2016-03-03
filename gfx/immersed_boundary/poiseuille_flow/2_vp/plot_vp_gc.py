@@ -11,13 +11,13 @@ from scipy import stats
 import itertools
 
 def flow(x, pr, h1, h2, pmax):
-    return -1/(2*pr)*pmax*(x**2 - x*(h1 + h2) + h1*h2)
+    return -4*(x**2 - x*(h1 + h2) + h1*h2)
 
 def main():
     f = plt.figure(figsize=style.figsize(0.9))
 
     plot_dir = os.getcwd()
-    cdir = '/home/upgp/jruebsam/simulations/feb16/week2/3_vp_gc/'
+    cdir = '/home/upgp/jruebsam/simulations/feb16/week4/3_vp_gc/'
     os.chdir(cdir)
 
     marker = itertools.cycle(('^', '*', 'x', 'o', 'D'))
@@ -102,7 +102,7 @@ def main():
     plt.xlabel('Gridpoints N')
     plt.ylabel('$l_2$-rel. error')
     plt.xlim(7, 350)
-    plt.ylim(5*1e-5, 2)
+    plt.ylim(1e-5, 1e-1)
     #plt.show()
     plt.savefig('vp_convergence.pdf')
 

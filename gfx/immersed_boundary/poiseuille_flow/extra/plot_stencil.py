@@ -20,7 +20,7 @@ def flow(x, h1, h2):
     return -(x**2 - x*(h1 + h2) + h1*h2)*4
 
 def main():
-    f, ax = style.newfig(0.4)
+    f, ax = style.newfig(0.45, hscale=1.5)
 
     x = np.linspace(0, 0.5, 5)
     vt =  flow(x, 0.25, 0.75)
@@ -51,9 +51,10 @@ def main():
     plt.xlabel('Grid points')
     plt.ylabel(r'$\propto$ velocity $ v_x$')
     plt.legend(loc=4, fontsize=7)
-    ax.xaxis.tick_top()
-    ax.xaxis.set_label_position('top')
-    plt.subplots_adjust(bottom=0.0, top=0.77, right=1., left=0.2)
+    #ax.xaxis.tick_top()
+    #ax.xaxis.set_label_position('top')
+    #plt.subplots_adjust(bottom=0.0, top=0.77, right=1., left=0.2)
+    plt.tight_layout()
     plt.savefig('stencil.pdf')
     #plt.show()
 
