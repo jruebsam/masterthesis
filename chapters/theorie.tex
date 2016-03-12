@@ -76,13 +76,18 @@ In the thesis the following boundary conditions are considered
 
 \begin{description}
     \item[No-Slip Boundaries] The value of all velocities component is set to zero $\vec{v}|_{\partial \Omega} = 0$.
+                              More generally speaking, this kind of condition is  also referred to as Dirichlet-Condition where $\Phi=c $, for a scalar field bla [].
     \item[Free-Slip Boundaries] The velocity component in normal direction to the wall is set to zero, this is fulfilled with $\vec{n}\pdn[v]{\vec{n}} = 0$.
                                 Free-Slip boundaries are used to reduce wall friction or to mimic symmetric bla.
     \item[No-Flux Boundaries] For a scalar $\phi$ the flux trough the wall is zero which means $\pdn[\phi]{\vec{n}}$.
+                              Here the general case is referred to as VonNeumann-Condition, where $bla=bla$, for a scalalr $bla$  [].
                               This boundary conditions is used to avoid mass or energy flux trough the domain boundary.
-    \item[Peridodic boundaries] Periodic boundaries have the same value on opposite sites of the fluid domain.
+    \item[Periodic boundaries] Periodic boundaries can be applied in all directions of our system. For example if the system is periodic in x-Direction,
+                                one has to ensure that $\Phi(x) = \Phi(x + L)$, where $x \in L$.
+
 \end{description}
 
+The excact implementation of these methods is dicussed in the numerical section.
 
 \subsection{Nondimensionalization}
 
