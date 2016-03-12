@@ -50,7 +50,7 @@ def main():
 
         l2rel, l2abs, res = np.array(l2rel), np.array(l2abs), np.array(res)
         #np.save(path, np.column_stack((res, l2rel, l2abs)))
-        ax.plot(res, l2rel, '^--',  label=order)
+        line, =ax.plot(res, l2rel, '^',  label=order, lw=1, ms=4, mew=0., alpha = 0.7)#, dashes=[2., 1.])
 
 
         if order == 'o4':
@@ -61,7 +61,7 @@ def main():
 
             xn = np.linspace(7, 200, 200)
             yn = fitfunc(p1, xn)
-            ax.plot(xn, yn, label='fit: $ax^b$ : $b=%.3f$ +- ?' % p1[1])
+            line, = ax.plot(xn, yn, label='fit: $ax^b$ : $b=%.3f$ +- ?' % p1[1], lw=1.)
         os.chdir(dpath)
 
     labels = ['relative'] #absolute identisch zu absolut
@@ -79,6 +79,7 @@ def main():
 
     ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.3),
            fancybox=True, shadow=True)
+
     plt.grid()
     plt.tight_layout()
     plt.subplots_adjust(top=0.8)

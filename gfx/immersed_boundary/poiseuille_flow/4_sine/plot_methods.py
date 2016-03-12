@@ -15,7 +15,7 @@ from cycler import cycler
 plt.rc('axes', prop_cycle=(cycler('color', cmap)))
 
 def main():
-    dpath = '/home/upgp/jruebsam/simulations/mar16/week1/6_sine_vpdf'
+    dpath = '/home/upgp/jruebsam/simulations/mar16/week1/pflow/6_sine_vpdf'
     paths = ['data/df/o2', 'data/df/o4', 'data/vp/o2', 'data/vp/o4']
 
     f, ax = style.newfig(0.45, hscale=1.5)
@@ -30,7 +30,7 @@ def main():
         sim_paths = sorted(os.listdir(os.getcwd()), key=lambda x: int(x.split('_')[-1]))
 
         res, l2rel, l2abs = [], [], []
-        for sp in sim_paths:
+        for sp in sim_paths[1:]:
             rs = int(sp.split('_')[-1])
 
             with tb.open_file(os.path.join(sp, "simulation.h5")) as d:
@@ -38,8 +38,8 @@ def main():
 
             z = np.linspace(0, 1, len(vx))
             thflow = np.sin(4*np.pi*z)
-            if path == 'data/df/o2':
-                #plt.plot(thflow)
+            if path == 'data/df/o20':
+                plt.plot(thflow)
                 plt.plot(vx)
                 plt.show()
 
