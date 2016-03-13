@@ -91,28 +91,52 @@ The excact implementation of these methods is dicussed in the numerical section.
 
 \subsection{Nondimensionalization}
 
-Enddimensionalisierung
+For many fluid systems nondimensionalization is used to further symplify the equations of motion and reduce the number of free parameters.
+The approach behind this scheme is to define variable substitutions, such that the overall systems is free from any physical units.
+After the nondimensionalization the system is described by one or more dimensionless quantity, which characterize the overall physical behaviour.
+Therefore the nondimensionalization makes it easier to compare numerical simulations and experimental setups to one another.\\
+For the equations () and (), we can choose the following scales (see []).
 
-\subsection{Method AK  und so zusammenfassung}
-
-
-\section{Rotierendes System}
-Wir betrachten nun ein rotierendes System welches  sich relativ zu einem Inertialsystem um die Rotationsachse $\vec{\Omega}$ dreht.
-Für zeitliche Ableitung im rotierenden System ergibt sich nach [] der Operator
-
-
-\iffalse
 \begin{align}
-    \left\pdn{t} \right|_{Inertial} &= \left\pdn[]{\vec{t}}\right|_{Rotated} + \Omega \times
+    \mathrm{Length}  : \vec{x}^* = \frac{\vec{x}}{L}  &, \mathrm{Velocity}: \vec{x}^* = \frac{\vec{v}}{V}\\
+    \mathrm{Time}    : t^* = t \cdot \frac{V}{L}      &, \mathrm{Pressure}: p^* = \frac{p}{\rho V^2}
 \end{align}
-\fi
-Damit erhalten wir für die Beschleunigung eines Punktes im rotierenden System
+
+Here we choose $L$ as a lenght scale of our system and $V$ is the velocity scale of our system.
+For example in a pipe flow experiment we would choose $L$ as the diameter of our pipe and $V$ by the maximum velocity observed.
+The time can simply be scaled  by $V/L$ , furthemore for the pressure there is no natural lbab3lab3ba.
+With the above defined nondimensionalizton the impulse equation reduced to \footnote{Here we ignored *}
+
+\begin{align}
+    \pdn[u^*]{t^*} + \vec{u^*} \cdot \vec{\nabla} \vec{u^*} &= -\nabla p^* + \frac{1}{Re} \Delta \vec{u^*} + \vec{F^*}_{ext}
+\end{align}
+
+where $Re$ is now defined as the Reynolds-number given by [cite].
+\begin{align}
+    Re = \frac{VL}{\nu} = \frac{\rho VL}{\mu} = \frac{\mathrm{intertial.forces}}{\mathrm{viscous.forces}}
+\end{align}
+
+The system is now charaterized by one dimensionless quantity, the Reynolds-number, which describes the ratio of inertial to the viscous forces.
+As exemplarly shown in image (),  for a small reynolds number (<soundso\footnote{system dependent})  the viscous forces are dominating and we can expect laminar flow regimes, whereas for
+large Reynolds number the flow becomes turbulent.
+
+\newpage
+
+\section{Fluid Flow in Rotating Systems}
+\subsection{Equations of Motion}
+
+We now consider the motion of fluid in a system (\textbg{R}), which rotates relative to an intertial system (\textbg{I})around the rotation axis $\vec{\Omega}$.
+The relation for the time derivation operator, for the two frames of motion, is given by $(\partial/\partial t)_I = (\partial/\partial t)_R + \Omega \times $ [cite].
+Applying this relation twice to the position vector $\vec{r}$ results into
+
 \begin{align}
     \pdn[\vec{u}]{t} = -\pdn[]{t^2}(\Omega \times \vec{r}) = -\underbrace{2\Omega \times \vec{u}}_{I} - \underbrace{\Omega \times (\Omega \times \vec{r}}_{II})
 \end{align}
 
+
 Die beiden Terme auf der rechten Seite entsprechen der Corioliskraft (I) und der Zentrifugalkraft (II). Während die Corioliskraft abhängig von der Geschwindigkeit ist
 kann die Zentrifugalkraft auch in Form eines Potentials dargestellt werden []
+
 \begin{align}
     \Omega \times (\Omega \times \vec{r}) = - \nabla(\frac{1}{2}\Omega^2\vec{r}^{'2}) = -\Phi
 \end{align}
