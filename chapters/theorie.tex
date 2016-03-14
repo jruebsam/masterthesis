@@ -125,30 +125,81 @@ large Reynolds number the flow becomes turbulent.
 \section{Fluid Flow in Rotating Systems}
 \subsection{Equations of Motion}
 
-We now consider the motion of fluid in a system (\textbg{R}), which rotates relative to an intertial system (\textbg{I})around the rotation axis $\vec{\Omega}$.
-The relation for the time derivation operator, for the two frames of motion, is given by $(\partial/\partial t)_I = (\partial/\partial t)_R + \Omega \times $ [cite].
-Applying this relation twice to the position vector $\vec{r}$ results into
+We now consider the motion of fluid in a coordinate system (\textbf{R}), rotating relative to an intertial system (\textbf{I}) around the axis $\vec{\Omega}$.
+The relation of the time derivate, between the two frames of motion, is according to [], given by $(\partial/\partial t)_I = (\partial/\partial t)_R + \Omega \times $ [cite].
+Applying this relation to the position vector $\vec{r}_R$ and  $\vec{r}_I$, with the assumption that $\Omega=\mathrm{const'}$, gives the expression
 
 \begin{align}
-    \pdn[\vec{u}]{t} = -\pdn[]{t^2}(\Omega \times \vec{r}) = -\underbrace{2\Omega \times \vec{u}}_{I} - \underbrace{\Omega \times (\Omega \times \vec{r}}_{II})
+    \left.\pdn[\vec{u}]{t}\right|_I r= \left.\pdn[\vec{u}]{t}\right|_R   + \underbrace{2\Omega \times \vec{u}|_R}_{R} - \underbrace{\Omega \times (\Omega \times \vec{r|_R}}_{II})
 \end{align}
 
-
-Die beiden Terme auf der rechten Seite entsprechen der Corioliskraft (I) und der Zentrifugalkraft (II). Während die Corioliskraft abhängig von der Geschwindigkeit ist
-kann die Zentrifugalkraft auch in Form eines Potentials dargestellt werden []
+Hence, the transition into the rotating frame generates two additional forces, the coriolis force (I)  and the centrifugal force (II).
+By inserting this expression into the impulse equation we obtain the equations of motion for the rotating system.
+Furthermore, since the centrifugal force is independent of the velocity field it can be written in terms of a potential $\Phi$
 
 \begin{align}
     \Omega \times (\Omega \times \vec{r}) = - \nabla(\frac{1}{2}\Omega^2\vec{r}^{'2}) = -\Phi
 \end{align}
-wobei $\vec{r}^s$ der Abstand zur Drehachse ist. Durch Substitution $p^* = p - \Phi$
-erhalten wir die Navier-Stokes Gleichung für das rotierende System \footnote{Im folgenden wird meinen wir mit $p$ immer $p^*$ }.
+
+which  can than be substituted into the pressure by setting $p^* = p - \Phi$.
+This simplifies the equation to
+
 \begin{align}
     \pdn[u]{t} + 2\Omega \times \vec{u} +  \vec{u} \cdot \vec{\nabla} \vec{u} &= - \frac{1}{\rho} \nabla p + \nu \Delta \vec{u} + \vec{F}_{ext}
 \end{align}
 
--kenngrößen
--intertialwellen
--reflektion etc
+for the nondimensionalization we use scales proportional to the rotation axis $\Omega$.
+
+\begin{align}
+    \mathrm{Length}  : \vec{x}^* = \frac{\vec{x}}{L}  &, \mathrm{Velocity}: \vec{u}^* = \frac{\vec{u}}{\Omega L}\\
+    \mathrm{Time}    : t^* = t \cdot \Omega      &, \mathrm{Pressure}: p^* = \frac{p}{\Omega^2 L^2}
+\end{align}
+
+The dimensionless equation reads
+
+\begin{align}
+    \pdn[u]{t} + 2\Omega \times \vec{u} +  \vec{u} \cdot \vec{\nabla} \vec{u} &= - \frac{1}{\rho} \nabla p + \nu \Delta \vec{u} + \vec{F}_{ext}
+\end{align}
+
+with the the dimensionless quantity $Ek$ the Ekman-Number, which is given by
+
+\begin{align}
+    Ek = \frac{\nu}{\Omega L^2}
+\end{align}
+
+and describes the ratio between the Coriolis and viscous forces inside the fluid.
+
+\subsection{Inertial Waves}
+
+In rotating systems one possible solution is the propagation of so called inertial waves, through the fluid.
+
+For a better unterstanding, we want to make a short comparison to internal gravity waves.
+Suppose we
+-sattelite myabe
+
+In a mathematical sence the fundamental properties of an inertial wave is given by the dispersion relation, the group and phase velocity.
+To obtain these expressions, the common approach is the assumption of solutions of the type $e^{i(k_j x_j - \omega t)}$.
+By inserting the ansatz into equation () one obtains the solution
+
+
+
+
+-what are gravitational waves
+- restronig force eqilibrium
+
+- drehimpuls
+
+
+
+
+
+-einleitung - blabla mit stratisfaction drehimpuls
+
+-lösung der gleichungen  bla bla bla
+
+-eigen schaften von intertial waves
+
+-reflektion
 
 \section{Rayleigh-Benard System}
 -temperatur
