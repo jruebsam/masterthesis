@@ -2,8 +2,8 @@
 
 \section{Introduction}
 
-In this section we want to introduce a part of the numerical methods, which were used in this thesis, for the performance of numerical computations.
-To solve the in chapter () introduced equations of motion it is necessary to use spatial and temporal discretization schemes, to
+In this section we want to introduce a part of the numerical methods, which were used in this thesis, for the performance of computations.
+To solve the in chapter () introduced equations of motion it is necessary to use spatial and temporal discretization schemes, in order to
 compute the time evolution of fluid system from the initial state.
 Different approaches like finite element and volume methods exist, here we will introduce the use of finite difference stencils for the
 spatial and a third order runge kutta method for the discretization in time.
@@ -14,26 +14,26 @@ will see in chapter ().
 
 We start with a brief introduction of finite difference methods,
 the interested reader is referred to [], for a more general overview, on which this section is primarly based on.
+Since the storage capacity and computation time of computers is limited it is necessary to approximate the contigious fluid domain  by a finite set of points,
+such that the overall error maintains small.
 To begin with we will fall back on the one dimensional case, where we want to discretize the operators
 
 \begin{align}
-    \pdn[f]{x} \ , \ \pdn[^2f]{x^2}
+    \pdn[]{x} \ , \ \pdn[^2]{x^2}
 \end{align}
 
-for the function $f(x) blub$, such that the resulting error is as small as possible.
-The idea behind finite differences is the same as to the original idea of the  derivative,
-the approximation of the slope of a curve using neighboor points, except here we wont build the limit $dx>0$.
-Suppose we want to calculate these derivatives on an intervall $I={xE}, L\in R$,
-then we start by dividing $I$ into $N$ equidistant points $x_i; 0 seq i s 100$.
-
-The distance between two neighboor ponits is giveb by $\Delta x = L/(N - 1)$.
-Local to a single point $x_i$, we can now express $f$ using a taylor approximaton.
+applied to the function $f:\mathbb{R}\rightarrow \mathbb{R} : x  \rightarrow f(x)$, on a domain $\Omega = \{x \in \mathbb{R} | 0 < x < L\}$.
+For the discretization the simplest approach is to divide $\Omega$ into $N$ equidistant points $x_i= i\Delta x$ and $i=1..N$,
+with the distance between two points given by $\Delta x = x_{i+1} - x_i = L/(N-1)$.
+Local to a single point $x_i$, $f$ can be approximated with a taylor expansion.
 
 \begin{align}
-    f(x) = f(x_i) + \left(\pdn[f]{x} \right)_i (x - x_i) + \left(\pdn[^2f]{x^2}\right)_i \frac{(x-x_i)^2}{2!}
+    f(x) = f(x_i) + \left(\pdn[f]{x} \right)_i (x - x_i) + \left(\pdn[^2f]{x^2}\right)_i \frac{(x-x_i)^2}{2!} + bla
 \end{align}
 
-Replacing $x$ with $x_{i+1}$ or $x_{i-1}$ and necgleting higher order terms, results in the following approximations for the first derivative.
+Insert $x$ with $x_{i+1}$ or $x_{i-1}$ we obtain the forward and backward
+
+ necgleting higher order terms, results in the following approximations for the first derivative.
 
 \begin{align}
     \left(\pdn[f]{x}\right)_i &\approx \frac{f_{i+1} - f{i}}{\Delta x}\\
@@ -54,7 +54,63 @@ The error resulting in the neglection of higher order terms in the taylor approx
 For the forward- and backward scheme this error is of first order, for the central scheme it is of second order.
 All schemes are schematicaly shown in figure (), here the secord order central schemes results in the best approximationn.
 
-\paragraph{Stability Analysis}\mbox{}\\
+\paragraph{Second Order}\mbox{}\\
+\begin{align}
+    \left(\pdn[f]{x}\right)_i &\approx \frac{f_{i+1} - f_{i-1}}{2\Delta x} \\
+    \left(\pdn[^2f]{x^2}\right)_i &\approx \frac{f_{i+1} - 2 f_i +  f_{i-1}}{2\Delta x^2}
+\end{align}
+\paragraph{Fourth Order}\mbox{}\\
+\begin{align}
+    \left(\pdn[f]{x}\right)_i &\approx \frac{-f_{i+2} + 8f_{i+1} - 8f_{i-1} + f_{i-2}}{12\Delta x} \\
+    \left(\pdn[^2f]{x^2}\right)_i &\approx \frac{-f_{i+2} + 16f_{i+1} -30f_i + 16f_{i-1} - f_{i-2}}{12\Delta x^2} \\
+\end{align}
+
+\newpage
+
+\section{Runge Kutta Method}
+
+For the temporal discretization the third-order low-storage Runge-Kutta scheme is used, first introduced by [Williamson].
+Third order methods are often used for cfd-simulations, since they tend to stabilice numerical oscilltions in advection terms[].\\
+We begin with considering the inital value problem.
+
+\begin{align}
+    \left(\pdn[f]{t}\right) = F(t, f(t)) ; f(t_0) = f_0
+\end{align}
+
+This differtial equation can be solved by integration, with the exact solution
+\begin{align}
+    f(t) = f(0) + \int_{t_n}^{t}F(t, f(t))dt
+\end{align}
+In the next step the integral is splitted into piecewiese integration, with time intervalls $[t^n, t^{n+1}]$.
+\begin{align}
+    f(t^{n+1}) = f(t) + \int_{t_n}^{t_{n+1}}F(t, f(t))dt
+\end{align}
+
+When using runge kutta methods, the function F(t, f(t)) is evaluated at $s$ different timesteps $\tau_i = t^n + \Delta t \alpha_i$,
+furthermore for each $\tau$ a different weight parameter $b_i$ is used.V
+The numerical computation of the integral is than given by [].
+
+\begin{align}
+    f(t^{n+1}) = f(t) + \Delta t \sum_{i=1}^s b_i k_i, k_i = F(t^n + \Delta t c_s, f^n + \Delta t \sum_{i=1}^{s-1}a_{si}k_i)
+\end{align}
+
+With the definition of $\sum c_i$, the runge kutta scheme of third order is festgelegt by the butcher tablau
+By using taylor expansion and coefficient comparison, it can be shown that this  method converges at third order.
+
+
+- In order to use as  so wenig speicher wie möglich williamson scheme
+- 2 speicherstack für jede variable
+
+\begin{align}
+    S_1 = \delta t F(f^n ; f^(1) = f^n + \frac{S_1}{3}) \\
+    S_1 = \delta t F(f^n ; f^(1) = f^n + \frac{S_1}{3}) \\
+    S_1 = \delta t F(f^n ; f^(1) = f^n + \frac{S_1}{3}) \\
+\end{align}
+
+
+-stabilitätsregion
+
+\section{Numerical Stability}\mbox{}\\
 
 -beispiel erste abl dann zweit
 -stabilität konstistenz - konvergenz etc
@@ -63,15 +119,6 @@ All schemes are schematicaly shown in figure (), here the secord order central s
 -upwind schema
 
 
-\section{Runge Kutta Verfahren}
-Für die zeitliche Diskretierung wird ein Runge-Kutta Verfahren dritter Ordnung verwendet.
-Ein Vorteil des Verfahrens dritter Ordnung ist die Stabilität gegenüber Oszillationen bei CFD-Problemen [QUOTE].
-Allgemein wird bei der Herleitung
-
--warum ordnung 3
--runge kutta williamson etc
--stabilität
--fehler
 
 \newpage
 
