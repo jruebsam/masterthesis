@@ -50,30 +50,39 @@ The term Immersed Boundary Method is vaguely defined in literature, in this thes
 
 \section{Implemented Methods}
 
--introdutcion cylinder gebiet blabla
+For the purpose of discussion, the different methods introduced here, will be applied to a default geometry.
+The fluid domain without any immersed boundaries is set to a cube of the size $l_i= 1$ with  $i = \{x, y, z\}$.
+For the discretization we choose $N_i = 32$ for the number of grid points.
+As an example of an immersed boundary, we will dicuss the embedding of a cylinder, given by the  surface equation
+
+\begin{align}
+    \left(x - \frac{l_x}{2}\right)^2 + \left(y - \frac{l_y}{2}\right)^2 = r^2
+\end{align}
+
+where $r$ is the radius and the center is given by $(l_x/2, l_y/2)$. The whole setup is schematically shown in figure (X).
 
 \subsection{Volume Penalization}
 
 The idea behind this method is to introduce an additional forcing term into the Navier-Stokes equation, which sat
 
-
 -beschreibung
 - limit H gegen unendlich
 - zeitschreit restriction
 
-
-
-
 Die Volume-Penalization Methode ermöglicht es, durch einen Kraftterm der auf die einzelnen Fluidzellen wirkt, mit wenig Aufwand Noslip-Ränder zu implementieren.
 Das Verfahren wurde in mehreren Publikationen z.B. [bla] erfolgreich verwendet, eine mathematisch exaktere Abhandlung lässt sich z.B. in [bla2] finden.
 
-\begin{wrapfigure}{r}{0.5\textwidth}
-  \begin{center}
-  \includegraphics[width=0.5\textwidth]{gfx/immersed_boundary/mask.png}\label{fig:mask_vp}
-  \includegraphics[width=0.5\textwidth]{gfx/immersed_boundary/mask.png}\label{fig:mask_vp}
-  \end{center}
-  \caption{Maskierungsfunktion $H(x,y,z=const.) = x^2 + y^2 < c$ für einen Zylinder. }
-\end{wrapfigure}
+\begin{figure}[!b]
+    \subfloat[Cylinder geometry of the immersed boundary embedd in the simulation domain]{{
+      \includegraphics[width=0.5\textwidth]{gfx/immersed_boundary/mask.png}\label{fig:mask_vp}
+        }}%
+    \subfloat[Maskierungsfunktion $H(x,y,z=const.) = x^2 + y^2 < c$ für einen Zylinder. ]{{
+      \includegraphics[width=0.5\textwidth]{gfx/immersed_boundary/mask.png}\label{fig:mask_vp}
+     }}%
+    \label{fig:example}%
+\end{figure}
+
+
 
 Das Volumen wird zunächst in einen Fluidbereich und einen festen Wandbereich, wie in Abb.1 dargestellt, unterteilt. Für die Differenzierung der Bereiche während der Simulation wird  eine Maskierungsfunktion
 \begin{align}
