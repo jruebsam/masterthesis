@@ -59,52 +59,53 @@ As an example of an immersed boundary, we will dicuss the embedding of a cylinde
     \left(x - \frac{l_x}{2}\right)^2 + \left(y - \frac{l_y}{2}\right)^2 = r^2
 \end{align}
 
-where $r$ is the radius and the center is given by $(l_x/2, l_y/2)$. The whole setup is schematically shown in figure (X).
+where $r=0.4$ is the radius and the center is given by $(l_x/2, l_y/2)$. The whole setup is schematically shown in figure (X).
+The simulation domain is than seperated into the fluid domain $\Omega_f$ and the wall domain $\Omega_w$.
+The overall goal is to enforce the no-slip condition $\vec{v} = 0$ on the surface $\partial \Omega_f$, furthermore
+the consveration of mass should be fulfilled.
 
 \subsection{Volume Penalization}
-
-The idea behind this method is to introduce an additional forcing term into the Navier-Stokes equation, which sat
-
--beschreibung
-- limit H gegen unendlich
-- zeitschreit restriction
-
-Die Volume-Penalization Methode ermöglicht es, durch einen Kraftterm der auf die einzelnen Fluidzellen wirkt, mit wenig Aufwand Noslip-Ränder zu implementieren.
-Das Verfahren wurde in mehreren Publikationen z.B. [bla] erfolgreich verwendet, eine mathematisch exaktere Abhandlung lässt sich z.B. in [bla2] finden.
 
 \begin{figure}[!b]
     \subfloat[Cylinder geometry of the immersed boundary embedd in the simulation domain]{{
       \includegraphics[width=0.5\textwidth]{gfx/immersed_boundary/mask.png}\label{fig:mask_vp}
         }}%
-    \subfloat[Maskierungsfunktion $H(x,y,z=const.) = x^2 + y^2 < c$ für einen Zylinder. ]{{
+    \subfloat[Masking function $H(x,y,z=const.) = x^2 + y^2 < c$ for a cylinder. ]{{
       \includegraphics[width=0.5\textwidth]{gfx/immersed_boundary/mask.png}\label{fig:mask_vp}
      }}%
     \label{fig:example}%
 \end{figure}
 
-
-
-Das Volumen wird zunächst in einen Fluidbereich und einen festen Wandbereich, wie in Abb.1 dargestellt, unterteilt. Für die Differenzierung der Bereiche während der Simulation wird  eine Maskierungsfunktion
+The idea behind the volume penalization method is to introduce an additional forcing term into the Navier-Stokes equation, which acts on
+the grid points outside of the fluid domain to ensure the desired boundary conditions. The methods was sucessfully implemented and tested
+on pseudo-spectral methods, see for example (CITE).
+For the implementation it is necessary to define a masking function $H(x, y, z)$ which seperates the simulation domain into $\Omega_f$ and $\Omega_w$.
+In case of the cylinder, we can use the surface equation (REF) and simply obtain.
 \begin{align}
 H(x, y, z) = \begin{cases}
-                    0, & \text{für } \vec{x}(x,y,z) \in Fluid, \\
-                    1, & \text{sonst}.
+                    0, &  \left(x - \frac{l_x}{2}\right)^2 + \left(y - \frac{l_y}{2}\right)^2 <r^2\\
+                    1, & \text{else}
              \end{cases}
 \end{align}
-verwendet. Als zusätzlicher Kraftterm wird nun eine exponentielle Dämpfung eingeführt die nur auf den Wandbereich des Volumens wirkt.
+Now we can introduce an additional forcing term into the impulse equation,
 \begin{align}
-\vec{f} = \frac{H(x, y, z)}{\nu}(\vec{v} - \vec{v_0})
+    \pdn[u]{t} + \vec{u} \cdot \vec{\nabla} \vec{u} &= -c^2 \nabla \rho + \frac{1}{Re} \Delta \vec{u} + \vec{F}_{ext}
+     +\underbrace{ \frac{H(x, y, z)}{\nu}(\vec{v} - \vec{v_0})}_{\text{damping force}}
 \end{align}
-Bei $\vec{v_0}$ handelt es sich um die gewünschte Randbedingung, der Kraftterm ist also proportional zur Auslenkung $\vec{v}$ eines Punktes vom gewünschten Ruhezustand.
+
+where $\vec{v}_0$ conforms the desired boundary condition, i.e. $\vec{v}_0 = 0 $ for no slip boundaries, and $\nu$ is a regulation parameter also denoted as damping rate of the forcing.
+The additional term acts as an exponential damping force on a single gridpoint inside of $\Omega_w$, by the product with since it vanishes in $\Omega_f$ by the definition of $H(x,y,z)$.
+
+
 Die Antwort des Kraftterms wird durch die Dämpfungrate $\nu$ reguliert. Je kleiner $\nu$ desto stärker ist die Dämpfungsrate, allerdings kann der Term
 nicht beliebig klein gesetzt werden da die Stabilität für $\nu < dt$ nicht mehr gewährleistet ist [source].
 Da für die Lösung der der Geschwindingskeitsfelder mit der Methode der künstliche Kompressibilität  bereits ein sehr kleiner Zeitschritt verwendet wird (s.Abb. X)
 kann im Vergleich zu anderen Verfahren wie z.B. (pseudo-spektrale) eine relativ starke Dämpfungsrate verwendet werden.
+-konvergenz nu gegen 0 MPI\\
+- stiff probplem dt < dtpen = nu DIPLOM\\
+- dary type law MPI\\
+\newpage
 
-\subsubsection{Validierung mit MASA}
--validierung mit masa für alle verfahren oben.. cube /evtl zylinder?
--vegl. und argumentation ränder ehh auf null.
--ein beispiel mit vol.pen.
 
 \subsection{Direct Forcing}
 Während die Volume Penalization Methode die Geschwindigkeit ausserhalb des Volumens nicht vollständig auf Null setzt,
@@ -124,16 +125,39 @@ Mit Formel () folgt
 Mit der Annahme dass der Rand mit dem numerischen Gitter übereinstimmt ist es nicht nötig den Kraftterm zur berechnen, stattdessen lässt sich der
 Schritt vereinfachen in dem der Randwert nach  jedem Zeitschritt direkt auf die gewünschte Randbedingung gesetzt wird. Durch die
 implizite Behandlung kommt es zu keiner weiter Stabilitätsbedingung.
-Analog zur Volume-Penalization Methode wurde eine Serie von Simulationen für eine planare Poiseuille-Strömung durchgeführt.
-Das Setup enstpricht dem gleichen wie in Abschnitt (X), lediglich das Verfahren wurde entsprechend angepasst und es wurden finite Differenzen Verfahren zweiter und
-vierter Ordnung getestet.
-In Abbildung () ist der relative Fehler, im Vergleich zur Volume Penalization  Methode mit $\nu=1e-4$ dargestellt.
-Für das Verfahren vierter Ordnung liegt der Fehler im Bereich von 1\% und ist im Mittel doppelt so groß wie für die Volume-Penalization Methode.
-Der Fehler für das Verfahren zweiter Ordnung verschwindet hingegen nahezu.
-Das Verhalten lässt sich durch die Verwendung unterschliedlicher Schablonen, wie in Abb() dargestellt,  der finiten differenzen Verfahren erklären.
-Während das Verfahren zweiter Ordnung nur den Randpunkt sieht, liegt bei der vierten Ordnung ein Punkt innerhalb des Randes.
-Da auch dieser Wert auf Null gesetzt wird, kommt es zu einem fehler in der Berechnung von $\nabla u$.
-\subsection{Volume fraction}
+
+\newpage
+
+\subsection{Volume Fraction Interpolation}
+
+The methods introduced up to here lack the ability of an exact impementation of the boundary conditions on $\Omega_f$.
+Instead the surface $\partial \Omega_f$ is described by the nearest grid points in $\Omega_w$, resulting in an
+stepwise approximation.
+To overcome this problem a simple procedure is the use of an volume fraction interpolation scheme, introduced in [FADL].\\
+The advantage of this method is the simple implementation into the volume penalization and direct forcing method.
+Furthermore the overall computation time of the timestep stays constant, in  contrast to complex interpolation schemes.\\
+Initially the interpolation beginns by determine all grid cells\footnote{definition cell} which are cut by the surface $\partial \Omega_f$.
+For each of these boundary cells the total volume $V_w$ of the wall domain $\Omega_w$, inside each cell, is computed.
+The force acting on the points inside the boundary cells is than weighted by a scaling factor, $\Phi = V_W/(\Delta x \Delta y \Delta z)$.
+For the volume penalization method the scaling is simply multplied with the forcing term in eq. ().
+Since the implementation of the direct forcing method is setting the velocity components directly to zero, it is necessary to
+fall back to equation () and introduce a forcing term
+
+\begin{align}
+    \vec{f} = \Phi \frac{\vec{u}_0 -\vec{u}^n}{\Delta t\cdot \mathscr{L}}\\
+\end{align}
+
+Since the operator $\mathscr{L}$ is computed during the first part of the time step. This forcing term can added during the completion of the runge kutta step.\footnote{see section}\\
+For the implementation of the method a extended version of the masking array $H$ is used.
+Like in the previous method
+- h beispiel source code
+- monte carlo
+- beispiel bilder
+
+-theorie
+-implementation
+-bild
+
 \subsection{Interpolation}
 \newpage
 
