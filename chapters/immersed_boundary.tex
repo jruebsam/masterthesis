@@ -147,16 +147,35 @@ fall back to equation () and introduce a forcing term
     \vec{f} = \Phi \frac{\vec{u}_0 -\vec{u}^n}{\Delta t\cdot \mathscr{L}}\\
 \end{align}
 
-Since the operator $\mathscr{L}$ is computed during the first part of the time step. This forcing term can added during the completion of the runge kutta step.\footnote{see section}\\
-For the implementation of the method a extended version of the masking array $H$ is used.
-Like in the previous method
-- h beispiel source code
-- monte carlo
-- beispiel bilder
+\begin{figure}[!bp]
+    \centering
+    \subfloat[label 1]{{
+      \includegraphics{gfx/immersed_boundary/methods/mask_volfrac.pdf}\label{fig:mask_volfrac}
+        }}%
+    \qquad
+    \subfloat[label 2]{{
+      \includegraphics{gfx/immersed_boundary/methods/error_volfrac.pdf}\label{fig:error_volfrac}
+        }}%
+    \label{fig:example}%
+\end{figure}
 
--theorie
--implementation
--bild
+Since the operator $\mathscr{L}$ is computed during the first part of the time step. This forcing term can added during the completion of the runge kutta step.\footnote{see section}\\
+For the implementation of an extended version of the masking array $H$ is used.
+Like in the previous methods the masking array is precomputed and loaded at runtime. The algorithm is extended to compute the
+volume fractions of the cells lying next to the surface $\partial\Omega_f$.
+Since an exact computation is difficult to implement for abritary surfaces, the idea is to use a monte carlo integration method.
+For each cell $N$ random samples are generated, then the volume fraction is simply given by the ratio of samples lying in- and outside ot the domain.
+The implementation into a simulation class using the python API is explained in more detail in Appendix ().\\
+An example for the computed masking array with $N=2e5$, is shown in figure (). The symmetric distribution of the boundarie values indicates
+a good approximation, for a better evaluation a convergence study was performed were the number of samples $S$ was varied between 100 and $10^6$ points.
+The $l_2$-error was determined by comparing the results to the computation with the highest number of samples.
+The results are shown in figure ().\\
+
+-discussion for n>10000 error 1e-5\\
+-overall good approximation \\
+-erweiterung  *2 etc blabla\\
+
+
 
 \subsection{Interpolation}
 \newpage

@@ -36,11 +36,11 @@ def main():
     plt.xlabel('Samples')
     plt.ylabel('rel. $l_2$-error')
 
-    plt.subplots_adjust(bottom=0.15, left=0.15)
     plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
     plt.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
     plt.grid()
 
+    plt.subplots_adjust(bottom=0.15, left=0.15, right=0.85)
     plt.savefig('error_volfrac.pdf')
 
 

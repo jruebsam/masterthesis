@@ -30,7 +30,7 @@ def main():
     ax.set_xlabel('x')
     ax.set_ylabel('y')
 
-    plt.subplots_adjust(bottom=0.15, left=0.15, right=0.85)
+    plt.subplots_adjust(bottom=0.15, left=0.15, right=0.9)
 
     plt.savefig('mask_volfrac.pdf')
 
