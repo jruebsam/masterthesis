@@ -496,7 +496,62 @@ Since $v_{max} \stackrel{!}{=} 1$ by definition, the pressure condition for the 
 \begin{align}
     \frac{\partial p}{\partial x} = -\frac{4 r_o^2}{Re}
 \end{align}
+
+\subsubsection{Grid Convergence Study}
+
+For an error evaluation a grid convergence study was performed, for a constant reynolds number of $Re=100$.
+The number of grid points was varied in the intervall $N\in[32, 256]$ with a stepsize of $\Delta N = 16$, furthermore a
+simulation with a resolution of $N=512$ was carried out.\\
+Since the maximum velocity of the channel is given by $v_{max}=1$, due to the choice of non-dimensionalization,
+the sound speed was set to $c^2 = 100$ to fullfill the incompressibilty condition $Ma = v/c < 0.1$. \footnote{In order to exclude
+any influence of choice of the sound speed on the resulting error, further simulations were carried out with a diffent $c^2$ and will be discussed}
+With this choice the cfl-condition for the system is given by $\Delta t < \min(\Delta x^2 \cdot Re, \Delta x / 10)$.
+The resulting timestep for the highest resolution is $\Delta t = 1e-4$.
+With the above defined setup all methods introduced in section were tested, for second and fourth order finite difference stencils.\\
+For the penalization method the non-dimensionalized damping was set to $J=1e-4$.
+It would be possible to choose a larger time step for the lower resolution cases, which means that in general
+one would apply a smaller damping rate $J$ in a case of applicaton. To remain consistent in the error convergence, here $J$ and
+therefore $\Delta t$ was not altered.
+
+
+\begin{figure}[!pt]
+  \centering
+  \includegraphics{gfx/immersed_boundary/hpflow/gc_theo/vp.pdf}\label{fig:hpflow_vpgc_theo}
+  \caption{blabla}
+\end{figure}
+
+\begin{figure}[!pb]
+  \centering
+  \includegraphics{gfx/immersed_boundary/hpflow/gc_theo/df.pdf}\label{fig:hpflow_dfgc_theo}
+  \caption{blabla}
+\end{figure}
+
+
+\begin{figure}[!pt]
+  \centering
+  \includegraphics{gfx/immersed_boundary/hpflow/gc_theo/ip.pdf}\label{fig:hpflow_ipgc_theo}
+  \caption{blabla}
+\end{figure}
+
+\begin{figure}[!pb]
+  \centering
+  \includegraphics{gfx/immersed_boundary/hpflow/gc_theo/ip.pdf}\label{fig:hpflow_allgc_theo}
+  \caption{blabla}
+\end{figure}
+
 \newpage
+
+
+-numerical setup resolution
+-sound speed squared
+-dt choice
+-nu choice
+
+-discussion c2 400
+
+\subsubsection{Long-Term Simulations}
+\newpage
+
 
 \subsection{Taylor-Couette Flow}
 
