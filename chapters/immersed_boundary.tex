@@ -464,35 +464,43 @@ to satisfie $v_{max} = 1$.
 
 \subsubsection{Theoretical description}
 
-In order to test the interpolation methods, we introduce a testcase with a curved geometry. Since for
-the previous testcase the channel walls were parallel to the simulation grid no further interpolation procedures
-were necessary. The simplest extension of the planar poiseuille flow is the transision to the flow through a pipe, also
-called Hagen-Poiseuille flow.\\
-We consider again a flow in x-Direction where the fluid domain is restricted by a wall given by the radius $r_0 = \sqrt{(x-lx/2)^2 + (y - ly/2)^2}$,
-the distance from the pipe center.
-With the introduction of cylindrical coordinates $(r, \phi, x)$ the equation of motion for the steady state reduces to [CITEFLUID]
-
+In the previous testcase the channel walls were aligned parallel to the simulation grid, hence no further interpolation procedures
+were necessary. In order to test the accuray of the interpolation methods, we now introduce a testcase with a curved geometry.
+Furthermore we have the possibility to investigate the error of non-interpolating methods on curved surfaces.\\
+The most simplest extension of the planar poiseuille flow, is the laminar flow through a pipe,
+also referred to as Hagen-Poiseuille flow. The setup of the fluid domain is schematically shown in figure ().
+We consider a flow in z-Direction where the total size of the simulation domain is set to $L_x = L_y = L$.
+The immersed boundary is restricted by a wall at the radius $r_0=0.4L$ where r is defined as the distance from the pipe center $\vec{m} = (L/2, L/2)^T$.
+The length $L_z$ can be chosen arbitrary due to the flow invariance in z direction.\\
+\begin{figure}[!bp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{gfx/immersed_boundary/val_volpen/poiseuilleflow.png}\label{b}
+  \caption{Theoretical setup of the poiseuille-flow channel.}
+\end{figure}
+For an analytical solution of this problem we referr to [CITEFLUID].
+Once again we can assume a steady state flow which implies $\partial v_z/\partial t = 0$. With the introduction of cylindrical coordinates $(r, \phi, x)$
+and the assumption that the flow is independent of $\phi$ the equation of motion reduces to
 \begin{align}
         0 &= - \frac{\partial p}{\partial x}  +  \frac{\nu}{r}\frac{\partial}{\partial r}\left(r\frac{\partial u}{\partial r}\right)
 \end{align}
-
-The solution is then given by integrating twice [CITEFLUID]
+The solution is obtained by seperation of variables and integrating twice.
 \begin{align}
     u &= \frac{r^2}{4\nu}\frac{\partial p}{\partial x} + A \ln r + B
 \end{align}
-by using the boundarie conditions $u(r = r_0) = 0$ and choose the same non-dimensionalization as in () with the lenght scale $L = r_0$,
+By using the boundarie conditions $u(r_0) = 0$ and choose the same non-dimensionalization as in section (), with the expection of setting the length scale to $r_0$,
 the velocity profile for the channel is given by
 \begin{align}
     u &= \frac{r^2 - r_0^2}{4}\frac{\partial p}{\partial x}Re
 \end{align}
-Since $v_{max} != 1$ by definition, the pressure condition for the domain is given by
+Since $v_{max} \stackrel{!}{=} 1$ by definition, the pressure condition for the domain needs to be set to
 \begin{align}
     \frac{\partial p}{\partial x} = -\frac{4 r_o^2}{Re}
 \end{align}
-
-
 \newpage
+
 \subsection{Taylor-Couette Flow}
+
+-introduction
 
 \subsubsection{Theoretical description}
 
