@@ -18,8 +18,8 @@ plt.rc('axes', prop_cycle=(cycler('color', cmap)))
 
 def main():
     dpath = '/home/upgp/jruebsam/simulations/april15/week1/hpflow/gc/'
-    modes = ['vp', 'vpfrac']
-    labels = ['VP', 'VP-Vol.Frac.']
+    modes = ['ip', 'ipzero']
+    labels = ['IP', 'IP + DF']
 
     re = 100.
     pmax = 4./re
@@ -32,7 +32,8 @@ def main():
     f, ax = style.newfig(1.)
 
     for mode, label in zip(modes, labels):
-        for order in [0, 1]:
+        for order in [1, 0]:
+            print mode, order
             l2rel, l2abs, res = [], [], []
             for rs in reversed(resf):
                 on = 'o2' if order else 'o4'
@@ -64,33 +65,47 @@ def main():
             l2rel, l2abs, res = np.array(l2rel), np.array(l2abs), np.array(res)
             lst = '--' if on=='o4' else ':'
 
-            ax.plot(res, l2rel, 'o'+lst, label = label + ' ' + on, ms=3, mew=0)
+            ms = 3 if not ((mode=='ipzero') and (on =='o2')) else 4
 
-            if (mode=='vpfrac') and (on =='o2'):
-                fitfunc = lambda p, x: p[0]*x**p[1]
-                errfunc = lambda p, x, y: fitfunc(p, x) - y
-                p0 = [1., -2]
-                p1, success = optimize.leastsq(errfunc, p0[:], args=(res, l2rel))
+            fitfunc = lambda p, x: p[0]*x**p[1]
+            errfunc = lambda p, x, y: fitfunc(p, x) - y
 
-                xn = np.linspace(16, 512, 100)
-                pdummy = p1
-                pdummy[0] -=2
-                yn = fitfunc(pdummy, xn)
-                ax.plot(xn, yn, 'k--', lw=0.5, label='fit: $\propto x^b$ : $b=%.3f$ +- ?' % p1[1])
+            p0 = [1., -2]
+            p1, success = optimize.leastsq(errfunc, p0[:], args=(res, l2rel))
+
+            fitfunc = lambda x, a, b: a*x**b
+
+            popt, pcov = optimize.curve_fit(fitfunc, res, l2rel)
+            perr = np.sqrt(np.diag(pcov))
+            print perr
+
+            p1 = popt
+
+
+            xn = np.linspace(16, 512, 100)
+            #yn = fitfunc(p1, xn)
+            yn = fitfunc(xn, *p1)
+
+            if (mode=='ipzero') and (on =='o4'):
+                p1[1] = np.NaN
+
+            if (mode=='ip') and (on =='o2'):
+                ax.plot(xn, yn, 'k--', lw=0.5, label='Fit for IP o2' % p1[1])
+            ax.plot(res, l2rel, 'o'+lst, label = label + ' ' + on + ' fit: $b=%.3f\pm%.3f$' % (p1[1], perr[1]), ms=3, mew=0)
 
     ax.legend(ncol = 3, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.3),
            fancybox=True, shadow=True)
 
     ax.set_yscale('log')
     ax.set_xscale('log')
-    ax.set_ylim(1e-4, 2*1e-1)
+    ax.set_ylim(4*1e-6, 2*1e-1)
     ax.set_xlim(15, 550)
     ax.set_xlabel(r'grid points N')
     ax.set_ylabel(r'rel. $l_2$-error')
     plt.subplots_adjust(top=0.8, bottom =0.15)
 
     plt.grid()
-    plt.savefig('vp.pdf')
+    plt.savefig('ip.pdf')
 
 if __name__=='__main__':
     main()

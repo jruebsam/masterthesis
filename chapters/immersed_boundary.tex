@@ -511,35 +511,42 @@ With the above defined setup all methods introduced in section were tested, for 
 For the penalization method the non-dimensionalized damping was set to $J=1e-4$.
 It would be possible to choose a larger time step for the lower resolution cases, which means that in general
 one would apply a smaller damping rate $J$ in a case of applicaton. To remain consistent in the error convergence, here $J$ and
-therefore $\Delta t$ was not altered.
-
+therefore $\Delta t$ was not altered.\\
+The results of the computation are shown from figure () to figure().
+In figure (X) the relative $l_2$-error is shown for the volume penalization method with and without the volume fraction method
+for second and fourth order. The modified volume fraction method is not present since the computed error is almost identical to the default method,
+such that the values overlap in the plot.
 
 \begin{figure}[!pt]
   \centering
-  \includegraphics{gfx/immersed_boundary/hpflow/gc_theo/vp.pdf}\label{fig:hpflow_vpgc_theo}
+  \includegraphics{gfx/immersed_boundary/hpflow/theo/vp.pdf}\label{fig:hpflow_vpgc_theo}
   \caption{blabla}
 \end{figure}
 
 \begin{figure}[!pb]
   \centering
-  \includegraphics{gfx/immersed_boundary/hpflow/gc_theo/df.pdf}\label{fig:hpflow_dfgc_theo}
+  \includegraphics{gfx/immersed_boundary/hpflow/theo/df.pdf}\label{fig:hpflow_dfgc_theo}
   \caption{blabla}
 \end{figure}
 
 
 \begin{figure}[!pt]
   \centering
-  \includegraphics{gfx/immersed_boundary/hpflow/gc_theo/ip.pdf}\label{fig:hpflow_ipgc_theo}
+  \includegraphics{gfx/immersed_boundary/hpflow/theo/ip.pdf}\label{fig:hpflow_ipgc_theo}
   \caption{blabla}
 \end{figure}
 
 \begin{figure}[!pb]
   \centering
-  \includegraphics{gfx/immersed_boundary/hpflow/gc_theo/ip.pdf}\label{fig:hpflow_allgc_theo}
+  \includegraphics{gfx/immersed_boundary/hpflow/theo/ip.pdf}\label{fig:hpflow_allgc_theo}
   \caption{blabla}
 \end{figure}
 
 \newpage
+
+
+For all methods an approximately linear decrease  can be observed.
+The error decreases from the order $1e-1$ for low resolutions until
 
 
 -numerical setup resolution
