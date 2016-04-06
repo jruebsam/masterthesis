@@ -17,12 +17,15 @@ def setup():
               }
     plt.rcParams.update(params)
 
-def figsize(scale):
+def figsize(scale, hscale=None):
     fig_width_pt = 448.13095 #from latex \the\textwidth
     inches_per_pt = 1.0/72.27
     golden_mean = (np.sqrt(5.0)-1.0)/2.0
     fig_width = fig_width_pt*inches_per_pt*scale
-    fig_height = fig_width*golden_mean
+    if hscale is not None:
+        fig_height = fig_width*hscale
+    else:
+        fig_height = fig_width*golden_mean
     fig_size = [fig_width,fig_height]
     return fig_size
 

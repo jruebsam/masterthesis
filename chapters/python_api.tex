@@ -6,20 +6,140 @@ In this chapter we want to give a brief overview to the high object oriented sim
 was written in the context of this thesis, with the python programming language.
 The purpose of the library in general is to simplify the execution of simulations, but furthermore
 includes the possibility to analyse the results and use visualization techniques to study the overall
-behaviour of the simulations during runtime.\\
+behaviour of the simulations during runtime.
+Before we talk about the general workflow with the API, we first want to introduce the usage
+and concepts of the different API classes and objects.
 
+\section{Parameter File}
 
--bla
--workflow
--hdf5
+The Parameter File contains every flag and parameter which is used during the runtime of the simulation.
+During compile time all parameters are converted into a specific set of C-macros which are then compiled
+into the cuda code. As a file format we choose the open-standard format \textbf{Json} \footnote{Javascript Object Notation},
+which is human-readable and furthermore very easy to parse in any programming language.
+An example of a Parameter file is shown in Listing ()
+The parameter file contains of two sections.
+\begin{enumerate}
+\item{conditions} Flags which are set to a constant value during runtime mostly zero or one. For example the boundary conditions and
+                  interpolation methods. Not all flags have to be set for a simultaion.
+\item{parameters} The parameter set defines all parameters which care used  for a simulation. In contrast to the conditions, each
+                  parameter has to be defined in order to enable a proper execution.
+\end{enumerate}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=json,firstnumber=1, caption='Example of a "paramater.json" file.]
+{
+    "conditions": {
+        "all_periodic" :1
+    },
+    "parameters": {
+        "BLOCKSIZE": 8,
+        "STEPMAX": 200000,
+        "IC_NAME": "\"c2_1000\"",
+        "RAYLEIGH":0,
+        "DELTA_T": 0.0001,
+        "SOUND_SPEED_SQUARED": 400,
+        "PRANDTL": 0.01,
+        "GPU_ID": 2,
+        "EKMAN": 0.0001,
+        "NX": 64,
+        "NY": 64,
+        "NZ": 8,
+        "LX": 1.0,
+        "LY": 1.0,
+        "LZ": 0.125,
+        "RUN_NAME": "\"c2_1000\"",
+        "NUM_GPU": 1,
+        "SAMPLING_RATE": 5000,
+        "NX_D": "NX/NUM_GPU",
+        "NU": 0.0001,
+        "PM": 1,
+        "KAPPA": 0.0001
+    }
+}
+\end{lstlisting}
+\end{minipage}
 
-
-
-\section{Parameter JSON}
-\section{Simulation Class}
 \section{Generator Class}
--ic testcase masa
-\section{Usage Examples}
+
+The generator class is responsible for the generation of all initial data.
+This means the initial conditions for all variables i.e. velocity and temperature
+and the computation of interpolation and domain masks which are necessary for the different
+immersed boundary methods.\\
+During the execution of a simulation all precomputed arrays are stored within a
+HDF5-File format, which is optimized for the storage and structuring of large amounts of data.
+Furthermore the format simplifies the data exchange between the python api and the cuda programm.\\
+For the generation of data a generator object has to be initialized with a generator function,
+there are currently implemented three types of these functions.
+
+\begin{description}
+\item[Initial  Conditions] These functions simply generate the initial conditions for a certain flow problem, for example the taylor couette
+                            flow or a simple cylndric domain. The definition of the functions can be found in pycurb.ic
+\item[Testcase] The testcase functions extend the initial conditions by having the possibility to add certain forcing parameters into the timestep
+                for example a pressure gradient is necessary for the poiseuill-flow setup described in section ().
+                All defined functions can be found in pycurb.testcase.
+\item[MASA]     MASA functions enable the possibility to perform a  manufactured solution analysis, by defining a solution of the flow problem.
+                The python api then computes additional source terms from the navier stokes equation which are inserted into the equations of motion (see section ()).
+                All defined functions can be found in pycurb.mase
+\end{description}
 
 
+It should be noted that it is quit easy to add a new function to the library, an example for an ic function definition can be found in appendix (x).
+Additionally it is possible to create a generator which takes the data from an old simulation. In listing () the creation of a generator object is
+exemplary shown. At first the generator is created by using a generator function, afterwards it is possible to define certain attributes
+for example the radius of a cylindric fluid domain.\\
 
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption='Generator class usage']
+import pycurb as pc #import the simulation API
+import pycurb.testcase as tf #import testcases
+import pycurb.ic as as ic    #import initial conditions
+
+#create a generator object for pipe flow in z direction
+generator = pc.Generator.from_testcase(tf.cylinder_flow_z)
+#set the default velocity profile, pressure gradient and radius
+generator.add_option('SETV', True)
+generator.add_option('PMAX', pmax)
+generator.add_option('r', 1.)
+
+#create a generator object for taylor couette flow
+generator = pc.Generator.from_ic(ic.taylor_couette)
+#set velocity, inner and outer radius
+generator.add_option('SETV', True)
+generator.add_option('ri', ri)
+generator.add_option('ro', ro)
+\end{lstlisting}
+\end{minipage}
+
+\section{Simulation Class}
+
+An intance of the simulation class is the main object of the API and
+necessary to execute a simulation. For the creation of a simulation object
+the initial arguments are the filepath where all simulation data will be stored
+and the json-file for the parameter setting.
+Following the creation of the simulation object it is possible to alter all parameters and conditions
+which were previously stored in the json-file. This gives the possibilty to create
+simulations with different parameter settings on the fly, i.e. change the resolution of the numerical grid
+to perform a grid convergence study.
+Before the execution of the cuda code, the simulation object has to be bind to a generator object
+with the \textbf{generate\_files} class function, in return the generator object will begin
+with the data creation. The last step is execution of the cuda code which can be done with the \textbf{start\_simulation}
+class function.  A minimal usecase of the complete procedure shown in listing (X).
+
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption='Generator class usage']
+import pycurb as pc
+import pycurb.ic as ic
+
+generator = pc.Generator.from_ic(ic.taylor_couette)
+sim = pc.Simulation('data', 'parameter.json')
+sim.parameter.set('NX', 128)
+sim.parameter.set('NY', 128)
+sim.parameter.set_condition('o2', order)
+sim.generate_files(generator)
+sim.start_simulation()
+\end{lstlisting}
+\end{minipage}
+
+\section{Usage Example}
+
+The workflow using the simulation API can be described

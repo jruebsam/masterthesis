@@ -32,7 +32,7 @@ def main():
     resf = np.linspace(16, 256., 256./16)
     resf = np.append(resf, 512)
 
-    f, (ax, ax2) = plt.subplots(1, 2, figsize = style.figsize(1, hscale=0.5))
+    f, (ax, ax2) = plt.subplots(1, 2, figsize = style.figsize(1))
 
     for mode, label, order in zip(modes, labels, orders):
         l2rel, l2abs, res = [], [], []
@@ -68,13 +68,6 @@ def main():
             thflow[thflow<0] = 0
             vz[thflow==0] = 0
 
-            if ((rs==256) and (mode=='dffrac')):
-                cax = ax2.imshow((vz -thflow).T, interpolation='nearest', origin='lower', extent=[0, 1, 0, 1])
-                cbar = f.colorbar(cax, pad = 0.1, shrink=0.9)
-                ax2.set_xlabel('x')
-                ax2.set_ylabel('y')
-                ax2.set_title('(b) DF-Vol.Frac N=256')
-
             l2error = pa.l2_error(vz, exact=thflow)
             l2errorabs = pa.l2_error_abs(vz, exact=thflow)
 
@@ -95,12 +88,11 @@ def main():
         ax.plot(res, l2rel, 'o'+lst, label = label+ ' ' + on + ' (Fit:$b=%.3f\pm %.3f$'\
                                         % (popt[1], perr[1]), ms=3, mew=0)
 
-    ax.legend(ncol = 3, fontsize=6, loc='upper center', bbox_to_anchor=(1.1, 1.3),
+    ax.legend(ncol = 3, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.3),
            fancybox=True, shadow=True)
 
     ax.set_yscale('log')
     ax.set_xscale('log')
-    ax.set_title('(a) GC-Study')
     #ax.set_ylim(4*1e-6, 2*1e-1)
     #ax.set_xlim(15, 550)
     ax.set_xlabel(r'grid points N')
