@@ -590,23 +590,45 @@ would be an additional error resulting from the interpolation scheme.\\
 The results of the error analysis are shown in figure () (a), exemplarly for the volume penalization, direct forcing  methods with volume fraction
 and the interpolation method.
 
-
 \begin{figure}[!pb]
   \centering
   \includegraphics{gfx/immersed_boundary/hpflow/hd/all.pdf}\label{fig:hpflow_allgc_theo}
   \caption{blabla}
 \end{figure}
 
--volfrac und dfrac bad convergence
--ip o4 ohne set zero wegen rho error rand
--ip 02 gut oder fit ?
-\newpage
+The convergence rate of the volume penalization method and direct forcing method are of order $\approx 1.44$ and $\approx 1.6$.
+Since the finite difference methods are of second order, one would expect a similar decrease in the error.
+However we can explain this behaviour by having a look at the velocity profile substracted from the theoretical solution.
+Figure () (b) shows this exemplarly for the direct forcing volume fraction method. It can be noted that
+the error vanishes in the middle section of the fluid error whereas the largest differences occur at the fluid domain border.
+Therefore we propose that the bad convergence is caused by different approximations of the wall region for different resolutions.
+Since the boundary is not mimiced exactly but approximated by the nearest neighboor points in the wall domain, the actual position
+of the boundary is dependent of the resolution.\\
+The interpolation method of fourth order converges with a rate of $\approx 1.4$ order. It is therefore even worse than the volume penalization and
+direct forcing method, altough the overall error is smaller for lower resolutions. Again one possible explanation would be the different rasterization
+of the domain border, which does not affect the velocity profiles due to the interpolation but the coupling of the pressure.\\
+The second order interpolation method converges is of order $\approx 2.35$, which is better than the expected order of two.
+The fluid domain is interpolated at the same positions and since no pressure coupling over the fluid wall occurs the induced error is small.
+
 
 \subsubsection{Long-Term Simulations}
 
 In Order to test the  numerical stability, additionally a long-term simulation was performed for each IBM.
 Again a Reynolds number of $Re=100$ was chosen, with a fixed resolution of $N=96$ grid points.
 
+\begin{figure}[!pb]
+  \centering
+  \includegraphics{gfx/immersed_boundary/hpflow/long/rho.pdf}\label{fig:hpflow_allgc_theo}
+  \caption{blabla}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!pt]
+  \centering
+  \includegraphics{gfx/immersed_boundary/hpflow/long/ts.pdf}\label{fig:hpflow_allgc_theo}
+  \caption{blabla}
+\end{figure}
 \newpage
 
 \subsection{Taylor-Couette Flow}
