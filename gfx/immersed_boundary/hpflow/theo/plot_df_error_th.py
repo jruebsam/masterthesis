@@ -65,18 +65,14 @@ def main():
             l2rel, l2abs, res = np.array(l2rel), np.array(l2abs), np.array(res)
             lst = '--' if on=='o4' else ':'
 
-            fitfunc = lambda p, x: p[0]*x**p[1]
-            errfunc = lambda p, x, y: fitfunc(p, x) - y
-            p0 = [1., -2]
-            p1, success = optimize.leastsq(errfunc, p0[:], args=(res, l2rel))
-
+            popt, perr = pa.loglog_power_fit(res, l2rel)#, p0=[1., -2.])
             xn = np.linspace(16, 512, 100)
-            yn = fitfunc(p1, xn)
+            yn = popt[0]*xn**popt[1]
             if (mode=='dffrac') and (on =='o2'):
-                ax.plot(xn, yn, 'k--', lw=0.5, label='Fit for DF-Vol.Frac o2' % p1[1])
-            ax.plot(res, l2rel, 'o'+lst, label = label + ' ' + on + ' fit: $b=%.3f$ +- ?' %p1[1], ms=3, mew=0)
+                ax.plot(xn, yn, 'k--', lw=0.5, label='Fit for DF-Vol.Frac. o2 $\propto N^b$' % popt[1])
+            ax.plot(res, l2rel, 'o'+lst, label = label + ' ' + on + ' (Fit:$b=%.3f\pm %.3f$' % (popt[1], perr[1]), ms=3, mew=0)
 
-    ax.legend(ncol = 3, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.3),
+    ax.legend(ncol = 3, fontsize=6, loc='upper center', bbox_to_anchor=(0.5, 1.3),
            fancybox=True, shadow=True)
 
     ax.set_yscale('log')

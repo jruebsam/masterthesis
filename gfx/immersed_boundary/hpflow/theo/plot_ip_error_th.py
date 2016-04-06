@@ -9,7 +9,6 @@ import tables as tb
 import pycurb.analysis as pa
 from scipy import stats
 import itertools as it
-from scipy import optimize
 
 cmap = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf']
 
@@ -35,7 +34,7 @@ def main():
         for order in [1, 0]:
             print mode, order
             l2rel, l2abs, res = [], [], []
-            for rs in reversed(resf):
+            for rs in resf:#reversed(resf):
                 on = 'o2' if order else 'o4'
                 var_path = os.path.join(mode, on, 'res_%i' % rs)
                 sim_path = os.path.join(os.path.dirname(__file__), "data", var_path)
@@ -60,38 +59,20 @@ def main():
                 l2abs.append(l2errorabs)
                 res.append(rs)
 
-                print l2error, mode, order
 
             l2rel, l2abs, res = np.array(l2rel), np.array(l2abs), np.array(res)
             lst = '--' if on=='o4' else ':'
 
-            ms = 3 if not ((mode=='ipzero') and (on =='o2')) else 4
-
-            fitfunc = lambda p, x: p[0]*x**p[1]
-            errfunc = lambda p, x, y: fitfunc(p, x) - y
-
-            p0 = [1., -2]
-            p1, success = optimize.leastsq(errfunc, p0[:], args=(res, l2rel))
-
-            fitfunc = lambda x, a, b: a*x**b
-
-            popt, pcov = optimize.curve_fit(fitfunc, res, l2rel)
-            perr = np.sqrt(np.diag(pcov))
-            print perr
-
-            p1 = popt
+            ms = 4 if not ((mode=='ipzero') and (on =='o2')) else 2
 
 
-            xn = np.linspace(16, 512, 100)
-            #yn = fitfunc(p1, xn)
-            yn = fitfunc(xn, *p1)
-
-            if (mode=='ipzero') and (on =='o4'):
-                p1[1] = np.NaN
-
-            if (mode=='ip') and (on =='o2'):
-                ax.plot(xn, yn, 'k--', lw=0.5, label='Fit for IP o2' % p1[1])
-            ax.plot(res, l2rel, 'o'+lst, label = label + ' ' + on + ' fit: $b=%.3f\pm%.3f$' % (p1[1], perr[1]), ms=3, mew=0)
+            if not ((mode=='ipzero') and (on=='o4')):
+                popt, perr = pa.loglog_power_fit(res, l2rel)#, p0=[1., -2.])
+                xn = np.linspace(16, 512, 100)
+                yn = popt[0]*xn**popt[1]
+                if (mode=='ip') and (on =='o2'):
+                    ax.plot(xn, yn, 'k--', lw=0.5, label='Fit for IP o2 $\propto N^b$' % popt[1])
+                ax.plot(res, l2rel, 'o'+lst, label = label + ' ' + on + ' (Fit:$b=%.3f\pm %.3f$' % (popt[1], perr[1]), ms=3, mew=0)
 
     ax.legend(ncol = 3, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.3),
            fancybox=True, shadow=True)

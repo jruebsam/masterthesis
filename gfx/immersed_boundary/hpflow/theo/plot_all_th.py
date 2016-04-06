@@ -66,7 +66,13 @@ def main():
 
         ms = 3 if not ((mode=='ipzero') and (on =='o2')) else 2
 
-        ax.plot(res, l2rel, 'o'+lst, label = label + ' ' + on, ms=ms, mew=0)
+        popt, perr = pa.loglog_power_fit(res, l2rel)#, p0=[1., -2.])
+        xn = np.linspace(16, 512, 100)
+        yn = popt[0]*xn**popt[1]
+        if (mode=='ip') and (on =='o2'):
+            ax.plot(xn, yn, 'k--', lw=0.5, label='Fit for IP. o2 $\propto N^b$' % popt[1])
+        ax.plot(res, l2rel, 'o'+lst, label = label + ' ' + on + ' (Fit:$b=%.3f\pm %.3f$' % (popt[1], perr[1]), ms=3, mew=0)
+
 
     ax.legend(ncol = 3, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.3),
            fancybox=True, shadow=True)
