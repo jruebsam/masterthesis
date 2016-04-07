@@ -33,38 +33,41 @@ def main():
 
     resf = np.linspace(16, 256., 256./16)
     resf = np.append(resf, 512)
-    f, ax = style.newfig(1.)
+    #f, ax = style.newfig(1.)
+    f, axes = plt.subplots(4, 4)
+
+
 
     #for mode, label in zip(modes, labels):
-    for mode, order in modes:
-        for order in [0, 1]:
-            for rs in reversed(resf):
-                on = 'o2' if order else 'o4'
-                var_path = os.path.join(mode, on, 'res_%i' % rs)
-                sim_path = os.path.join(os.path.dirname(__file__), "data", var_path)
-                sim_path  = os.path.join(dpath, sim_path)
+    for (mode, order), ax in zip(modes, axes.flatten()):
+        for rs in reversed(resf):
+            on = 'o2' if order else 'o4'
+            var_path = os.path.join(mode, on, 'res_%i' % rs)
+            sim_path = os.path.join(os.path.dirname(__file__), "data", var_path)
+            sim_path  = os.path.join(dpath, sim_path)
 
-                with tb.open_file(sim_path +"/simulation.h5") as d:
-                    vx = d.root.simdata.vx[-1, :, :, 1]
-                    vy = d.root.simdata.vy[-1, :, :, 1]
-                    h = d.root.icdata.H[:,:, 1]
-                b = (h==1)
+            with tb.open_file(sim_path +"/simulation.h5") as d:
+                vx = d.root.simdata.vx[-1, :, :, 1]
+                vy = d.root.simdata.vy[-1, :, :, 1]
+                h = d.root.icdata.H[:,:, 1]
+            b = (h==1)
 
-                p =  pc.Parameter(sim_path+"/parameter.json")
-                dim = pc.Dimension(p)
-                x, y, z = dim.get_grid()
-                x, y = x[:, :, 0], y[:, :, 0]
-                r = np.sqrt((x - lx/2.)**2 + (y-ly/2.)**2)
-                vth = A*r + B/r
-                vth[b] = 0
+            p =  pc.Parameter(sim_path+"/parameter.json")
+            dim = pc.Dimension(p)
+            x, y, z = dim.get_grid()
+            x, y = x[:, :, 0], y[:, :, 0]
+            r = np.sqrt((x - lx/2.)**2 + (y-ly/2.)**2)
+            vth = A*r + B/r
+            vth[b] = 0
 
-                vabs = np.sqrt(vx**2 + vy**2)
-                vabs[b] = 0
-                if rs == 128:
-                    plt.imshow(vth - vabs)
-                    plt.title("{} {}".format(mode, order))
-                    plt.colorbar()
-                    plt.show()
+            vabs = np.sqrt(vx**2 + vy**2)
+            vabs[b] = 0
+            if rs == 128:
+                cax = ax.imshow(vth - vabs)
+                ax.set_title("{} {}".format(mode, order))
+                plt.sca(ax)
+                plt.colorbar(cax)
+    plt.show()
 
 
     #plt.savefig('ip.pdf')
