@@ -616,7 +616,8 @@ The fluid domain is interpolated at the same positions and since no pressure cou
 In Order to test the  numerical stability, additionally a long-term simulation was performed for each IBM.
 Again a Reynolds number of $Re=100$ was chosen, with a fixed resolution of $N=96$ grid points.
 
-\begin{figure}[!pb]
+
+\begin{figure}[!pt]
   \centering
   \includegraphics{gfx/immersed_boundary/hpflow/long/rho.pdf}\label{fig:hpflow_allgc_theo}
   \caption{blabla}
@@ -624,17 +625,85 @@ Again a Reynolds number of $Re=100$ was chosen, with a fixed resolution of $N=96
 
 \newpage
 
-\begin{figure}[!pt]
+\begin{figure}[!pb]
   \centering
   \includegraphics{gfx/immersed_boundary/hpflow/long/ts.pdf}\label{fig:hpflow_allgc_theo}
   \caption{blabla}
 \end{figure}
-\newpage
+
+\clearpage
+
 
 \subsection{Taylor-Couette Flow}
 
--introduction
-
 \subsubsection{Theoretical description}
+\begin{figure}[!b]
+  \centering
+  \includegraphics[width=0.3\textwidth]{gfx/immersed_boundary/tcflow/tcsystem.pdf}\label{fig:tcflow_system}
+  \caption{Taylor Couette System with the inner and outer cylinder radius $R_1$ and $R_2$, and the rotation rates $\Omega_1$ and $\Omega_2$}
+\end{figure}
 
-blub blub
+As a last testcase for grid convergence studies we want to introduce the taylor-couette system.
+The setup is exemplarly shown in figure (). It contains of two coaxial in z-direction oriented cylinders
+with different radii $R_i$ and rotation rates $\Omega_i$. The fluid domain is given by the gap between the cylinders and
+periodic in z-direction.\\
+In dependency of the different domain paratemers different flow regimes can occur, criteria ...\\
+We examine radial couette flow where the outter cylinder does not rotate ...\\
+In constrast to the previously examined testcases this system provides different characteristics
+of the flow regime at the fluid domain border. The flow along the borders is not orthogonal to the curvature of
+the boundary like in the poiseuille flows we investigated before. Furthermore  new boundary
+conditions are introduced, to be more precisely the Dirichlet condition is now given by $|\vec{v}(\vec{r})|_{r_i} | = |\Omega_i \times \vec{r}|$.
+To begin with we want to examine the flow where the outer cyinder is not rotating, that is $\Omega_2 = 0$.
+In literature this system is usually referred to as circular coutte flow (CCF) (CITE). Furthermore we want to investigate the flow regime
+below the critical instability which means that $v_z=0$. In cylindrical coordinates the problem can be reduced to a two-dimensianol coordinate system with
+the coordinates $(r, \phi)$, given by the coordinate transformations $x=r\cos(\phi), y = r\sin(\phi)$.
+For the non-dimensionalization we choose the default convention (CITE) $x^*=x/(R_2 - R_1)$, $v^*=v/(R_1\Omega_1)$, $t^*=tR_1\Omega_1/(R_2-R_1)$ and $\rho^*=\rho$.
+The flow is then characterized by the Reynolds number $Re = \frac{\Omega R_1d}{\nu}$. With this convention the equations of motion for the steady state are given by ()
+\begin{align}
+    -\frac{u^2_\phi}{r} = - \frac{\partial p}{\partial r}, 0 = \frac{1}{Re}\frac{\partial}{\partial r}\left(\frac{1}{r}\frac{\partial}{\partial r}(r u_\phi)\right)
+\end{align}
+Integrating the equations twice leads to the solution (CITE)
+\begin{align}
+    u_\phi = Ar + \frac{B}{r}
+\end{align}
+with
+\begin{align}
+    A = \frac{-\Omega_1R_1^2}{R^2_2 - R^2_1} ; B = \frac{\Omega_1R^2_1 R^2_2}{R^2_2 - R^2_1}
+\end{align}
+
+\subsubsection{Grid Convergence Study}
+
+For the grid convergence study a reynolds number of $Re=50$  similar like in () was chosen in order to make sure the flow regime
+is below the critical instability. With this exception all other parameters where kept the same like in section ().
+The results of the computation are shown from figure () to figure ().
+
+\newpage
+\begin{figure}[!pt]
+  \centering
+  \includegraphics{gfx/immersed_boundary/tcflow/theo/vp.pdf}\label{fig:hpflow_vpgc_theo}
+  \caption{blabla}
+\end{figure}
+
+\begin{figure}[!pb]
+  \centering
+  \includegraphics{gfx/immersed_boundary/tcflow/theo/df.pdf}\label{fig:hpflow_dfgc_theo}
+  \caption{blabla}
+\end{figure}
+
+
+\begin{figure}[!pt]
+  \centering
+  \includegraphics{gfx/immersed_boundary/tcflow/theo/ip.pdf}\label{fig:hpflow_ipgc_theo}
+  \caption{blabla}
+\end{figure}
+
+\begin{figure}[!pb]
+  \centering
+  \includegraphics{gfx/immersed_boundary/hpflow/theo/all.pdf}\label{fig:hpflow_allgc_theo}
+  \caption{blabla}
+\end{figure}
+
+\newpage
+
+
+
