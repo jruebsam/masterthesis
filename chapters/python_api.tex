@@ -142,4 +142,78 @@ sim.start_simulation()
 
 \section{Usage Example}
 
-The workflow using the simulation API can be described
+Finally we want to give a usage example for a grid convergence study using
+the Simulation API. The source code is shown in listing (X).
+In the example we simulate a pipe flow, for a more detailed discussion we refer to section ().
+We start by importing the relevant modules from the API and defining all relevant constants like the
+Reynolds number, $Re=100$ in this case.
+Finally we create and loop over an numpy array which contains all resolutions on which we want to test
+our fluid problem.\\
+Inside the for loop we begin by defining a unique simulation path for each resolution.
+The we create the generator with the pipe-flow settings from the \textbf{pycurb.testcase} module and
+the options for the pressure gradient, the initial velocity field and the pipe radius.\\
+Finally the simulation object is created, here we set all parameters like resolution and domain size,
+the order of the finite difference scheme and the direct forcing method which will be introduced in section ().
+The last step is to execute a single simulation.\\
+The given example is build to be executed on a single machine in order to further parallize the computations on
+more than one gpu an additional python script \textbf{worker.py} was written which is not yet included in the simulation API (see Appendix A(XX)).
+To parallelize the example some small adaptions has to be made. For each resolution the simulation path has to be stored into a textfile, which
+is than opened by the python script, furthermore the execution of the simulation has to be removed from the for-loop.
+Finally we start by generating all simulation data by executing the modified version of our script. Afterwards we start
+the parallelization script for which we have to specify the file including the simulation path and the number of gpus and cuda machines we want to use.
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption='Grid Convergence Study Example']
+import pycurb as pc
+import pycurb.testcase as tf
+import numpy as np
+import os
+
+def main():
+    #define simulation parameters
+    re = 100.
+    pmax, pr = 4./re,  1./re
+    lx, ly, order = 2.5, 2.5, 1
+
+    #vary N from 16 to 256 with dN=16
+    res = np.linspace(16, 256., 256./16)
+
+    for rs in res:#iterate through resolution array
+        #create filepath for each simulation
+        var_path = os.path.join(method,'res_%i' % rs)
+        sim_path = os.path.join(os.path.dirname(__file__), "data", var_path)
+
+        #create generator with simulation settings
+        generator = pc.Generator.from_testcase(tf.cylinder_flow_z)
+        generator.add_option('SETV', True)
+        generator.add_option('PMAX', pmax)
+        generator.add_option('r', 1.)
+
+        #create simulation object and set parameters
+        sim = pc.Simulation(sim_path, "parameter.json")
+        sim.parameter.set("PRANDTL", pr)
+        lz = dx*(lx/rs)
+        sim.parameter.set("NX", rs)
+        sim.parameter.set("NY", rs)
+        sim.parameter.set("LX", lx)
+        sim.parameter.set("LY", ly)
+        sim.parameter.set("NZ", nz)
+        sim.parameter.set("LZ", lz)
+        sim.parameter.set_condition('o2', order)
+        sim.parameter.set_condition('SET_ZERO', 1)
+        sim.generate_files(generator)
+
+        #execute simulation
+        sim.start_simulation()
+
+if __name__=='__main__':
+    main()
+\end{lstlisting}
+\end{minipage}
+\clearpage
+
+The script creates a thread-safe queue and a number of threads, one for each gpu per machine.
+Each thread automatically fetches a job from the queue, than logs into the assigned cuda machine
+and executes the job on the given gpu.
+For time consuming simulations also a modificated version of the script was written where one thread
+can use more than one gpu, see Appendix A(XX).
