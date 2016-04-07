@@ -170,12 +170,22 @@ An example for the computed masking array with $N=2e5$, is shown in figure (). T
 a good approximation, for a better evaluation a convergence study was performed were the number of samples $S$ was varied between 100 and $10^6$ points.
 The $l_2$-error was determined by comparing the results to the computation with the highest number of samples.
 The results are shown in figure ().\\
-
--discussion for n>10000 error 1e-5\\
--overall good approximation \\
--erweiterung  *2 etc blabla\\
-
-
+For the number of samples in the intervall below $S=2\dot10^5$, we can observe a fast decrease in the error to the order $2\dot10^{-4}$.
+Above this intervall the overall decrease is of order $10^{-5}$ in the total error.
+The global error of $2\dot10^-5$ is at least two orders below the error the interpolation methods introduce into the finite difference scheme, as we will see
+in section (). Therefore we conlude that the volume fraction calculation should be accurate enough with $S=10^5$ samples.\\
+Finally we want to propose an enhancement to the volume fraction method. The idea behind the improvement can be stated as followed.
+Suppose we perform a simulation with a highly resolved numerical grid, in this case we can assume that the overall curvature of the boundary is negletable
+inside a single grid cell. This means that in the 2-dimensional case the boundary can be approximated by a straight line cutting the grid cell at a certain area.
+\begin{wrapfigure}{r}{0.5\textwidth}
+  \begin{center}
+    \includegraphics[width=0.3\textwidth]{gfx/immersed_boundary/methods/volfrac.pdf}
+  \end{center}
+  \caption{Example of surface cuts of grid cell}
+\end{wrapfigure}
+Now we examine the case where the calculated volume fraction is exactly $0.5$, this means that all possible surfaces have to cut the grid cell exactly in the middle.
+Therefore the grid point lies exacty on the surface and the overall velocity should be set to zero to fullfill the noslip condition.
+Our suggestion for the algorithm  is to multiply by a factor of two the volume fraction values and set all values above to the maximum value of one.
 
 \subsection{Interpolation}
 \newpage
