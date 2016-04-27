@@ -14,22 +14,59 @@ However in general it is considered that the helicity of a fluid, given by
 \begin{align}
     v curl v
 \end{align}
-is directly linked to dynamo action.
+is directly linked to dynamo action [CITE].
 Therefore, beside inertial wave propagation we want to observe a possible large helicity.
-The fluid experiment we want to investigate is the excitation of inertial waves inside a cone.
-Due to the asymmetrie in z-direction and the possibility of inertial wave extinction
-this system could be a candidate for a geodynamo. Furthermore it could be interesting to
-study inertial wave excitaton by turbulence in this kind of setup.
+For the system we describe in the following section one further application
+would be to study inertial wave excitaton by turbulence.
 
 \section{Theoretical description}
 
+The objective we have in mind is the numerical computation of inertial wave excitation inside a liberating cone.
+The system was already investigated in an experimentally setup [CITE].
+Here we want to give a brief overview of the theoretical properties and experimental results.\\
+The schematic setup of the experiment is shown in figure ().
+It contains of a cone given by the radius $R$ and the height $h$, resulting into an angle $\alpha = \tan()$.
+The cone is rotating with a modulated frequency
 
+\begin{figure}[!tbp]
+  \centering
+  \includegraphics[width=0.5\textwidth]{gfx/cone/cone.pdf}\label{fig:cone_cone}
+  \caption{blabla}
+\end{figure}
 
-- Cone inertial waves desription
-- introduction geodynamo
--magnetic field
-- turbulence
-- reference paper
+\begin{align}
+\Omega(t) = \Omega_0 + \epsilon \omega \cos(\omega t)
+\end{align}
+
+The modulation of the rotation frequency is also denoted as libration [RIGHT?] and can be used as a possible mechanism
+for inertial wave exitation [CITE].
+The overall idea of the setup is to introduce a geometry containing a singularity and study the influence on the ability of
+the system to develop inertial eigenmodes.
+Let us recall that the dispersion relation and group velocity of an inertial wave paket is given by
+
+\begin{align}
+    \omega = \frac{2\vec{\Omega}\vec{K}}{K} = 2 \Omega \cos\Theta ; \vec{c}_g = -\frac{2\vec{K}\times (\vec{\Omega} \times \vec{K})}{K^3}
+\end{align}
+
+with the wavenumber $\vec{K}$.
+Let us now consider the propagation of an interial wave paket from the top edge of the cone as shown.
+As discussed in section (), the reflection of inertial waves up on a  plane wall is a violation of snell's law.
+For each reflection the propagation angle with respect to the rotation axis stays constant,
+whereas the group velocity decreases.
+It can be shown that for all path i.e. $L$ and $L^o$ the propagation time of the wave energy stays constant [CITE]
+\begin{align}
+    \frac{K^o}{K} = \frac{\cos(\Theta - \alpha)}{\cos(\Theta + \alpha)}
+\end{align}
+This means that the overall propagation time into the apex of the cone becomes infinity, along with the energy density and the wave number.
+In conclusion it follows that since no reflection out of the cone apex can occur, the possibilty of inertial eigenmodes is not given.\\
+In the experimental setup described by [] and additional experiment was performed where the cone was replaced with a frustum of a cone,
+thus a bottom blade to enable a reflection of inertial waves.
+As a result for the cone with apex, a continuos wave spectrum could be observed.
+When just using the frustum of a cone a discrete wave spectrum could be observed(BAD TO SHORT).\\
+
+\section{Implementation}
+
+\section{Inertial Modes of a liberating Cylinder}
 
 
 \section{Numerical Viscosity}
