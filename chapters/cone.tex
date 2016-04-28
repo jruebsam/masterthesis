@@ -59,14 +59,64 @@ It can be shown that for all path i.e. $L$ and $L^o$ the propagation time of the
 \end{align}
 This means that the overall propagation time into the apex of the cone becomes infinity, along with the energy density and the wave number.
 In conclusion it follows that since no reflection out of the cone apex can occur, the possibilty of inertial eigenmodes is not given.\\
-In the experimental setup described by [] and additional experiment was performed where the cone was replaced with a frustum of a cone,
-thus a bottom blade to enable a reflection of inertial waves.
-As a result for the cone with apex, a continuos wave spectrum could be observed.
-When just using the frustum of a cone a discrete wave spectrum could be observed(BAD TO SHORT).\\
+In the experimental setup described by [] the experiment was compared to another setup where the cone was replaced with a frustum of a cone,
+thus a bottom blade to enable the reflection of inertial waves was inserted.
+As a result for the cone, a continuos wave spectrum could be observed in comparision to a discrete spectrum  for the frustum.\\
 
 \section{Implementation}
 
-\section{Inertial Modes of a liberating Cylinder}
+For the numerical implementation of the experiment, we can now use a modified set of the equations
+introduced in section (X.X).
+For the setup we choose a modulated roation rate
+\begin{align}
+\Omega(t) = 1 + \epsilon \cos(\omega t)
+\end{align}
+for the non-dimensionalized system with $\vec{v}^* = bla$.
+
+
+
+Since we now consider a time dependent rotation rate, there are two possibiliies.
+First of all, we can consider a rotating coordinate system with a constant velocity $\Omega_0$.
+This means the we can directly use the equations () to (), however since the overall rotation rate of the system is
+modulated, it is necessary to introduce the boundary conditions
+
+\begin{align}
+    \vec{v}|_{Border}  = \Omega \times \vec{r} = \begin{bmatrix}
+           -y \epsilon \cos(\omega t) \\
+           -x \epsilon \cos(\omega t) \\
+           0\\
+         \end{bmatrix}
+\end{align}
+
+The alternative option is the introduction of a accelerated frame of reference.
+In this case the boundary conditions do not need to be modified, but the coriolis forcing term is given by (CITE)
+
+\begin{align}
+    \vec{f} &= 2 \vec{\Omega} \times \vec{v} + \pdn[]{t}\left(\vec{\Omega} \times \vec{v} \right) \\
+            &= \begin{bmatrix}\\
+           -y \epsilon \cos(\omega t) \\
+           -x \epsilon \cos(\omega t) \\
+           0\\
+         \end{bmatrix}
+            &= \begin{bmatrix}\\
+           -y \epsilon \cos(\omega t) \\
+           -x \epsilon \cos(\omega t) \\
+           0\\
+         \end{bmatrix}
+\end{align}
+
+In the last step a linearization of the equation was performed.
+Since we are in interested in the propagation of intertial modes this
+step was performed to eleminate all possible non-linear effects which could occur.
+Furthermore the non-linear advection term was removed from the equations.
+
+\section{Liberating Cylinder}
+
+As a first test
+
+-
+
+
 
 
 \section{Numerical Viscosity}
