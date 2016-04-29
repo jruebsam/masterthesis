@@ -31,7 +31,8 @@ By setting $\phi = 1$ one obtains the integral form of mass conversation.
 
 \begin{align}
     \frac{\dif}{\dif t} \int_{\Omega_M}\dif V \rho(t) =  \int_{\Omega}\dif V \frac{\dif \rho}{\dif t}  &= \underbrace{-\int_{\partial \Omega}
-     \rho \vec{u}\vec{n}\dif S}_{\mathrm{Massflux} \atop \mathrm{through \ } \partial \Omega} \stackrel{\text{Gauss} \atop \text{ Law}}{=} -\int_\Omega \dif V \vec{\nabla}\vec{u}
+     \rho \vec{u}\vec{n}\dif S}_{\mathrm{Massflux} \atop \mathrm{through \ } \partial \Omega} \stackrel{\text{Gauss} \atop \text{ Law}}{=}
+      -\int_\Omega \dif V \vec{\nabla}\left(\rho \vec{u}\right)
 \end{align}
 
 The differential form of the equation is obtained by applying gauss law and considering an infinitesimal small control volume.
@@ -80,57 +81,69 @@ It should be noted that the set of equations is not yet solvable as the pressure
 
 \subsection{Initial State and Boundary Conditions}
 
-To determine the temporal evolution of the given equations it is necessary to define an initial set of conditions for all variables.
+The solution of a partial differential equation, if it exists, is always undetermined by a constant of integration.
+In order to determine the temporal evolution of a fluid system, it is necessary to define its initial state and therefore
+to determine one specific solution.\\
+This means that for every variable we have to choose an initial condition.
 With respect to a numerical solution it has to be considered that, for example an instability, is always triggered by some kind of disturbance.
 Thus it might be advisable to not choose a trivial solution like a zero velocity field, but instead a solution which quickly evolves in the state
-of the system one wants to achieve. Many times it is useful to add some pseudo random noise to the initial state.\\
+of the system one wants to achieve. Many times it is useful to add pseudorandom noise.\\
+\\
 Since the fluid domain is spatial restricted it is as well necessary to define the physical behavior at its boundaries.
-In the thesis the following boundary conditions are considered
-
+For a fluid domain $\Omega$ with the boundary $\partial \Omega$, the following boundarys are considered, as defined in \citep{Griebel1998} and \citep{ferziger99}.
 
 \begin{description}
-    \item[No-Slip Boundaries] The value of all velocities component is set to zero $\vec{v}|_{\partial \Omega} = 0$.
-                              More generally speaking, this kind of condition is  also referred to as Dirichlet-Condition where $\Phi=c $, for a scalar field bla [].
-    \item[Free-Slip Boundaries] The velocity component in normal direction to the wall is set to zero, this is fulfilled with $\vec{n}\pdn[v]{\vec{n}} = 0$.
-                                Free-Slip boundaries are used to reduce wall friction or to mimic symmetric bla.
-    \item[No-Flux Boundaries] For a scalar $\phi$ the flux trough the wall is zero which means $\pdn[\phi]{\vec{n}}$.
-                              Here the general case is referred to as VonNeumann-Condition, where $bla=bla$, for a scalalr $bla$  [].
-                              This boundary conditions is used to avoid mass or energy flux trough the domain boundary.
-    \item[Periodic boundaries] Periodic boundaries can be applied in all directions of our system. For example if the system is periodic in x-Direction,
-                                one has to ensure that $\Phi(x) = \Phi(x + L)$, where $x \in L$.
+    \item[No-Slip Boundaries] All velocities components are set to zero $\vec{v}|_{\partial \Omega} = 0$. The fluid is at rest on $\partial \Omega$ and no flux through
+                              the boundary occurs.
+                              In a more general case, this kind of condition is  also referred to as Dirichlet-Condition where $\Phi|_{\partial \Omega} = c\in\mathbb{R} $,
+                              for any variable $\Phi$.
 
+    \item[Free-Slip Boundaries] The velocity component in normal direction to the wall is set to zero, hence $\vec{n} \nabla \vec{v} = 0$ and $\vec{n}\vec{v}=0$ is required.
+                                No flux through $\partial \Omega$ occurs and no friction is impossed on the fluid.
+
+    \item[No-Flux Boundaries] For a scalar $\Phi$, the flux through the boundary is zero, hence $\vec{n}\nabla \Phi = 0$.
+                              Here the general case is referred to as Neumann boundary condition, where $\vec{n}\nabla \Phi = c\in \mathbb{R}$.
+                              This boundary conditions is used i.e. to avoid energy flux through the domain boundary.
+
+    \item[Periodic boundaries] Periodic boundaries can be applied in all directions of a system. For example if the system is periodic in x-Direction with a period $L$,
+                                one has to ensure that all variables match on the boundaries, that is $\Phi(x) = \Phi(x + L)$, for any variable $\Phi$.
 \end{description}
-
-The excact implementation of these methods is dicussed in the numerical section.
 
 \subsection{Nondimensionalization}
 
 For many fluid systems nondimensionalization is used to further symplify the equations of motion and reduce the number of free parameters.
-The approach behind this scheme is to define variable substitutions, such that the overall systems is free from any physical units.
+The approach behind this scheme is to define variable substitutions, such that the overall systems is free from any physical units.\\
 After the nondimensionalization the system is described by one or more dimensionless quantity, which characterize the overall physical behaviour.
-Therefore the nondimensionalization makes it easier to compare numerical simulations and experimental setups to one another.\\
-For the equations () and (), we can choose the following scales (see []).
+Therefore it is easier to compare numerical simulations and experimental setups to one another.
+We can choose the following scales for the variables of time, position, velocity and pressure (see \cite{Kundu2012}), the nondimensional variables are denoted by an asterisk.
 
 \begin{align}
-    \mathrm{Length}  : \vec{x}^* = \frac{\vec{x}}{L}  &, \mathrm{Velocity}: \vec{x}^* = \frac{\vec{v}}{V}\\
-    \mathrm{Time}    : t^* = t \cdot \frac{V}{L}      &, \mathrm{Pressure}: p^* = \frac{p}{\rho V^2}
+    \text{Length:}\qquad &  \vec{x}^* = \frac{\vec{x}}{L}  & \qquad \text{Velocity:}\qquad& \vec{x}^* = \frac{\vec{v}}{V}\\
+    \text{Time:}  \qquad & t^* = t \cdot \frac{V}{L}      & \qquad  \text{Pressure:}\qquad & p^* = \frac{p - p_\infty}{\rho V^2}
 \end{align}
 
-Here we choose $L$ as a lenght scale of our system and $V$ is the velocity scale of our system.
-For example in a pipe flow experiment we would choose $L$ as the diameter of our pipe and $V$ by the maximum velocity observed.
-The time can simply be scaled  by $V/L$ , furthemore for the pressure there is no natural lbab3lab3ba.
-With the above defined nondimensionalizton the impulse equation reduced to \footnote{Here we ignored *}
+Here we choose $L$ as a length and $V$ for the velocity, as typical scales from the fluid system, we consider.
+The pressure scale is set as a difference with respect to a characteristic pressure $p_\infty$.
+With the above defined scales the nondimensionalized Navier-Stokes equation is given by \footnote{
+From now on we ignore the * for all dimensionless variables }:
 
 \begin{align}
-    \pdn[u^*]{t^*} + \vec{u^*} \cdot \vec{\nabla} \vec{u^*} &= -\nabla p^* + \frac{1}{Re} \Delta \vec{u^*} + \vec{F^*}_{ext}
+    \pdn[u]{t} + \vec{u} \cdot \vec{\nabla} \vec{u} &= -\nabla p + \frac{1}{Re} \Delta \vec{u} + \vec{F}_{ext.}
 \end{align}
 
-where $Re$ is now defined as the Reynolds-number given by [cite].
+The dynamic of the system is reduced to the dimensionless quantity $\Rey$, formerly known as the Reynolds number,
+defined by (\citep{Kundu2012}):
+
 \begin{align}
-    Re = \frac{VL}{\nu} = \frac{\rho VL}{\mu} = \frac{\mathrm{intertial.forces}}{\mathrm{viscous.forces}}
+    \label{theorie:renumber}
+    Re := \frac{VL}{\nu} = \frac{\rho VL}{\mu}
 \end{align}
 
-The system is now charaterized by one dimensionless quantity, the Reynolds-number, which describes the ratio of inertial to the viscous forces.
+From equation \ref{theorie:renumber}, it can be seen that the Reynolds number gives the ratio between the inertial forces $\propto VL$
+to the viscous forces $\propto \nu$, of the fluid system.
+This means that for a small $\Rey$ the viscous forces dominate, whereas for a large $\Rey$ we can expect advection driven, maybe even turbulent flow.\\
+-bild\\
+-vergleich high re low re \\
 As exemplarly shown in image (),  for a small reynolds number (<soundso\footnote{system dependent})  the viscous forces are dominating and we can expect laminar flow regimes, whereas for
 large Reynolds number the flow becomes turbulent.
 
