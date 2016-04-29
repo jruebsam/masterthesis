@@ -5,12 +5,12 @@
 Prior to the development of a numerical model, it is necessary to give an exact theoretical description of the
 fluid systems, which are investigated in the context of this thesis.
 Hence this section contains a brief overview of the derivation and the properties of the fundamental equations of motions.
-For a more detailed description, the interested reader is referred to [], [] and [], on which section () is primary based.\\
+For a more detailed description, the interested reader is referred to \citep{ferziger99} and \citep{tritton88}, on which section \ref{theorie:eqm1} is based.\\
 In the second part of this chapter, the equations will be extended for new types of fluid systems.
 This includes the motion of fluid in a rotating frame of reference and the Rayleigh-B\'{e}nard system.
 Furthermore the physical properties of these systems will be discussed.
 
-\section{The Equations of Motion}
+\section{The Equations of Motion}\label{theorie:eqm1}
 
 At any time we examine a viscous, newtonian and incompressible fluid. The equations of motion for such a fluid can be derived by considering the conversation of
 mass and momentum inside a fixed control volume $\Omega \subset \mathbb{R}^3$.
@@ -20,28 +20,27 @@ meanwhile the mass distribution is given by the density distribution$\rho(\vec{r
 \subsection{Mass Conservation}
 
 Let $\partial V$ be the enclosing surface and $\vec{n}$ the normal vector to the control volume $\Omega$.
-For any intesive property $\phi$ the reynolds transport theorem states that
+For any intensive property $\phi$ the reynolds transport theorem states that
 \begin{align}
     \pdn[]{t} \int_{\Omega_M} \rho \phi \dif \Omega = \pdn[]{t}\int_{\Omega} \rho \phi \dif \Omega + \int_{\partial\Omega} \rho \Phi \vec{v} \vec{n} \dif S
 \end{align}
-where $\Omega_M$ is the volume of our control mass (EXPLANATION? Partial /diff?).
+where $\Omega_M$ is a control mass (CM) volume, thus the time dependent volume of a fluid element passing through $\Omega$
+\footnote{For one point in time it holds that $\Omega_M = \Omega$}.
+
 By setting $\phi = 1$ one obtains the integral form of mass conversation.
 
 \begin{align}
     \frac{\dif}{\dif t} \int_{V}\dif V \rho(t) =  \int_{V}\dif V \frac{\dif \rho}{\dif t}  &= \underbrace{-\int_{\partial V}
-     \rho \vec{u}\dif \vec{S}}_{\mathrm{Massenfluss} \atop \mathrm{durch \ } \partial V} \overset{*}{=} -\int_V \dif V \vec{\nabla}\vec{u}
+     \rho \vec{u}\dif \vec{S}}_{\mathrm{Massflux} \atop \mathrm{trough \ } \partial V} \stackrel{\text{Gauss} \atop \text{ Law}}{=} -\int_V \dif V \vec{\nabla}\vec{u}
 \end{align}
 
-In a physical sense this means a change of mass inside $\Omega$ can only occur by a mass transport trough $\partial \Omega$ or by a change in the density.
-The differential form of the equation is obtained by considering an infinitesimal small control volume and applying gauss law
-
+The differential form of the equation is obtained by applying gauss law and considering an infinitesimal small control volume.
 \begin{align}
-     \frac{\partial \rho}{\partial t}  + \nabla(\rho \vec{u}) = 0 \overset{\rho = \mathrm{const.}}{\Rightarrow} \nabla \cdot \vec{u} &= 0
+     \frac{\partial \rho}{\partial t}  + \nabla(\rho \vec{u}) &= 0
 \end{align}
-
-As we investigate an incompressible fluid, which means $\rho = const.$, we get the incompressible continuity equation
+As we investigate an incompressible fluid, which means $\rho = \text{const.}$, we get the incompressible continuity equation
 \begin{align}
-     \frac{\partial \rho}{\partial t}  + \nabla(\rho \vec{u}) = 0 \overset{\rho = \mathrm{const.}}{\Rightarrow} \nabla \cdot \vec{u} &= 0
+     \nabla \cdot \vec{u} &= 0
 \end{align}
 
 
@@ -52,8 +51,8 @@ Using the same approach, but with setting $\phi = \vec{v}$, results in the momen
     \pdn[\rho \vec{u}]{t} + \nabla\left(\rho\vec{u}\vec{u}\right) =  -\nabla p  + \vec{f}_{int} + \vec{f}_{ext}
 \end{align}
 In addition the right hand side of the equation consist of the internal and external forces which act on the fluid.
-The external forces depend on the specific system  we examine i.e. buyont or the coriolis force, whereas the internal forces
-are given by the pressure and the normal and shear stresses of the fluid.
+The external forces depend on the specific system  we examine for example the buyont or the coriolis force, whereas the internal forces
+are given by the pressure and the normal and shear stresses of the fluid.\\
 The pressure forces can be derived as $- \nabla p$.
 The forces induced by normal and shear stresses can be derived by the divergence of the stress tensor $T$.
 For an incompressible and newtonian fluid the expression simplifies to $\nu \Delta \vec{u}$ where $\nu$ is the kinematic viscosity of the fluid.
