@@ -161,7 +161,7 @@ TODO:\\
 In this section we want to extend the Navier-Stokes equations to govern the physical attributes of rotating systems,
 which play an important role in the context of geophysical fluid dynamics.\\
 Due to the continous acceleration acting on the fluid, these systems exhibit some fundamental different behavior, than one would expect.
-One important case we want to discuss, is the internal propagation of inertial waves inside a stratisfied rotating fluid.\\
+One important case we want to discuss, is the propagation of inertial waves inside a stratisfied rotating fluid.\\
 
 \subsection{Equations of Motion}
 
@@ -186,7 +186,7 @@ A further simplication can be obtained by considering that the centrifugal force
 hence it can be written in terms of a potential $\Phi$
 
 \begin{align}
-    \Omega \times (\Omega \times \vec{r}) = - \nabla(\frac{1}{2}\Omega^2\vec{r}^{'2}) = -\Phi
+    \Omega \times (\Omega \times \vec{r}) = - \nabla \left(\frac{1}{2}\Omega^2\vec{r}^{'2}\right) = -\Phi
 \end{align}
 
 which can be substituted into the pressure gradient by defining $p^* = p - \Phi$ \citep{tritton88}.
@@ -200,7 +200,7 @@ Last but not least we choose the following scales to obtain a nondimensional equ
     \qquad  \text{Pressure:}\qquad & p^* = \frac{p - p_\infty}{\rho L^2{|\vec{\Omega}|}^2}
 \end{align}
 
-The final form of the Navier-Stokes equation for the rotating coordinate system reads
+The final nondimensionalized form of the Navier-Stokes equation for the rotating coordinate system reads
 
 \begin{align}
     \pdn[u]{t}+ \left(\vec{u}  \vec{\nabla}\right) \vec{u} + 2\Omega \times \vec{u}  &= -  \nabla p + \Ekman \Delta \vec{u} + \vec{F}_{\text{ext.}}
@@ -216,21 +216,37 @@ and describes the ratio between the Coriolis and viscous forces inside the fluid
 
 \subsection{Inertial Waves}
 
-In rotating systems one possible solution is the propagation of so called inertial waves, through the fluid.
+We begin this section by briefly recapture some of the fundamental properties of mechanical waves, as quoted by \cite[p.194]{Kundu2012}.
 
-Let us recall that 1
+\begin{quote}
+It is perhaps not an overstatement to say that wave motion is the most basic feature
+of all physical phenomena. Waves are the means by which information is transmitted
+between two points in space and time, without movement of the medium across the
+two points. The energy and phase of some disturbance travel during a wave motion,
+but motion of the matter is generally small. Waves are generated due to the existence of
+some kind of “restoring force” that tends to bring the system back to its undisturbed
+state, and of some kind of “inertia” that causes the system to overshoot after the
+system has returned to the undisturbed state.
+\end{quote}
+
+Hence we have to consider, that the propagation of inertial waves requires a medium which contains a state of equilibrium and
+a restoring force pointing back to this state in response to a disturbance.
+In the context of geophysical fluid mechanics an equilibrium state can be given by a stratification.\\
+Let us consider the example of a fluid with a continous stratisfied density. This means that in the equilibrium, the density of the fluid has to decrease
+continous with the height of the system. The displacement of a fluid element from its resting position results in a restoring force, which is given by the
+gravitation or the buoyant force, depending on the direction of the displacement \cite{}.
+It can be seen therefore, that a disturbance of the equillibrium state can result in the propagation of internal waves, also referred to as gravity waves \cite{}.
+\footnote{One special case we know from everyday life, are surface waves, which emerge
+from the  discontinous densitiy stratisfaction between two fluids, i.e. water and air \cite{}.}
+If we know consider a uniform rotating fluid,
 
 
 
--what is a wave definition
--stratisfaction drehimpuls
--auslenkung coriolis force
+In the case inertial waves the stratisfaction of
 
--we begin with
 
-For a better unterstanding, we want to make a short comparison to internal gravity waves.
-Suppose we
--sattelite myabe
+
+
 
 In a mathematical sence the fundamental properties of an inertial wave is given by the dispersion relation, the group and phase velocity.
 To obtain these expressions, the common approach is the assumption of solutions of the type $e^{i(k_j x_j - \omega t)}$.
@@ -243,10 +259,6 @@ By inserting the ansatz into equation () one obtains the solution
 - restronig force eqilibrium
 
 - drehimpuls
-
-
-
-
 
 -einleitung - blabla mit stratisfaction drehimpuls
 
