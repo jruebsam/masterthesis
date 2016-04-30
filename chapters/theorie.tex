@@ -255,34 +255,38 @@ Waves of this type are denoted as inertial waves \cite{Clausen2011}.
 
 We know want to examine the properties of plane inertial waves.
 For this reason we neglect the non-linear advection operator and the viscous stress,
- $\Ekman=0$, in equation \ref{theorie:rotns}. The results we present in this section
-are based on that of \cite{Greenspan1990}
+which means $\Ekman=0$, in equation \ref{theorie:rotns}. The results we present in this section
+are adopted from \citep[p.185]{Greenspan1990}.\\
+In case of the a linear inviscid fluid, the equations of motion are fullfiled by plane wave solutions of the form
 
+\begin{align}
+    \vec{u} = \vec{U} e^{i(\vec{k}\vec{r}  - \omega t )}, \qquad
+    p = P e^{i(\vec{k}\vec{r}  - \omega t )}
+\end{align}
 
+The wave is transverse, since an insertion into the continuity equation yields $\vec{U}\vec{k} = 0$.
+From the momentum equation we obtain the dispersion relation
 
-In a mathematical sence the fundamental properties of an inertial wave is given by the dispersion relation, the group and phase velocity.
-To obtain these expressions, the common approach is the assumption of solutions of the type $e^{i(k_j x_j - \omega t)}$.
-By inserting the ansatz into equation () one obtains the solution
+\begin{align}
+    \omega = \pm \frac{ 2\vec{\Omega}\vec{K}}{|\vec{K}|} = \pm 2|\vec{\Omega}|\cos(\Theta)
+\end{align}
 
+where $\Theta$ is the polar angle with respect to the rotation axis,
+such that $\vec{K}\vec{\Omega} = |\vec{K}||\vec{\Omega}|\cos{\Theta}$
+This means that an inertial wave can only exist for a wave frequency smaller than twice of the rotation rate $\vec{\Omega}$.
+The phase velocity $\vec{c}_p$ and the group velocity $\vec{c}_g$ are given by
 
+\begin{align}
+    \vec{c}_p = 2 \frac{\vec{\Omega} \vec{K} }{|\vec{K}|^3} \vec{K}, \qquad
+    \vec{c}_g = \frac{2 \vec{K} \times (\vec{\Omega} \times \vec{K})}{|\vec{K}|^3}
+\end{align}
 
+-diskussion ausbreitungs richtung
+- energie transport
 
--what are gravitational waves
-- restronig force eqilibrium
-
-- drehimpuls
-
--einleitung - blabla mit stratisfaction drehimpuls
-
--lösung der gleichungen  bla bla bla
-
--eigen schaften von intertial waves
-
-\paragraph{Physical Properties}\mbox{}\\
-
--reflektion
 
 \paragraph{Reflection}\mbox{}\\
+-reflektion
 
 \newpage
 \section{Rayleigh-Benard System}
