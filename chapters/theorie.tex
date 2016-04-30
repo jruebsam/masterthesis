@@ -203,6 +203,7 @@ Last but not least we choose the following scales to obtain a nondimensional equ
 The final nondimensionalized form of the Navier-Stokes equation for the rotating coordinate system reads
 
 \begin{align}
+    \label{theorie:rotns}
     \pdn[u]{t}+ \left(\vec{u}  \vec{\nabla}\right) \vec{u} + 2\Omega \times \vec{u}  &= -  \nabla p + \Ekman \Delta \vec{u} + \vec{F}_{\text{ext.}}
 \end{align}
 
@@ -250,8 +251,12 @@ an imbalance of the preserved angular momentum and the pressure.
 Due to the restoring force, given by the coriolis force, an oscillation develops.
 Waves of this type are denoted as inertial waves \cite{Clausen2011}.
 
+\paragraph{Plane Inertial Waves}\mbox{}\\
 
-\paragraph{Physical Properties}\mbox{}\\
+We know want to examine the properties of plane inertial waves.
+For this reason we neglect the non-linear advection operator and the viscous stress,
+ $\Ekman=0$, in equation \ref{theorie:rotns}. The results we present in this section
+are based on that of \cite{Greenspan1990}
 
 
 
@@ -273,7 +278,11 @@ By inserting the ansatz into equation () one obtains the solution
 
 -eigen schaften von intertial waves
 
+\paragraph{Physical Properties}\mbox{}\\
+
 -reflektion
+
+\paragraph{Reflection}\mbox{}\\
 
 \newpage
 \section{Rayleigh-Benard System}
