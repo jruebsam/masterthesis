@@ -19,51 +19,80 @@ The partial differential equations we want to solve in this thesis are of the fo
 
 \begin{align}
     \label{numerik:pde_allg}
-    \pdn[\Phi]{t} = A \underbrace{\pdn[^2\Phi]{x^2}}_{\text{I}}  + B \underbrace{\pdn[^2\Phi]{x^2}}_{\text{II}}
-     + C(\vec{r}, \vec{u}, t) +  \vec{u}\left(\pdn[^2\Phi]{x^2} +  \pdn[^2\Phi]{x^2} + \pdn[\Phi]{x}\right) = \mathcal{L}
+    \pdn[\Phi]{t} = A \pdn[^2\Phi]{x^2}  + B \pdn[^2\Phi]{x^2}     + C(\vec{r}, \vec{u}, t) +  \vec{u}\left(\pdn[^2\Phi]{x^2} +  \pdn[^2\Phi]{x^2} + \pdn[\Phi]{x}\right) = \mathcal{L}
 \end{align}
 
-for a variable $\Phi(x, y, z)\in\mathbb{R}$.
+for a variable $\Phi(\vec{r}, t)\in\mathbb{R}$.
 The numerical integration can be divided into two steps, the calculation of the differential operator $\mathcal{L}$, which we want to discuss in this
 section and secondly the integration in time.
 The exact calculation of the spatial derivatives in $\mathcal{L}$ is numerically not possible.\\
 Due to the limited storage capacity and computation time of computers,
 it is necessary to discretize the domain, on which the PDE should be solved and find a adequate approximation of these operators.
 Here we will fall back to the  one-dimensional case, the implementation for three dimensions will be discussed in chapter \ref{chapter:cuda}.\\
-Let $\Omega = \{x \in \mathbb{R} | 0 < x < L\}$ be the domain on which we want to solve equations of type \ref{numerik:pde_allg}.
-For the discretization the simplest approach is to divide $\Omega$ into $N$ equidistant points $x_i= i\Delta x$ and $i=1..N$,
-with the distance between two points given by $\Delta x = x_{i+1} - x_i = L/(N-1)$.
-Local to a single point $x_i$, $f$ can be approximated with a taylor expansion.
 
-For the discretization the simplest approach is to divide $\Omega$ into $N$ equidistant points $x_i= i\Delta x$ and $i=1..N$,
-with the distance between two points given by $\Delta x = x_{i+1} - x_i = L/(N-1)$.
-Local to a single point $x_i$, $f$ can be approximated with a taylor expansion.
-
-\begin{align}
-    f(x) = f(x_i) + \left(\pdn[f]{x} \right)_i (x - x_i) + \left(\pdn[^2f]{x^2}\right)_i \frac{(x-x_i)^2}{2!} + bla
-\end{align}
-
-Insert $x$ with $x_{i+1}$ or $x_{i-1}$ we obtain the forward and backward
-
- necgleting higher order terms, results in the following approximations for the first derivative.
+Let $\Omega = \{x \in \mathbb{R} \;|\; 0 \leq x \leq L\}$ be the domain on which we want to solve equations of the type \ref{numerik:pde_allg}.
+For the discretization we divide $\Omega$ into $N$ equidistant points $x_i = \sum_i \Delta x_i$, with the position index ${i\in\{[0, N-1]|i\in\mathbb{N}\}}$
+and $\Delta x_i = x_{i+1} - x_i = L/(N-1)$.
+\footnote{EVTL?}
+We assume that $\Phi$ is a  continuous differentiable function.
+Local to a grid point $x_i$ and $\Phi$ can than be expressed with a Taylor series [CITE].
 
 \begin{align}
-    \left(\pdn[f]{x}\right)_i &\approx \frac{f_{i+1} - f{i}}{\Delta x}\\
-    \left(\pdn[f]{x}\right)_i &\approx \frac{f_{i} - f_{i-1}}{\Delta x}\\
-    \left(\pdn[f]{x}\right)_i &\approx \frac{f_{i+1} - f_{i-1}}{2\Delta x}
+    \Phi(x) = \sum_{n=0}^{\infty} \pdn[^n\Phi(x_i)]{x^n} \frac{(x - x_i)^n}{n!}
 \end{align}
 
-\begin{figure}[!tpb]
+By evaluating the Taylor expansion at different points, we obtain expressions for the first derivative. For example
+a combined evaluation at the points $x_{i+1}$, $x_{i-1}$ leads to the expression
+
+\begin{align}
+    \label{num:cds}
+    \left.\left(\pdn[\Phi]{x}\right)\right|_{i} = \frac{\Phi_{i+1} - \Phi_{i-1}}{x_{i+1} - x_{i-1}}
+     - \frac{(x_{i+1} - x_i)^2 - (x_i - x_{i-1})^2}{2 (x_{i+1} - x_{i-1})}\left(\pdn[^2\Phi]{x^2}\right)_i + \mathcal{O}(\Delta x^3)
+\end{align}
+
+For a constant grid size, that is $\Delta x := \Delta x_i = \text{const.}$, which means that the second order term in equation \ref{num:cds} vanishes.
+by neglecting all higher ordedr terms of higher order, we obtain a approximation for $\partial \phi$ of second order.
+
+This is the a so-called central-dif
+
+
+we obtain the finite difference approximations, shown in table \ref{num:df_table}
+
+\bgroup\large
+\begin{table}[!btp]
+\centering
+\def\arraystretch{1.6}%
+\begin{tabular}{c c c c c}\toprule
+Scheme-Name & Stencil & Truncation Error & Evaluation at\\[0.5ex]
+\midrule
+Forward  (FDS) & $\left(\pdn[\Phi]{x}\right)_i =  \frac{f_{i+1} - f{i}}   {\Delta x}$ & $\mathcal{O}(\Delta x)$  &$x_{i+1}$\\
+Backward (BDS) & $\left(\pdn[\Phi]{x}\right)_i = \frac{f_{i}    - f_{i-1}}{\Delta x}$  &$ \mathcal{O}(\Delta x)$ & $x_{i-1}$\\\
+Central  (CDS) & $\left(\pdn[\Phi]{x}\right)_i = \frac{f_{i+1}  - f_{i-1}}{2\Delta x}$ &$ \mathcal{O}(\Delta x^3)$& $x_{i+1}$ \& $x_{i-1}$\\
+\\
+\bottomrule
+\end{tabular}
+\label{num:df_table}
+\caption{Different FD-Schemes}
+\end{table}
+\egroup
+
+\begin{figure}[!btp]
   \centering
     \resizebox{.8\linewidth}{!}{
    \import{gfx/numerik/}{finite_differenzen.pdf_tex}
   }
-
   \caption{Approximation of the function $\Phi$ by different finite difference schemes.}
 \end{figure}
 
-The first scheme is äquivalent to the definition of the first derivative, for $\Delta x \rightarrow 0$ and is also
+
+
+-darstellung bild
+-
+
+
+The FDS-scheme is äquivalent to the default definition of the first derivative, for $\Delta x \rightarrow 0$ and is also
 denoted as forward difference, whereas the second scheme usually is referred to as backward difference.
+
 The third approximation can be obtained by averaging over the first two approximations, and  is referred to as central difference.
 The error resulting in the neglection of higher order terms in the taylor approximation, is denoted as the truncation error.
 For the forward- and backward scheme this error is of first order, for the central scheme it is of second order.

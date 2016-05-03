@@ -20,18 +20,20 @@ meanwhile the mass distribution is given by the density distribution$\rho(\vec{r
 \subsection{Mass Conservation}
 
 Let $\partial V$ be the enclosing surface and $\vec{n}$ the normal vector to the control volume $\Omega$.
-For any intensive property $\phi$ the reynolds transport theorem states that
+We know consider a control mass (CM), traversing the control volume (CV), such that for a fixed point in time it holds that $\Omega_M = \Omega$.
+For any intensive property $\phi$ the reynolds transport theorem that
+
 \begin{align}
+    \label{theorie:reynolds}
     \pdn[]{t} \int_{\Omega_M} \rho \phi \dif \Omega = \pdn[]{t}\int_{\Omega} \rho \phi \dif \Omega + \int_{\partial\Omega} \rho \phi \vec{v} \vec{n} \dif S
 \end{align}
-where $\Omega_M$ is a control mass (CM) volume, thus the time dependent volume of a fluid element passing through $\Omega$
-\footnote{For one point in time it holds that $\Omega_M = \Omega$}.
 
+The assumption of a conservation law requires that the left side of equation \ref{theorie:reynolds} has to be zero.
 By setting $\phi = 1$ one obtains the integral form of mass conversation.
 
 \begin{align}
     \frac{\dif}{\dif t} \int_{\Omega_M}\dif V \rho(t) =  \int_{\Omega}\dif V \frac{\dif \rho}{\dif t}  &= \underbrace{-\int_{\partial \Omega}
-     \rho \vec{u}\vec{n}\dif S}_{\mathrm{Massflux} \atop \mathrm{through \ } \partial \Omega} \stackrel{\text{Gauss} \atop \text{ Law}}{=}
+     \rho \vec{u}\vec{n}\dif S}_{\text{Massflux} \atop \text{through \ } \partial \Omega} \stackrel{\text{Gauss} \atop \text{ Law}}{=}
       -\int_\Omega \dif V \vec{\nabla}\left(\rho \vec{u}\right)
 \end{align}
 
