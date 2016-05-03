@@ -2,27 +2,39 @@
 
 \section{Introduction}
 
-In this section we want to introduce a part of the numerical methods, which were used in this thesis, for the performance of computations.
-To solve the in chapter () introduced equations of motion it is necessary to use spatial and temporal discretization schemes, in order to
-compute the time evolution of fluid system from the initial state.
-Different approaches like finite element and volume methods exist, here we will introduce the use of finite difference stencils for the
-spatial and a third order runge kutta method for the discretization in time.
-The choice of these methods in combination with the use of cartesian grids is in particular time saving when performing computations on the gpu, as we
-will see in chapter ().
+This chapter focuses on the methods that are used for the numerical computations in this thesis.
+In order to compute the temporal evolvement of a fluid system from its initial state, it is necessary to discretize
+the equations of motion by using different numerical schemes.\\
+For this purpose various discretization approaches, for example finite-element and finite-volume methods, exists.
+Here we will introduce the method of finite-difference stencils for the spatial and a third order Runge-Kutta method for the discretization in time.
+Furthermore we will introduce the method of artificial compressibility, which can be used to avoid the numerical expensive solution of a poisson equation.
+The choice of these methods in combination with the usage of cartesian grids is in particular time saving when performing computations on the gpu, as we
+will see in chapter \ref{chapter:cuda}.
 
 \section{Finite Differencing Schemes}
 
-We start with a brief introduction of finite difference methods,
-the interested reader is referred to [], for a more general overview, on which this section is primarly based on.
-Since the storage capacity and computation time of computers is limited it is necessary to approximate the contigious fluid domain  by a finite set of points,
-such that the overall error maintains small.
-To begin with we will fall back on the one dimensional case, where we want to discretize the operators
+We start with a brief introduction of finite difference methods.
+The interested reader is referred to \citep{ferziger99} for a more general overview, from where this section is adapted.
+The partial differential equations we want to solve in this thesis are of the form
 
 \begin{align}
-    \pdn[]{x} \ , \ \pdn[^2]{x^2}
+    \label{numerik:pde_allg}
+    \pdn[\Phi]{t} = A \underbrace{\pdn[^2\Phi]{x^2}}_{\text{I}}  + B \underbrace{\pdn[^2\Phi]{x^2}}_{\text{II}}
+     + C(\vec{r}, \vec{u}, t) +  \vec{u}\left(\pdn[^2\Phi]{x^2} +  \pdn[^2\Phi]{x^2} + \pdn[\Phi]{x}\right) = \mathcal{L}
 \end{align}
 
-applied to the function $f:\mathbb{R}\rightarrow \mathbb{R} : x  \rightarrow f(x)$, on a domain $\Omega = \{x \in \mathbb{R} | 0 < x < L\}$.
+for a variable $\Phi(x, y, z)\in\mathbb{R}$.
+The numerical integration can be divided into two steps, the calculation of the differential operator $\mathcal{L}$, which we want to discuss in this
+section and secondly the integration in time.
+The exact calculation of the spatial derivatives in $\mathcal{L}$ is numerically not possible.\\
+Due to the limited storage capacity and computation time of computers,
+it is necessary to discretize the domain, on which the PDE should be solved and find a adequate approximation of these operators.
+Here we will fall back to the  one-dimensional case, the implementation for three dimensions will be discussed in chapter \ref{chapter:cuda}.\\
+Let $\Omega = \{x \in \mathbb{R} | 0 < x < L\}$ be the domain on which we want to solve equations of type \ref{numerik:pde_allg}.
+For the discretization the simplest approach is to divide $\Omega$ into $N$ equidistant points $x_i= i\Delta x$ and $i=1..N$,
+with the distance between two points given by $\Delta x = x_{i+1} - x_i = L/(N-1)$.
+Local to a single point $x_i$, $f$ can be approximated with a taylor expansion.
+
 For the discretization the simplest approach is to divide $\Omega$ into $N$ equidistant points $x_i= i\Delta x$ and $i=1..N$,
 with the distance between two points given by $\Delta x = x_{i+1} - x_i = L/(N-1)$.
 Local to a single point $x_i$, $f$ can be approximated with a taylor expansion.
@@ -43,8 +55,11 @@ Insert $x$ with $x_{i+1}$ or $x_{i-1}$ we obtain the forward and backward
 
 \begin{figure}[!tpb]
   \centering
-  \includegraphics[width=0.6\textwidth]{gfx/numerik/fd_dummy.png}\label{fig:fd_schema}
-  \caption{Approximation einer Funktion durch finite Differenznen}
+    \resizebox{.8\linewidth}{!}{
+   \import{gfx/numerik/}{finite_differenzen.pdf_tex}
+  }
+
+  \caption{Approximation of the function $\Phi$ by different finite difference schemes.}
 \end{figure}
 
 The first scheme is äquivalent to the definition of the first derivative, for $\Delta x \rightarrow 0$ and is also
@@ -53,6 +68,8 @@ The third approximation can be obtained by averaging over the first two approxim
 The error resulting in the neglection of higher order terms in the taylor approximation, is denoted as the truncation error.
 For the forward- and backward scheme this error is of first order, for the central scheme it is of second order.
 All schemes are schematicaly shown in figure (), here the secord order central schemes results in the best approximationn.
+\citep{Fornberg1988}
+
 
 \paragraph{Second Order}\mbox{}\\
 \begin{align}
