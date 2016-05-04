@@ -15,15 +15,16 @@ will see in chapter \ref{chapter:cuda}.
 
 We start with a brief introduction of finite difference methods.
 The interested reader is referred to \citep{ferziger99} for a more general overview, from where this section is adapted.
-The partial differential equations we want to solve in this thesis are of the form
+The partial differential equations we want to solve in this thesis are of the form,
 
 \begin{align}
     \label{numerik:pde_allg}
-    \pdn[\Phi]{t} = A \pdn[^2\Phi]{x^2}  + B \pdn[^2\Phi]{x^2}     + C(\vec{r}, \vec{u}, t) +  \vec{u}\left(\pdn[^2\Phi]{x^2} +  \pdn[^2\Phi]{x^2} + \pdn[\Phi]{x}\right) = \mathcal{L}
+    \pdn[\Phi]{t} = \left(\sum_{x_i=x,y,z}\left( A_i \pdn[]{x_i}  + B_i \pdn[^2]{x_i^2}\right) + C +  \vec{u}\vec{\nabla} \right) \Phi = \mathcal{L} \Phi
 \end{align}
+    %\pdn[\Phi]{t} = A \pdn[^2\Phi]{x^2}  + B \pdn[^2\Phi]{x^2}     + C(\vec{r}, \vec{u}, t) +  \vec{u}\left(\pdn[^2\Phi]{x^2} +  \pdn[^2\Phi]{x^2} + \pdn[\Phi]{x}\right) = \mathcal{L}
 
-for a variable $\Phi(\vec{r}, t)\in\mathbb{R}$.
-The numerical integration can be divided into two steps, the calculation of the differential operator $\mathcal{L}$, which we want to discuss in this
+where $\Phi(\vec{r}, t)\in\mathbb{R}$ and $\mathcal{L}$ is a differential operator, containing spatial derivatives up to second order.
+The numerical integration can be divided into two steps, the calculation of $\mathcal{L}$, which we want to discuss in this
 section and secondly the integration in time.
 The exact calculation of the spatial derivatives in $\mathcal{L}$ is numerically not possible.\\
 Due to the limited storage capacity and computation time of computers,
@@ -115,51 +116,66 @@ stencil. The interested reader is referred to \citep{Fornberg1988}.
 
 \section{Runge-Kutta Method}
 
-
-
-
-For the temporal discretization the third-order low-storage Runge-Kutta scheme is used, first introduced by [Williamson].
-Third order methods are often used for cfd-simulations, since they tend to stabilice numerical oscilltions in advection terms[].\\
-We begin with considering the inital value problem.
+With the finite difference approximation $\mathcal{L^*}$ of the differential operator $\mathcal{L}$,
+we are able to solve equation \ref{numerik:pde_allg} by separation of variables.
 
 \begin{align}
-    \left(\pdn[f]{t}\right) = F(t, f(t)) ; f(t_0) = f_0
+    \Phi(t) = \Phi(0) + \int_{t_0}^{t} \mathcal{L^*} (t, \Phi(t)) \dif t
 \end{align}
 
-This differtial equation can be solved by integration, with the exact solution
+For a numerical computation, the integration interval $[t_0, t]$  is splitted into sub-intervals $[t^n, t^{n+1}]$ of length $\Delta t$ and integrated piecewiese.
+In order to approximate the integration on a sub-intervall, we know want to introduce the use of Runge-Kutta methods based on \citep{Sarbach2012}
+The idea behind this method is to iteratively evaluate $\mathcal{L^*}$ at $s$ different times $\tau_i=c_i \Delta t$ with $c_i \in \{\mathbb{R} | c_i<1  \}$,
+that is
 \begin{align}
-    f(t) = f(0) + \int_{t_n}^{t}F(t, f(t))dt
-\end{align}
-In the next step the integral is splitted into piecewiese integration, with time intervalls $[t^n, t^{n+1}]$.
-\begin{align}
-    f(t^{n+1}) = f(t) + \int_{t_n}^{t_{n+1}}F(t, f(t))dt
+ k_i = \mathcal{L^*} \left(\tau_i, \Phi(t_n) + \Delta t \left(a_{21} k_{s-1} + \dots + a_{s, s-1} k_{s-1} \right)\right)
 \end{align}
 
-When using runge kutta methods, the function F(t, f(t)) is evaluated at $s$ different timesteps $\tau_i = t^n + \Delta t \alpha_i$,
-furthermore for each $\tau$ a different weight parameter $b_i$ is used.V
-The numerical computation of the integral is than given by [].
+By using a coefficient weighted average of the $k_i$, we obtain
 
 \begin{align}
-    f(t^{n+1}) = f(t) + \Delta t \sum_{i=1}^s b_i k_i, k_i = F(t^n + \Delta t c_s, f^n + \Delta t \sum_{i=1}^{s-1}a_{si}k_i)
+    \Phi(t^{n+1}) = \Phi(t) + \Delta t \left( \sum_{i=1}^s b_i k_i \right)
 \end{align}
 
-With the definition of $\sum c_i$, the runge kutta scheme of third order is festgelegt by the butcher tablau
-By using taylor expansion and coefficient comparison, it can be shown that this  method converges at third order.
-
-
-- In order to use as  so wenig speicher wie möglich williamson scheme
-- 2 speicherstack für jede variable
+The accuracy of an s-stage runge-kutta method depends of the right choice of coefficients.
+In this thesis we use a third-order accurate scheme.
+Third order methods are often used for cfd-simulations, since they tend to stabilice numerical oscillaions in advection terms \citep{DIPLOM}.\\
+The coefficients are given by the butcher tableau \citep{QUELLE}
+\footnote{oder quelle}
 
 \begin{align}
-    S_1 = \delta t F(f^n ; f^(1) = f^n + \frac{S_1}{3}) \\
-    S_1 = \delta t F(f^n ; f^(1) = f^n + \frac{S_1}{3}) \\
-    S_1 = \delta t F(f^n ; f^(1) = f^n + \frac{S_1}{3}) \\
+    \label{num:butcher}
+    \def\arraystretch{1.5}%
+    \begin{array}{c|c}
+        \mathbf{c} & A\\
+        \hline     & \mathbf{b^T} \\
+    \end{array}
+    \qquad &= \qquad
+    \def\arraystretch{1.5}%
+    \begin{array}{c|ccc}
+            0 \\
+                    \frac{1}{3} & \frac{1}{3} \\
+            \frac{3}{4} & \frac{-3}{16} & \frac{15}{16} \\
+            \hline & \frac{1}{6} & \frac{3}{10} & \frac{8}{15}
+    \end{array}
+\end{align}
+
+For the implementation of this method, we have to concern, that we have to deal with a large number of variables.
+In a three dimensional fluid domain the number of grid points scales with a power of three, with an increase in the resolution.
+Therefore we want to introduce a low-storage scheme of method \ref{num:butcher},  first introduced by \citep{Williamson1980}.
+By keeping the information from previous computation steps, the scheme can than be translated into an iterative algorithm,
+where the required amount of storage can be reduced to two registers $\Phi$ and $Q$.
+
+\begin{align}
+    \begin{split}
+    Q_1 = \Delta t \mathcal{L}^*\left(\Phi^n\right)\qquad &\Rightarrow \qquad \Phi^{1} = \Phi^n + \frac{1}{3}Q_1 \\
+    \Rightarrow Q_2 = \Delta t \mathcal{L}^*\left(\Phi^1\right) - \frac{5}{9} Q_1 \qquad &\Rightarrow \qquad \Phi^{2} = \Phi^1 + \frac{15}{16}Q_2 \\
+   \Rightarrow  Q_3 = \Delta t \mathcal{L}^*\left(\Phi^2\right) - \frac{153}{128} Q_2 \qquad &\Rightarrow \qquad \Phi^{n+1} = \Phi^2 + \frac{8}{15}Q_3 \\
+    \end{split}
 \end{align}
 
 
--stabilitätsregion
-
-\section{Numerical Stability}\mbox{}\\
+\section{Numerical Stability}
 
 -beispiel erste abl dann zweit
 -stabilität konstistenz - konvergenz etc
@@ -167,23 +183,18 @@ By using taylor expansion and coefficient comparison, it can be shown that this 
 -peclet zahl
 -upwind schema
 
-
-
 \newpage
 
-\section{Artificial Kompressibility}
-bewegungsgleichungen
-druckterm diskussion
-exkurs laplace gleichung
-beispiel rayleigh benard diskretisierung
+\section{Method of Artificial Kompressibility}
 
-\section{Numerical Stability}\mbox{}\\
--introduction
--peclet number
--
+Until now we have ignored the fact that the equations of motion (), cannot directly be solved for the pressure.
+To obtain an equation for $p$, we can apply the continuity equation to the Navier-Stokes equation and obtain (\cite{ferziger99})
 
+\begin{align}
+    \Delta p =  -\nbala
+\end{align}
 
-\paragraph{Advection Term}\mbox{}\\
-bla
+-implizit methods
+-problem not suited for gpus
 
 
