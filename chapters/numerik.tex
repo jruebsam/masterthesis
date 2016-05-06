@@ -139,7 +139,6 @@ By using a coefficient weighted average of the $k_i$, we obtain
 
 The accuracy of an s-stage runge-kutta method depends of the right choice of coefficients.
 In this thesis we use a third-order accurate scheme.
-Third order methods are often used for cfd-simulations, since they tend to stabilice numerical oscillaions in advection terms \citep{DIPLOM}.\\
 The coefficients are given by the butcher tableau \citep{QUELLE}
 \footnote{oder quelle}
 
@@ -177,6 +176,52 @@ where the required amount of storage can be reduced to two registers $\Phi$ and 
 
 \section{Numerical Stability}
 
+It is important to consider the stability of a numerical method. In general it is said that a method is numerical stable if the error
+introduced by approximations and roundoff errors does not grow over time \citep{ferziger99}.\\
+
+\subsection{Runge-Kutta Scheme}
+
+Suppose we have stationary solution for equation \ref{numerik:pde_allg}.
+The system should remain unaffected by a further integration, even with the introduction of small numerical errors.
+In order to obtain a stability condition it is sufficient enough to perform a linear stability analysis.
+The most common approach is to study the one-dimensional linearized and diagonalized test problem (\citep{BLABLA})
+
+\begin{align}
+\label{num:rk_stab}
+\frac{\dif y}{\dif t} = \lambda \Phi
+\end{align}
+
+with the eigenvalue $\lambda \in \mathbb{C}$ of a linearized operator.
+It can be shown that the discretization of equation \ref{num:rk_stab}, using a Runge-Kutta scheme of $s$-order,
+results in  the mapping (\citep{BLABLA})
+
+\begin{align}
+    y_{i+1}  = \left(\sum_{p=1}^s \frac{(\Delta t \lambda)^p}{p!}  + 1 \right) y_i
+\end{align}
+
+\begin{figure}[!tp]
+  \begin{minipage}[c]{0.6\textwidth}
+      \includegraphics{gfx/numerik/rk_stability.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}[c]{0.3\textwidth}
+  \caption{Stability regions for $\Omega_s$ for different Runge-Kutta methods}
+  \label{fig:num_rkstab}
+  \end{minipage}
+\end{figure}
+
+The discretized system contains a stable fixed point when the condition $|z|\leq 1$ is satisfied.
+Figure \ref{fig:num_rkstab} shows the different stability regions for Runge-Kutta schemes up to fourth order.
+For an $s$ order scheme the region of absolute stability is independent of the used implementation \citep{BLA}.
+\footnote{For an $s$-th order RK-scheme different coeffiicent $a_ij$, $b_j$ and $c_i$ can be used.}
+It can be noted that the stability region $\Omega_s$ increases with the uses of higher order schemes.
+The substantial detail is that for method of third and fourth order, the imaginary axis lies within $\Omega_s$.
+Thus third order methods are often used for CFD-simulations, since they tend to stabilize numerical oscillations \citep{DIPLOM}.
+
+
+\subsection{Finite Difference Schemes}
+courant\\
+peclet oszillations\\
+upwinding\\
 -beispiel erste abl dann zweit
 -stabilität konstistenz - konvergenz etc
 -verfahren höherer ordnung
@@ -191,7 +236,7 @@ Until now we have ignored the fact that the equations of motion (), cannot direc
 To obtain an equation for $p$, we can apply the continuity equation to the Navier-Stokes equation and obtain (\cite{ferziger99})
 
 \begin{align}
-    \Delta p =  -\nbala
+    \Delta p =  -\nabla
 \end{align}
 
 -implizit methods
