@@ -196,7 +196,7 @@ It can be shown that the discretization of equation \ref{num:rk_stab}, using a R
 results in  the mapping (\citep{BLABLA})
 
 \begin{align}
-    y_{i+1}  = \left(\sum_{p=1}^s \frac{(\Delta t \lambda)^p}{p!}  + 1 \right) y_i
+    y_{i+1}  = \left(\sum_{p=1}^s \frac{(\Delta t \lambda)^p}{p!}  + 1 \right) y_i = f(\Delta t\lambda)y_i
 \end{align}
 
 \begin{figure}[!tp]
@@ -209,36 +209,101 @@ results in  the mapping (\citep{BLABLA})
   \end{minipage}
 \end{figure}
 
-The discretized system contains a stable fixed point when the condition $|z|\leq 1$ is satisfied.
+The discretized system contains a stable fixed point when the condition $|f|\leq 1$ is satisfied.
 Figure \ref{fig:num_rkstab} shows the different stability regions for Runge-Kutta schemes up to fourth order.
-For an $s$ order scheme the region of absolute stability is independent of the used implementation \citep{BLA}.
+The calculation can be found in (APPENDIX)
+For an $s$ order scheme the region of absolute stability is independent of the used implementation \citep{canuto2007}.
 \footnote{For an $s$-th order RK-scheme different coeffiicent $a_ij$, $b_j$ and $c_i$ can be used.}
 It can be noted that the stability region $\Omega_s$ increases with the uses of higher order schemes.
 The substantial detail is that for method of third and fourth order, the imaginary axis lies within $\Omega_s$.
-Thus third order methods are often used for CFD-simulations, since they tend to stabilize numerical oscillations \citep{DIPLOM}.
+Thus these methods should be preferred for  CFD-simulations, since they tend to stabilize numerical oscillations \citep{DIPLOM}.
+
+\subsection{Von-Neumann Error Analysis}
+
+-idee fourier mode
+-nur eine warum
+
+\begin{align}
+    \epsilon = \sum e^{at}e^{i k_m x}
+\end{align}
+
+    single mode of the form $e^{at} e^{i k_m x}$
 
 
-\subsection{Finite Difference Schemes}
-courant\\
-peclet oszillations\\
-upwinding\\
--beispiel erste abl dann zweit
--stabilität konstistenz - konvergenz etc
--verfahren höherer ordnung
--peclet zahl
--upwind schema
+diffusion equation $\partial_t \Phi = \alpha \Delta \Phi$
+we get
+
+\begin{align}
+    \frac{\Phi^{n+1} - \Phi^n}{\Delta t} = \frac{\alpha}{\Delta x^2}\left(\Phi_{i+1}^n - 2\Phi_{i}^n + \Phi_{i-1}^n\right)
+\end{align}
+
+resulting in
+
+\begin{align}
+    e^{\alpha \Delta t} = 1 - \frac{\alpha}{\Delta x^2} \sin^2\left(\frac{k_m \Delta x}{2}\right)
+\end{align}
+
+the amplification $G := \epsilon_j^{n+1} / \epsilon_j^n  = e^{\alpha \Delta t }$
+stable for $|G|<1$ results in .
+
+\begin{align}
+    C := \frac{\alpha \Delta t}{\Delta x^2} \leq \frac{1}{2}
+\end{align}
+
+the left side of equation () is also known as courant number blabla.
+\begin{align}
+    C := \frac{c \Delta t}{\Delta x} \leq \frac{1}{2}
+\end{align}
+
+until know single differential operators, however when evaluating equations of the form, where an advection term occurs with an diffusion term
+we cet the condition
+
+\begin{align}
+    Pe := \frac{u \Delta x}{\alpha} < 2
+\end{align}
+
+The leftside term is also denoted as Peclet number  and
+when diffusive fluxes to small oscillations blabla
+The Upwinding Scheme first and third  order
+
+
+
+
 
 \newpage
 
 \section{Method of Artificial Kompressibility}
 
 Until now we have ignored the fact that the equations of motion (), cannot directly be solved for the pressure.
-To obtain an equation for $p$, we can apply the continuity equation to the Navier-Stokes equation and obtain (\cite{ferziger99})
+To obtain an equation for $p$, we can take the divergence of equation (), and apply the continuity equation.
+The resulting equation for the pressure reads
 
 \begin{align}
-    \Delta p =  -\nabla
+    \Delta p =  -\nabla \left( \sum \vec{F}_{\text{ext.}} - (\vec{u} \vec{\nabla}) \vec{u}\right)
 \end{align}
 
+-laplace gleichung für den druck schwer zu lösen
+-instead we introduce
+
+\begin{align}
+    \underbrace{\pdn[\rho]{t} +  \nabla \vec{v} = 0}_{\label{bla}} \qquad , \qquad p =\rho/\delta \qquad, \qquad c=\frac{1}{\delta^{1/2}}
+\end{align}
+
+where $c$ and so on
+
+\begin{align}
+    \label{numerik:nsac}
+    \pdn[u]{t} + \left(\vec{u} \vec{\nabla}\right) \vec{u} &= -c^2\nabla\rho + \Rey \Delta \vec{u}+\sum \vec{F}_{\text{ext.}}
+\end{align}
+
+-machnumber
+\begin{align}
+    M = \frac{1}{c}\max\left(\sum_i |\vec{u_i}]^2\right)^{1/2}
+\end{align}
+
+
+
+-stiff problem
 -implizit methods
 -problem not suited for gpus
 
