@@ -16,9 +16,9 @@
 \usepackage{siunitx}
 \usepackage{color}
 
-
 \usepackage{import}
 
+\usepackage[toc,page]{appendix}
 
 
 \usepackage{xcolor}
@@ -181,7 +181,7 @@
 %\usepackage{tgpagella}
 \usepackage{fourier}
 
-\includeonly{chapters/numerik}
+%\includeonly{chapters/numerik}
 \begin{document}
 
 
@@ -264,6 +264,10 @@
 \newpage
 \thispagestyle{empty}
 \mbox{}
+
+\begin{appendices}
+\include{chapters/appendix}
+\end{appendices}
 
 \printbibliography
 

@@ -1,0 +1,64 @@
+\chapter{Addional Figures and Calculations}
+\section{Chapter 1}
+The contents...
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption='Grid Convergence Study Example']
+
+import matplotlib.pyplot as plt
+import numpy as np
+from math import factorial as fac
+from scipy import interpolate
+
+def radial_sort(x, y):
+    """Sort line by angle from center (-1, 0)"""
+    angle = np.arctan2(y, x + 1.)
+    idx = angle.argsort()
+    x, y = x[idx], y[idx]
+    # Split at opening in line
+    dx = np.diff(np.append(x, x[-1]))
+    dy = np.diff(np.append(y, y[-1]))
+    max_gap = np.abs(np.hypot(dx, dy)).argmax() + 1
+    x = np.append(x[max_gap:], x[:max_gap])
+    y = np.append(y[max_gap:], y[:max_gap])
+    return x, y
+
+def main():
+    f, ax = style.newfig(0.8)
+
+    x = np.linspace(-4, 4, 1500)
+    X, Y = np.meshgrid(x, x)
+    C = X + 1j*Y
+
+    for i in range(1,6)[::-1]:
+        b = np.zeros_like(C)
+        for j in range(0,i):
+            b += C**j/fac(j)
+
+        out = np.where(np.diff((np.abs(b)<=1).astype('float')) != 0)
+        pts = np.column_stack((X[out], Y[out]))
+        x = pts[:, 0]
+        y = pts[:, 1]
+
+        try:
+            x, y = radial_sort_line(x,y)
+            x = np.append(x, x[0])
+            y = np.append(y, y[0])
+
+            tck, u = interpolate.splprep([x, y], s=0)
+            unew = np.linspace(0, 1.0, 100)
+            out = interpolate.splev(unew, tck)
+            plt.plot(out[1], out[0])
+        except:
+            print i
+
+    plt.show()
+
+if __name__=='__main__':
+    main()
+
+\end{lstlisting}
+\end{minipage}
+\clearpage
+\chapter{Python API}
+Addional Figures and Calculations
