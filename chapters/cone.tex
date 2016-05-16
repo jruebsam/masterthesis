@@ -29,11 +29,20 @@ The schematic setup of the experiment is shown in figure ().
 It contains of a cone given by the radius $R$ and the height $h$, resulting into an angle $\alpha = \tan()$.
 The cone is rotating with a modulated frequency
 
-\begin{figure}[!tbp]
-  \centering
-  \includegraphics[width=0.5\textwidth]{gfx/cone/cone.pdf}\label{fig:cone_cone}
-  \caption{blabla}
+\begin{figure}[!bp]
+  \begin{minipage}[c]{0.6\textwidth}
+      \centering
+        \resizebox{0.7\textwidth}{!}{
+       \import{gfx/cone//}{cone.pdf_tex}
+      }
+  \end{minipage}
+  \begin{minipage}[c]{0.3\textwidth}
+      \caption{Numerical setup of the cone, oriented on the experiment. The total heigth is given by $h$, whereas the height of the cone is set to $h_c$.
+      The winkel alpha defines the slope and $h_t$ the cutoff from the bottom.}
+      \label{cone:theorie}
+  \end{minipage}
 \end{figure}
+
 
 \begin{align}
 \Omega(t) = \Omega_0 + \epsilon \omega \cos(\omega t)
@@ -187,14 +196,33 @@ As a first system we want to investigate the
 
 \newpage
 
-\subsection{Transition from Cylinder to Cone}
-\subsubsection{Simulation of a Cone with and without Peak}
+\subsection{Transition to the Liberating Cone}
+
+\begin{figure}[!bp]
+  \begin{minipage}[c]{0.6\textwidth}
+      \centering
+        \resizebox{0.7\textwidth}{!}{
+       \import{gfx/cone/conesim//}{setup.pdf_tex}
+      }
+  \end{minipage}
+  \begin{minipage}[c]{0.3\textwidth}
+      \caption{Numerical setup of the cone, oriented on the experiment. The total heigth is given by $h$, whereas the height of the cone is set to $h_c$.
+      The winkel alpha defines the slope and $h_t$ the cutoff from the bottom.}
+      \label{cone:setxp_image}
+  \end{minipage}
+\end{figure}
+
+
  - Close to the ex
 first experiment cone
 -cone abgebildet nach experiment
 - cut spitze bei 0.123123 blabla vgl exp
 -setup dargestellt in abbildung bla
 
+\subsubsection{Simulation of the Experiment}
+\subsubsection{Results \& Discussion}
+
+\subsubsection{Transition from Cylinder to Cone}
 \subsubsection{Results \& Discussion}
 
 -description\\
@@ -202,21 +230,17 @@ first experiment cone
 -diskussion oberer rand\\
 -eigenschaften und influence oberer rand \\
 
-\subsubsection{Series with different radius}
---
-
-
-\subsection{Simulation of a liberating Cone}
+\subsection{Simulation of Liberating Cone}
 
 Finally
-
 -nun cone mit und ohne spitze
 -teste den einfluss der oberen kante blablabla
-
 -serien vergleich diskussion\
 -helizität diskussion\\
 
 In order to test
 As a first test
 
-\section{Numerical Viscosity}
+\subsubsection{Discussion}
+
+\subsection{Numerical Viscosity}
