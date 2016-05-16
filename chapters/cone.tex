@@ -2,28 +2,29 @@
 
 \section{Introduction}
 
-Following the introduction and validation of the immersed boundary methods for no-slip conditions,
+Following the introduction and validation of the immersed boundary methods for No-Slip boundaries,
 we now want to exemplarly investigate a fluid system using these methods
-and see if we can reproduce some of the expected physical properties.\\
-In relation to the research focus of the geophysical fluid mechanics research group there are a variety
+and find out if we can reproduce some of the expected physical properties.\\
+In relation to the research focus of the geophysical fluid mechanics research group, there are a variety
 topics of interest.
 One area of research lies in the exploration of dynamo effects in geological and stellar system.
 In particular this means the generation of magnetic fields by electrically conducting fluids on large scales.
 In this thesis we will not consider MHD-equations.
-However in general it is considered that the helicity of a fluid, given by
+However in general it is considered that the helicity of a fluid domain $\Omega$, given by
 \begin{align}
-    v curl v
+    \int_{\Omega}\dif V  \vec{u} \left( \nabla \times \vec{u} \right)
 \end{align}
 is directly linked to dynamo action [CITE].
 Therefore, beside inertial wave propagation we want to observe a possible large helicity.
 For the system we describe in the following section one further application
-would be to study inertial wave excitaton by turbulence.
+would be to study inertial wave excitaton by turbulence. (MORE DETAIL THIS AND ALPHA FUNCTION)
 
-\section{Theoretical description}
+\section{Theoretical Description}
 
 The objective we have in mind is the numerical computation of inertial wave excitation inside a liberating cone.
-The system was already investigated in an experimentally setup [CITE].
-Here we want to give a brief overview of the theoretical properties and experimental results.\\
+A theoretical discussion of this system  can by found in \citep{GREENSPAN}.
+Here we want to orient towards an experiment which was being performed by \citep{Beardsley1970}
+
 The schematic setup of the experiment is shown in figure ().
 It contains of a cone given by the radius $R$ and the height $h$, resulting into an angle $\alpha = \tan()$.
 The cone is rotating with a modulated frequency
@@ -63,20 +64,21 @@ In the experimental setup described by [] the experiment was compared to another
 thus a bottom blade to enable the reflection of inertial waves was inserted.
 As a result for the cone, a continuos wave spectrum could be observed in comparision to a discrete spectrum  for the frustum.\\
 
+\newpage
+
 \section{Implementation}
 
-For the numerical implementation of the experiment, we can now use a modified set of the equations
-introduced in section (X.X).
-For the setup we choose a modulated roation rate
+For the numerical implementation of the experiment, we will use a modified set of the equations
+introduced in section \ref{THEORE:ROT}.
+We have to concern that the system has now a time-depent rotation rate.
+For the non-dimensional system, with $\vec{u}^* =  \vec{u} (|\vec{\Omega}|L)^{-1}$, we set
+
 \begin{align}
-\Omega(t) = 1 + \epsilon \cos(\omega t)
+    \vec{\Omega(t)} = 1 \; + \; \epsilon \cos(\omega t)\vec{e}_z
 \end{align}
-for the non-dimensionalized system with $\vec{v}^* = bla$.
 
-
-
-Since we now consider a time dependent rotation rate, there are two possibiliies.
-First of all, we can consider a rotating coordinate system with a constant velocity $\Omega_0$.
+There are two options, which should be considered here.
+First of all, we can choose a rotating coordinate system with a constant velocity $\Omega_0$.
 This means the we can directly use the equations () to (), however since the overall rotation rate of the system is
 modulated, it is necessary to introduce the boundary conditions
 
@@ -110,12 +112,59 @@ Since we are in interested in the propagation of intertial modes this
 step was performed to eleminate all possible non-linear effects which could occur.
 Furthermore the non-linear advection term was removed from the equations.
 
+-stability contstraints
+-default
+
+-additional constraint time for wave to trave along cylinder smaller than bla \citep{TILGNER, OGOEPFERT}.
+\begin{align}
+    t_{c} = \sqrt{\frac{2}{c^2}} << 2\pi
+\end{align}
+-result $c^2 = 500$ in absprache mit ogoepfer und tilgner.
+
+
+
 \newpage
 
-\section{Simulations}
-\subsection{Liberating Cylinder}
+\section{Simulation of a Liberating Cylinder}
+
+As a first step towards the implemenation of the cone,
+we want to simulate fluid flow in a liberating cylinder.
+The reason for this is, that we initially want to
+compare the results of different immersed boundary methods to each other,
+before choosing one method for the liberating cone.
+Furthermore the system has already been rigorously studied, such that
+we can make a comparison to the available theoretical and numerical results.\\
+
+-theoretically greenspan  blabla
+
+The velocity of a mode is given by in cylindr. coord
+
+\begin{align}
+    u_r =  1
+\end{align}
+
+-mode kann dann festgelegt werden durch tuple bla.\\
+The numerical setup is  given by ..
+-Nx  = 128 ,lx, ly
+-aspect ration
+-ekman number
+-further condition timestep
+
+
+
+
+\subsection{Setup}
+
+\subsection{Results}
+
+
+
+
 
 Before the simulation of the cone we want to test the implementation of
+
+-behaviour known theorie
+- paper kurz erklären symetrie warum fehlen bestimmte moden ? ?
 
 
 
