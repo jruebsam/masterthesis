@@ -9,12 +9,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="214.15352"
-   height="213.03987"
+   width="225.08775"
+   height="213.03984"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="Zeichnung.svg">
+   sodipodi:docname="setup.svg">
   <defs
      id="defs4">
     <marker
@@ -150,11 +150,11 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="143.14229"
-     inkscape:cy="104.26152"
+     inkscape:cx="46.973987"
+     inkscape:cy="124.30671"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
-     showgrid="false"
+     showgrid="true"
      inkscape:window-width="1920"
      inkscape:window-height="1145"
      inkscape:window-x="-3"
@@ -171,8 +171,8 @@
        visible="true"
        enabled="true"
        snapvisiblegridlinesonly="true"
-       originx="-202.92494px"
-       originy="-588.49015px" />
+       originx="-197.92494px"
+       originy="-588.49016px" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -182,7 +182,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -190,9 +190,9 @@
      inkscape:label="Ebene 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-202.92494,-250.83218)">
+     transform="translate(-197.92494,-250.8322)">
     <g
-       id="g8434">
+       id="g4283">
       <path
          sodipodi:end="1.0363633"
          sodipodi:start="0"
@@ -220,17 +220,17 @@
          style="fill:none;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
       <path
          inkscape:connector-curvature="0"
-         inkscape:original-d="m 415,292.36218 0,170"
+         inkscape:original-d="m 420,292.3622 0,170"
          inkscape:path-effect="#path-effect4599"
          id="path4597"
-         d="m 415,292.36218 0,170"
+         d="m 420,292.3622 0,170"
          style="fill:none;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow2Mstart);marker-end:url(#Arrow2Mend)" />
       <path
          inkscape:connector-curvature="0"
-         inkscape:original-d="m 205,252.36218 0,210"
+         inkscape:original-d="m 200,252.3622 0,210"
          inkscape:path-effect="#path-effect5355"
          id="path5353"
-         d="m 205,252.36218 0,210"
+         d="m 200,252.3622 0,210"
          style="fill:none;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Mstart);marker-end:url(#Arrow2Mend)" />
       <text
          sodipodi:linespacing="125%"
@@ -370,6 +370,22 @@
          id="path6765"
          style="fill:none;stroke:#000000;stroke-width:0.80000001;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker-start:url(#Arrow2Mstart);marker-end:none"
          sodipodi:type="arc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3033"
+         d="m 420,292.3622 0,-40"
+         style="fill:none;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Mstart);marker-end:url(#Arrow1Mend)" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text5747-6"
+         y="272.36221"
+         x="405"
+         style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           y="272.36221"
+           x="405"
+           id="tspan5749-0"
+           sodipodi:role="line">$o$</tspan></text>
     </g>
   </g>
 </svg>

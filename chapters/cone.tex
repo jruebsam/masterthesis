@@ -75,7 +75,7 @@ As a result for the cone, a continuos wave spectrum could be observed in compari
 
 \newpage
 
-\section{Implementation}
+\section{Numerical Implementation of Liberation}
 
 For the numerical implementation of the experiment, we will use a modified set of the equations
 introduced in section \ref{THEORE:ROT}.
@@ -134,6 +134,28 @@ Furthermore the non-linear advection term was removed from the equations.
 
 \newpage
 
+\subsection{Setup}
+
+We will now introduce the numerical setup which has been used for the simulations carried
+
+
+
+\begin{figure}[!bp]
+  \begin{minipage}[c]{0.6\textwidth}
+      \centering
+        \resizebox{0.7\textwidth}{!}{
+       \import{gfx/cone/conesim//}{setup.pdf_tex}
+      }
+  \end{minipage}
+  \begin{minipage}[c]{0.3\textwidth}
+      \caption{Numerical setup of the cone, oriented on the experiment. The total heigth is given by $h$, whereas the height of the cone is set to $h_c$.
+      The winkel alpha defines the slope and $h_t$ the cutoff from the bottom.}
+      \label{cone:setxp_image}
+  \end{minipage}
+\end{figure}
+
+\clearpage
+
 \section{Simulation of a Liberating Cylinder}
 
 As a first step towards the implemenation of the cone,
@@ -152,6 +174,7 @@ The velocity of a mode is given by in cylindr. coord
     u_r =  1
 \end{align}
 
+
 -mode kann dann festgelegt werden durch tuple bla.\\
 The numerical setup is  given by ..
 -Nx  = 128 ,lx, ly
@@ -161,7 +184,7 @@ The numerical setup is  given by ..
 -omega in bla
 \newpage
 
-\subsubsection{Results \& Discussion}
+\subsection{Results \& Discussion}
 
 -bilder
 -description
@@ -196,22 +219,50 @@ As a first system we want to investigate the
 
 \newpage
 
-\subsection{Transition to the Liberating Cone}
+\section{Simulation of a Liberating Cone}
 
-\begin{figure}[!bp]
-  \begin{minipage}[c]{0.6\textwidth}
-      \centering
-        \resizebox{0.7\textwidth}{!}{
-       \import{gfx/cone/conesim//}{setup.pdf_tex}
-      }
-  \end{minipage}
-  \begin{minipage}[c]{0.3\textwidth}
-      \caption{Numerical setup of the cone, oriented on the experiment. The total heigth is given by $h$, whereas the height of the cone is set to $h_c$.
-      The winkel alpha defines the slope and $h_t$ the cutoff from the bottom.}
-      \label{cone:setxp_image}
-  \end{minipage}
-\end{figure}
+In this section we will discuss the different numerical simulations, which has been performed
+with a liberating cone. We begin with the comparison to the experiment performed by \citep{Beardsley1970}.
+As a next step we analyse the physical behaviour when performing the transition from a cylinder
+to a cone and finally  we will investigate the influence of different offsets on top of the cone.
 
+\subsection{Simulation of the Experiment}
+
+The setup for this simulation is oriented on the experimental setup given by \citep{Beardsley1970}.
+In the experiment a plexiglass cylinder of height $H=\SI{19.95}{\centi\meter}$ and a radius of
+$r=\SI{19.95}{\centi\meter}$ was used. The apex half angle was set to $24^{\circ}$ degree.
+For the rotation rate a frequency of $\omega =\SI{6.28}{\radian\per\second}$ was chosen.
+
+-boden
+
+
+As a fluid, water was used, the resulting viscosity,given by \citep{visocisty??}, is $\nu = 1.1$.
+The ekman number for this system is given by (KORREKTORLESEN)
+
+\begin{align}
+    \Ekman = \frac{\nu}{\Omega (H/2)^2} \approx \frac{\SI{1e-2}{\centi^2\meter\per \second}}{1} \approx 3.2\cdot 1^{-5}
+\end{align}
+
+
+-ekman zahl größer
+-winkel anders
+-boden cut
+
+
+
+
+
+
+
+
+
+
+\subsection{Results \& Discussion}
+
+
+\clearpage
+
+\subsection{Transition to from the Cylinder to a Liberating Cone}
 
  - Close to the ex
 first experiment cone
@@ -219,18 +270,18 @@ first experiment cone
 - cut spitze bei 0.123123 blabla vgl exp
 -setup dargestellt in abbildung bla
 
-\subsubsection{Simulation of the Experiment}
-\subsubsection{Results \& Discussion}
+\subsection{Results \& Discussion}
 
-\subsubsection{Transition from Cylinder to Cone}
-\subsubsection{Results \& Discussion}
+\clearpage
+
+\subsection{Liberating Cone with different Offsets at Top}
+\subsection{Results \& Discussion}
 
 -description\\
 -verfahren und serie\\
 -diskussion oberer rand\\
 -eigenschaften und influence oberer rand \\
 
-\subsection{Simulation of Liberating Cone}
 
 Finally
 -nun cone mit und ohne spitze
@@ -241,6 +292,6 @@ Finally
 In order to test
 As a first test
 
-\subsubsection{Discussion}
+\subsection{Discussion}
 
 \subsection{Numerical Viscosity}

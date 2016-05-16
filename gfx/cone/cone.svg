@@ -7,6 +7,7 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="208.99097"
@@ -17,6 +18,18 @@
    sodipodi:docname="cone.pdf">
   <defs
      id="defs4">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4118">
+      <stop
+         style="stop-color:#4f4444;stop-opacity:1;"
+         offset="0"
+         id="stop4120" />
+      <stop
+         style="stop-color:#4f4444;stop-opacity:0;"
+         offset="1"
+         id="stop4122" />
+    </linearGradient>
     <marker
        inkscape:stockid="Arrow1Mend"
        orient="auto"
@@ -229,6 +242,17 @@
          transform="matrix(0.4,0,0,0.4,4,0)"
          inkscape:connector-curvature="0" />
     </marker>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4118"
+       id="radialGradient4126"
+       cx="187.70766"
+       cy="41.711742"
+       fx="187.70766"
+       fy="41.711742"
+       r="14.45485"
+       gradientTransform="matrix(1,0,0,0.37577346,0,26.037578)"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -237,9 +261,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.5695886"
-     inkscape:cx="150.01285"
-     inkscape:cy="66.500743"
+     inkscape:zoom="3.633947"
+     inkscape:cx="138.17723"
+     inkscape:cy="142.27495"
      inkscape:document-units="px"
      inkscape:current-layer="g3062"
      showgrid="false"
@@ -282,10 +306,10 @@
     <g
        id="g3062">
       <path
-         transform="translate(60,435)"
-         sodipodi:end="1.0363633"
-         sodipodi:start="0"
-         d="m 240,292.36218 c 0,10.60193 -5.59583,20.4166 -14.7194,25.81673 L 210,292.36218 z"
+         transform="translate(260,434.99999)"
+         sodipodi:end="3.1356809"
+         sodipodi:start="2.091366"
+         d="M 195.07877,318.38826 A 30,30 0 0 1 180.00052,292.53953 L 210,292.36218 z"
          sodipodi:ry="30"
          sodipodi:rx="30"
          sodipodi:cy="292.36218"
@@ -322,14 +346,14 @@
       <text
          sodipodi:linespacing="125%"
          id="text6155"
-         y="743.07648"
-         x="282.85715"
-         style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         y="737.4408"
+         x="444.56772"
+         style="font-size:7.77280331px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
          xml:space="preserve"><tspan
-           y="743.07648"
-           x="282.85715"
+           y="737.4408"
+           x="444.56772"
            id="tspan6157"
-           sodipodi:role="line">$\alpha$</tspan></text>
+           sodipodi:role="line">$\beta$</tspan></text>
       <path
          inkscape:connector-curvature="0"
          inkscape:original-d="m 430,842.36218 0,35 30,0"
@@ -394,21 +418,21 @@
       <text
          sodipodi:linespacing="125%"
          id="text3136"
-         y="874.14789"
-         x="408.21429"
-         style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         y="862.53094"
+         x="433.84399"
+         style="font-size:5.97873497px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
          xml:space="preserve"><tspan
-           y="874.14789"
-           x="408.21429"
+           y="862.53094"
+           x="433.84399"
            id="tspan3138"
            sodipodi:role="line">$\otimes y$</tspan></text>
       <path
          sodipodi:nodetypes="cccccccccc"
          inkscape:connector-curvature="0"
-         inkscape:original-d="m 470,727.36218 c 0,0 -45.23178,16.44791 -78.57285,28.57194 M 346.1791,772.38796 C 324.52017,780.26393 305,787.36218 305,787.36218 l 105,40 -65,25 40,15 -25,10 17,7 -11,5"
+         inkscape:original-d="m 441.80797,737.61382 c -13.09547,4.76199 -33.71025,12.25826 -50.38078,18.32028 M 346.1791,772.38796 C 324.52017,780.26393 305,787.36218 305,787.36218 l 105,40 -65,25 40,15 -25,10 17,7 -11,5"
          inkscape:path-effect="#path-effect3142"
          id="path3140"
-         d="m 470,727.36218 -78.57285,28.57194 M 346.1791,772.38796 305,787.36218 l 105,40 -65,25 40,15 -25,10 17,7 -11,5"
+         d="M 441.80797,737.61382 391.42719,755.9341 M 346.1791,772.38796 305,787.36218 l 105,40 -65,25 40,15 -25,10 17,7 -11,5"
          style="fill:none;stroke:#000000;stroke-width:0.60000002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
       <path
          inkscape:connector-curvature="0"
@@ -490,36 +514,42 @@
       <text
          sodipodi:linespacing="125%"
          id="text5499-6"
-         y="782.27527"
-         x="315.71805"
+         y="774.10278"
+         x="312.99387"
          style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
          xml:space="preserve"><tspan
            id="tspan5503-0"
-           y="782.27527"
-           x="315.71805"
+           y="774.10278"
+           x="312.99387"
            sodipodi:role="line">$\vec{c}_g$</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text5563"
-         y="808.93799"
-         x="366.9848"
+         y="805.82465"
+         x="360.75812"
          style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
          xml:space="preserve"><tspan
-           y="808.93799"
-           x="366.9848"
+           y="805.82465"
+           x="360.75812"
            id="tspan5565"
            sodipodi:role="line">$L$</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text5563-7"
-         y="842.36218"
-         x="355"
+         y="840.41632"
+         x="360.83752"
          style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
          xml:space="preserve"><tspan
-           y="842.36218"
-           x="355"
+           y="840.41632"
+           x="360.83752"
            id="tspan5565-4"
            sodipodi:role="line">$L^{\prime}$</tspan></text>
+      <path
+         style="fill:url(#radialGradient4126);stroke:#030303;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:0.5,1;fill-opacity:1;stroke-dashoffset:0"
+         d="M 201.9125,36.529995 173.5028,46.893493"
+         id="path4116"
+         inkscape:connector-curvature="0"
+         transform="translate(268.0875,690.83218)" />
     </g>
   </g>
 </svg>
