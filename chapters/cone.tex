@@ -216,6 +216,7 @@ As a first system we want to investigate the
 - evtl raytracer  comparison
 - heliziätte dargstellt\\
 - results diskussion ip kaputt heli 0 etc \\
+\subsection{Numerical Viscosity}
 
 \newpage
 
@@ -225,37 +226,42 @@ In this section we will discuss the different numerical simulations, which has b
 with a liberating cone. We begin with the comparison to the experiment performed by \citep{Beardsley1970}.
 As a next step we analyse the physical behaviour when performing the transition from a cylinder
 to a cone and finally  we will investigate the influence of different offsets on top of the cone.
+All simulations performed in this section use the introduced setup with different geometric parameters
 
 \subsection{Simulation of the Experiment}
 
-The setup for this simulation is oriented on the experimental setup given by \citep{Beardsley1970}.
-In the experiment a plexiglass cylinder of height $H=\SI{19.95}{\centi\meter}$ and a radius of
-$r=\SI{19.95}{\centi\meter}$ was used. The apex half angle was set to $24^{\circ}$ degree.
+The setup for this simulation is oriented on the experimental setup given by \citep{Beardsley1970}, which
+we disussed in section ().
+In the first part of the experiment a plexiglass cylinder of height $H=\SI{19.95}{\centi\meter}$ and a radius of
+$r=\SI{19.95}{\centi\meter}$ was used. The apex half angle was set to $24^{\circ}3.7^{\prime}$ degree,
+which relates to our setup with $\alpha=65^{\circ}56.3^{\prime}$
 For the rotation rate a frequency of $\omega =\SI{6.28}{\radian\per\second}$ was chosen.
-
--boden
-
-
-As a fluid, water was used, the resulting viscosity,given by \citep{visocisty??}, is $\nu = 1.1$.
-The ekman number for this system is given by (KORREKTORLESEN)
+As a fluid, water was used, the resulting viscosity,given by \citep{tipler2003}, is $\nu = \SI{1.0}{\milli\pascal\second}$.
+The Ekman number is given by
 
 \begin{align}
-    \Ekman = \frac{\nu}{\Omega (H/2)^2} \approx \frac{\SI{1e-2}{\centi^2\meter\per \second}}{1} \approx 3.2\cdot 1^{-5}
+    \Ekman = \frac{\nu}{\Omega*r (H)^2} \approx 3.2\cdot 1.6\cdot 10^{-5}
 \end{align}
 
+In the second part of the experiment the apex of the cone was replaced by a frustum through the
+insertion of a bottom plate at the position $z/H = 0.261$.
+For the simulation we choose an Ekman number of $\Ekman =  10^{-4}$, since a simulation of higher ekman numbers is
+diffcult to realise due to the computational effort.
+Furthermore we set $\alpha = \arccos(1/2) = 60^{\circ}$, $H=1$ and $r=0.5$.\\
+This means that for $\omega=1$, the propagation of an inertial wave package is parallel to the slope of the cone.
+For the offset on top of the cone, we obtain the condition
 
--ekman zahl größer
--winkel anders
--boden cut
+\begin{align}
+    o = H - h_c =  1 - r\tan{\alpha} \approx 0.134
+\end{align}
 
+The simulation has two setups in analogy to the experiment.For the second part the bottom plate is set to $h_b=0.25$.
+A series of simulations of these systems where performed, for $\Omega \in [0.2, 2.0]$, with a steprate of $\Delta \Omega = 0.1$.
+The total time was set to $T=100$, whereas the resolution was set to $N_{x,y,z} = 128$ points.
+In order to satisfy the conditions stated in section () we use a timestep of $\Delta t = 10^-4$.
+and a sound speed of $c = \sqrt{400}$.
 
-
-
-
-
-
-
-
+\newpage
 
 \subsection{Results \& Discussion}
 
@@ -293,5 +299,5 @@ In order to test
 As a first test
 
 \subsection{Discussion}
+\section{Summary}
 
-\subsection{Numerical Viscosity}
