@@ -238,10 +238,10 @@ $r=\SI{19.95}{\centi\meter}$ was used. The apex half angle was set to $24^{\circ
 which relates to our setup with $\alpha=65^{\circ}56.3^{\prime}$
 For the rotation rate a frequency of $\omega =\SI{6.28}{\radian\per\second}$ was chosen.
 As a fluid, water was used, the resulting viscosity,given by \citep{tipler2003}, is $\nu = \SI{1.0}{\milli\pascal\second}$.
-The Ekman number is given by
+The resulting Ekman number is given by
 
 \begin{align}
-    \Ekman = \frac{\nu}{\Omega*r (H)^2} \approx 3.2\cdot 1.6\cdot 10^{-5}
+    \Ekman = \frac{\nu}{\omega r H^2} \approx 7.72\cdot 10^{-6}
 \end{align}
 
 In the second part of the experiment the apex of the cone was replaced by a frustum through the
@@ -259,7 +259,7 @@ For the offset on top of the cone, we obtain the condition
 The simulation has two setups in analogy to the experiment.For the second part the bottom plate is set to $h_b=0.25$.
 A series of simulations of these systems where performed, for $\Omega \in [0.2, 2.0]$, with a steprate of $\Delta \Omega = 0.1$.
 The total time was set to $T=100$, whereas the resolution was set to $N_{x,y,z} = 128$ points.
-In order to satisfy the conditions stated in section () we use a timestep of $\Delta t = 10^-4$.
+In order to satisfy the conditions stated in section () we use a timestep of $\Delta t = 10^{-4}$.
 and a sound speed of $c = \sqrt{400}$.
 
 \clearpage
@@ -271,12 +271,19 @@ and a sound speed of $c = \sqrt{400}$.
 \end{figure}
 
 
-\subsection{Results \& Discussion}
+\subsubsection{Results \& Discussion}
 
 
 \clearpage
 
 \subsection{Transition to from the Cylinder to a Liberating Cone}
+
+\begin{figure}[!pt]
+  \centering
+  \includegraphics{gfx/cone/transition/transition.pdf}\label{fig:cone:transition}
+  \caption{blabla}
+\end{figure}
+
 
  - Close to the ex
 first experiment cone
@@ -284,7 +291,22 @@ first experiment cone
 - cut spitze bei 0.123123 blabla vgl exp
 -setup dargestellt in abbildung bla
 
-\subsection{Results \& Discussion}
+\subsubsection{Results \& Discussion}
+
+
+\subsection{Conclusion}
+2 bilder vgl different alpha
+
+\begin{figure}[!bp]
+      \centering
+        \resizebox{0.8\textwidth}{!}{
+       \import{gfx/cone//}{comparison.pdf_tex}
+      }
+      \caption{Numerical setup of the cone, oriented on the experiment. The total heigth is given by $h$, whereas the height of the cone is set to $h_c$.
+      The winkel alpha defines the slope and $h_t$ the cutoff from the bottom.}
+      \label{cone:theorie}
+\end{figure}
+
 
 \clearpage
 
@@ -307,5 +329,12 @@ In order to test
 As a first test
 
 \subsection{Discussion}
+
+
 \section{Summary}
+
+freeslip besser
+
+
+
 
