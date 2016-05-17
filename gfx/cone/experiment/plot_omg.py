@@ -33,7 +33,7 @@ def main():
     dpaths = ['/home/upgp/jruebsam/simulations/mai16/week2/cone_wall/data/',
              '/home/upgp/jruebsam/simulations/mai16/week2/move_border/data/wall_0.500/']
 
-    f, ax = style.newfig(1.)
+    f, ax = style.newfig(1., 0.7)
     cdir = os.getcwd()
 
     for dpath in dpaths:

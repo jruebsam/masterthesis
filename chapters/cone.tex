@@ -267,8 +267,49 @@ and a sound speed of $c = \sqrt{400}$.
 \begin{figure}[!pt]
   \centering
   \includegraphics{gfx/cone/experiment/experiment.pdf}\label{fig:cone:expseries}
-  \caption{blabla}
+  \caption{blabla
+  Stability regions for $\Omega_s$ for different Runge-Kutta methodsiStability regions for $\Omega_s$ for different Runge-Kutta methodsi
+  }
 \end{figure}
+
+%\begin{figure}%
+%    \centering
+%    \subfloat[label 1]{{
+%      \includegraphics{gfx/cone/experiment/contour.pdf}\label{fig:mask_vp}
+%        }}%
+%    \qquad
+%    \subfloat[label 2]{{
+%      \includegraphics{gfx/cone/experiment/error.pdf}\label{fig:mask_vp}
+%        }}%
+%    \label{fig:example}%
+%\end{figure}
+
+\begin{figure}[!tp]
+  \begin{minipage}[c]{0.6\textwidth}
+      \includegraphics{gfx/cone/experiment/contour.pdf}\label{fig:mask_vp}
+  \end{minipage}\hfill
+  \begin{minipage}[c]{0.3\textwidth}
+  \caption{Stability regions for $\Omega_s$ for different Runge-Kutta methodsi
+    Stability regions for $\Omega_s$ for different Runge-Kutta methodsi
+  }
+  \label{fig:num_rkstab}
+  \end{minipage}
+\end{figure}
+
+\begin{figure}[!tp]
+  \begin{minipage}[c]{0.3\textwidth}
+  \caption{Stability regions for $\Omega_s$ for different Runge-Kutta methods
+  Stability regions for $\Omega_s$ for different Runge-Kutta methodsi
+  }
+  \label{fig:num_rkstab}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[c]{0.6\textwidth}
+      \includegraphics{gfx/cone/experiment/error.pdf}\label{fig:mask_vp}
+  \end{minipage}
+\end{figure}
+
+\clearpage
 
 
 \subsubsection{Results \& Discussion}
@@ -302,7 +343,8 @@ first experiment cone
         \resizebox{0.8\textwidth}{!}{
        \import{gfx/cone//}{comparison.pdf_tex}
       }
-      \caption{Numerical setup of the cone, oriented on the experiment. The total heigth is given by $h$, whereas the height of the cone is set to $h_c$.
+      \caption{Numerical setup of the cone, oriented on the experiment. The total heigth
+         is given by $h$, whereas the height of the cone is set to $h_c$.
       The winkel alpha defines the slope and $h_t$ the cutoff from the bottom.}
       \label{cone:theorie}
 \end{figure}
