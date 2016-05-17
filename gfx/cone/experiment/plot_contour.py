@@ -55,14 +55,14 @@ def main():
 
     x = [0, 0.5, 1]
     y = [1, 0.25, 1]
-    plt.plot(x,y, 'w-.' , lw=5)
+    plt.plot(x,y, 'r')
 
     hc = 0.5*np.tan(np.pi/3.) -0.25
     r = 0.25*np.tan(np.pi/6.)
 
-    p = Polygon([[0, 0.25],[0.5 - r, 0.25],[0, hc + 0.25]],color='b', hatch='//')
+    p = Polygon([[0, 0.25],[0.5 - r, 0.25],[0, hc + 0.25]], color='w', hatch='//', zorder=4)
     ax.add_artist(p)
-    p = Polygon([[1., 0.25],[0.5 + r, 0.25],[1, hc + 0.25]], color='b', hatch='//')
+    p = Polygon([[1., 0.25],[0.5 + r, 0.25],[1, hc + 0.25]], color='w', hatch='//', zorder=4)
     ax.add_artist(p)
 
     #ax.set_ylim(0., 0.04)
