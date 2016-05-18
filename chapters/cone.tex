@@ -257,10 +257,18 @@ For the offset on top of the cone, we obtain the condition
 \end{align}
 
 The simulation has two setups in analogy to the experiment.For the second part the bottom plate is set to $h_b=0.25$.
-A series of simulations of these systems where performed, for $\Omega \in [0.2, 2.0]$, with a steprate of $\Delta \Omega = 0.1$.
-The total time was set to $T=100$, whereas the resolution was set to $N_{x,y,z} = 128$ points.
-In order to satisfy the conditions stated in section () we use a timestep of $\Delta t = 10^{-4}$.
-and a sound speed of $c = \sqrt{400}$.
+A series of simulations of these systems where performed, with the parameters
+
+\begin{center}
+\vspace*{0.7ex}
+\begin{tabular}{c|c|c|c|c|c|c }
+%\begin{tabular}{p{0.1\linewidth}| p{0.1\linewidth}| p{0.1\linewidth}|  p{0.1\linewidth}| p{0.1\linewidth}| p{0.1\linewidth} }
+$ \leftarrow  \omega \rightarrow $ & $\Delta t$ & $\Delta x$ & $c^2$ & \Ekman  & $l_x, l_y, l_z$ & $T_{end}$\\
+\hline
+$[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $10^{-5}$ & $\nicefrac{1}{128}$ & 500 & $10^{-4}$  & (\{1, 0.75\}, 1, 1) & 100\\
+\end{tabular}
+\vspace*{0.7ex}
+\end{center}
 
 \clearpage
 
@@ -319,10 +327,33 @@ and a sound speed of $c = \sqrt{400}$.
 
 \subsection{Transition to from the Cylinder to a Liberating Cone}
 
+As :q
+
+-previous simulation unexpected results
+-to get a better understanding of the behaviour of the system an idea
+wsa to modoel the transition from the cylinden simulation to the cone setup
+
+-done by varyiing the radius of
+
+
+
+
+
 \begin{figure}[!pt]
   \centering
   \includegraphics{gfx/cone/transition/transition.pdf}\label{fig:cone:transition}
   \caption{blabla}
+\end{figure}
+
+\begin{figure}[!bp]
+      \centering
+        \resizebox{0.8\textwidth}{!}{
+       \import{gfx/cone/transition//}{attractor.pdf_tex}
+      }
+      \caption{Numerical setup of the cone, oriented on the experiment. The total heigth
+         is given by $h$, whereas the height of the cone is set to $h_c$.
+      The winkel alpha defines the slope and $h_t$ the cutoff from the bottom.}
+      \label{cone:theorie}
 \end{figure}
 
 
@@ -332,6 +363,17 @@ first experiment cone
 - cut spitze bei 0.123123 blabla vgl exp
 -setup dargestellt in abbildung bla
 
+\begin{center}
+\vspace*{0.7ex}
+\begin{tabular}{c|c|c|c|c|c|c|c }
+%\begin{tabular}{p{0.1\linewidth}| p{0.1\linewidth}| p{0.1\linewidth}|  p{0.1\linewidth}| p{0.1\linewidth}| p{0.1\linewidth} }
+$\leftarrow r \rightarrow$ & $ \leftarrow  \omega \rightarrow $ & $\Delta t$ & $\Delta x$ & $c^2$ & \Ekman  & $l_x, l_y, l_z$ & $T_{end}$\\
+\hline
+$[0,\; 0.5], \Delta r =0.125$ & $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $10^{-5}$ & $\nicefrac{1}{128}$ & 500 & $10^{-4}$  & (1, 1, 1) & 100\\
+\end{tabular}
+\vspace*{0.7ex}
+\end{center}
+
 \subsubsection{Results \& Discussion}
 
 
@@ -340,7 +382,7 @@ first experiment cone
 
 \begin{figure}[!bp]
       \centering
-        \resizebox{0.8\textwidth}{!}{
+        \resizebox{0.5\textwidth}{!}{
        \import{gfx/cone//}{comparison.pdf_tex}
       }
       \caption{Numerical setup of the cone, oriented on the experiment. The total heigth
@@ -374,6 +416,37 @@ As a first test
 
 
 \section{Summary}
+
+Following the introduction and validation of the immersed boundary methods for No-Slip boundaries,
+we now want to exemplarly investigate a fluid system using these methods
+and find out if we can reproduce some of the expected physical properties.\\
+In relation to the research focus of the geophysical fluid mechanics research group, there are a variety
+topics of interest.
+One area of research lies in the exploration of dynamo effects in geological and stellar system.
+In particular this means the generation of magnetic fields by electrically conducting fluids on large scales.
+In this thesis we will not consider MHD-equations.
+However in general it is considered that the helicity of a fluid domain $\Omega$, given by
+
+\begin{center}
+\vspace*{0.7ex}
+\begin{tabular}{c|c|c|c|c|c }
+%\begin{tabular}{p{0.1\linewidth}| p{0.1\linewidth}| p{0.1\linewidth}|  p{0.1\linewidth}| p{0.1\linewidth}| p{0.1\linewidth} }
+$\Delta t$ & $\Delta x$ & $c^2$ & \Ekman  & $l_x, l_y, l_z$ & $T_{end}$\\
+\hline
+$10^{-5}$ & $\nicefrac{1}{128}$ & 500 & $10^{-4}$  & (1, 1, 1) & 100\\
+\end{tabular}
+\vspace*{0.7ex}
+\end{center}
+
+Following the introduction and validation of the immersed boundary methods for No-Slip boundaries,
+we now want to exemplarly investigate a fluid system using these methods
+and find out if we can reproduce some of the expected physical properties.\\
+In relation to the research focus of the geophysical fluid mechanics research group, there are a variety
+topics of interest.
+One area of research lies in the exploration of dynamo effects in geological and stellar system.
+In particular this means the generation of magnetic fields by electrically conducting fluids on large scales.
+In this thesis we will not consider MHD-equations.
+However in general it is considered that the helicity of a fluid domain $\Omega$, given by
 
 freeslip besser
 

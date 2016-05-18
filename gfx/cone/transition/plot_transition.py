@@ -105,6 +105,7 @@ def main():
         ax.set_ylabel(r'$v_z^2$')
         ax.grid(True)
         ax.set_ylim(0, 1e-3)
+        ax.set_xlim(0.2, 2)
 
     for i, ax in enumerate(axes[:, 0]):
         if i < 4:
