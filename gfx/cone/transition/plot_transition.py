@@ -25,6 +25,17 @@ from cycler import cycler
 cc = itertools.cycle(plt.cm.spectral(np.linspace(0,1,10)))
 #plt.rc('axes', prop_cycle=(cycler('color', cmap)))
 
+def get_omg(w, r):
+    gamma = np.arccos(w/2.)
+    hc = 0.5*np.tan(np.pi/3.)
+    hr = np.tan(gamma)*0.5
+
+    d = (hc - hr)*(0.5 - r)/hc
+
+    beta = np.arctan(hr/(0.5 - d))
+    return 2*np.cos(beta)
+
+
 def get_amp(series):
     n = len(series)/4
     data = series[3*n:]
@@ -40,7 +51,6 @@ def main():
                             gridspec_kw = {'width_ratios':[3, 1]})
 
     l =  0.5*np.tan(np.pi/3.)
-    print l
     for ax, radius in zip(axes[:, 1], rs):
         r = radius
         hc = 0.5*np.tan(np.pi/3.)
@@ -73,8 +83,9 @@ def main():
 
         a_ekin, a_vz, a_vphi = [], [], []
         omgsn = []
+
         for i, simpath in enumerate(sorted(simpathes)):
-            print simpath
+            #print simpath
             data = np.genfromtxt(simpath)
             time = data[:, 0]
             ekin = data[:, 1]
@@ -106,6 +117,9 @@ def main():
         ax.grid(True)
         ax.set_ylim(0, 1e-3)
         ax.set_xlim(0.2, 2)
+
+        print get_omg(1.3, 0.5 - radius)
+        ax.axvline(get_omg(1.2681, 0.5 - radius), ls ='--', color='b', lw=0.75)
 
     for i, ax in enumerate(axes[:, 0]):
         if i < 4:

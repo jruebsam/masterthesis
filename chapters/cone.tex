@@ -322,46 +322,21 @@ $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $10^{-5}$ & $\nicefrac{1}{128}$ & 50
 
 \subsubsection{Results \& Discussion}
 
+damping ekman number to large
 
 \clearpage
 
-\subsection{Transition to from the Cylinder to a Liberating Cone}
+\subsection{Transition to from a Cylinder to a Cone}
 
-As :q
-
--previous simulation unexpected results
--to get a better understanding of the behaviour of the system an idea
-wsa to modoel the transition from the cylinden simulation to the cone setup
-
--done by varyiing the radius of
-
-
-
-
-
-\begin{figure}[!pt]
-  \centering
-  \includegraphics{gfx/cone/transition/transition.pdf}\label{fig:cone:transition}
-  \caption{blabla}
-\end{figure}
-
-\begin{figure}[!bp]
-      \centering
-        \resizebox{0.8\textwidth}{!}{
-       \import{gfx/cone/transition//}{attractor.pdf_tex}
-      }
-      \caption{Numerical setup of the cone, oriented on the experiment. The total heigth
-         is given by $h$, whereas the height of the cone is set to $h_c$.
-      The winkel alpha defines the slope and $h_t$ the cutoff from the bottom.}
-      \label{cone:theorie}
-\end{figure}
-
-
- - Close to the ex
-first experiment cone
--cone abgebildet nach experiment
-- cut spitze bei 0.123123 blabla vgl exp
--setup dargestellt in abbildung bla
+We now want to further investigate the results from the previous simulation.
+The assumption was made, that the inserted bottom plate is to narrow to support an efficient reflection
+of inertial waves, due to frictional losses at the bottom of the cone. Thus, the next objective would be to
+test the influence of different gap radii $r$.\\
+We propose a setting where we begin with the possible largest bottom gap, which is $r=0.5$.
+As a next step we iteratively decrease the size of the gap by $\Delta r = 0.125$ until $r=0$ is reached.
+The influence on the simulation domain is shown in figure ()(b).
+For $r=0.5$ the domain is given by a cylinder, which than transforms into a cone with a frustum and finally with an apex for $r=0$.
+The simulation parameters are given by
 
 \begin{center}
 \vspace*{0.7ex}
@@ -374,7 +349,41 @@ $[0,\; 0.5], \Delta r =0.125$ & $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $10^
 \vspace*{0.7ex}
 \end{center}
 
+It should be mentioned that it would also be possible to change the offset from the bottom of the cone, which would result in a constant
+slope but different heights of the simulation domain.
+The results of the simulation series is shown in figure ()(a)
+
+-for r = 0.5 intertial modes of cylinder
+-the (2,2) mode and the other 2 is shifted fo the lef t
+-damped
+-red line indicates the w where cg is parallel to the slope
+
+
 \subsubsection{Results \& Discussion}
+\begin{figure}[!bp]
+      \begin{minipage}[c]{0.4\textwidth}
+      \centering
+        \resizebox{0.8\textwidth}{!}{
+       \import{gfx/cone/transition//}{attractor.pdf_tex}
+      }
+      \end{minipage}\hfill
+  \begin{minipage}[c]{0.6\textwidth}
+      \caption{
+          Wave attractor in a cylinder $\left(\text{\colorbox{green}{\textcolor{green}{o}}{\null}}\right)$
+          and shifted\\ attractor $\left(\text{\colorbox{red}{\textcolor{red}{o}}{\null}}\right)$
+          for $r<0.5$. To maintain the same attractor the point of reflection has to be at the same height $h_r$.
+      }
+      \label{cone:theorie}
+      \end{minipage}\hfill
+\end{figure}
+
+
+\begin{figure}[!pt]
+  \centering
+  \includegraphics{gfx/cone/transition/transition.pdf}\label{fig:cone:transition}
+  \caption{blabla}
+\end{figure}
+
 
 
 \subsection{Conclusion}
