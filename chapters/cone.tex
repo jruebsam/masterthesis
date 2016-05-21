@@ -158,6 +158,8 @@ We will now introduce the numerical setup which has been used for the simulation
 \clearpage
 
 \section{Simulation of a Liberating Cylinder}
+\label{cone:sec:lib_cylinder}
+
 
 As a first step towards the implemenation of the cone,
 we want to simulate fluid flow in a liberating cylinder.
@@ -347,12 +349,11 @@ decay of the amplitude refutes this assumption.\\
 The results of the simulation do not match with the ones of the experiment we discussed in section ().
 A possible explanation we want to propose here, is the use of a different Ekman number, which is of order $10^{-4}$ in contrast
 to the one of the experiment of $10^{-5}$.
-As a consequence the width of an inertial wave packet, given by $\propto \Ekman^{1/3} \approx 2\cdot10^{-2}$ (see \citep{}),
+As a consequence the width of an inertial wave packet, given by $\propto \Ekman^{1/3} \approx 2\cdot10^{-2}$ (see \citep{} or section...),
 is around twice the size as in the experiment. We assume that as a results a wave reflecting on the bottom of the frustum
 is strongly damped due to wall friction.
 DISCUSS T:\\
 damping  could be propt $\Ekman \vec{K}$.
-
 
 \subsection{Transition to from a Cylinder to a Cone}
 
@@ -362,6 +363,8 @@ of inertial waves, due to frictional losses at the bottom of the cone. Thus, the
 test the influence of different gap radii $r$.\\
 We propose a setting where we begin with the possible largest bottom gap, which is $r=0.5$.
 As a next step we iteratively decrease the size of the gap by $\Delta r = 0.125$ until $r=0$ is reached.
+An alternative approach to this woudld be to change the offset from the bottom of the cone, which would result in a constant
+slope but different heights of the simulation domain.
 The influence on the simulation domain is shown in figure ()(b).
 For $r=0.5$ the domain is given by a cylinder, which than transforms into a cone with a frustum and finally with an apex for $r=0$.
 The simulation parameters are given by
@@ -376,43 +379,67 @@ $[0,\; 0.5], \Delta r =0.125$ & $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $10^
 \end{tabular}
 \vspace*{0.7ex}
 \end{center}
+%
+%\subsubsection{Results \& Discussion}
+%\begin{figure}[!bp]
+%      \begin{minipage}[c]{0.4\textwidth}
+%      \centering
+%        \resizebox{0.8\textwidth}{!}{
+%       \import{gfx/cone/transition//}{attractor.pdf_tex}
+%      }
+%      \end{minipage}\hfill
+%  \begin{minipage}[c]{0.6\textwidth}
+%      \caption{
+%          Wave attractor in a cylinder $\left(\text{\colorbox{green}{\textcolor{green}{o}}{\null}}\right)$
+%          and shifted\\ attractor $\left(\text{\colorbox{red}{\textcolor{red}{o}}{\null}}\right)$
+%          for $r<0.5$. To maintain the same attractor the point of reflection has to be at the same height $h_r$.
+%      }
+%      \label{cone:theorie}
+%      \end{minipage}\hfill
+%\end{figure}
 
-It should be mentioned that it would also be possible to change the offset from the bottom of the cone, which would result in a constant
-slope but different heights of the simulation domain.
-The results of the simulation series is shown in figure ()(a)
-
--for r = 0.5 intertial modes of cylinder
--the (2,2) mode and the other 2 is shifted fo the lef t
--damped
--red line indicates the w where cg is parallel to the slope
 
 
 \subsubsection{Results \& Discussion}
-\begin{figure}[!bp]
-      \begin{minipage}[c]{0.4\textwidth}
-      \centering
-        \resizebox{0.8\textwidth}{!}{
-       \import{gfx/cone/transition//}{attractor.pdf_tex}
-      }
-      \end{minipage}\hfill
-  \begin{minipage}[c]{0.6\textwidth}
-      \caption{
-          Wave attractor in a cylinder $\left(\text{\colorbox{green}{\textcolor{green}{o}}{\null}}\right)$
-          and shifted\\ attractor $\left(\text{\colorbox{red}{\textcolor{red}{o}}{\null}}\right)$
-          for $r<0.5$. To maintain the same attractor the point of reflection has to be at the same height $h_r$.
-      }
-      \label{cone:theorie}
-      \end{minipage}\hfill
-\end{figure}
 
+The results of the simulations are shown in figure \ref{fig:cone:transition}.
+For $r=0$ we can see the inertial modes of a liberating cylinder, which is in accordance
+to the results we discussed in section \ref{cone:sec:lib_cylinder}.
+With an decrease of the radius we can observe a change in the position and amplitude of the
+inertial modes. We want to exemplarly discuss this pattern for the (2, 2) mode at $\omega=1.3$, where it is the best visible.
+For all other modes the transition results in a similar behvavior.\\
 
 \begin{figure}[!pt]
   \centering
-  \includegraphics{gfx/cone/transition/transition.pdf}\label{fig:cone:transition}
-  \caption{blabla}
+  \includegraphics{gfx/cone/transition/transition.pdf}  \caption{blabla}
+  \caption{\label{fig:cone:transition}
+    Simulation of
+  }
+\end{figure}
+
+The decrease of the radius leads to a shift to lower frequencies of the (2, 2) mode,
+from $r=0$ to $r=0.375$ it is of the order $\Delta \omega=0.1$.
+Furthermore we can see, that during the transition a damping of the mode occurs.
+For $r=0.5$ the amplitude is of order $\approx8.9\cdot10^{-3}$, for $r=0.375$ it is
+$\approx8.9\cdot10^{-3}$ and for $r=0.25$ we obtain $\approx3.8\cdot10^{-3}$.\\
+Whereas the first decrease of the radius does not significantly affect the amplitude,
+the second decrease leads to a strong damping to less than half of the original size.
+With a further decrease in $r$, the (2, 2) mode is annihilated.
+\footnote{ for the (2, 2) we can observe a blabla}
+
+-explanation plots blabla
+-red line indicates the w where cg is parallel to the slope
+
+\begin{figure}[!pt]
+  \centering
+  \includegraphics{gfx/cone/transition/phase.pdf}  \caption{blabla}
+  \caption{\label{fig:cone:transition}
+    Simulation of
+  }
 \end{figure}
 
 
+\clearpage
 
 \subsection{Conclusion}
 2 bilder vgl different alpha

@@ -19,7 +19,6 @@ from mpl_toolkits.axes_grid1.inset_locator import mark_inset
 
 cmap = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf']
 markers = itertools.cycle('o^*')
-
 from cycler import cycler
 
 cc = itertools.cycle(plt.cm.spectral(np.linspace(0,1,10)))
@@ -47,8 +46,13 @@ def main():
     rs = np.linspace(0, 0.5, 5)[::-1]
     cdir = os.getcwd()
 
-    f, axes = plt.subplots(len(rs), 2, figsize=style.figsize(0.9, np.sqrt(2)),
+    f, axes = plt.subplots(len(rs), 2, figsize=style.figsize(1., np.sqrt(2)),
                             gridspec_kw = {'width_ratios':[3, 1]})
+    # build a rectangle in axes coords
+    left, width = .25, .5
+    bottom, height = .25, .5
+    right = left + width + 0.5
+    top = bottom + height
 
     l =  0.5*np.tan(np.pi/3.)
     for ax, radius in zip(axes[:, 1], rs):
@@ -71,6 +75,11 @@ def main():
         ax.set_xlabel('x', labelpad = 0.1)
         ax.set_ylabel('z', labelpad = 0.1)
         ax.set_aspect('equal')
+        ax.text(right, 0.5*(bottom+top), 'r=%.3f' % (0.5 - radius),
+                horizontalalignment='center',
+                verticalalignment='center',
+                rotation='vertical',
+                transform=ax.transAxes)
 
 
     for i, (ax, radius) in enumerate(zip(axes[:, 0], rs[::-1])):
@@ -101,10 +110,10 @@ def main():
             a_vz.append(amp)
             omgsn.append(omgs[i])
 
-        ax.plot(omgsn, a_vz, 'o--', ms=5, mew=0, alpha=0.8)
+        ax.plot(omgsn, a_vz, 'o--', ms=5, mew=0, alpha=0.8, color= '#377eb8')
 
         if i>0:
-            ax.axvline(2*np.cos(np.pi/2. -np.arctan(radius/l)), color='r', lw=0.75)
+            ax.axvline(2*np.cos(np.pi/2. -np.arctan(radius/l)), color='#e41a1c', lw=0.75)
         ax.set_ylabel(radius)
         os.chdir(cdir)
 
@@ -113,15 +122,19 @@ def main():
         formatter.set_powerlimits((-2,-3))
         ax.yaxis.set_major_formatter(formatter)
 
-        ax.set_ylabel(r'$v_z^2$')
+        ax.set_ylabel(r'$A\left(\left<v_z^2\right>\right)$')
         ax.grid(True)
         ax.set_ylim(0, 1e-3)
         ax.set_xlim(0.2, 2)
 
-        print get_omg(1.3, 0.5 - radius)
-        ax.axvline(get_omg(1.2681, 0.5 - radius), ls ='--', color='b', lw=0.75)
+
+    for i, ax in enumerate(axes[:, 1]):
+        if i == 0:
+            ax.set_title('(b)')
 
     for i, ax in enumerate(axes[:, 0]):
+        if i == 0:
+            ax.set_title('(a)')
         if i < 4:
             labels = [item.get_text() for item in ax.get_xticklabels()]
             empty_string_labels = ['']*len(labels)
