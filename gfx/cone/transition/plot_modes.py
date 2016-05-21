@@ -38,9 +38,9 @@ def main():
 
         ax.set_xlabel(r'x')
         ax.set_xticks([0, 1])
-        ax.xaxis.labelpad = -10
+        ax.xaxis.labelpad = -5
         print wall
-        ax.set_title(r'r=%.3f' % (0.5 - wall))
+        ax.set_title(r'$r=%.3f, \omega=%.2f$' % (0.5 - wall, omg ))
         r = 0.5 - wall
         ax.plot(0.5, r/(0.5 + r), 'w+', ms=4 )
 

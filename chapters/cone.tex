@@ -425,12 +425,24 @@ For $r=0.5$ the amplitude is of order $\approx8.9\cdot10^{-3}$, for $r=0.375$ it
 $\approx8.9\cdot10^{-3}$ and for $r=0.25$ we obtain $\approx3.8\cdot10^{-3}$.\\
 Whereas the first decrease of the radius does not significantly affect the amplitude,
 the second decrease leads to a strong damping to less than half of the original size.
-With a further decrease in $r$, the (2, 2) mode is annihilated.\\
-\footnote{ for the (2, 2) we can observe a blabla}
+With a further decrease in $r$, the (2, 2) mode is annihilated.
+\footnote{ for the (n,k) mode we still can observe a slight increase of the amplitude at $r=1.4$}
+One possible explanation for the shift can be given
+by having a look at the inertial mode structure, for different radii as shown in figure \ref{fig:cone:phase}.\\
+For $r=0.5$ we have an inertial mode, which is symmetric to the plane $h/2$.
+In this plane, the waves excited from the bottom and top of the cylinder, annihilate each other and form a wave node.
+An decrease of radius breaks the axial symetrie of the inertial mode.
+As a result only a distorted version of the mode can exist, where the center of the wave node
+is given by the intersection of the diagonals from the top to the bottom edges of the frustum.
+In order to obtain the new shape it is necessary to increase the propagation angle $\Theta$,
+which is equivalent to lowering the liberation frequency.
+We can furthermore say that for $r \rightarrow 0$, the center given by
 
--explanation plots blabla
+\begin{align}
+c  = r \frac{h}{r+\nicefrac{l_x}{2}}
+\end{align}
 
-
+converges against zero, hence a mode cannot exist in this state.
 Beside the changes of the inertial modes it can be noted, that simultaneously to the decrease of the radius,
 a lift of the amplitudes at lower frequencies occurs.
 The vertical lines in figure \ref{fig:cone:transition} are set to the position $\omega=\Theta$.
@@ -441,16 +453,15 @@ For $r=0$ we have the indentical setup to the simulation in section \ref{cone:ex
 \begin{figure}[!pt]
   \centering
   \includegraphics{gfx/cone/transition/phase.pdf}
-  \caption{\label{fig:cone:transition}
+  \caption{\label{fig:cone:phase}
     Simulation of
   }
 \end{figure}
 
-
-
 \clearpage
 
-\subsection{Conclusion}
+\subsection{Liberating Cone with different Offsets at Top}
+
 2 bilder vgl different alpha
 
 \begin{figure}[!bp]
@@ -463,11 +474,6 @@ For $r=0$ we have the indentical setup to the simulation in section \ref{cone:ex
       The winkel alpha defines the slope and $h_t$ the cutoff from the bottom.}
       \label{cone:theorie}
 \end{figure}
-
-
-\clearpage
-
-\subsection{Liberating Cone with different Offsets at Top}
 \subsection{Results \& Discussion}
 
 -description\\
