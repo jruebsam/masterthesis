@@ -128,7 +128,7 @@ def main():
                 a_vz.append(amp)
                 omgsn.append(omgs[i])
 
-            ax.plot(omgsn, a_vz, 'o-',  ms=2, mew=0, alpha=0.8)
+            ax.plot(omgsn, a_vz, 'o-',  ms=3, mew=0, alpha=0.8)
 
         if i>0:
             ax.axvline(1, color='#e41a1c', lw=0.75)

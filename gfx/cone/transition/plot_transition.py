@@ -110,7 +110,7 @@ def main():
             a_vz.append(amp)
             omgsn.append(omgs[i])
 
-        ax.plot(omgsn, a_vz, 'o--', ms=5, mew=0, alpha=0.8, color= '#377eb8')
+        ax.plot(omgsn, a_vz, 'o--', ms=3, mew=0, alpha=0.8)
 
         if i>0:
             ax.axvline(2*np.cos(np.pi/2. -np.arctan(radius/l)), color='#e41a1c', lw=0.75)

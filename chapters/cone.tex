@@ -368,7 +368,7 @@ An alternative approach to this woudld be to change the offset from the bottom o
 slope but different heights of the simulation domain.
 The influence on the simulation domain is shown in figure ()(b).
 For $r=0.5$ the domain is given by a cylinder, which than transforms into a cone with a frustum and finally with an apex for $r=0$.
-The simulation parameters are given by
+The main simulation parameters are given by
 
 \begin{center}
 \vspace*{0.7ex}
@@ -462,13 +462,34 @@ For $r=0$ we have the indentical setup to the simulation in section \ref{cone:ex
 
 \subsection{Liberating Cone with different Offsets at the Top}
 
-Finally we want to adapt the previous setup which was oriented to
+Finally we want to improve the setup we introduced in section \ref{exp},
+by considering the insights we gained from the previous simulations.
+As we pointed out, the radius at the bottom of the frustum has a strong influence on
+the reflection of inertial waves, due to the larger Ekman number we use in comparsion to the experiment.
+Hence, we insert the bottom plate in the cone at a height of $h_b=0.375$, the resulting radius is
+$r \approx 0.22$. The total height is than given by $h=0.625$,
+and the slope is unchanged.
+Secondly we want to adress the influence of the offset on top of the cone,
+which has been left out from any discussion so far.
+We assume that this offset has an strong influence for the intervall $\Theta<\alpha$,
+where wave reflection to the top occurs.
+In the case where $o=0$, the corners of the cone would act as an attractor, as pointed out in figure \ref{cone:img_finalattractor}.
 
+\begin{figure}[!bp]
+      \centering
+        \resizebox{0.6\textwidth}{!}{
+       \import{gfx/cone//}{comparison.pdf_tex}
+      }
+      \caption{
+          Wave attractor
+      \label{cone:img_finalattractor}
+      }
+\end{figure}
 
-
-
-
-The simulation parameters are given by
+For small gap sizes it also applies that a inertial wave will be damped.
+Therefore, in this simulation we will add an additional offset to the default of $\tan(\pi/3)/2$
+varying in the range of $h_+ = [0, 1]$ with a stepsize of $\Delta h_+ = \nicefrac{1}{5}$.
+The main simulation parameters are given by
 
 \begin{center}
 \vspace*{0.7ex}
@@ -481,6 +502,22 @@ $[0,\; 0.5], \Delta r =0.125$ & $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $10^
 \vspace*{0.7ex}
 \end{center}
 
+Furthermore we will compute the normalized helicity of the system given by
+
+\begin{align}
+1 = 2
+\end{align}
+
+in the accelerated frame of motion and
+
+\begin{align}
+1 = 2
+\end{align}
+
+in the non-rotating coordinate system.
+As a follow up
+-abklingraten
+-ekman number
 
 \begin{figure}[!pt]
   \centering
@@ -491,20 +528,7 @@ $[0,\; 0.5], \Delta r =0.125$ & $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $10^
 \end{figure}
 
 
-2 bilder vgl different alpha
-
-\begin{figure}[!bp]
-      \centering
-        \resizebox{0.5\textwidth}{!}{
-       \import{gfx/cone//}{comparison.pdf_tex}
-      }
-      \caption{Numerical setup of the cone, oriented on the experiment. The total heigth
-         is given by $h$, whereas the height of the cone is set to $h_c$.
-      The winkel alpha defines the slope and $h_t$ the cutoff from the bottom.}
-      \label{cone:theorie}
-\end{figure}
-\subsection{Results \& Discussion}
-
+\subsection{Results}
 -description\\
 -verfahren und serie\\
 -diskussion oberer rand\\
