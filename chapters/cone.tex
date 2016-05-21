@@ -193,11 +193,11 @@ The numerical setup is  given by ..
 
 
 \begin{align}
-    \left<v_z^2 \right>_{V} =  \int \dif V v_z^2 \approx \sum_{i, j, k}^{N_x,N_y,N_z} \Delta x \Delta y \Delta z \left.v_z^2 \right|_{i,j,k}
+    \left<v_z^2 \right>(t) =  \int \dif V v_z(t)^2 \approx \sum_{i, j, k}^{N_x,N_y,N_z} \Delta x \Delta y \Delta z \left.v_z(t)^2 \right|_{i,j,k}
 \end{align}
 
 \begin{align}
-    A\left(\left<v_z^2\right>_{v}\right) = \frac{\max(\left<v_z^2\right>_{v}) - \min(\left<v_z^2\right>_{v})}{2}
+    A\left(\left<v_z^2\right>\right) = \frac{\max(\argmax(\left<v_z^2\right>_{v})) - \max(\argmin(\left<v_z^2\right>_{v}))}{2}
 \end{align}
 
 -bilder
@@ -426,7 +426,7 @@ $\approx8.9\cdot10^{-3}$ and for $r=0.25$ we obtain $\approx3.8\cdot10^{-3}$.\\
 Whereas the first decrease of the radius does not significantly affect the amplitude,
 the second decrease leads to a strong damping to less than half of the original size.
 With a further decrease in $r$, the (2, 2) mode is annihilated.
-\footnote{ for the (n,k) mode we still can observe a slight increase of the amplitude at $r=1.4$}
+\footnote{ for the possible (1, 2) mode we still can observe a slight increase of the amplitude at $r=1.4$}
 One possible explanation for the shift can be given
 by having a look at the inertial mode structure, for different radii as shown in figure \ref{fig:cone:phase}.\\
 For $r=0.5$ we have an inertial mode, which is symmetric to the plane $h/2$.
@@ -460,7 +460,36 @@ For $r=0$ we have the indentical setup to the simulation in section \ref{cone:ex
 
 \clearpage
 
-\subsection{Liberating Cone with different Offsets at Top}
+\subsection{Liberating Cone with different Offsets at the Top}
+
+Finally we want to adapt the previous setup which was oriented to
+
+
+
+
+
+The simulation parameters are given by
+
+\begin{center}
+\vspace*{0.7ex}
+\begin{tabular}{c|c|c|c|c|c|c|c }
+%\begin{tabular}{p{0.1\linewidth}| p{0.1\linewidth}| p{0.1\linewidth}|  p{0.1\linewidth}| p{0.1\linewidth}| p{0.1\linewidth} }
+$\leftarrow r \rightarrow$ & $ \leftarrow  \omega \rightarrow $ & $\Delta t$ & $\Delta x$ & $c^2$ & \Ekman  & $l_x, l_y, l_z$ & $T_{end}$\\
+\hline
+$[0,\; 0.5], \Delta r =0.125$ & $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $10^{-5}$ & $\nicefrac{1}{128}$ & 500 & $10^{-4}$  & (1, 1, 1) & 100\\
+\end{tabular}
+\vspace*{0.7ex}
+\end{center}
+
+
+\begin{figure}[!pt]
+  \centering
+  \includegraphics{gfx/cone/final/transition.pdf}
+  \caption{\label{fig:cone:finaltransition}
+    Simulation of
+  }
+\end{figure}
+
 
 2 bilder vgl different alpha
 
@@ -495,38 +524,6 @@ As a first test
 
 
 \section{Summary}
-
-Following the introduction and validation of the immersed boundary methods for No-Slip boundaries,
-we now want to exemplarly investigate a fluid system using these methods
-and find out if we can reproduce some of the expected physical properties.\\
-In relation to the research focus of the geophysical fluid mechanics research group, there are a variety
-topics of interest.
-One area of research lies in the exploration of dynamo effects in geological and stellar system.
-In particular this means the generation of magnetic fields by electrically conducting fluids on large scales.
-In this thesis we will not consider MHD-equations.
-However in general it is considered that the helicity of a fluid domain $\Omega$, given by
-
-\begin{center}
-\vspace*{0.7ex}
-\begin{tabular}{c|c|c|c|c|c }
-%\begin{tabular}{p{0.1\linewidth}| p{0.1\linewidth}| p{0.1\linewidth}|  p{0.1\linewidth}| p{0.1\linewidth}| p{0.1\linewidth} }
-$\Delta t$ & $\Delta x$ & $c^2$ & \Ekman  & $l_x, l_y, l_z$ & $T_{end}$\\
-\hline
-$10^{-5}$ & $\nicefrac{1}{128}$ & 500 & $10^{-4}$  & (1, 1, 1) & 100\\
-\end{tabular}
-\vspace*{0.7ex}
-\end{center}
-
-Following the introduction and validation of the immersed boundary methods for No-Slip boundaries,
-we now want to exemplarly investigate a fluid system using these methods
-and find out if we can reproduce some of the expected physical properties.\\
-In relation to the research focus of the geophysical fluid mechanics research group, there are a variety
-topics of interest.
-One area of research lies in the exploration of dynamo effects in geological and stellar system.
-In particular this means the generation of magnetic fields by electrically conducting fluids on large scales.
-In this thesis we will not consider MHD-equations.
-However in general it is considered that the helicity of a fluid domain $\Omega$, given by
-
 freeslip besser
 
 

@@ -42,7 +42,9 @@ def get_amp(series):
     return A
 
 def main():
-    dpath = '/home/upgp/jruebsam/simulations/mai16/week2/move_border'
+    dpath1 = '/home/upgp/jruebsam/simulations/mai16/week4/series_offset_l1/'
+    dpath2 = '/home/upgp/jruebsam/simulations/mai16/week4/series_offset_with_tip_l1/'
+
     rs = np.linspace(0, 0.5, 5)[::-1]
     cdir = os.getcwd()
 
@@ -56,64 +58,80 @@ def main():
 
     l =  0.5*np.tan(np.pi/3.)
     for ax, radius in zip(axes[:, 1], rs):
-        r = radius
+        h = radius
+        r = 0.21650635094610973
         hc = 0.5*np.tan(np.pi/3.)
-        p00 = (0.5-r, 0)
-        p01 = (0.5+r, 0)
-        p11 = (1,hc)
-        p10 = (0, hc)
-        po2= (1, 1)
-        po = (0, 1)
+
+        p00 = (0.5-r, 0.375)
+        p01 = (0.5+r, 0.375)
+        p11 = (1,hc )
+        p10 = (0, hc )
+        po2= (1, 1 + h )
+        po = (0, 1 + h )
         cube_lines = [p00, p01, p11, po2, po, p10]
         x = [p[0] for p in cube_lines]
         y = [p[1] for p in cube_lines]
         d = np.column_stack((x,y))
         p = Polygon(d, alpha=0.5, color='b', hatch='x')
         ax.add_artist(p)
+
+        p00 = (0.5, 0)
+        p01 = (0.5 +r, 0.375)
+        p11 = (0.5 -r, 0.375)
+        cube_lines = [p00, p01, p11]
+        x = [p[0] for p in cube_lines]
+        y = [p[1] for p in cube_lines]
+        d = np.column_stack((x,y))
+        p = Polygon(d, alpha=0.5, color='r', hatch='x')
+        ax.add_artist(p)
+
         ax.set_xticks([0, 1])
         ax.set_yticks([0, 1])
         ax.set_xlabel('x', labelpad = 0.1)
         ax.set_ylabel('z', labelpad = 0.1)
-        ax.set_aspect('equal')
-        ax.text(right, 0.5*(bottom+top), 'r=%.3f' % (0.5 - radius),
+        ax.xaxis.labelpad = -5
+        #ax.set_aspect('equal')
+        ax.set_ylim(0, 1.5)
+        ax.text(right, 0.5*(bottom+top), 'h=%.3f' % h,
                 horizontalalignment='center',
                 verticalalignment='center',
                 rotation='vertical',
                 transform=ax.transAxes)
 
+    hs = rs
+    for i, (ax, radius) in enumerate(zip(axes[:, 0], hs)):
 
-    for i, (ax, radius) in enumerate(zip(axes[:, 0], rs[::-1])):
+        for dpath in [dpath1, dpath2]:
+            os.chdir(os.path.join(dpath, 'data', 'h_%.3f' % radius))
 
-        os.chdir(os.path.join(dpath, 'data', 'wall_%.3f' % radius))
+            simpathes =  glob('*/*.ekin')
 
-        simpathes =  glob('*/*.ekin')
+            omgs = sorted([float((x.split('/')[0]).split('_')[-1]) for x in simpathes])
 
-        omgs = sorted([float((x.split('/')[0]).split('_')[-1]) for x in simpathes])
+            a_ekin, a_vz, a_vphi = [], [], []
+            omgsn = []
 
-        a_ekin, a_vz, a_vphi = [], [], []
-        omgsn = []
+            for i, simpath in enumerate(sorted(simpathes)):
+                #print simpath
+                data = np.genfromtxt(simpath)
+                time = data[:, 0]
+                ekin = data[:, 1]
+                vz   = data[:, -3]
+                vphi = data[:, -1]
+                #ax.plot(time, vz, label=simpath)
+                #a_ekin.append(get_amp(ekin))
 
-        for i, simpath in enumerate(sorted(simpathes)):
-            #print simpath
-            data = np.genfromtxt(simpath)
-            time = data[:, 0]
-            ekin = data[:, 1]
-            vz   = data[:, -3]
-            vphi = data[:, -1]
-            #ax.plot(time, vz, label=simpath)
-            #a_ekin.append(get_amp(ekin))
+                amp = get_amp(vz)
+                #a_vphi.append(get_amp(vphi))
 
-            amp = get_amp(vz)
-            #a_vphi.append(get_amp(vphi))
+                #plt.plot(time, vz, label=simpath.split('/')[-1])
+                a_vz.append(amp)
+                omgsn.append(omgs[i])
 
-            #plt.plot(time, vz, label=simpath.split('/')[-1])
-            a_vz.append(amp)
-            omgsn.append(omgs[i])
-
-        ax.plot(omgsn, a_vz, 'o--', ms=5, mew=0, alpha=0.8, color= '#377eb8')
+            ax.plot(omgsn, a_vz, 'o-',  ms=2, mew=0, alpha=0.8)
 
         if i>0:
-            ax.axvline(2*np.cos(np.pi/2. -np.arctan(radius/l)), color='#e41a1c', lw=0.75)
+            ax.axvline(1, color='#e41a1c', lw=0.75)
         ax.set_ylabel(radius)
         os.chdir(cdir)
 
@@ -124,7 +142,7 @@ def main():
 
         ax.set_ylabel(r'$A\left(\left<v_z^2\right>\right)$')
         ax.grid(True)
-        ax.set_ylim(0, 1e-3)
+        ax.set_ylim(0, 5*1e-4)
         ax.set_xlim(0.2, 2)
 
 
