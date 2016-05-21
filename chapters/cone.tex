@@ -1,3 +1,4 @@
+\part{Application}
 \chapter{Inertial Waves in a Rotating Cone}
 
 \section{Introduction}
@@ -186,6 +187,17 @@ The numerical setup is  given by ..
 
 \subsection{Results \& Discussion}
 
+
+
+
+\begin{align}
+    \left<v_z^2 \right>_{V} =  \int \dif V v_z^2 \approx \sum_{i, j, k}^{N_x,N_y,N_z} \Delta x \Delta y \Delta z \left.v_z^2 \right|_{i,j,k}
+\end{align}
+
+\begin{align}
+    A\left(\left<v_z^2\right>_{v}\right) = \frac{\max(\left<v_z^2\right>_{v}) - \min(\left<v_z^2\right>_{v})}{2}
+\end{align}
+
 -bilder
 -description
 
@@ -229,6 +241,8 @@ to a cone and finally  we will investigate the influence of different offsets on
 All simulations performed in this section use the introduced setup with different geometric parameters.
 As a IBM we choose the direct forcing  method of second order.
 
+-as a convention we refer to frustom cone etc
+
 \subsection{Simulation of the Experiment}
 
 The setup for this simulation is oriented on the experimental setup given by \citep{Beardsley1970}, which
@@ -271,60 +285,74 @@ $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $10^{-5}$ & $\nicefrac{1}{128}$ & 50
 \end{center}
 
 \clearpage
-
-\begin{figure}[!pt]
-  \centering
-  \includegraphics{gfx/cone/experiment/experiment.pdf}\label{fig:cone:expseries}
-  \caption{blabla
-  Stability regions for $\Omega_s$ for different Runge-Kutta methodsiStability regions for $\Omega_s$ for different Runge-Kutta methodsi
-  }
-\end{figure}
-
-%\begin{figure}%
-%    \centering
-%    \subfloat[label 1]{{
+%\begin{figure}[!tp]
+%  \begin{minipage}[c]{0.6\textwidth}
 %      \includegraphics{gfx/cone/experiment/contour.pdf}\label{fig:mask_vp}
-%        }}%
-%    \qquad
-%    \subfloat[label 2]{{
+%  \end{minipage}\hfill
+%  \begin{minipage}[c]{0.3\textwidth}
+%  \caption{Stability regions for $\Omega_s$ for different Runge-Kutta methodsi
+%    Stability regions for $\Omega_s$ for different Runge-Kutta methodsi
+%  }
+%  \label{fig:num_rkstab}
+%  \end{minipage}
+%\end{figure}
+%
+%\begin{figure}[!tp]
+%  \begin{minipage}[c]{0.3\textwidth}
+%  \caption{Stability regions for $\Omega_s$ for different Runge-Kutta methods
+%  Stability regions for $\Omega_s$ for different Runge-Kutta methodsi
+%  }
+%  \label{fig:num_rkstab}
+%  \end{minipage}
+%  \hfill
+%  \begin{minipage}[c]{0.6\textwidth}
 %      \includegraphics{gfx/cone/experiment/error.pdf}\label{fig:mask_vp}
-%        }}%
-%    \label{fig:example}%
+%  \end{minipage}
 %\end{figure}
 
-\begin{figure}[!tp]
-  \begin{minipage}[c]{0.6\textwidth}
-      \includegraphics{gfx/cone/experiment/contour.pdf}\label{fig:mask_vp}
-  \end{minipage}\hfill
-  \begin{minipage}[c]{0.3\textwidth}
-  \caption{Stability regions for $\Omega_s$ for different Runge-Kutta methodsi
-    Stability regions for $\Omega_s$ for different Runge-Kutta methodsi
-  }
-  \label{fig:num_rkstab}
-  \end{minipage}
+\begin{figure}[!bp]
+  \centering
+  \includegraphics{gfx/cone/experiment/experiment.pdf}
+  \caption{Amplitude $A\left(\left<v^2_z\right>_V\right)$ as a function of the liberation frequency $\omega$,
+            for a cone and a frustum.  \label{fig:cone_expseries} }
 \end{figure}
-
-\begin{figure}[!tp]
-  \begin{minipage}[c]{0.3\textwidth}
-  \caption{Stability regions for $\Omega_s$ for different Runge-Kutta methods
-  Stability regions for $\Omega_s$ for different Runge-Kutta methodsi
-  }
-  \label{fig:num_rkstab}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[c]{0.6\textwidth}
-      \includegraphics{gfx/cone/experiment/error.pdf}\label{fig:mask_vp}
-  \end{minipage}
-\end{figure}
-
-\clearpage
-
 
 \subsubsection{Results \& Discussion}
 
-damping ekman number to large
+The results of the simulations are shown in figure \ref{fig:cone_expseries}.
+For both cases, the frustum and the cone, we can observe an increase in $A\left(\left<v^2_z\right>_V\right)$
+from $\approx 2\cdot10^{-4}$ at $\omega=0$ to  $\approx 3.4\cdot10^{-4}$ for the frustum and $\approx 4\cdot10^{-4}$ for the cone,  at $\omega=1$.
+From here one the Amplitude decreases to $\approx 5\cdot10^{-5}$ at $\omega=2$.\\
+A difference between the two setups can be observed in the surrounding area of $\omega=1$.
+For the cone the increase of the amplitude is interrupted at $\omega=0.6$, a minimum can be observed at $\omega=0.8$, followed by
+a peak at $\omega=1$. For the frustum the minium is not directly visible but it can be noted that the
+amplitude does not increase as much at $\omega=0.7$, as for lower frequencies.\\
+The maximum occurs at $\omega=0.9$, in comparison to the cone we see an increase in the amplitude of $\approx 5\cdot10^{-5}$.
+However, it has to be considered, that due do the stepwidth of $\Delta \omega = 0.1$, the exact position of the maxima is
+not apparent.\\
+One possible assumption, regarding the position of the maximum with respect to the frequency, is that
+the expansion of the frustum with a tip  results in a shift to lower frequencies.
+The left shift in the decrease for $\omega > 1$ furthermore supports this idea.\\
+Overall it appears that the spectrum can be divided into two domains $\Omega_1~=~\{0\leq\omega<1$\} and $\Omega_2~=~\{1\leq\omega\leq2\}$.
+This result is not unexpected, since we choose the slope $\alpha$ of the cone such that for $\omega=1$, it is parallel
+do the group velocity $\vec{c}_{g}$.
+For $\omega\in\Omega_1$ the results for both setups are similar, since in this domain, the cone tip does not act as an attractor.
+An inertial wave propagates the top, after a reflection on the side of the cone.
+Hence, for both setups we obtain a similar spectrum.
+The differences occur when $\omega$ is reaching the critical slope, in this scenario an inertial wave propating from the
+top edges, travereses directly into the apex of the cone, or is reflected slightly at he bottom plate of the frustum.
+As a results we see the increase in the amplitude.
+For $\omega\in \Omega_2$ we would expect further reflections for the frustum, however the similar
+decay of the amplitude refutes this assumption.\\
+The results of the simulation do not match with the ones of the experiment we discussed in section ().
+A possible explanation we want to propose here, is the use of a different Ekman number, which is of order $10^{-4}$ in contrast
+to the one of the experiment of $10^{-5}$.
+As a consequence the width of an inertial wave packet, given by $\propto \Ekman^{1/3} \approx 2\cdot10^{-2}$ (see \citep{}),
+is around twice the size as in the experiment. We assume that as a results a wave reflecting on the bottom of the frustum
+is strongly damped due to wall friction.
+DISCUSS T:\\
+damping  could be propt $\Ekman \vec{K}$.
 
-\clearpage
 
 \subsection{Transition to from a Cylinder to a Cone}
 

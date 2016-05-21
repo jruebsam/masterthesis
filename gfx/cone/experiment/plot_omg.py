@@ -16,12 +16,9 @@ from mpl_toolkits.axes_grid1.inset_locator import zoomed_inset_axes
 from mpl_toolkits.axes_grid1.inset_locator import mark_inset
 
 cmap = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf']
-markers = itertools.cycle('o^*')
 
 from cycler import cycler
-
-cc = itertools.cycle(plt.cm.spectral(np.linspace(0,1,10)))
-#plt.rc('axes', prop_cycle=(cycler('color', cmap)))
+plt.rc('axes', prop_cycle=(cycler('color', cmap)))
 
 def get_amp(series):
     n = len(series)/4
@@ -33,10 +30,11 @@ def main():
     dpaths = ['/home/upgp/jruebsam/simulations/mai16/week2/cone_wall/data/',
              '/home/upgp/jruebsam/simulations/mai16/week2/move_border/data/wall_0.500/']
 
-    f, ax = style.newfig(1., 0.7)
+    f, ax = style.newfig(0.8)
     cdir = os.getcwd()
+    labels = ['Cone', 'Frustum']
 
-    for dpath in dpaths:
+    for dpath, label in zip(dpaths, labels):
         os.chdir(dpath)
 
         a_ekin, a_vz, a_vphi = [], [], []
@@ -65,17 +63,14 @@ def main():
         if dpath == dpaths[0]:
             a_vz/=0.16
 
-        mks = markers.next()
-        col = cc.next()
 
-        ax.plot(omgs, (a_vz), mks+'--', color=col, ms=4, mew=0, lw=0.5,
-                label=1)
+        ax.plot(omgs, (a_vz), 'o--', ms=4, mew=0, lw=0.5,
+                label=label)
 
        #plt.plot(omgs, a_vphi, 'ro--')
         #plt.plot(omgs, a_ekin, 'go--')
         os.chdir(cdir)
 
-    plt.subplots_adjust(top=0.8, bottom =0.15)
 
     from matplotlib import ticker
     formatter = ticker.ScalarFormatter(useMathText=True)
@@ -85,13 +80,14 @@ def main():
     #ax.set_ylim(0., 0.04)
     #ax.set_xlim(0.15, 2.05)
     ax.set_xlabel(r'$\omega$')
-    ax.set_ylabel(r'$v_z^2$')
-    ax.legend(ncol = 3, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.3),
+    ax.set_ylabel(r'$A\left(\left<v_z^2\right>_V\right)$')
+    ax.legend(ncol = 3, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.12),
            fancybox=True, shadow=True)
 
     ax.yaxis.set_major_formatter(formatter)
 
     ax.grid(True)
+    plt.subplots_adjust(top=0.9, bottom =0.15)
     plt.savefig('experiment.pdf')
 
 if __name__=='__main__':
