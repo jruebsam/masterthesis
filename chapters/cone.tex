@@ -3,34 +3,47 @@
 
 \section{Introduction}
 
-Following the introduction and validation of the immersed boundary methods for No-Slip boundaries,
+Following the introduction and validation of the immersed boundary methods
 we now want to exemplarly investigate a fluid system using these methods
-and find out if we can reproduce some of the expected physical properties.\\
+and find out if we can reproduce some of the expected physical properties.
 In relation to the research focus of the geophysical fluid mechanics research group, there are a variety
 topics of interest.
 One area of research lies in the exploration of dynamo effects in geological and stellar system.
 In particular this means the generation of magnetic fields by electrically conducting fluids on large scales.
 In this thesis we will not consider MHD-equations.
 However in general it is considered that the helicity of a fluid domain $\Omega$, given by
+
 \begin{align}
     \int_{\Omega}\dif V  \vec{u} \left( \nabla \times \vec{u} \right)
 \end{align}
-is directly linked to dynamo action [CITE].
-Therefore, beside inertial wave propagation we want to observe a possible large helicity.
-For the system we describe in the following section one further application
-would be to study inertial wave excitaton by turbulence. (MORE DETAIL THIS AND ALPHA FUNCTION)
 
-\section{Theoretical Description}
+is directly linked to dynamo action \citep{moffat1978}.
+Therefore it would be interesting to find a system which exhibits a large helicity,
+as a possible candidate for future researches of the geo dynamo.
+Furthermore we are interested in the propagation of inertial waves in different fluid domains.
+In particular we want to examine the ability to generate inertial modes or wave attractors
+for the geometry we will introduce in this chapter.
+%For the system we describe in the following section one further application
+%would be to study inertial wave excitaton by turbulence. (MORE DETAIL THIS AND ALPHA FUNCTION)
+-introduction cone here?
+
+\section{The Cone - Description}
+
+\subsection{Theoretical Description}
 
 The objective we have in mind is the numerical computation of inertial wave excitation inside a liberating cone.
-A theoretical discussion of this system  can by found in \citep{GREENSPAN}.
-Here we want to orient towards an experiment which was being performed by \citep{Beardsley1970}
+We beginn with a short theoretical description of the problem adapted from \citep{Greenspan1969}, \citep{Beardsley1970}.
+For the cone we make the comparsion to the two-dimensional case of a wedge.
+This system is based on the idea to introduce a geometric shape, containing a singularity.
+Here we want to discuss the propagation of an inertial wave emitting at one of the upper edges of
+the wedge as shown in figure \ref{cone:theorie}.
+-INVISCOUS CASE
+For each reflection the propagation angle with respect to the rotation axis stays constant.
+Let us recall from  section \ref{theorie:sec:iwreflec}, that
+for $\theta<\alpha$ we have a subcritical reflection,
+thus a downward traveling wave ray is reflected downslope.
 
-The schematic setup of the experiment is shown in figure ().
-It contains of a cone given by the radius $R$ and the height $h$, resulting into an angle $\alpha = \tan()$.
-The cone is rotating with a modulated frequency
-
-\begin{figure}[!bp]
+\begin{figure}[!tp]
   \begin{minipage}[c]{0.6\textwidth}
       \centering
         \resizebox{0.7\textwidth}{!}{
@@ -38,12 +51,38 @@ The cone is rotating with a modulated frequency
       }
   \end{minipage}
   \begin{minipage}[c]{0.3\textwidth}
-      \caption{Numerical setup of the cone, oriented on the experiment. The total heigth is given by $h$, whereas the height of the cone is set to $h_c$.
-      The winkel alpha defines the slope and $h_t$ the cutoff from the bottom.}
+      \caption{
+          Propagation of an inertial wave emitted from the top edge of a wedge,
+           where $\Theta$ indicates the direction parallel to the group velocity
+            $\vec{c_g}$, s $L$ and $L^{\prime}$ are the path lengths before and after a reflection.
       \label{cone:theorie}
+      }
   \end{minipage}
 \end{figure}
 
+As a results the wave ray travels towards the lower vertex of the wegde.
+It can be shown from the reflection properties given by equation () and (),
+that the time for a wave ray to travel the path between two reflections is constant \citep{Beardsley1970},
+which is
+
+\begin{align}
+    \frac{L}{|\vec{c}_g|} = \frac{L^{\prime}}{|\vec{c^{\prime}}_g|}
+\end{align}
+
+This means that the overall propagation time into the apex of the cone becomes infinity, along with the energy density and the wave number.
+In conclusion it follows that since no reflection out of the cone apex can occur, the possibilty of inertial modes is not given.\\
+
+\subsection{Experiment}
+
+-first experiment  by
+-measurement pressure
+-observation in pressure and phase indicates
+-than bottom plate  expectation etc
+-results
+
+The schematic setup of the experiment is shown in figure ().
+It contains of a cone given by the radius $R$ and the height $h$, resulting into an angle $\alpha = \tan()$.
+The cone is rotating with a modulated frequency
 
 \begin{align}
 \Omega(t) = \Omega_0 + \epsilon \omega \cos(\omega t)
@@ -53,23 +92,7 @@ The modulation of the rotation frequency is also denoted as libration [RIGHT?] a
 for inertial wave exitation [CITE].
 The overall idea of the setup is to introduce a geometry containing a singularity and study the influence on the ability of
 the system to develop inertial eigenmodes.
-Let us recall that the dispersion relation and group velocity of an inertial wave paket is given by
 
-\begin{align}
-    \omega = \frac{2\vec{\Omega}\vec{K}}{K} = 2 \Omega \cos\Theta ; \vec{c}_g = -\frac{2\vec{K}\times (\vec{\Omega} \times \vec{K})}{K^3}
-\end{align}
-
-with the wavenumber $\vec{K}$.
-Let us now consider the propagation of an interial wave paket from the top edge of the cone as shown.
-As discussed in section (), the reflection of inertial waves up on a  plane wall is a violation of snell's law.
-For each reflection the propagation angle with respect to the rotation axis stays constant,
-whereas the group velocity decreases.
-It can be shown that for all path i.e. $L$ and $L^o$ the propagation time of the wave energy stays constant [CITE]
-\begin{align}
-    \frac{K^o}{K} = \frac{\cos(\Theta - \alpha)}{\cos(\Theta + \alpha)}
-\end{align}
-This means that the overall propagation time into the apex of the cone becomes infinity, along with the energy density and the wave number.
-In conclusion it follows that since no reflection out of the cone apex can occur, the possibilty of inertial eigenmodes is not given.\\
 In the experimental setup described by [] the experiment was compared to another setup where the cone was replaced with a frustum of a cone,
 thus a bottom blade to enable the reflection of inertial waves was inserted.
 As a result for the cone, a continuos wave spectrum could be observed in comparision to a discrete spectrum  for the frustum.\\
