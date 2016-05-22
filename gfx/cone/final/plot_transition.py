@@ -42,8 +42,8 @@ def get_amp(series):
     return A
 
 def main():
-    dpath1 = '/home/upgp/jruebsam/simulations/mai16/week4/series_offset_l1/'
-    dpath2 = '/home/upgp/jruebsam/simulations/mai16/week4/series_offset_with_tip_l1/'
+    dpath1 = '/home/upgp/jruebsam/simulations/mai16/week5/series_offset_l2/'
+    dpath2 = '/home/upgp/jruebsam/simulations/mai16/week5/series_offset_with_tip_l2/'
 
     rs = np.linspace(0, 0.5, 5)[::-1]
     cdir = os.getcwd()
@@ -82,7 +82,7 @@ def main():
         x = [p[0] for p in cube_lines]
         y = [p[1] for p in cube_lines]
         d = np.column_stack((x,y))
-        p = Polygon(d, alpha=0.5, color='r', hatch='x')
+        p = Polygon(d, alpha=0.5, color='g', hatch='x')
         ax.add_artist(p)
 
         ax.set_xticks([0, 1])
