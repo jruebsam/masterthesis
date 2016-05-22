@@ -30,6 +30,7 @@ for the geometry we will introduce in this chapter.
 The objective we have in mind is the numerical computation of inertial wave excitation inside a librating cone.
 
 \section{Inertial Waves in a Librating Cone}
+\label{cone:theorie_exp}
 
 \subsection{Theoretical Description}
 
@@ -230,22 +231,36 @@ The use of the different parameters with this template is shown in Appendix ().
 \section{Simulation of a Librating Cylinder}
 \label{cone:sec:lib_cylinder}
 
+As a first step towards the implemenation of the librating cone,
+simulations of fluid flow in a librating cylinder were carried out.
+Despite the the theoretical and experimental results, discussed in section \ref{cone:theorie_exp},
+it is diffult to find results in literature which would be suitable for an appropiate validation.
+For the cylinder on the other hand, theoretical and numerical results are available.
+A theoretical solution can be found in \citep{Greenspan1990}, and shall be summarized here.
+For the inviscid case the problem can be reduced to a Poincar\'{e} equation for the pressure,
+which is solved in cylindrical coordinates by
 
-As a first step towards the implemenation of the cone,
-we want to simulate fluid flow in a librating cylinder.
-The reason for this is, that we initially want to
-compare the results of different immersed boundary methods to each other,
-before choosing one method for the librating cone.
-Furthermore the system has already been rigorously studied, such that
-we can make a comparison to the available theoretical and numerical results.\\
+\begin{align}
+    p_{nmk}(r, \theta, z ) = J_{|k|}\left(\frac{\xi_{nmk}r}{a} \right)\cos(n\pi)\exp(ik\theta)
+\end{align}
+
+where $a=\nicefrac{r}{H}$ is the aspect ration of the cylinder, $n\in\mathbb{Z}$
+
+where $\xi$ denotes the radial wavenumber,
+
+\begin{align}
+    \xi \frac{\dif}{\dif \xi}J_{|k|}(\xi) + k \sqrt{1 + \frac{\xi^2}{n^2\pi^2a^2}} \; J_{|k|}\left(\xi\right) = 0
+\end{align}
+
+The eigenvalue of the solution
+\begin{align}
+    \lambda_{nmk} = 2\sqrt{1 \; + \;\frac{ \xi_{nmk}^2}{n^2\pi^2a^2}}
+\end{align}
+
 
 -theoretically greenspan  blabla
 
 The velocity of a mode is given by in cylindr. coord
-
-\begin{align}
-    u_r =  1
-\end{align}
 
 
 -mode kann dann festgelegt werden durch tuple bla.\\
