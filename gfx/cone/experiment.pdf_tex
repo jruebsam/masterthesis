@@ -50,8 +50,8 @@
   \makeatother%
   \begin{picture}(1,0.47617293)%
     \put(0,0){\includegraphics[width=\unitlength]{experiment.pdf}}%
+    \put(0.50150113,0.20084485){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$h$}}}%
     \put(0.16902311,0.08440258){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\alpha$}}}%
     \put(0.30119209,0.01799918){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$r$}}}%
-    \put(0.50150113,0.20084485){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$h$}}}%
   \end{picture}%
 \endgroup%

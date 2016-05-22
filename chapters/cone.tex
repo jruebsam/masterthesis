@@ -179,30 +179,27 @@ are then given by
     \pdn[u]{t} = -c^2\nabla \rho + \Ekman \Delta \vec{u} + \vec{f} \qquad;& \qquad  \nabla \vec{v} = 0
 \end{align}
 
--stability contstraints
--default
+Finally one additional stability criterion shall be introduced,
+It is important that the time for propagting information from on side of the domain
+to the other, is much smaller than the overall rotation rate.
+\footnote{Private communication with A. Tilgner}
+Since information inside the fluid domain propagates at an artificial sound speed,
+this yields the estimation
 
--additional constraint time for wave to trave along cylinder smaller than bla \citep{TILGNER, OGOEPFERT}.
 \begin{align}
-    t_{c} = \sqrt{\frac{2}{c^2}} << 2\pi
+    t = \sqrt{\frac{2}{c^2}} << 2\pi
 \end{align}
--result $c^2 = 500$ in absprache mit ogoepfer und tilgner.
 
-
-
+A good estimation is given by setting $c^2 = 500$.
+It could be observed that otherwise, not only physical wrong results are obtained but also
+numerical instabilitys can occur.
+\footnote{Private communication with O. Goepfert}
 \newpage
 
 \subsection{Setup}
-zielstellung
-%It contains of a cone given by the radius $R$ and the height $h$, resulting into an angle $\alpha = \tan()$.
-%The overall idea of the setup is to introduce a geometry containing a singularity and study the influence on the ability of
-%the system to develop inertial eigenmodes.
 
-We will now introduce the numerical setup which has been used for the simulations carried
-Numerical setup of the cone, oriented on the experiment. The total heigth is given by $h$, whereas the height of the cone is set to $h_c$.
-TNumerical setup of the cone, oriented on the experiment. The total heigth is given by $h$, whereas the height of the cone is set to $h_c$.
-The winkel alpha defines the slope and $h_t$ the cutoff from the bottom.he winkel alpha defines the slope and $h_t$ the cutoff from the bottom.
-
+This section introduces the setup which has been used for the simulations presented in this chapter.
+Figure \ref{cone:setup_image} shows the geometry of the fluid domain. The parameters are given by
 
 \begin{multicols}{2}
 \begin{description}
@@ -212,19 +209,23 @@ The winkel alpha defines the slope and $h_t$ the cutoff from the bottom.he winke
     \item[$r$]{Radius of the bottom plate}
     \item[$O$]{Offset at the top of the Cone}
     \item[$\alpha$]{Slope of the Cone}
+    \item[$\Omega$]{Rotation rate}
+    \item[$\omega$]{Frequency of the libration}
 \end{description}
 \end{multicols}
 
+This convention will be used throughout rest of this chapter.
+For the implementation the testcase function template introduced in chapter () is used.
+The use of the different parameters with this template is shown in Appendix ().
+
 \begin{figure}[!bp]
   \centering
-        \resizebox{0.5\textwidth}{!}{
+        \resizebox{0.6\textwidth}{!}{
        \import{gfx/cone/conesim//}{setup.pdf_tex}
       }
-      \caption{Numerical Setup for the Simulations \label{cone:setxp_image} }
+      \caption{Numerical Setup for the Simulations \label{cone:setup_image} }
 \end{figure}
-
 \clearpage
-
 
 \section{Simulation of a Librating Cylinder}
 \label{cone:sec:lib_cylinder}
