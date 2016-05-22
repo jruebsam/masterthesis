@@ -27,7 +27,9 @@ def main():
 
         #vz = vz/np.abs(vz)
 
-        cm = ax.imshow(vz.T, origin='lower', cmap = c, extent=[0, 1,0,1])
+        lim = np.max(np.abs(vz))
+
+        cm = ax.imshow(vz.T, origin='lower', cmap = c, extent=[0, 1,0,1], vmin=-lim, vmax=lim)
 
         if i == 0:
             ax.set_ylabel(r'z')
@@ -43,6 +45,13 @@ def main():
         ax.set_title(r'$r=%.3f, \omega=%.2f$' % (0.5 - wall, omg ))
         r = 0.5 - wall
         ax.plot(0.5, r/(0.5 + r), 'w+', ms=4 )
+
+        """
+        hm = 0.5*np.tan(np.arccos(omg/2.))
+        hl = r*np.tan(np.arccos(omg/2.))
+        ax.plot([0+wall,0.5],[0., hl], 'w-', lw=0.5)
+        ax.plot([0, 0.5],[1., 1 - hm], 'w-', lw=0.5)
+        """
 
 
 

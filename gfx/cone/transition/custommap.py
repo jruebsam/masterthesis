@@ -99,39 +99,22 @@ def bipolar(lutsize=1024, neutral=0.333, weight=1, interp=[]):
         http://www.ingentaconnect.com/content/maney/caj/1996/00000033/00000002/art00002
 
     """
-    n = neutral
-    if n < 0.5:
-        if not interp:
-            interp = 'linear' # seems to work well with dark neutral colors  cyan-blue-dark-red-yellow
-        """
-        pos = np.array([0., 1., 0.5, 0.25, 0.75])
-        color = np.array([[0,255,255,255], [255,255,0,255], [0,0,0,255], (0, 0, 255, 255), (255, 0, 0, 255)], dtype=np.ubyte)
-        cmap = pg.ColorMap(pos, color)
-        lut = cmap.getLookupTable(0.0, 1.0, 256)
-        """
+    """
+    pos = np.array([0., 1., 0.5, 0.25, 0.75])
+    color = np.array([[0,255,255,255], [255,255,0,255], [0,0,0,255], (0, 0, 255, 255), (255, 0, 0, 255)], dtype=np.ubyte)
+    cmap = pg.ColorMap(pos, color)
+    lut = cmap.getLookupTable(0.0, 1.0, 256)
+    """
 
-        data = (
-            (0, 1, 1), # cyan
-            (0, 0, 1), # blue
-            (n, n, n), # dark neutral
-            (1, 0, 0), # red
-            (1, 1, 0), # yellow
-        )
-        interp = 'cubic' # seems to work better with bright neutral colors blue-cyan-light-yellow-red
-    elif n >= 0.5:
-        if not interp:
-            interp = 'cubic' # seems to work better with bright neutral colors blue-cyan-light-yellow-red
-            # produces bright yellow or cyan rings otherwise
-
-        data = (
-            (0, 0, 1), # blue
-            (0, 1, 1), # cyan
-            (n, n, n), # light neutral
-            (1, 1, 0), # yellow
-            (1, 0, 0), # red
-        )
-    else:
-        raise ValueError('n must be 0.0 < n < 1.0')
+    data = (
+        (0, 0.5, 1), # cyan
+        (0, 0.125, 1), # blue
+        (0, 0, 0), # dark neutral
+        (1, 0.125, 0), # red
+        (1, 0.5, 0), # yellow
+    )
+    interp = 'cubic' # seems to work better with bright neutral colors blue-cyan-light-yellow-red
+    interp = 'linear' # seems to work well with dark neutral colors  cyan-blue-dark-red-yellow
 
     t = linspace(0, 1, lutsize/2)
 #    t = t**(3)

@@ -90,7 +90,7 @@ def main():
         ax.set_xlabel('x', labelpad = 0.1)
         ax.set_ylabel('z', labelpad = 0.1)
         ax.xaxis.labelpad = -5
-        #ax.set_aspect('equal')
+        ax.set_aspect('equal')
         ax.set_ylim(0, 1.5)
         ax.text(right, 0.5*(bottom+top), 'h=%.3f' % h,
                 horizontalalignment='center',
