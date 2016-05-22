@@ -477,11 +477,12 @@ In the case where $o=0$, the corners of the cone would act as an attractor, as p
 
 \begin{figure}[!bp]
       \centering
-        \resizebox{0.6\textwidth}{!}{
+        \resizebox{0.7\textwidth}{!}{
        \import{gfx/cone//}{comparison.pdf_tex}
       }
       \caption{
-          Wave attractor
+          Wave reflection for $o>0$ in the upper edges of the cone (left) and
+          an attractor for $o=0$ (right), in the upper edges of the cone.
       \label{cone:img_finalattractor}
       }
 \end{figure}
@@ -505,30 +506,55 @@ $[0,\; 0.5], \Delta r =0.125$ & $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $10^
 Furthermore we will compute the normalized helicity of the system given by
 
 \begin{align}
-1 = 2
+H(t) = \frac{\int_V \dif V \vec{v} (\nabla \times \vec{v})}{\int_V \dif V |\vec{v}||\nabla \times \vec{v}|}
+ = \frac{\sum_{i,j,k=0}^{N_x, N_y, N_z} \vec{v}_{i,j,k} (\nabla \times \vec{v}_{i, j, k})}
+ {\sum_{i,j,k=0}^{N_x, N_y, N_z}|\vec{v}_{i,j,k}|| \nabla \times \vec{v}_{i, j, k}|}
 \end{align}
 
-in the accelerated frame of motion and
+in the accelerated frame of reference and also for the inertial system with an additional offset in the velocity
+given by $\vec{u} = \vec{u}|_{\text{rot.}} + \Omega(t) \times \vec{r}$.
+\\
+
+
+The discretization of the rotation operator is using a central difference of second order.
+As a next step we want to furthermore analyze the decay of inertial waves for the different offsets.
+For this reason we use the end state from the previous simulations and set
+the liberation amplitude to zero.
+Furthermore we change the end time of the previous simulations by
 
 \begin{align}
-1 = 2
+    T = \frac{1}{\Delta t} \text{floor}\left(\text{T}_{\text{end}}\frac{\omega}{2\pi}\right)\frac{2\pi}{\omega} + \frac{2\pi}{\omega}
 \end{align}
 
-in the non-rotating coordinate system.
-As a follow up
--abklingraten
--ekman number
+to make sure that for all frequencies the liberating force drops out when crossing zero.
+The main simulation parameters are given by
+
+\begin{center}
+\vspace*{0.7ex}
+\begin{tabular}{c|c|c|c|c|c|c|c }
+%\begin{tabular}{p{0.1\linewidth}| p{0.1\linewidth}| p{0.1\linewidth}|  p{0.1\linewidth}| p{0.1\linewidth}| p{0.1\linewidth} }
+$\leftarrow r \rightarrow$ & $ \leftarrow  \omega \rightarrow $ & $\Delta t$ & $\Delta x$ & $c^2$ & \Ekman  & $l_x, l_y, l_z$ & $T_{end}$\\
+\hline
+$[0,\; 0.5], \Delta r =0.125$ & $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $10^{-5}$ & $\nicefrac{1}{128}$ & 500 & $10^{-4}$  & (1, 1, 1) & 100\\
+\end{tabular}
+\vspace*{0.7ex}
+\end{center}
+
+As a last step we will repeat a part of the simulations for an Ekman number of $\Ekman = 10^{-3}$
+
+\subsection{Results}
+
+\clearpage
+
 
 \begin{figure}[!pt]
   \centering
   \includegraphics{gfx/cone/final/transition.pdf}
   \caption{\label{fig:cone:finaltransition}
-    Simulation of
-  }
+    Simulation of Discussion}
 \end{figure}
 
 
-\subsection{Results}
 -description\\
 -verfahren und serie\\
 -diskussion oberer rand\\
