@@ -26,12 +26,12 @@ for the geometry we will introduce in this chapter.
 %For the system we describe in the following section one further application
 %would be to study inertial wave excitaton by turbulence. (MORE DETAIL THIS AND ALPHA FUNCTION)
 -introduction cone here?
+The objective we have in mind is the numerical computation of inertial wave excitation inside a librating cone.
 
-\section{The Cone - Description}
+\section{Inertial Waves in a Librating Cone}
 
 \subsection{Theoretical Description}
 
-The objective we have in mind is the numerical computation of inertial wave excitation inside a liberating cone.
 We beginn with a short theoretical description of the problem adapted from \citep{Greenspan1969}, \citep{Beardsley1970}.
 For the cone we make the comparsion to the two-dimensional case of a wedge.
 This system is based on the idea to introduce a geometric shape, containing a singularity.
@@ -74,32 +74,60 @@ In conclusion it follows that since no reflection out of the cone apex can occur
 
 \subsection{Experiment}
 
--first experiment  by
--measurement pressure
--observation in pressure and phase indicates
--than bottom plate  expectation etc
--results
+In order to test these theoretical assumptions  an experimental study was performed by \citep{Beardsley1970}.
+The schematic setup of the experiment is shown in figure \ref{cone:setup_experiment}.\\
+In the first part of the experiment a plexiglass cylinder, containing a conical shaped cavity,
+of height $H=\SI{19.95}{\centi\meter}$ and a radius of $r=\SI{19.95}{\centi\meter}$ was used.
+The apex half angle was set to $\alpha=24^{\circ}3.7^{\prime}$ degree.
+For the rotation rate a frequency of $\omega =\SI{6.28}{\radian\per\second}$ was chosen.
+As a fluid, water was used, the resulting viscosity, given by \citep{tipler2003}, is $\nu = \SI{1.0}{\milli\pascal\second}$.
+The resulting Ekman number is
 
-The schematic setup of the experiment is shown in figure ().
-It contains of a cone given by the radius $R$ and the height $h$, resulting into an angle $\alpha = \tan()$.
-The cone is rotating with a modulated frequency
+\begin{align}
+    \Ekman = \frac{\nu}{\omega r H^2} \approx 7.72\cdot 10^{-6}
+\end{align}
+
+The excitation mechanism for an inertial wave is given by the wall friction,
+ which is created by a modulation of the rotation frequency
 
 \begin{align}
 \Omega(t) = \Omega_0 + \epsilon \omega \cos(\omega t)
 \end{align}
 
-The modulation of the rotation frequency is also denoted as libration [RIGHT?] and can be used as a possible mechanism
-for inertial wave exitation [CITE].
-The overall idea of the setup is to introduce a geometry containing a singularity and study the influence on the ability of
-the system to develop inertial eigenmodes.
+The modulation of the rotation frequency is also denoted as libration [RIGHT?]
+this is also refered to as libration.
 
-In the experimental setup described by [] the experiment was compared to another setup where the cone was replaced with a frustum of a cone,
-thus a bottom blade to enable the reflection of inertial waves was inserted.
-As a result for the cone, a continuos wave spectrum could be observed in comparision to a discrete spectrum  for the frustum.\\
+\begin{figure}[!bt]
+      \centering
+        \resizebox{0.6\textwidth}{!}{
+       \import{gfx/cone///}{experiment.pdf_tex}
+      }
+      \caption{
+      experiment
+      \label{cone:setup_experiment}
+      }
+\end{figure}
+
+For the analysis the dynamic pressure field was measured at at different depths along the rotation axis,
+with a excitation frequencey in the range of $0.25\leq\omega/2\Omega\leq2$.
+The results for the first experiment show that
+
+-phase / prsesure spectrum
+-not standing modes
+
+In the second part of the experiment the apex of the cone was replaced by a frustum through the
+insertion of a bottom plate at the position $z/H = 0.261$.
+- the idea behind this is
+-resutls
+
+%It contains of a cone given by the radius $R$ and the height $h$, resulting into an angle $\alpha = \tan()$.
+%The overall idea of the setup is to introduce a geometry containing a singularity and study the influence on the ability of
+%the system to develop inertial eigenmodes.
+
 
 \newpage
 
-\section{Numerical Implementation of Liberation}
+\section{Numerical Implementation of Libration}
 
 For the numerical implementation of the experiment, we will use a modified set of the equations
 introduced in section \ref{THEORE:ROT}.
@@ -180,15 +208,15 @@ We will now introduce the numerical setup which has been used for the simulation
 
 \clearpage
 
-\section{Simulation of a Liberating Cylinder}
+\section{Simulation of a Librating Cylinder}
 \label{cone:sec:lib_cylinder}
 
 
 As a first step towards the implemenation of the cone,
-we want to simulate fluid flow in a liberating cylinder.
+we want to simulate fluid flow in a librating cylinder.
 The reason for this is, that we initially want to
 compare the results of different immersed boundary methods to each other,
-before choosing one method for the liberating cone.
+before choosing one method for the librating cone.
 Furthermore the system has already been rigorously studied, such that
 we can make a comparison to the available theoretical and numerical results.\\
 
@@ -257,10 +285,10 @@ As a first system we want to investigate the
 
 \newpage
 
-\section{Simulation of a Liberating Cone}
+\section{Simulation of a Librating Cone}
 
 In this section we will discuss the different numerical simulations, which has been performed
-with a liberating cone. We begin with the comparison to the experiment performed by \citep{Beardsley1970}.
+with a librating cone. We begin with the comparison to the experiment performed by \citep{Beardsley1970}.
 As a next step we analyse the physical behaviour when performing the transition from a cylinder
 to a cone and finally  we will investigate the influence of different offsets on top of the cone.
 All simulations performed in this section use the introduced setup with different geometric parameters.
@@ -338,7 +366,7 @@ $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $10^{-5}$ & $\nicefrac{1}{128}$ & 50
 \begin{figure}[!bp]
   \centering
   \includegraphics{gfx/cone/experiment/experiment.pdf}
-  \caption{Amplitude $A\left(\left<v^2_z\right>_V\right)$ as a function of the liberation frequency $\omega$,
+  \caption{Amplitude $A\left(\left<v^2_z\right>_V\right)$ as a function of the libration frequency $\omega$,
             for a cone and a frustum.  \label{fig:cone_expseries} }
 \end{figure}
 
@@ -427,7 +455,7 @@ $[0,\; 0.5], \Delta r =0.125$ & $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $10^
 \subsubsection{Results \& Discussion}
 
 The results of the simulations are shown in figure \ref{fig:cone:transition}.
-For $r=0$ we can see the inertial modes of a liberating cylinder, which is in accordance
+For $r=0$ we can see the inertial modes of a librating cylinder, which is in accordance
 to the results we discussed in section \ref{cone:sec:lib_cylinder}.
 With an decrease of the radius we can observe a change in the position and amplitude of the
 inertial modes. We want to exemplarly discuss this pattern for the (2, 2) mode at $\omega=1.3$, where it is the best visible.
@@ -458,7 +486,7 @@ An decrease of radius breaks the axial symetrie of the inertial mode.
 As a result only a distorted version of the mode can exist, where the center of the wave node
 is given by the intersection of the diagonals from the top to the bottom edges of the frustum.
 In order to obtain the new shape it is necessary to increase the propagation angle $\Theta$,
-which is equivalent to lowering the liberation frequency.
+which is equivalent to lowering the libration frequency.
 We can furthermore say that for $r \rightarrow 0$, the center given by
 
 \begin{align}
@@ -483,7 +511,7 @@ For $r=0$ we have the indentical setup to the simulation in section \ref{cone:ex
 
 \clearpage
 
-\subsection{Liberating Cone with different Offsets at the Top}
+\subsection{Librating Cone with different Offsets at the Top}
 
 Finally we want to improve the setup we introduced in section \ref{exp},
 by considering the insights we gained from the previous simulations.
@@ -542,14 +570,14 @@ given by $\vec{u} = \vec{u}|_{\text{rot.}} + \Omega(t) \times \vec{r}$.
 The discretization of the rotation operator is using a central difference of second order.
 As a next step we want to furthermore analyze the decay of inertial waves for the different offsets.
 For this reason we use the end state from the previous simulations and set
-the liberation amplitude to zero.
+the libration amplitude to zero.
 Furthermore we change the end time of the previous simulations by
 
 \begin{align}
     T = \frac{1}{\Delta t} \text{floor}\left(\text{T}_{\text{end}}\frac{\omega}{2\pi}\right)\frac{2\pi}{\omega} + \frac{2\pi}{\omega}
 \end{align}
 
-to make sure that for all frequencies the liberating force drops out when crossing zero.
+to make sure that for all frequencies the librating force drops out when crossing zero.
 The main simulation parameters are given by
 
 \begin{center}
@@ -579,7 +607,7 @@ As a last step we will repeat a part of the simulations for an Ekman number of $
 -discuss plot
 
 
-\subsubsection{Simulation with no Liberation}
+\subsubsection{Simulation with no Libration}
 
 \clearpage
 
