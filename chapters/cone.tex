@@ -26,6 +26,7 @@ for the geometry we will introduce in this chapter.
 %For the system we describe in the following section one further application
 %would be to study inertial wave excitaton by turbulence. (MORE DETAIL THIS AND ALPHA FUNCTION)
 -introduction cone here?
+-lineariztaino etc 2d but 3d wegen turbulence
 The objective we have in mind is the numerical computation of inertial wave excitation inside a librating cone.
 
 \section{Inertial Waves in a Librating Cone}
@@ -37,7 +38,7 @@ For the cone we make the comparsion to the two-dimensional case of a wedge.
 This system is based on the idea to introduce a geometric shape, containing a singularity.
 Here we want to discuss the propagation of an inertial wave emitting at one of the upper edges of
 the wedge as shown in figure \ref{cone:theorie}.
--INVISCOUS CASE
+Here we consider an inviscous fluid.
 For each reflection the propagation angle with respect to the rotation axis stays constant.
 Let us recall from  section \ref{theorie:sec:iwreflec}, that
 for $\theta<\alpha$ we have a subcritical reflection,
@@ -87,15 +88,16 @@ The resulting Ekman number is
     \Ekman = \frac{\nu}{\omega r H^2} \approx 7.72\cdot 10^{-6}
 \end{align}
 
-The excitation mechanism for an inertial wave is given by the wall friction,
- which is created by a modulation of the rotation frequency
+In order to exite inertial waves the cone is librating.
+The total rotation rate is given by
 
 \begin{align}
 \Omega(t) = \Omega_0 + \epsilon \omega \cos(\omega t)
 \end{align}
 
-The modulation of the rotation frequency is also denoted as libration [RIGHT?]
-this is also refered to as libration.
+where $\omega$ is the libration frequency.
+This means that excitation mechanism results from wall friction, induced
+by a modulation of the constant rotation frequency $\Omega_0$.
 
 \begin{figure}[!bt]
       \centering
@@ -109,28 +111,20 @@ this is also refered to as libration.
 \end{figure}
 
 For the analysis the dynamic pressure field was measured at at different depths along the rotation axis,
-with a excitation frequencey in the range of $0.25\leq\omega/2\Omega\leq2$.
-The results for the first experiment show that
-
--phase / prsesure spectrum
--not standing modes
-
+with the libration frequency in the range of $0.25\leq\omega/2\Omega\leq2$.
+The pressure and phase lag spectrum, for each measurement height, show that for this setup
+no inertial modes can be observed.\\
 In the second part of the experiment the apex of the cone was replaced by a frustum through the
-insertion of a bottom plate at the position $z/H = 0.261$.
-- the idea behind this is
--resutls
-
-%It contains of a cone given by the radius $R$ and the height $h$, resulting into an angle $\alpha = \tan()$.
-%The overall idea of the setup is to introduce a geometry containing a singularity and study the influence on the ability of
-%the system to develop inertial eigenmodes.
-
-
-\newpage
+insertion of a bottom plate in the cone, at the position $z/H = 0.261$.
+With this setup yields the possibility that a wave ray can be reflected on bottom of frustum.
+The pressure and phase lag spectrum in this setup show that
+independent of the height resonances occur which can be associated with standing waves.
+Hence inertial modes exist.
 
 \section{Numerical Implementation of Libration}
 
 For the numerical implementation of the experiment, we will use a modified set of the equations
-introduced in section \ref{THEORE:ROT}.
+introduced in section \ref{THEORIE:ROT}.
 We have to concern that the system has now a time-depent rotation rate.
 For the non-dimensional system, with $\vec{u}^* =  \vec{u} (|\vec{\Omega}|L)^{-1}$, we set
 
@@ -140,38 +134,50 @@ For the non-dimensional system, with $\vec{u}^* =  \vec{u} (|\vec{\Omega}|L)^{-1
 
 There are two options, which should be considered here.
 First of all, we can choose a rotating coordinate system with a constant velocity $\Omega_0$.
-This means the we can directly use the equations () to (), however since the overall rotation rate of the system is
+This means the we can directly use the equations () to (). Since the overall rotation rate of the system is
 modulated, it is necessary to introduce the boundary conditions
 
 \begin{align}
-    \vec{v}|_{Border}  = \Omega \times \vec{r} = \begin{bmatrix}
+    \vec{v}|_{Border}  = \Omega \times \vec{r} = \begin{pmatrix}
            -y \epsilon \cos(\omega t) \\
-           -x \epsilon \cos(\omega t) \\
+           x \epsilon \cos(\omega t) \\
            0\\
-         \end{bmatrix}
+         \end{pmatrix}
 \end{align}
 
-The alternative option is the introduction of a accelerated frame of reference.
-In this case the boundary conditions do not need to be modified, but the coriolis forcing term is given by (CITE)
+However, obtaining a linearized version of the boundary methods is not as easy.
+In addition we think it is safer to use No-Slip boundaries with zero velocity, as
+the taylor-couette system showed that other boundarie velocities can create a larger numerical error.
+The alternative option is the introduction of an accelerated frame of reference.
+In this case the boundary conditions do not need to be modified, but the coriolis forcing term is given by \citep{Tilgner2007}.
 
 \begin{align}
-    \vec{f} &= 2 \vec{\Omega} \times \vec{v} + \pdn[]{t}\left(\vec{\Omega} \times \vec{v} \right) \\
-            &= \begin{bmatrix}\\
+    \vec{f} &= 2 \vec{\Omega} \times \vec{v} + \pdn[]{t}\left(\vec{\Omega} \times \vec{v} \right)
+            = \begin{pmatrix}
+           -y \omega \epsilon \cos(\omega t) \\
+           -x \omega \epsilon \cos(\omega t) \\
+           0\\
+         \end{pmatrix}
+            + 2\begin{pmatrix}
+           - ( 1 + \epsilon \sin(\omega t)v_x \\
+             ( 1 + \epsilon \sin(\omega t)v_y \\
+           0\\
+         \end{pmatrix}
+            = \begin{pmatrix}
            -y \epsilon \cos(\omega t) \\
            -x \epsilon \cos(\omega t) \\
            0\\
-         \end{bmatrix}
-            &= \begin{bmatrix}\\
-           -y \epsilon \cos(\omega t) \\
-           -x \epsilon \cos(\omega t) \\
-           0\\
-         \end{bmatrix}
+         \end{pmatrix}
 \end{align}
 
-In the last step a linearization of the equation was performed.
-Since we are in interested in the propagation of intertial modes this
-step was performed to eleminate all possible non-linear effects which could occur.
-Furthermore the non-linear advection term was removed from the equations.
+In the last step the linearization was introduced.
+Finally the non-linear advection term was removed from the equations of motion, which
+are then given by
+
+\begin{align}
+    \label{theorie:rotns}
+    \pdn[u]{t} = -c^2\nabla \rho + \Ekman \Delta \vec{u} + \vec{f} \qquad;& \qquad  \nabla \vec{v} = 0
+\end{align}
 
 -stability contstraints
 -default
@@ -187,26 +193,38 @@ Furthermore the non-linear advection term was removed from the equations.
 \newpage
 
 \subsection{Setup}
+zielstellung
+%It contains of a cone given by the radius $R$ and the height $h$, resulting into an angle $\alpha = \tan()$.
+%The overall idea of the setup is to introduce a geometry containing a singularity and study the influence on the ability of
+%the system to develop inertial eigenmodes.
 
 We will now introduce the numerical setup which has been used for the simulations carried
+Numerical setup of the cone, oriented on the experiment. The total heigth is given by $h$, whereas the height of the cone is set to $h_c$.
+TNumerical setup of the cone, oriented on the experiment. The total heigth is given by $h$, whereas the height of the cone is set to $h_c$.
+The winkel alpha defines the slope and $h_t$ the cutoff from the bottom.he winkel alpha defines the slope and $h_t$ the cutoff from the bottom.
 
 
+\begin{multicols}{2}
+\begin{description}
+    \item[$H$]{Total height of the simulation domain}
+    \item[$h_c$]{Height of the Cone}
+    \item[$h_t$]{Height of the bottom plate for a frustum}
+    \item[$r$]{Radius of the bottom plate}
+    \item[$O$]{Offset at the top of the Cone}
+    \item[$\alpha$]{Slope of the Cone}
+\end{description}
+\end{multicols}
 
 \begin{figure}[!bp]
-  \begin{minipage}[c]{0.6\textwidth}
-      \centering
-        \resizebox{0.7\textwidth}{!}{
+  \centering
+        \resizebox{0.5\textwidth}{!}{
        \import{gfx/cone/conesim//}{setup.pdf_tex}
       }
-  \end{minipage}
-  \begin{minipage}[c]{0.3\textwidth}
-      \caption{Numerical setup of the cone, oriented on the experiment. The total heigth is given by $h$, whereas the height of the cone is set to $h_c$.
-      The winkel alpha defines the slope and $h_t$ the cutoff from the bottom.}
-      \label{cone:setxp_image}
-  \end{minipage}
+      \caption{Numerical Setup for the Simulations \label{cone:setxp_image} }
 \end{figure}
 
 \clearpage
+
 
 \section{Simulation of a Librating Cylinder}
 \label{cone:sec:lib_cylinder}
@@ -605,7 +623,6 @@ As a last step we will repeat a part of the simulations for an Ekman number of $
 -plot amplitude shift
 
 -discuss plot
-
 
 \subsubsection{Simulation with no Libration}
 
