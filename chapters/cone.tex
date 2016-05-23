@@ -244,7 +244,8 @@ This is an appropriate choice, since
 -ueberlagerung mit beschleunigung in phi
 
 -interessiert an der idenfizierung von inertialmoden
--ziel spectrum to show resonances
+-ziel function
+ to show resonances
 
 
 compatution of $vz^2$
@@ -333,24 +334,56 @@ The main simulation parameters are given by
 For all simulations, the kinetic energy of the $v_z$ velocity component was computed.
 The results for the computation of the amplitude $A\left(\left<v_z^3\right>\right)$, in dependcy of the libration
 frequency are shown in Figure \ref{fig:cone:cyl}.
-All methods which were used show a similar spectrum.
-The largest deviations can be recognized at a frequency of $\omega=0.8$ and are of the order $\approx2\cdot10^{-3}$.
-The spectrum contains of a large resonance at the position $\omega=1.2$ of the order $\approx3.5\cdot10^{-2}$, followed by two
+All methods which were used show a similar profile.
+The largest amplitude deviations can be spotted at a frequency of $\omega=0.8$ and are of the order $\approx2\cdot10^{-3}$.
+It can be noted that a large resonance  occurs at the position $\omega=1.2$ of the order $\approx3.5\cdot10^{-2}$, followed by two
 smaller resonances at $\omega=0.75$ and $\omega\approx1.7$ of order $\approx1.3\cdot10^{-2}$.
 To make the deviations between the methods more visible, two inset plots are shown
 set to the location $\omega=0.8$ and $\omega=1.0$.\\
 For both positions, the largest amplitude is given by the direct forcing method of second order, followed by
 the volume penalization method of second and fourth order.
 The amplitude difference betweens the first two methods is just slighty visible at the right inset plot.
-The remaining methods are slighty diminished, to the one mentioned before but no strict order can be determined.
+All remaining methods are slighty diminished, but no strict order can be determined.
+-ip not stable bla
+
+
 
 \subsection{Discussion}
 
+\subsubsection{Immersed Boundary Methods}
+
+The different immersed boundary methods show similar results in the profile of the amplitudes. This in agrement with the results of validation testcases of the hagen-poiseuille and
+taylor-couette flow, since the discretzation error of the boundaries is roughly of the same order of $\approx?$ (HMM..).
+One pos
 
 
--fehler methods
+The results from this simulation are not useable for an error estimation however it can be noted
+
+
+
+
+-methods:
+-keine aussage über die fehler
+-nur ipo2 ip o4 etc vergleich
+-wie bereits gesehen liegen die fehler für df vpfrac etc in etwe in der gleich größenordnung
+
 -theorie
+-tabelle eigenwerte
+
+\begin{center}
+    \begin{tabular}{cccc}
+            &    m =  1  & m = 2   & m = 3 \\ \hline
+        n=1 &   0.698433 &0.398913 &0.278004\\
+        n=2 &   1.195232 &0.754094 &0.540563\\
+        n=3 &   1.490715 &1.042313 &0.776180\\
+        n=4 &   1.660912 &1.262759 &0.979143\\
+        n=5 &   1.762270 &1.426587 &1.148928\\
+        n=6 &   1.825743 &1.547435 &1.288346\\ \hline
+    \end{tabular}
+\end{center}
+
 -paper
+
 -numerical viscosity
 -numerical oscilations
 
@@ -485,12 +518,12 @@ not apparent.\\
 One possible assumption, regarding the position of the maximum with respect to the frequency, is that
 the expansion of the frustum with a tip  results in a shift to lower frequencies.
 The left shift in the decrease for $\omega > 1$ furthermore supports this idea.\\
-Overall it appears that the spectrum can be divided into two domains $\Omega_1~=~\{0\leq\omega<1$\} and $\Omega_2~=~\{1\leq\omega\leq2\}$.
+Overall it appears that the (spectrum) can be divided into two domains $\Omega_1~=~\{0\leq\omega<1$\} and $\Omega_2~=~\{1\leq\omega\leq2\}$.
 This result is not unexpected, since we choose the slope $\alpha$ of the cone such that for $\omega=1$, it is parallel
 do the group velocity $\vec{c}_{g}$.
 For $\omega\in\Omega_1$ the results for both setups are similar, since in this domain, the cone tip does not act as an attractor.
 An inertial wave propagates the top, after a reflection on the side of the cone.
-Hence, for both setups we obtain a similar spectrum.
+Hence, for both setups we obtain a similar (spectrum).
 The differences occur when $\omega$ is reaching the critical slope, in this scenario an inertial wave propating from the
 top edges, travereses directly into the apex of the cone, or is reflected slightly at he bottom plate of the frustum.
 As a results we see the increase in the amplitude.
