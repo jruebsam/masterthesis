@@ -234,45 +234,55 @@ The use of the different parameters with this template is shown in Appendix ().
 As a first step towards the implemenation of the librating cone,
 simulations of fluid flow in a librating cylinder were carried out.
 Despite the the theoretical and experimental results, discussed in section \ref{cone:theorie_exp},
-it is diffult to find results in literature which would be suitable for an appropiate validation.
-For the cylinder on the other hand, theoretical and numerical results are available.
+it is diffult to find results in literature which would be suitable for an appropiate validation for the cone.
+For the cylinder on the other hand, theoretical and numerical results are available.\\
 A theoretical solution can be found in \citep{Greenspan1990}, and shall be summarized here.
-For the inviscid case the problem can be reduced to a Poincar\'{e} equation for the pressure,
+For the inviscid case $\nu~=~0$, the problem can be reduced to a Poincar\'{e} equation for the pressure,
 which is solved in cylindrical coordinates by
 
 \begin{align}
-    p_{nmk}(r, \theta, z ) = J_{|k|}\left(\frac{\xi_{nmk}r}{a} \right)\cos(n\pi)\exp(ik\theta)
+    p_{nmk}(r, \theta, z, t) = J_{|k|}\left(\frac{\xi_{nmk}r}{a} \right)\cos(n\pi)e^{ik\theta}e^{i\lambda t}
 \end{align}
-
-where $a=\nicefrac{r}{H}$ is the aspect ration of the cylinder, $n\in\mathbb{Z}$
-
-where $\xi$ denotes the radial wavenumber,
-
+where $a=\nicefrac{r}{H}$ is the aspect ration of the cylinder,
+$n\in\mathbb{N}$ is the vertical and $k\in\mathbb{Z}$ the azimuthal wave number.
+$m\in\mathbb{N}$ is equal to the number of nodes in radial direcion.
+$J_{|k|}$ denotes a Bessel function of $k$-th order.
+The radial wavenumber $\xi$  can be solved for any given $k$ by the transcendental equation
 \begin{align}
     \xi \frac{\dif}{\dif \xi}J_{|k|}(\xi) + k \sqrt{1 + \frac{\xi^2}{n^2\pi^2a^2}} \; J_{|k|}\left(\xi\right) = 0
 \end{align}
-
-The eigenvalue of the solution
+Finally the eigenvalue is determined by
 \begin{align}
     \lambda_{nmk} = 2\sqrt{1 \; + \;\frac{ \xi_{nmk}^2}{n^2\pi^2a^2}}
 \end{align}
 
+Due to the excitation by libration the possible observable modes have to be axially symmetric, meaning $k=0$ \citep{}.
+A solution for the librating cylinder, is than defined by the indices (n, k).\\
+An numerical study of the non-linear system was performed by \citep{BLA}, to which the results will be compared.
 
--theoretically greenspan  blabla
+\subsection{Setup}
 
-The velocity of a mode is given by in cylindr. coord
+The simulations were performed for all immersed boundary methods introduced in chapter \ref{IBM}.
+Due to a misunterstanding the aspect ratio of the cylinder was set to $\Gamma=r/H=\nicefrac{0.5}{1.1}$ instead of $\frac{1}{2}$.
+The main simulation parameters are given by
 
-
--mode kann dann festgelegt werden durch tuple bla.\\
-The numerical setup is  given by ..
--Nx  = 128 ,lx, ly
--aspect ration
--ekman number
--further condition timestep
--omega in bla
+\begin{center}
+\vspace*{0.7ex}
+\begin{tabular}{c|c|c|c|c|c|c|c }
+ $\leftarrow  \omega \rightarrow $ & $\Gamma$ & $\Delta t$ & $\Delta x$ & $c^2$ & $\Ekman$  & $l_x, l_y, l_z$ & $T_{end}$\\
+\hline
+ $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $\nicefrac{0.5}{1.1}$ & $10^{-4}$ & $\nicefrac{1}{128}$ & 500 & $10^{-4}$  & (1.1, 1.1, 1.1) & 100\\
+\end{tabular}
+\vspace*{0.7ex}
+\end{center}
 \newpage
 
-\subsection{Results \& Discussion}
+
+\subsection{Results}
+
+\subsection{Discussion}
+
+
 
 
 
