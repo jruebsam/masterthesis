@@ -228,6 +228,45 @@ The use of the different parameters with this template is shown in Appendix ().
 \end{figure}
 \clearpage
 
+\section{Data Analysis}
+
+The main interest, in the analysis of the simulation data, lies in the identification of possible inertial modes.
+
+\begin{align}
+    \left<v_z^2 \right>(t) =  \int \dif V v_z(t)^2 \approx \sum_{i, j, k}^{N_x,N_y,N_z} \Delta x \Delta y \Delta z \left.v_z(t)^2 \right|_{i,j,k}
+\end{align}
+
+
+This is an appropriate choice, since
+-coordinate system
+-energy transport friction in phi r direction
+-energie in den moden
+-ueberlagerung mit beschleunigung in phi
+
+-interessiert an der idenfizierung von inertialmoden
+-ziel spectrum to show resonances
+
+
+compatution of $vz^2$
+spinup time for a mode is given by an estimation from greenspan t = 100
+
+-fehler mode und nicht moden
+
+\begin{align}
+    A\left(\left<v_z^2\right>\right) = \frac{\max(\argmax(\left<v_z^2\right>_{v})) - \max(\argmin(\left<v_z^2\right>_{v}))}{2}
+\end{align}
+
+-bilder
+-description
+
+
+\begin{figure}[!pb]
+  \includegraphics{gfx/cone/cylinder/cyl_vz.pdf}\label{fig:cone:cyl_vzmode}
+  \caption{Kinetic energy in $z$-direction for the direct forcing second-method and $\omega=1.2$.}
+\end{figure}
+\clearpage
+
+
 \section{Simulation of a Librating Cylinder}
 \label{cone:sec:lib_cylinder}
 
@@ -257,8 +296,7 @@ Finally the eigenvalue is determined by
 \end{align}
 
 Due to the excitation by libration the possible observable modes have to be axially symmetric, meaning $k=0$ \citep{}.
-A solution for the librating cylinder, is than defined by the indices (n, k).\\
-An numerical study of the non-linear system was performed by \citep{BLA}, to which the results will be compared.
+A solution for the librating cylinder, is than defined by the indices (n, m).\\
 
 \subsection{Setup}
 
@@ -277,45 +315,53 @@ The main simulation parameters are given by
 \end{center}
 \newpage
 
+\clearpage
 
-\subsection{Results}
-
-\subsection{Discussion}
-
-
-
-
-
-
-\begin{align}
-    \left<v_z^2 \right>(t) =  \int \dif V v_z(t)^2 \approx \sum_{i, j, k}^{N_x,N_y,N_z} \Delta x \Delta y \Delta z \left.v_z(t)^2 \right|_{i,j,k}
-\end{align}
-
-\begin{align}
-    A\left(\left<v_z^2\right>\right) = \frac{\max(\argmax(\left<v_z^2\right>_{v})) - \max(\argmin(\left<v_z^2\right>_{v}))}{2}
-\end{align}
-
--bilder
--description
-
-
-\begin{figure}[!pt]
+\begin{figure}[!p]
   \centering
-  \includegraphics{gfx/cone/cylinder/cylinder.pdf}\label{fig:cone:cyl}
-  \caption{blabla}
-
-  \includegraphics{gfx/cone/cylinder/cyl_vz.pdf}\label{fig:cone:cyl_time}
-  \caption{blabla}
+  \includegraphics{gfx/cone/cylinder/cylinder.pdf}  \caption{\label{fig:cone:cyl}
+    Amplitude of the kinectic energy of $v_z$, as function of the liberating frequency $\omega$,
+   for the direct forcing (DF), volume penalization (VP) method with or without Volume Fraction and
+      second and fourth order (o2/o4) finite differences.}
 \end{figure}
 \newpage
 
--behaviour known theorie
-- paper kurz erklären symetrie warum fehlen bestimmte moden ? ?
+\clearpage
+
+\subsection{Results}
+
+Figure \ref{fig:cone:cyl} shows the frequency spectrum of the libration frequency $\omega$.(NEUSCHREIBEN).
+For all methods which were used similar curves can be seen.....(NEUSCHREIBEN).
+The spectrum contains a large resonance peak at $\omega\approx 1.2$ and two
+smaller ones at $\omega\approx0.75$ and $\omega\approx1.7$.\\
+- the differences for some of the methods are small\\
+- exemplarly we provide an inset for w1.1 etc\\
+- we can seee in genearl dfo2 vpo2 and vpo4 er similar\\
+- for all other methods a slight decreas in A exists\\
+- dt results in nearly no difference for vp and df\\
+- the largest offset can be observed around  at w=1.5 and is of the order $10^-2$.\\
+
+
+\subsection{Discussion}
+
+-fehler methods
+-theorie
+-paper
+-numerical viscosity
+-numerical oscilations
+
+
+The frequency spectrum
+
+
+
+
 
 As a first system we want to investigate the
 
 - erstes test system cylinnder\\
 - expectation
+- paper kurz erklären symetrie warum fehlen bestimmte moden ? ?
 
 - verglein von den bedien implementierungen\\
 - first test omega = 1.2 ...\\
@@ -325,7 +371,12 @@ As a first system we want to investigate the
 - evtl raytracer  comparison
 - heliziätte dargstellt\\
 - results diskussion ip kaputt heli 0 etc \\
+An numerical study of the non-linear system was performed by \citep{BLA}, to which the results will be compared.
+a comparision between the different IBMs and the detection of numerical errors.
+In order to compute a frequency spectrum, we choose the kinetic energy of the velocity field in $z$-direction.
+
 \subsection{Numerical Viscosity}
+put in numerik herleitung
 
 \newpage
 

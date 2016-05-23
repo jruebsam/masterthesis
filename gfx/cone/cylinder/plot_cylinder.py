@@ -11,16 +11,18 @@ from scipy import stats
 import itertools as it
 import itertools
 from scipy import optimize
+import matplotlib.cm as cmx
+from matplotlib import colors
 
 from mpl_toolkits.axes_grid1.inset_locator import zoomed_inset_axes
 from mpl_toolkits.axes_grid1.inset_locator import mark_inset
 
 cmap = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf']
-markers = itertools.cycle('o^*')
+markers = itertools.cycle('oh^*')
 
 from cycler import cycler
-
-cc = itertools.cycle(plt.cm.spectral(np.linspace(0,1,10)))
+cc = cycler('color', ['r', 'g', 'b', 'y'])
+#cc = itertools.cycle(plt.cm.spectral(np.linspace(0,1,10)))
 #plt.rc('axes', prop_cycle=(cycler('color', cmap)))
 
 def get_amp(series):
@@ -32,9 +34,8 @@ def get_amp(series):
 def main():
     dpath = '/home/upgp/jruebsam/simulations/april16/week2/cylinder_series/'
 
-    labels = ['DF', 'DF-Vol.Frac.']
 
-    f, ax = style.newfig(1.)
+    f, ax = style.newfig(1., 1.5)
 
     axins = zoomed_inset_axes(ax, 10., loc=2)
     plt.tick_params(
@@ -62,8 +63,16 @@ def main():
 
 
     modes = list(it.product(['df', 'vp', 'dffrac', 'vpfrac'], [1, 0]))
+    labels = list(it.product(['DF', 'VP', 'DF-Vol.Frac.', 'VP-Vol.Frac'], ['o2', 'o4']))
 
-    for method, order in modes:
+    labels = [' '.join([x[0], x[1]]) for x in labels]
+
+    jet = plt.get_cmap('jet')
+    values = range(8)
+    cNorm  = colors.Normalize(vmin=0, vmax=8)
+    scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=jet)
+
+    for idx, ((method, order), label) in enumerate(zip(modes, labels)):
         on = 'o2' if order else 'o4'
         a_ekin, a_vz, a_vphi = [], [], []
         omgs = []
@@ -95,14 +104,25 @@ def main():
             #plt.plot(time, vz, label=simpath.split('/')[-1])
         print a_vz
         mks = markers.next()
-        col = cc.next()
-        ax.plot(omgs, np.sqrt(a_vz), mks+'--', color=col, ms=4, mew=0, lw=0.5, alpha =0.5,
-                label=method+'/'+on)
+        ds = (1., 2., 3., 2.)
 
-        axins.plot(omgs, np.sqrt(a_vz), mks+'--', color=col, ms=4,
-                        mew=0, lw=0.5, alpha =0.5)
-        axins2.plot(omgs, np.sqrt(a_vz), mks+'--', color=col, ms=4,
-                        mew=0, lw=0.5, alpha =0.5)
+        col = scalarMap.to_rgba(values[idx])
+        if method == 'df' and on == 'o2':
+            ax.plot(omgs, np.sqrt(a_vz), mks+'--', color=col, ms=4, mew=0.6, lw=0.8, alpha =0.8,
+                    label=label, markerfacecolor='None', dashes=ds )
+
+            axins.plot(omgs, np.sqrt(a_vz), mks+'--', color=col, ms=4,
+                            mew=0.6, lw=0.5, alpha =0.8, markerfacecolor='None' , dashes=ds )
+            axins2.plot(omgs, np.sqrt(a_vz), mks+'--', color=col, ms=4,
+                            mew=0.6, lw=0.5, alpha =0.8, markerfacecolor='None' , dashes=ds )
+        else:
+            ax.plot(omgs, np.sqrt(a_vz), mks+'--', color=col, ms=4, mew=0, lw=0.5, alpha =0.8,
+                    label= label, dashes=ds )
+
+            axins.plot(omgs, np.sqrt(a_vz), mks+'--', color=col, ms=4,
+                            mew=0, lw=0.5, alpha =0.8, dashes=ds )
+            axins2.plot(omgs, np.sqrt(a_vz), mks+'--', color=col, ms=4,
+                            mew=0, lw=0.5, alpha =0.8, dashes=ds )
         #plt.plot(omgs, a_vphi, 'ro--')
         #plt.plot(omgs, a_ekin, 'go--')
 
@@ -117,11 +137,11 @@ def main():
     ax.set_ylim(0., 0.04)
     ax.set_xlim(0.15, 2.05)
     ax.set_xlabel(r'$\omega$')
-    ax.set_ylabel(r'$v_z^2$')
-    ax.legend(ncol = 3, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.3),
+    ax.set_ylabel(r'$A\left(\left<v_z^2\right>\right)$')
+    ax.legend(ncol = 3, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.2),
            fancybox=True, shadow=True)
 
-    plt.subplots_adjust(top=0.8, bottom =0.15)
+    plt.subplots_adjust(top=0.85, bottom =0.1)
 
     from matplotlib import ticker
     formatter = ticker.ScalarFormatter(useMathText=True)
