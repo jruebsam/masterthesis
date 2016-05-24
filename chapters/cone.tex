@@ -26,6 +26,7 @@ for the geometry we will introduce in this chapter.
 %For the system we describe in the following section one further application
 %would be to study inertial wave excitaton by turbulence. (MORE DETAIL THIS AND ALPHA FUNCTION)
 -introduction cone here?
+-turbelence idee anregung und zerfall von turbelenz
 -lineariztaino etc 2d but 3d wegen turbulence
 The objective we have in mind is the numerical computation of inertial wave excitation inside a librating cone.
 
@@ -42,7 +43,7 @@ the wedge as shown in figure \ref{cone:theorie}.
 Here we consider an inviscous fluid.
 For each reflection the propagation angle with respect to the rotation axis stays constant.
 Let us recall from  section \ref{theorie:sec:iwreflec}, that
-for $\theta<\alpha$ we have a subcritical reflection,
+for $\theta<\alpha$ we have a supercritical reflection,
 thus a downward traveling wave ray is reflected downslope.
 
 \begin{figure}[!tp]
@@ -212,6 +213,7 @@ Figure \ref{cone:setup_image} shows the geometry of the fluid domain. The parame
     \item[$\alpha$]{Slope of the Cone}
     \item[$\Omega$]{Rotation rate}
     \item[$\omega$]{Frequency of the libration}
+    \item[$\epsilon$]{Amplitude of the libration, default is 1\footnote{linear}}
 \end{description}
 \end{multicols}
 
@@ -259,6 +261,14 @@ spinup time for a mode is given by an estimation from greenspan t = 100
 
 -bilder
 -description
+
+\begin{align}
+H(t) = \frac{\int_V \dif V \vec{v} (\nabla \times \vec{v})}{\int_V \dif V |\vec{v}||\nabla \times \vec{v}|}
+ = \frac{\sum_{i,j,k=0}^{N_x, N_y, N_z} \vec{v}_{i,j,k} (\nabla \times \vec{v}_{i, j, k})}
+ {\sum_{i,j,k=0}^{N_x, N_y, N_z}|\vec{v}_{i,j,k}|| \nabla \times \vec{v}_{i, j, k}|}
+\end{align}
+
+The discretization of the rotation operator is using a central difference of second order.
 
 
 \begin{figure}[!pb]
@@ -353,6 +363,7 @@ All remaining methods are slighty diminished, but no strict order can be determi
 \subsubsection{Immersed Boundary Methods}
 
 The different immersed boundary methods show similar results in the profile of the amplitudes. This in agrement with the results of validation testcases of the hagen-poiseuille and
+
 taylor-couette flow, since the discretzation error of the boundaries is roughly of the same order of $\approx?$ (HMM..).
 One pos
 
@@ -426,6 +437,8 @@ All simulations performed in this section use the introduced setup with differen
 As a IBM we choose the direct forcing  method of second order.
 
 -as a convention we refer to frustom cone etc
+-explain method used..
+-libration intro immer gleich .. sin etc
 
 \subsection{Simulation of the Experiment}
 
@@ -642,24 +655,36 @@ For $r=0$ we have the indentical setup to the simulation in section \ref{cone:ex
 
 \clearpage
 
-\subsection{Librating Cone with different Offsets at the Top}
+\subsection{Librating Cone with Differing Offsets at the Top}
+\subsubsection{Introduction}
 
-Finally we want to improve the setup we introduced in section \ref{exp},
-by considering the insights we gained from the previous simulations.
-As we pointed out, the radius at the bottom of the frustum has a strong influence on
-the reflection of inertial waves, due to the larger Ekman number we use in comparsion to the experiment.
-Hence, we insert the bottom plate in the cone at a height of $h_b=0.375$, the resulting radius is
-$r \approx 0.22$. The total height is than given by $h=0.625$,
-and the slope is unchanged.
-Secondly we want to adress the influence of the offset on top of the cone,
-which has been left out from any discussion so far.
-We assume that this offset has an strong influence for the intervall $\Theta<\alpha$,
-where wave reflection to the top occurs.
-In the case where $o=0$, the corners of the cone would act as an attractor, as pointed out in figure \ref{cone:img_finalattractor}.
+A a closure, this section represents the results computed with a new modified setup, which are more in accordance
+with the experiment we introduced.
+The improvements are based on the results and insights, which were gained from the previous simulations of the librating cone.
+We want to adress the  most important points
+
+\begin{itemize}
+    \item The radius of the bottom plate of the frustum has a strong influence on
+          the reflection of inertial waves.
+          Due to the Ekman number of $\Ekman=10^{-4}$ we use, which is one order of magnitude
+          above the experiment we assumed that a stronger damping acts on an inertial wave
+          at the bottom plate.
+
+    \item As a second point, we want to adress the influence of the offset on top of the cone,
+          which has been left out from any discussion so far.
+          It can be assumed this offset has a strong influence
+          on inertial wave propagation.
+          In particular for the intervall $\Theta<\alpha$, where wave super-critical reflection into the top corners occurs.
+          In the case where $O=0$, the corners of the cone act as an attractor, as pointed out in figure \ref{cone:img_finalattractor}.
+          For small gap sizes it applies that a inertial wave will be damped, in analogy to the bottom gap.
+\end{itemize}
+
+As a conlusion a larger gap radius $r$ for the bottom plate, will be introduced.
+The exact influence of the offset is unknow, therefore we propose a series of simulations with different offsets.
 
 \begin{figure}[!bp]
       \centering
-        \resizebox{0.7\textwidth}{!}{
+        \resizebox{0.9\textwidth}{!}{
        \import{gfx/cone//}{comparison.pdf_tex}
       }
       \caption{
@@ -669,55 +694,51 @@ In the case where $o=0$, the corners of the cone would act as an attractor, as p
       }
 \end{figure}
 
-For small gap sizes it also applies that a inertial wave will be damped.
-Therefore, in this simulation we will add an additional offset to the default of $\tan(\pi/3)/2$
-varying in the range of $h_+ = [0, 1]$ with a stepsize of $\Delta h_+ = \nicefrac{1}{5}$.
+\subsubsection{Setup}
+
+In this setup the radius $r$ is implitciy set by changing the height of the
+bottom plate to $h_b=0.375$.  The resulting radius is $r \approx 0.22$.
+This is done in order to maintain the constant slope of $\alpha=60$,
+which is parallel to an inertial wave for $\omega=1$.
+An additional offset is added to the default one,
+varying in the range of $h_+ = [0, 0.5]$ with a stepsize of $\Delta h_+ = \nicefrac{1}{5}$.
+The complete offset at the top is $O =  (\nicefrac{1}{2})\tan{\nicefrac{\pi}{3}}{2}+ h_+$.
 The main simulation parameters are given by
 
 \begin{center}
 \vspace*{0.7ex}
 \begin{tabular}{c|c|c|c|c|c|c|c }
 %\begin{tabular}{p{0.1\linewidth}| p{0.1\linewidth}| p{0.1\linewidth}|  p{0.1\linewidth}| p{0.1\linewidth}| p{0.1\linewidth} }
-$\leftarrow r \rightarrow$ & $ \leftarrow  \omega \rightarrow $ & $\Delta t$ & $\Delta x$ & $c^2$ & \Ekman  & $l_x, l_y, l_z$ & $T_{end}$\\
+$\leftarrow h_+\rightarrow$ & $ \leftarrow  \omega \rightarrow $ & $\Delta t$ & $\Delta x$ & $c^2$ & \Ekman  & $l_x, l_y, l_z$ & $T^*_{end}$\\
 \hline
-$[0,\; 0.5], \Delta r =0.125$ & $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $10^{-5}$ & $\nicefrac{1}{128}$ & 500 & $10^{-4}$  & (1, 1, 1) & 100\\
+$[0,\; 0.5], \Delta h_+ =0.125$ & $[0.2,\; 2], \Delta w = \nicefrac{1}{20}$ & $10^{-5}$ & $\nicefrac{1}{128}$ & 500 & $10^{-4}$  & (1, 1, $1+h_+$) & $\gtrsim100$\\
 \end{tabular}
 \vspace*{0.7ex}
 \end{center}
 
-Furthermore we will compute the normalized helicity of the system given by
+It should be noted that a higher resolution for the frequency was used compared to the previous simulations.
+The total simulation time $T^*_{end.}$ is marked as $\gtrsim 100$, here we want to introduce the modification
 
 \begin{align}
-H(t) = \frac{\int_V \dif V \vec{v} (\nabla \times \vec{v})}{\int_V \dif V |\vec{v}||\nabla \times \vec{v}|}
- = \frac{\sum_{i,j,k=0}^{N_x, N_y, N_z} \vec{v}_{i,j,k} (\nabla \times \vec{v}_{i, j, k})}
- {\sum_{i,j,k=0}^{N_x, N_y, N_z}|\vec{v}_{i,j,k}|| \nabla \times \vec{v}_{i, j, k}|}
+    T_{\text{end.}}^* = \underbrace{\Bigl\lfloor\left(\text{T}_{\text{end}}\frac{\omega}{2\pi}\right)\Bigr\rfloor}_{
+        \text{Floor}
+        }\frac{2\pi}{\omega} + \frac{2\pi}{\omega}
 \end{align}
 
-in the accelerated frame of reference and also for the inertial system with an additional offset in the velocity
-given by $\vec{u} = \vec{u}|_{\text{rot.}} + \Omega(t) \times \vec{r}$.
-\\
-
-
-The discretization of the rotation operator is using a central difference of second order.
-As a next step we want to furthermore analyze the decay of inertial waves for the different offsets.
-For this reason we use the end state from the previous simulations and set
-the libration amplitude to zero.
-Furthermore we change the end time of the previous simulations by
-
-\begin{align}
-    T = \frac{1}{\Delta t} \text{floor}\left(\text{T}_{\text{end}}\frac{\omega}{2\pi}\right)\frac{2\pi}{\omega} + \frac{2\pi}{\omega}
-\end{align}
-
-to make sure that for all frequencies the librating force drops out when crossing zero.
-The main simulation parameters are given by
+As a consequence the endtime  of all frequencies, is set to the point where the librating force is crossing zero.
+The scenario we want to study from there on is the decay of inertial waves.
+To achieve this we continue a simlations with the previously computed endstates and set the libration amplitude $\epsilon$ to zero.
+With the use of the modified endtime, we assume all that all intertial waves are
+approximately in the same phase with respect to their libration frequency.
+The simulation parameters changes according to
 
 \begin{center}
 \vspace*{0.7ex}
-\begin{tabular}{c|c|c|c|c|c|c|c }
+\begin{tabular}{c|c|c|c}
 %\begin{tabular}{p{0.1\linewidth}| p{0.1\linewidth}| p{0.1\linewidth}|  p{0.1\linewidth}| p{0.1\linewidth}| p{0.1\linewidth} }
-$\leftarrow r \rightarrow$ & $ \leftarrow  \omega \rightarrow $ & $\Delta t$ & $\Delta x$ & $c^2$ & \Ekman  & $l_x, l_y, l_z$ & $T_{end}$\\
+$\leftarrow h_+ \rightarrow$ & $ \leftarrow  \omega \rightarrow $ & $\epsilon$ & $T_{\text{end}}$\\
 \hline
-$[0,\; 0.5], \Delta r =0.125$ & $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $10^{-5}$ & $\nicefrac{1}{128}$ & 500 & $10^{-4}$  & (1, 1, 1) & 100\\
+ see \ref{p.xx} & see \ref{p.xx} & 0 & 150\\
 \end{tabular}
 \vspace*{0.7ex}
 \end{center}
@@ -725,6 +746,7 @@ $[0,\; 0.5], \Delta r =0.125$ & $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $10^
 As a last step we will repeat a part of the simulations for an Ekman number of $\Ekman = 10^{-3}$
 
 \subsection{Results}
+
 \subsubsection{Simulation with Different Offsets}
 
 
@@ -771,6 +793,9 @@ As a first test
 \section{Summary}
 freeslip besser
 
+In addition to default helicity compuattion, we will also compute
 
-
-
+Furthermore we will compute the normalized helicity of the system given by
+in the accelerated frame of reference and also for the inertial system with an additional offset in the velocity
+given by $\vec{u} = \vec{u}|_{\text{rot.}} + \Omega(t) \times \vec{r}$.
+\\
