@@ -178,8 +178,11 @@ def main():
             ax.annotate(r'(\rom{6})', xy=(1.8, 0.0001),
                         xytext=(1.8, 0.0002), arrowprops=ap, **kw)
 
-            ax.annotate(r'(\rom{7})', xy=(0.5, 0.00025),
-                        xytext=(0.5, 0.00035),  arrowprops=ap, **kw)
+            ax.annotate(r'(\rom{7})', xy=(0.55, 0.0002),
+                        xytext=(0.55, 0.00035),  arrowprops=ap, **kw)
+
+            ax.annotate(r'(\textbf{O})', xy=(1.1, 0.00015),
+                        xytext=(1.1, 0.00005), arrowprops=ap, **kw)
         if i == 2:
             ax.annotate(r'(\rom{1})', xy=(1.25, 0.0004),
                         xytext=(1.25, 0.0002), arrowprops=ap, **kw)
@@ -190,11 +193,14 @@ def main():
             ax.annotate(r'(\rom{3})', xy=(0.5, 0.00025),
                         xytext=(0.5, 0.0001),  arrowprops=ap, **kw)
 
-            ax.annotate(r'(\rom{4})', xy=(1.5, 0.0001),
+            ax.annotate(r'(\rom{5})', xy=(1.5, 0.0001),
                         xytext=(1.5, 0.0002),  arrowprops=ap, **kw)
 
-            ax.annotate(r'(\rom{5})', xy=(1.7, 0.0001),
+            ax.annotate(r'(\rom{4})', xy=(1.7, 0.0001),
                         xytext=(1.7, 0.0002),  arrowprops=ap, **kw)
+
+            ax.annotate(r'(\rom{8})', xy=(0.85, 0.00029),
+                        xytext=(0.85, 0.0001),  arrowprops=ap, **kw)
         if i < 4:
             labels = [item.get_text() for item in ax.get_xticklabels()]
             empty_string_labels = ['']*len(labels)
