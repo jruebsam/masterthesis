@@ -1,6 +1,7 @@
 import style
 style.setup()
 
+from scipy.signal import argrelmin, argrelmax
 from matplotlib.patches import Polygon
 import numpy as np
 import matplotlib.pyplot as plt
@@ -23,23 +24,35 @@ from cycler import cycler
 
 cc = itertools.cycle(plt.cm.spectral(np.linspace(0,1,10)))
 #plt.rc('axes', prop_cycle=(cycler('color', cmap)))
+plt.rcParams['text.latex.preamble']=r'\makeatletter \newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@} \makeatother'
+plt.rcParams.update()
 
 def get_omg(w, r):
     gamma = np.arccos(w/2.)
     hc = 0.5*np.tan(np.pi/3.)
     hr = np.tan(gamma)*0.5
-
     d = (hc - hr)*(0.5 - r)/hc
-
     beta = np.arctan(hr/(0.5 - d))
     return 2*np.cos(beta)
 
 
-def get_amp(series):
+def get_amp_old(series):
     n = len(series)/4
     data = series[3*n:]
     A = 0.5*(np.max(data)-np.min(data))
     return A
+
+def get_amp(x):
+    maxids = argrelmax(x)[0][-2:]
+    minids = argrelmin(x)[0][-2:]
+
+    ids = np.sort(np.append(maxids, minids))
+
+    amp = 0.5*(np.abs(x[ids[3]] - x[ids[2]]))
+    old = 0.5*(np.abs(x[ids[1]] - x[ids[0]]))
+
+    rel_error = np.abs(amp-old)/amp
+    return amp, rel_error
 
 def main():
     dpath1 = '/home/upgp/jruebsam/simulations/mai16/week5/series_offset_l2/'
@@ -92,7 +105,7 @@ def main():
         ax.xaxis.labelpad = -5
         ax.set_aspect('equal')
         ax.set_ylim(0, 1.5)
-        ax.text(right, 0.5*(bottom+top), 'h=%.3f' % h,
+        ax.text(right, 0.5*(bottom+top), r'$h_+=%.3f$' % h,
                 horizontalalignment='center',
                 verticalalignment='center',
                 rotation='vertical',
@@ -101,7 +114,7 @@ def main():
     hs = rs
     for i, (ax, radius) in enumerate(zip(axes[:, 0], hs)):
 
-        for dpath in [dpath1, dpath2]:
+        for label, dpath in zip(['Cone', 'Frustum'], [dpath1, dpath2]):
             os.chdir(os.path.join(dpath, 'data', 'h_%.3f' % radius))
 
             simpathes =  glob('*/*.ekin')
@@ -111,7 +124,7 @@ def main():
             a_ekin, a_vz, a_vphi = [], [], []
             omgsn = []
 
-            for i, simpath in enumerate(sorted(simpathes)):
+            for j, simpath in enumerate(sorted(simpathes)):
                 #print simpath
                 data = np.genfromtxt(simpath)
                 time = data[:, 0]
@@ -121,17 +134,22 @@ def main():
                 #ax.plot(time, vz, label=simpath)
                 #a_ekin.append(get_amp(ekin))
 
-                amp = get_amp(vz)
+                amp, _ = get_amp(vz)
                 #a_vphi.append(get_amp(vphi))
 
                 #plt.plot(time, vz, label=simpath.split('/')[-1])
                 a_vz.append(amp)
-                omgsn.append(omgs[i])
+                omgsn.append(omgs[j])
 
-            ax.plot(omgsn, a_vz, 'o-',  ms=3, mew=0, alpha=0.8)
+            if i>0:
+                ax.plot(omgsn, a_vz, 'o-',  ms=3, mew=0, alpha=0.8)
+            else:
+                ax.plot(omgsn, a_vz, 'o-',  ms=3, mew=0, alpha=0.8, label=label)
 
         if i>0:
             ax.axvline(1, color='#e41a1c', lw=0.75)
+        else:
+            ax.axvline(1, color='#e41a1c', lw=0.75, label=r'Crit.Slope $\alpha = \theta$')
         ax.set_ylabel(radius)
         os.chdir(cdir)
 
@@ -148,11 +166,35 @@ def main():
 
     for i, ax in enumerate(axes[:, 1]):
         if i == 0:
-            ax.set_title('(b) Setup')
+            ax.set_title('Setup')
+
+    #ap=dict(facecolor='black', width=0.3, headwidth=3., headlength =3)
+    ap=dict(arrowstyle='-|>' , facecolor='black', lw=0.8
+            )
+    kw=dict(size=10., horizontalalignment='center', verticalalignment='bottom')
 
     for i, ax in enumerate(axes[:, 0]):
         if i == 0:
-            ax.set_title('(a) Spectrum')
+            ax.annotate(r'(\rom{6})', xy=(1.8, 0.0001),
+                        xytext=(1.8, 0.0002), arrowprops=ap, **kw)
+
+            ax.annotate(r'(\rom{7})', xy=(0.5, 0.00025),
+                        xytext=(0.5, 0.00035),  arrowprops=ap, **kw)
+        if i == 2:
+            ax.annotate(r'(\rom{1})', xy=(1.25, 0.0004),
+                        xytext=(1.25, 0.0002), arrowprops=ap, **kw)
+
+            ax.annotate(r'(\rom{2})', xy=(0.85, 0.00038),
+                        xytext=(0.7, 0.0004),  arrowprops=ap, **kw)
+
+            ax.annotate(r'(\rom{3})', xy=(0.5, 0.00025),
+                        xytext=(0.5, 0.0001),  arrowprops=ap, **kw)
+
+            ax.annotate(r'(\rom{4})', xy=(1.5, 0.0001),
+                        xytext=(1.5, 0.0002),  arrowprops=ap, **kw)
+
+            ax.annotate(r'(\rom{5})', xy=(1.7, 0.0001),
+                        xytext=(1.7, 0.0002),  arrowprops=ap, **kw)
         if i < 4:
             labels = [item.get_text() for item in ax.get_xticklabels()]
             empty_string_labels = ['']*len(labels)
@@ -160,12 +202,11 @@ def main():
         else:
             ax.set_xlabel(r'$\omega$')
 
-    """
-    plt.subplots_adjust(top=0.8, bottom =0.15)
-    ax.legend(ncol = 3, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.3),
+    plt.sca(axes[0, 0])
+    plt.legend(ncol = 3, fontsize=9, loc='upper center', bbox_to_anchor=(0.5, 1.4),
            fancybox=True, shadow=True)
-    """
 
+    plt.subplots_adjust(bottom =0.05, top =0.9)
 
     plt.savefig('transition.pdf')
 
