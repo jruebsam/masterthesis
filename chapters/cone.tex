@@ -756,7 +756,7 @@ The results for this simulation are shown in figure \ref{fig:cone:finaltransitio
 On the left side of the plot  the frequency spectrum is shown, the right side illustrates the used geometry.
 The height $h_+$ is in descending order, from top to bottom.
 Each plot contains two spectra, one for the cone  and the other one for the frustum.
-We beginn with a qualitative description of the curves for the cone.\\
+We beginn with a qualitative description of the curves for the frustum.\\
 At all heights $h_+$, several resonance modes can be observed. For now we will consider the case where ${h_+=0.25}$.
 For this height the largest peaks occur in the spectrum, which are numerated here in decreasing order of the amplitude.\\
 The largest mode (\RN{1}) can be observed at a frequency $\omega=1.05$, the amplitude is of the order $5\cdot10^{-4}$.
@@ -767,12 +767,12 @@ For the case $h_+=0.5$  we can see small additional resonances  (\RN{6}) at $\om
 the latter is embedded in the slope of the (\RN{3}) mode.
 For all peaks (except (\RN{7}), it can be noted, that a lowering of the offset height $h_+$ results
 into a shift towards higher frequencies. This can be best seen when looking at the peaks (\RN{1}) and (\RN{2}).\\
-Let us now consider the results of the frustum.
+Let us now consider the results of the cone.
 Above the critical slope $\alpha=\theta$ nearly all resonances are eliminated. One exception is the (\RN{4}) mode for
-$h_+=0.5$ and $h_+=0.375$. Another exepction is at the position of the previous (\RN{1}) mode of the cone.
+$h_+=0.5$ and $h_+=0.375$. Another exepction is at the position of the previous (\RN{1}) mode of the frustum.
 For $h_+=0.5$ (see \textbf{O}) a small increase in the amplitude can be observed.
 On the left side of the critcal slope we can identfiy the (\RN{3})-peak
-at the same frequency and same order as for the cone. To the left side of this point the spectrum for
+at the same frequency and same order as for the frustum. To the left side of this point the spectrum for
 the cone and the frustum are similar.
 
 \begin{figure}[!bp]
@@ -784,6 +784,16 @@ the cone and the frustum are similar.
     }
 \end{figure}
 
+\begin{figure}[!pt]
+  \centering
+  \includegraphics{gfx/cone/final/transition.pdf}
+  \caption{
+      \label{fig:cone:finaltransition}
+    Simulation of a cone (green) and a frustum (blue) for different offsets at the
+    top.
+    }
+\end{figure}
+\clearpage
 
 Furthermore at the position of peak (\RN{2}) of the cone, we now see a slightly diminshed mode \RN{8}.
 The maximum is at the same frequency at $h_+=0.5$ but diverges slightly with an decrease of the height $h_+$.\\
@@ -818,47 +828,39 @@ relativ linear abfall für alle moden
 
 
 
-\begin{figure}[!pt]
-  \centering
-  \includegraphics{gfx/cone/final/transition.pdf}
-  \caption{
-      \label{fig:cone:finaltransition}
-    Simulation of a cone (blue) and a frustum (green) for different offsets at the
-    top.
-    }
-\end{figure}
+\subsubsection{Helicity}
+
+-helicity results shown in figuren..
+- global or acc
+- nicht so ins detail gehen
+- important features
+- steigung beim critical slope
+- diskutiere bereiche links rechts
+- sehr kleine helizität
+
+\subsubsection{Decay rates}
+
+- positionen erläutern
+- ablkingraten dargestellt in figure so und so
+- diskussion
+
+\subsubsection{Larger Ekman number}
+-test alte ergebnisse evtl erläutern
+
 \clearpage
 
+\subsection{Discussion}
+
+\subsubsection{Spectrum for the Simulation with Different Offsets}
 
 \subsubsection{Helicity}
 
 \subsubsection{Decay rates}
 
-
-\clearpage
-
+\subsubsection{Larger Ekman number}
 
 
-
--description\\
--verfahren und serie\\
--diskussion oberer rand\\
--eigenschaften und influence oberer rand \\
-
-
-Finally
--nun cone mit und ohne spitze
--teste den einfluss der oberen kante blablabla
--serien vergleich diskussion\
--helizität diskussion\\
-
-In order to test
-As a first test
-
-\subsection{Discussion}
-
-
-\section{Summary}
+\subsection{Summary}
 freeslip besser
 
 In addition to default helicity compuattion, we will also compute
