@@ -327,18 +327,20 @@ The main simulation parameters are given by
 \centering
 \def\arraystretch{1.5}%
 \begin{tabular}{c c c c c}\toprule
-            &    m =  1  & m = 2   & m = 3 \\ \hline
+            &    m =  1  & m = 2   &    \\ \hline
 \midrule
-        n=1 &   0.698433 &0.398913 &0.278004\\
-        n=2 &   1.195232 &0.754094 &0.540563\\
-        n=3 &   1.490715 &1.042313 &0.776180\\
-        n=4 &   1.660912 &1.262759 &0.979143\\
-        n=5 &   1.762270 &1.426587 &1.148928\\
-        n=6 &   1.825743 &1.547435 &1.288346\\ \hline
+        n=1 &   0.698433         &              0.398913 &    \\
+        n=2 & \cellcolor{blue!25}  1.195232         &        \cellcolor{blue!25}      0.754094 &    \\
+        n=3 &   1.490715         &              1.042313 &    \\
+        n=4 &  \cellcolor{blue!25} 1.660912         &     \cellcolor{blue!25}         1.262759 &    \\
+        n=5 &   1.762270         &              1.426587 &    \\
+        n=6 &   1.825743         &              1.547435 &    \\ \hline
+
 \bottomrule
 \label{cone_cyleigenvalues}
 \end{tabular}
-\caption{Eigenvalues of the (n, m)-inertial modes in  a cylinder with aspect ratio $0.5/1.1$.}
+\caption{Eigenvalues of the (n, m)-inertial modes in  a cylinder with aspect ratio $0.5/1.1$.
+            Possible modes are highlighted.}
 \end{table}
 \egroup
 \clearpage
@@ -358,9 +360,9 @@ set to the location $\omega=0.8$ and $\omega=1.0$.\\
 For both positions, the largest amplitude is given by the direct forcing method of second order, followed by
 the volume penalization method of second and fourth order.
 The amplitude difference betweens the first two methods is just slighty visible when looking at the right inset plot.
-All remaining methods are slighty diminished, but no strict order can be determined.
--this is not true for all positions
--ip not stable bla
+It seems like these three methods yield nearly the same results for alle frequencies.
+For all remaining methods  no strict order or grouping can be recognized.\\
+The results for the interpolation method are not plotted in this spectrum, since the simulations became numerically unstable.
 
 \subsubsection{Theoretical Eigenvalues}
 
