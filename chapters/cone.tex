@@ -46,13 +46,13 @@ For the cone we make the comparsion to the two-dimensional case of a wedge.
 This system is based on the idea to introduce a geometric shape, containing a singularity.
 Here we want to discuss the propagation of an inertial wave emitting at one of the upper edges of
 the wedge as shown in figure \ref{cone:theorie}.
-Here we consider an inviscous fluid.
-For each reflection the propagation angle with respect to the rotation axis stays constant.
-Let us recall from  section \ref{theorie:sec:iwreflec}, that
-for $\theta<\alpha$ we have a supercritical reflection,
+The wave propagates under the angle $\theta = \arccos(\omega/2)$, with respect to the horizontal axis.
+We consider an inviscous fluid.
+For each reflection the propagation angle with respect to the rotation axis is preserved.
+In the case of $\theta<\alpha$ we have a supercritical reflection,
 thus a downward traveling wave ray is reflected downslope.
 
-\begin{figure}[!tp]
+\begin{figure}[!bp]
   \begin{minipage}[c]{0.6\textwidth}
       \centering
         \resizebox{0.7\textwidth}{!}{
@@ -293,26 +293,6 @@ Despite the the theoretical and experimental results, discussed in section \ref{
 it is diffult to find results in literature which would be suitable for an appropiate validation for the cone.
 For the cylinder on the other hand, theoretical and numerical results are available.\\
 A theoretical solution can be found in \citep{Greenspan1990}, and shall be summarized here.
-For the inviscid case $\nu~=~0$, the problem can be reduced to a Poincar\'{e} equation for the pressure,
-which is solved in cylindrical coordinates by
-
-\begin{align}
-    p_{nmk}(r, \theta, z, t) = J_{|k|}\left(\frac{\xi_{nmk}r}{a} \right)\cos(n\pi)e^{ik\theta}e^{i\lambda t}
-\end{align}
-where $a=\nicefrac{r}{H}$ is the aspect ration of the cylinder,
-$n\in\mathbb{N}$ is the vertical and $k\in\mathbb{Z}$ the azimuthal wave number.
-$m\in\mathbb{N}$ is equal to the number of nodes in radial direcion.
-$J_{|k|}$ denotes a Bessel function of $k$-th order.
-The radial wavenumber $\xi$  can be solved for any given $k$ by the transcendental equation
-\begin{align}
-    \xi \frac{\dif}{\dif \xi}J_{|k|}(\xi) + k \sqrt{1 + \frac{\xi^2}{n^2\pi^2a^2}} \; J_{|k|}\left(\xi\right) = 0
-\end{align}
-Finally the eigenvalue is determined by
-\begin{align}
-    \lambda_{nmk} = 2\sqrt{1 \; + \;\frac{ \xi_{nmk}^2}{n^2\pi^2a^2}}
-\end{align}
-
-Due to the excitation by libration the possible observable modes have to be axially symmetric, meaning $k=0$ \citep{}.
 A solution for the librating cylinder, is than defined by the indices (n, m).\\
 
 \subsection{Setup}
