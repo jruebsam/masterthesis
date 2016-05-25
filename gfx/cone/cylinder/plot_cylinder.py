@@ -35,7 +35,7 @@ def main():
     dpath = '/home/upgp/jruebsam/simulations/april16/week2/cylinder_series/'
 
 
-    f, ax = style.newfig(1., 1.5)
+    f, ax = style.newfig(1., 1.2)
 
     axins = zoomed_inset_axes(ax, 10., loc=2)
     plt.tick_params(
@@ -148,6 +148,7 @@ def main():
     formatter.set_scientific(True)
     formatter.set_powerlimits((-2,-3))
     ax.yaxis.set_major_formatter(formatter)
+
 
     ax.grid(True)
     plt.savefig('cylinder.pdf')
