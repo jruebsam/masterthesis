@@ -410,18 +410,20 @@ In the upper half of the cylinder a negative helicity can observed, the maximum 
 \end{figure}
 \clearpage
 
-In the lower half of the cylinder a positive helicity can observed, the maximum is of the same order as before $10^{-1}$.
+In the lower half of the cylinder a positive helicity can observed, the maximum is of the same order as before.
 The helicities are symmetric with respect to zero, thus $H_{\text{up.}} = -H_{\text{low.}}$.
 As a result, it can be noted that the total helicity of the cylinder evaluates to zero for all times.
 
 \subsubsection{Numerical Oscillations}
 
-
-
-
-Oscillations in      \ref{cone:cyl_oscillations}
-plot o2 o4
-
+For all immersed boundary methods numericall oscillations are observable.
+Figure \ref{cone:cyl_oscillations} shows this for the 2nd and 4th order direct forcing method and $\omega=1.5$.
+The profile is taken along the $z$-Axis at $(x,y)=(\nicefrac{1}{2},\nicefrac{1}{2})$.
+It can be noted that the error is larger in the regions near to the wall.
+One important detail is that the oscillations are only observable in $z$-Direction not
+in th $(x,y)$ plane.
+For the 4th order method an upwinding scheme has been used. In comparison to the second order FTCS-Scheme,
+it is visible that the oscillations are slightly dimished.
 
 \subsubsection{Numerical Viscosity}
 Numerical viscosity  \ref{cone:cyl_numvis}
