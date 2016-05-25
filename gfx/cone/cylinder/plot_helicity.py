@@ -21,12 +21,12 @@ def main():
     time = np.copy(d[:, 0])
     d = np.genfromtxt(dpath+'.vb')
     hell = d[:, 2]
-    lower = d[:, 0]
-    upper = d[:, 1]
+    upper = d[:, 0]
+    lower = d[:, 1]
 
     ax.plot(time, hell, label='Total Helicity')
     ax.plot(time, upper, label='Helicity in Upper Half')
-    ax.plot(time, lower, label='Helicity in Upper Half')
+    ax.plot(time, lower, label='Helicity in Lower Half')
 
     plt.legend(ncol = 3, fontsize=8, loc='upper right',
            fancybox=True, shadow=True)

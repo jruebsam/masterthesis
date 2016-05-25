@@ -339,7 +339,7 @@ The main simulation parameters are given by
 \bottomrule
 \label{cone_cyleigenvalues}
 \end{tabular}
-\caption{Eigenvalues of the (n, m)-inertial modes in  a cylinder with aspect ratio $0.5/1.1$.
+\caption{Eigenvalues of the (n, m)-inertial modes in  a cylinder with aspect ratio $\nicefrac{5}{11}$.
             Possible modes are highlighted.}
 \end{table}
 \egroup
@@ -364,15 +364,26 @@ It seems like these three methods yield nearly the same results for alle frequen
 For all remaining methods  no strict order or grouping can be recognized.\\
 The results for the interpolation method are not plotted in this spectrum, since the simulations became numerically unstable.
 
-\subsubsection{Theoretical Eigenvalues}
+\subsubsection{Eigenvalues for the inviscid equations}
 
-For a comparison to the theoretical solution introduced in section (),
-the eigevalues for $n\in[1,6]$ and $m\in[0, 3]$ were  computed.
+For a comparison to the theoretical solution introduced in section \ref{numerik:rotatingoderso}
+the eigenvalues for the (n, m)-inertial modes with $n\in[1,6]$ and $m\in[1, 2]$ were  computed.
 The results are shown in table \ref{cone_cyleigenvalues}.
+There are four possible canditates,  which could correspond to the peaks in the spectrum.
+The largest peak at $\omega=1.2$ is close to the eigenvalues of the (1, 2) and (2, 4) mode.
+The left peak at $\omega=0.75$ could be the (2, 2) mode,
+whereas the peak on the right side at $\omega=1.7$ is close to the eigenvalue of teh (1, 4) mode (evlt. M1 M2 M3 defi).
+The eigenvalues for even $n$ are not considered. Due to the libration mechanism only azimuthal velocity fields which are even,
+in relation to the plane $z=H/2$ are possible \citep{Sauret2012}.
+Furthermore we are not considering modes with $m\geq2$. These modes are allready not visible at an Ekman number of $5\cdot10^{-5}$,
+due to viscous damping of large wavenumbers \citep{Sauret2012} .
 
-Helicity in          \ref{cone:cyl_helicity}
-Oscillations in      \ref{cone:cyl_oscillations}
-Numerical viscosity  \ref{cone:cyl_numvis}
+\subsubsection{Helicity}
+
+The computation of the helicity was splitted into an integral over the upper and lower half
+of the cylinder.  A result for $\omega=1.5$ is exemplarly shown in figure \ref{cone:cyl_helicity}.
+In the upper half of the cylinder a negative helicity can observed, the maximum of the amplitude is of order $10^{-1}$.
+
 
 \clearpage
 \begin{figure}[!t]
@@ -399,11 +410,23 @@ Numerical viscosity  \ref{cone:cyl_numvis}
 \end{figure}
 \clearpage
 
-\subsubsection{Helicity}
+In the lower half of the cylinder a positive helicity can observed, the maximum is of the same order as before $10^{-1}$.
+The helicities are symmetric with respect to zero, thus $H_{\text{up.}} = -H_{\text{low.}}$.
+As a result, it can be noted that the total helicity of the cylinder evaluates to zero for all times.
 
 \subsubsection{Numerical Oscillations}
+
+
+
+
+Oscillations in      \ref{cone:cyl_oscillations}
 plot o2 o4
+
+
 \subsubsection{Numerical Viscosity}
+Numerical viscosity  \ref{cone:cyl_numvis}
+
+\clearpage
 
 \subsection{Discussion}
 
