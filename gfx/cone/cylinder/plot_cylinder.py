@@ -149,13 +149,13 @@ def main():
             )
     kw=dict(size=10., horizontalalignment='center', verticalalignment='bottom')
 
-    ax.annotate(r'(\rom{1})', xy=(1.2, 0.015),
+    ax.annotate(r'M\rom{1}', xy=(1.2, 0.015),
                 xytext=(1.2, 0.0002), arrowprops=ap, **kw)
 
-    ax.annotate(r'(\rom{2})', xy=(0.75, 0.01),
+    ax.annotate(r'M\rom{2}', xy=(0.75, 0.01),
                 xytext=(0.75, 0.0002),  arrowprops=ap, **kw)
 
-    ax.annotate(r'(\rom{3})', xy=(1.7, 0.01),
+    ax.annotate(r'M\rom{3}', xy=(1.7, 0.01),
                 xytext=(1.7, 0.0002),  arrowprops=ap, **kw)
     plt.subplots_adjust(top=0.85, bottom =0.1)
 

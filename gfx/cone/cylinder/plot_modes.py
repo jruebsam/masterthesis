@@ -34,8 +34,8 @@ def main():
     print axes.shape
 
 
-    axes[0, 0].set_ylabel(r'Theory')
-    axes[1, 0].set_ylabel(r'$\int \mathrm{dt}|v_z(x=1/2, y=1/2)|$')
+    axes[0, 0].set_ylabel(r'$\nabla p\cdot \vec{e}_z$')
+    axes[1, 0].set_ylabel(r'$\int \mathrm{dt}|v_z(y=1/2)|$')
     for ax, n, m in zip(axes[0], ns, ms):
         r = 0.5
         H = 1.1

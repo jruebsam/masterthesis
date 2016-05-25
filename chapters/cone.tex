@@ -352,7 +352,7 @@ For all simulations, the kinetic energy of the $v_z$ velocity component was comp
 The results for the computation of the amplitude $A\left(\left<v_z^3\right>\right)$, in dependcy of the libration
 frequency are shown in Figure \ref{fig:cone:cyl}.
 All methods which were used show a similar profile.
-The largest amplitude deviations can be spotted at a frequency of $\omega=0.8$ and are of the order $\approx2\cdot10^{-3}$.\\
+The largest amplitude deviations can be spotted at a frequency of $\omega=1.2$ and are of the order $\approx5\cdot10^{-3}$.\\
 It can be noted that a large resonance  occurs at the position $\omega=1.2$ of the order $\approx3.5\cdot10^{-2}$, followed by two
 smaller resonances at $\omega=0.75$ and $\omega\approx1.7$ of order $\approx1.3\cdot10^{-2}$.
 To make the deviations between the methods more visible, two inset plots are shown
@@ -454,33 +454,34 @@ kmin bla.
 
 \subsubsection{Frequency Spectrum}
 
-The different immersed boundary methods show similar results in the profile of the amplitudes.
-This in agrement with the results of validation testcases of the hagen-poiseuille and
-taylor-couette flow, since the discretzation error of the boundaries is roughly of the same order of $\approx?$ (HMM..).
-
-
-
-
-The results from this simulation are not useable for an error estimation however it can be noted
-
--ipmethod here
-- results diskussion ip kaputt \
--keine aussage über die fehler
--nur ipo2 ip o4 etc vergleich
--wie bereits gesehen liegen die fehler für df vpfrac etc in etwe in der gleich größenordnung
-
--theorie
--tabelle eigenwerte
--bild phasenspace eigenmode bla?
-An numerical study of the non-linear system was performed by \citep{BLA}, to which the results will be compared.
--vgl paper peaks breite wiel ekman zahl höher
--für kleine eckman zahlen
+We assume that the peaks in the frequency spectrum can be identified as inertial modes.
+The computed eigenvalues  are close to the peak positions in the spectrum and a first good indicator.
+However  the assumption that M\RN{1} could be the (4, 2)-Mode is wrong.
+The representation of the $v_z$-component in figure \ref{cone:cyl_modes}, in comparison to the pressure gradient
+clarifies that the peak M\RN{1} corresponds to the (2, 1)-Mode.
+M\RN{2} corresponds to the (2,2)- Mode and M\RN{3}  to the (4, 1)-Mode.\\
+The results of the simulations are therefore in a good agreement with the theoretical description of the inviscid case.\\
+An numerical study of the non-linear system was performed by \citep{Sauret2012}.
+The inertial modes, which were found in this study confirms our results.
+One difference is a slight shift $\approx0.06$ of the eigenvalues,
+due to the mistakenly used aspect-ratio of $\nicefrac{5}{11}$, instead of$\nicefrac{1}{2}$.
+Furthermore three additinonal modes were found in this study, which do not occur
+in our frequency spectrum. due to the smaller ekman number
+One explanation for this is that we use a relatively larger Ekman number used in this simulations $10^-4$.
+-discussion damping breite, hidden spectrum.\\
+All methods are able to reproduce these results, with exception the the interpolation method.
+We were not able to figure out the reason for the numerical unstability.
+The almost indentical errors of the volume penalization and direct forcing method of 2nd order,
+indicate that the timestep maybe to small.
+The velocities local to the domain boundarie are so small, that the damping force (IP-Method) is almost identical
+to setting the velocity direct to zero (DF-Method).
 
 \subsubsection{Numerical Oscillations}
+
 -numerical oscilations
 -gradient a the borde
 -this is in accordance with the upwinding
--peclet number ausrechnen ?
+-peclet number ausrechnen >10!
 -problem small ekmann numbers
 
 \subsubsection{Numerical Viscosity}
@@ -493,6 +494,10 @@ An numerical study of the non-linear system was performed by \citep{BLA}, to whi
 a comparision between the different IBMs and the detection of numerical errors.
 
 \subsection{Summary}
+All methods were able to reproduce the modes M\RN{1}, M\RN{2} and M\RN{3},
+The only exeption is the interpolation method, which is numerical unstable.
+This is a little bit of a disappointing results, since this methods
+
 what have we done
 zusammen fassung results
 - good first step
