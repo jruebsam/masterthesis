@@ -31,7 +31,7 @@ def main():
             dashes = (1, 2, 5, 2), label=r'\delta\propto\text{Ek}^{1/3}')
 
     kmin = 2*np.pi/l
-    kmax = 2*np.pi/dx
+    kmax = 2*np.pi/(2*dx)
 
     k = np.linspace(kmin, kmax, 1001)
 
@@ -41,7 +41,8 @@ def main():
     plt.legend(ncol = 1, fontsize=8, loc='upper right',
            fancybox=True, shadow=True)
 
-    ax.set_ylim(0, 1.2)
+    ax.set_ylim(0.3, 1.2)
+    ax.set_xlim(0, 402)
     ax.set_xlabel(r'Wavevektor $K$')
     ax.set_ylabel(r'$D_{\mathrm{N}}/D_{\mathrm{P}}$')
     plt.subplots_adjust(bottom=0.2)
