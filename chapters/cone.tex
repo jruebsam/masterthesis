@@ -378,38 +378,25 @@ in relation to the plane $z=H/2$ are possible \citep{Sauret2012}.
 Furthermore we are not considering modes with $m\geq2$. These modes are allready not visible at an Ekman number of $5\cdot10^{-5}$,
 due to viscous damping of large wavenumbers \citep{Sauret2012} .
 
+\begin{figure}[!t]
+  \centering
+  \includegraphics{gfx/cone/cylinder/modes.pdf}  \caption{
+      bla
+      \label{cone:cyl_modes}}
+\end{figure}
+
+A further comparison was done, by computing the eigenmodes for the possible (n, k) modes of the different peaks.
+The results are shown in figure \ref{cone:cyl_modes}.
+Since the pressure is not directly accessabel we computed the absolute velocity in $z$-direction, which should
+correlate with the theoretical pressure gradient in $z$-direction.
+Bis auf das vorzeichen sind die structuren sich sehr ähnlich.
+-eine mode fällt raus und ist nicht dargestellt.
+
 \subsubsection{Helicity}
 
 The computation of the helicity was splitted into an integral over the upper and lower half
 of the cylinder.  A result for $\omega=1.5$ is exemplarly shown in figure \ref{cone:cyl_helicity}.
 In the upper half of the cylinder a negative helicity can observed, the maximum of the amplitude is of order $10^{-1}$.
-
-
-\clearpage
-\begin{figure}[!t]
-  \centering
-  \includegraphics{gfx/cone/cylinder/helicity.pdf}  \caption{
-      Time-depent Helicity for $\omega=1.5$. The direct forcing method of second order was used.
-      \label{cone:cyl_helicity}
-      }
-\end{figure}
-\begin{figure}[!p]
-  \centering
-  \includegraphics{gfx/cone/cylinder/oscillations.pdf}  \caption{
-      Numerical oscillations on the axis $(x,y) = 0.5, 0.5$ and variable $z$.
-      For direct forcing method of second (o2) and fourth (o4) order, at $\omega=1.5$.
-      \label{cone:cyl_oscillations}
-      }
-\end{figure}
-\begin{figure}[!b]
-  \centering
-  \includegraphics{gfx/cone/cylinder/numvis.pdf}  \caption{
-      relative Numerical Viscositiy computed for $\Ekman=10^{-4}$ for 2nd and 4th- order central differencing schemes.
-      \label{cone:cyl_numvis}
-      }
-\end{figure}
-\clearpage
-
 In the lower half of the cylinder a positive helicity can observed, the maximum is of the same order as before.
 The helicities are symmetric with respect to zero, thus $H_{\text{up.}} = -H_{\text{low.}}$.
 As a result, it can be noted that the total helicity of the cylinder evaluates to zero for all times.
@@ -437,6 +424,29 @@ The largest possible wave vektor of the  system is possible for $\lambda = 2\Del
 it follows that $K_{\text{max}} = \nicefrac{2\pi}{\lambda} \approx 402.1$.
 kmin bla.
 
+\clearpage
+\begin{figure}[!t]
+  \centering
+  \includegraphics{gfx/cone/cylinder/helicity.pdf}  \caption{
+      Time-depent Helicity for $\omega=1.5$. The direct forcing method of second order was used.
+      \label{cone:cyl_helicity}
+      }
+\end{figure}
+\begin{figure}[!p]
+  \centering
+  \includegraphics{gfx/cone/cylinder/oscillations.pdf}  \caption{
+      Numerical oscillations on the axis $(x,y) = 0.5, 0.5$ and variable $z$.
+      For direct forcing method of second (o2) and fourth (o4) order, at $\omega=1.5$.
+      \label{cone:cyl_oscillations}
+      }
+\end{figure}
+\begin{figure}[!b]
+  \centering
+  \includegraphics{gfx/cone/cylinder/numvis.pdf}  \caption{
+      relative Numerical Viscositiy computed for $\Ekman=10^{-4}$ for 2nd and 4th- order central differencing schemes.
+      \label{cone:cyl_numvis}
+      }
+\end{figure}
 \clearpage
 
 \subsection{Discussion}
