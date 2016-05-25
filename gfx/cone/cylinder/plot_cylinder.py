@@ -3,6 +3,10 @@ style.setup()
 
 import numpy as np
 import matplotlib.pyplot as plt
+
+plt.rcParams['text.latex.preamble']=r'\makeatletter \newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@} \makeatother'
+plt.rcParams.update()
+
 import os, sys
 from glob import glob
 import tables as tb
@@ -141,6 +145,18 @@ def main():
     ax.legend(ncol = 3, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.2),
            fancybox=True, shadow=True)
 
+    ap=dict(arrowstyle='-|>' , facecolor='black', lw=0.8
+            )
+    kw=dict(size=10., horizontalalignment='center', verticalalignment='bottom')
+
+    ax.annotate(r'(\rom{1})', xy=(1.2, 0.015),
+                xytext=(1.2, 0.0002), arrowprops=ap, **kw)
+
+    ax.annotate(r'(\rom{2})', xy=(0.75, 0.01),
+                xytext=(0.75, 0.0002),  arrowprops=ap, **kw)
+
+    ax.annotate(r'(\rom{3})', xy=(1.7, 0.01),
+                xytext=(1.7, 0.0002),  arrowprops=ap, **kw)
     plt.subplots_adjust(top=0.85, bottom =0.1)
 
     from matplotlib import ticker
