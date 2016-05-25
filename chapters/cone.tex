@@ -239,34 +239,42 @@ The use of the different parameters with this template is shown in Appendix ().
 \section{Data Analysis}
 
 The main interest, in the analysis of the simulation data, lies in the identification of possible inertial modes.
+A appropriate choice is to consider the energy in the $v_z$ velocity component of the intertial mode,
+which is given by
 
 \begin{align}
     \left<v_z^2 \right>(t) =  \int \dif V v_z(t)^2 \approx \sum_{i, j, k}^{N_x,N_y,N_z} \Delta x \Delta y \Delta z \left.v_z(t)^2 \right|_{i,j,k}
 \end{align}
 
+This has multiple benefits
 
-This is an appropriate choice, since
--coordinate system
--energy transport friction in phi r direction
--energie in den moden
--ueberlagerung mit beschleunigung in phi
+\begin{itemize}
+    \item The $v_z$-velocity component is indepent of the coordinate system which is used, it is not necessary
+                to compute a transformation to inertial frame.
+    \item The energy induced by the libration is perpendicular to this component, thus all components
+            in the $v_z$-component are created by inertial  wave propagation(umshr)
+\end{itemize}
 
--interessiert an der idenfizierung von inertialmoden
--ziel function
- to show resonances
+In figure \ref{fig:cone:cyl_vzmode}, this energy is shown exemplarly for two libration frequencies for a cylinder.
+\footnote{From section so und so}
+For a resonance of the system ($\omega=1.2$) it takes further time until a steady state, with a constant oscillation is reachd.
 
+\begin{figure}[!pb]
+  \includegraphics{gfx/cone/cylinder/cyl_vz.pdf}\label{fig:cone:cyl_vzmode}
+  \caption{Kinetic energy in $z$-direction for the direct forcing second-method and $\omega=1.2$.}
+\end{figure}
+\clearpage
 
-compatution of $vz^2$
-spinup time for a mode is given by an estimation from greenspan t = 100
-
--fehler mode und nicht moden
-
+In order to obtain a spectrum, the energy amplitude is computed from the last two extrem of $<v_z^2>$.
 \begin{align}
     A\left(\left<v_z^2\right>\right) = \frac{\max(\argmax(\left<v_z^2\right>_{v})) - \max(\argmin(\left<v_z^2\right>_{v}))}{2}
 \end{align}
 
--bilder
--description
+We estimate the error of this method of order $\sigma 5-10A$.(Wie schreiben?)
+For resonances the error is more likely to be in the range of 10 \% for non 5\%.
+This can also be seen in figure ().\\
+Secondly we want to compute the helicity of the system.
+Here we use the normalized helicity, given my  \citep{XXX}
 
 \begin{align}
 H(t) = \frac{\int_V \dif V \vec{v} (\nabla \times \vec{v})}{\int_V \dif V |\vec{v}||\nabla \times \vec{v}|}
@@ -277,12 +285,6 @@ H(t) = \frac{\int_V \dif V \vec{v} (\nabla \times \vec{v})}{\int_V \dif V |\vec{
 The discretization of the rotation operator is using a central difference of second order.
 
 
-\begin{figure}[!pb]
-  \includegraphics{gfx/cone/cylinder/cyl_vz.pdf}\label{fig:cone:cyl_vzmode}
-  \caption{Kinetic energy in $z$-direction for the direct forcing second-method and $\omega=1.2$.}
-\end{figure}
-\clearpage
-
 
 \section{Simulation of a Librating Cylinder}
 \label{cone:sec:lib_cylinder}
@@ -292,8 +294,6 @@ simulations of fluid flow in a librating cylinder were carried out.
 Despite the the theoretical and experimental results, discussed in section \ref{cone:theorie_exp},
 it is diffult to find results in literature which would be suitable for an appropiate validation for the cone.
 For the cylinder on the other hand, theoretical and numerical results are available.\\
-A theoretical solution can be found in \citep{Greenspan1990}, and shall be summarized here.
-A solution for the librating cylinder, is than defined by the indices (n, m).\\
 
 \subsection{Setup}
 
@@ -326,6 +326,7 @@ The main simulation parameters are given by
 \clearpage
 
 \subsection{Results}
+\subsubsection{Inertial Wave Spectrum}
 
 For all simulations, the kinetic energy of the $v_z$ velocity component was computed.
 The results for the computation of the amplitude $A\left(\left<v_z^3\right>\right)$, in dependcy of the libration
@@ -342,30 +343,10 @@ The amplitude difference betweens the first two methods is just slighty visible 
 All remaining methods are slighty diminished, but no strict order can be determined.
 -ip not stable bla
 
+\subsubsection{Theoretical Eigenvalues}
 
-
-\subsection{Discussion}
-
-\subsubsection{Immersed Boundary Methods}
-
-The different immersed boundary methods show similar results in the profile of the amplitudes. This in agrement with the results of validation testcases of the hagen-poiseuille and
-
-taylor-couette flow, since the discretzation error of the boundaries is roughly of the same order of $\approx?$ (HMM..).
-One pos
-
-
-The results from this simulation are not useable for an error estimation however it can be noted
-
-
-
-
--methods:
--keine aussage über die fehler
--nur ipo2 ip o4 etc vergleich
--wie bereits gesehen liegen die fehler für df vpfrac etc in etwe in der gleich größenordnung
-
--theorie
--tabelle eigenwerte
+The theoretical solution was computed for m = and n = .
+See table
 
 \begin{center}
     \begin{tabular}{cccc}
@@ -379,37 +360,39 @@ The results from this simulation are not useable for an error estimation however
     \end{tabular}
 \end{center}
 
--paper
+\subsubsection{Helicity}
 
--numerical viscosity
+\subsubsection{Numerical Oscillations}
+plot o2 o4
+\subsubsection{Numerical Viscosity}
+
+\subsection{Discussion}
+
+\subsubsection{Immersed Boundary Methods o Spectrum}
+
+The different immersed boundary methods show similar results in the profile of the amplitudes.
+This in agrement with the results of validation testcases of the hagen-poiseuille and
+taylor-couette flow, since the discretzation error of the boundaries is roughly of the same order of $\approx?$ (HMM..).
+The results from this simulation are not useable for an error estimation however it can be noted
+
+-ipmethod here
+- results diskussion ip kaputt \
+-keine aussage über die fehler
+-nur ipo2 ip o4 etc vergleich
+-wie bereits gesehen liegen die fehler für df vpfrac etc in etwe in der gleich größenordnung
+
+-theorie
+-tabelle eigenwerte
+-paper kurz erklären symetrie warum fehlen bestimmte moden ? ?
+\subsubsection{Numerical Oscillations}
 -numerical oscilations
+\subsubsection{Numerical Viscosity}
+-numerical viscosity
+\subsubsection{Helicity}
+-helic ist 0
 
-
-The frequency spectrum
-
-
-
-
-
-As a first system we want to investigate the
-
-- expectation
-- paper kurz erklären symetrie warum fehlen bestimmte moden ? ?
-
-- verglein von den bedien implementierungen\\
-- first test omega = 1.2 ...\\
-- diskussion rand compare to tcflow \\
-- test serie verschiede methoden\\
-- spektrum dargesstel\\
-- evtl raytracer  comparison
-- heliziätte dargstellt\\
-- results diskussion ip kaputt heli 0 etc \\
 An numerical study of the non-linear system was performed by \citep{BLA}, to which the results will be compared.
 a comparision between the different IBMs and the detection of numerical errors.
-In order to compute a frequency spectrum, we choose the kinetic energy of the velocity field in $z$-direction.
-
-\subsection{Numerical Viscosity}
-put in numerik herleitung
 
 \newpage
 
