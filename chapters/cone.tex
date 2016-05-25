@@ -478,16 +478,25 @@ to setting the velocity direct to zero (DF-Method).
 
 \subsubsection{Numerical Oscillations}
 
+The velocities in the system are at least of order $2\cdot10^{-1}$. The resulting Peclet number is
+given by
+\begin{align}
+    \Pe = \frac{0.1\cdot\nicefrac{1}{128}}{\Ekman} =15.625
+\end{align}
 
- \ref{cone:cyl_modes},
-
--numerical oscilations
--gradient a the borde
--this is in accordance with the upwinding
--peclet number ausrechnen >10!
--problem small ekmann numbers
+This value gives a possible explanation for the occurence of oscillations,
+since it violates the stability criterion $\Pe<2$.
+The improvement from the upwinding scheme, support this assumption.
+It still remains unclear why the oscillations only occur in the $z$-direction.
+%Furthermore this is in accordanc
+%Oscillations usually occur where the velocity gradient is high.
+%This can also be seen from the velocity profile of the (2, 2)-mode in figure \ref{cone:cyl_modes}.
+%It is possible that the gradient arises from the corners on top and botom of the cylinder
+%which is at
 
 \subsubsection{Numerical Viscosity}
+
+The numerical viscositiy
 -numerical viscosity
 -the idea was to see if the numercial viscosity is larger than the viscosity of ek
 -good results
@@ -497,10 +506,14 @@ to setting the velocity direct to zero (DF-Method).
 a comparision between the different IBMs and the detection of numerical errors.
 
 \subsection{Summary}
+
 All methods were able to reproduce the modes M\RN{1}, M\RN{2} and M\RN{3},
 The only exeption is the interpolation method, which is numerical unstable.
 This is a little bit of a disappointing results, since this methods
+-unfortunate ip methad
+-howerve oscillations.
 
+freeslip
 what have we done
 zusammen fassung results
 - good first step
