@@ -20,6 +20,8 @@ from mpl_toolkits.axes_grid1.inset_locator import mark_inset
 cmap = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf']
 markers = itertools.cycle('o^*')
 from cycler import cycler
+plt.rcParams['text.latex.preamble']=r'\makeatletter \newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@} \makeatother'
+plt.rcParams.update()
 
 cc = itertools.cycle(plt.cm.spectral(np.linspace(0,1,10)))
 #plt.rc('axes', prop_cycle=(cycler('color', cmap)))
@@ -46,6 +48,9 @@ def main():
     l = ['Cone', 'Frustum']
     d = [dpath1, dpath2]
 
+    ap=dict(arrowstyle='-|>' , facecolor='black', lw=0.8
+            )
+    kw=dict(size=10., horizontalalignment='center', verticalalignment='bottom')
 
     for label, dpath in zip(l, d):
         os.chdir(os.path.join(dpath, 'data', 'h_%.3f' % radius))
@@ -77,6 +82,14 @@ def main():
 
     ax.set_ylabel(r'$\left< H \right>$')
     ax.set_xlabel(r'$\omega$')
+    ax.annotate(r'(\rom{1})', xy=(1.25, -0.0045),
+                xytext=(1.25, 0.01), arrowprops=ap, **kw)
+
+    ax.annotate(r'(\rom{2})', xy=(0.85, 0.045),
+                xytext=(0.7, 0.02),  arrowprops=ap, **kw)
+
+    ax.annotate(r'(\rom{8})', xy=(0.8, 0.05),
+                xytext=(0.65, 0.05),  arrowprops=ap, **kw)
 
     ax.grid(True)
     #ax.set_ylim(0, 5*1e-4)
