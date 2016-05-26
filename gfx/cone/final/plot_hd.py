@@ -24,7 +24,7 @@ def get_amp(x):
     rel_error = np.abs(amp-old)/amp
     return amp, rel_error
 
-cmap = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf']
+cp = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf']
 
 def main():
     path = '/home/upgp/jruebsam/simulations/mai16/week3'
@@ -59,15 +59,17 @@ def main():
                 a_vz.append(amp)
                 omgs.append(omg)
 
-        c = 'ro-' if 'hd' in dr else 'bo-'
 
 
         ms, lw, mew = 4, 0.8, 0
         if (j==0) or (j==2):
+            c = cp[0] if 'hd' in dr else cp[1]
             lab = r'$\Delta x = 1/256$' if 'hd' in dr else r'$\Delta x = 1/128$'
-            ax.plot(omgs, a_vz, c, ms=ms, lw=lw,mew=mew, label=lab)#)wall_%.3f %s' % (r, dr))
+            ax.plot(omgs, a_vz, 'o-', color = c, ms=ms, lw=lw,mew=mew, label=lab)
         else:
-            ax.plot(omgs, a_vz, c, ms=ms, lw=lw, mew=mew)#, label='wall_%.3f %s' % (r, dr))
+            c = cp[1] if 'hd' in dr else cp[2]
+            lab = r'$\Delta x = 1/256$' if 'hd' in dr else r'$\Delta x = 1/128$'
+            ax.plot(omgs, a_vz, 'o-', color=c,  ms=ms, lw=lw, mew=mew, label=lab)
 
         os.chdir(cdir)
 
@@ -80,7 +82,14 @@ def main():
     formatter = ticker.ScalarFormatter(useMathText=True)
     formatter.set_scientific(True)
     formatter.set_powerlimits((-3,-2))
+
+    ax.legend(ncol = 2, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.3),
+           fancybox=True, shadow=True)
+
     ax.yaxis.set_major_formatter(formatter)
+
+    ax.grid(True)
+    plt.subplots_adjust(top=0.8, bottom =0.15)
 
     ax.grid(True)
     plt.subplots_adjust(bottom=0.1)
@@ -88,3 +97,4 @@ def main():
 
 if __name__=='__main__':
     main()
+
