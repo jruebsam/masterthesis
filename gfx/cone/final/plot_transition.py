@@ -114,7 +114,7 @@ def main():
     hs = rs
     for i, (ax, radius) in enumerate(zip(axes[:, 0], hs)):
 
-        for label, dpath in zip(['Cone', 'Frustum'], [dpath1, dpath2]):
+        for label, dpath in zip(['Frustum', 'Cone'], [dpath1, dpath2]):
             os.chdir(os.path.join(dpath, 'data', 'h_%.3f' % radius))
 
             simpathes =  glob('*/*.ekin')

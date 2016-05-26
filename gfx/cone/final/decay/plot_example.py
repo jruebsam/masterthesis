@@ -52,7 +52,7 @@ def main():
            fancybox=True, shadow=True)
 
     ax.set_xlabel(r'Simulation Time t')
-    ax.set_ylabel(r'$\left<v_z\right>$')
+    ax.set_ylabel(r'$\left<v_z^2\right>$')
 
     #formatter = ticker.ScalarFormatter(useMathText=True)
     #formatter.set_scientific(True)
