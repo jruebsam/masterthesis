@@ -141,6 +141,38 @@
        effect="spiro"
        id="path-effect2997"
        is_visible="true" />
+    <marker
+       inkscape:stockid="Arrow1Mstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mstart-9"
+       style="overflow:visible">
+      <path
+         id="path3785-2"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="matrix(0.4,0,0,0.4,4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Mend-0"
+       style="overflow:visible">
+      <path
+         id="path3806-0"
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="scale(-0.6,-0.6)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect6161-8"
+       is_visible="true" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -150,10 +182,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="46.973987"
+     inkscape:cx="47.688273"
      inkscape:cy="124.30671"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g4283"
      showgrid="true"
      inkscape:window-width="1920"
      inkscape:window-height="1145"
@@ -242,16 +274,16 @@
            y="369.86218"
            x="210.71429"
            id="tspan5745"
-           sodipodi:role="line">$h$</tspan></text>
+           sodipodi:role="line">$H$</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text5747"
-         y="369.50504"
-         x="385"
-         style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         y="372.36221"
+         x="410"
+         style="font-size:4.6192112px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
          xml:space="preserve"><tspan
-           y="369.50504"
-           x="385"
+           y="372.36221"
+           x="410"
            id="tspan5749"
            sodipodi:role="line">$h_c$</tspan></text>
       <path
@@ -278,7 +310,7 @@
            y="432.38107"
            x="353.30084"
            id="tspan6145"
-           sodipodi:role="line">$h_t$</tspan></text>
+           sodipodi:role="line">$h_b$</tspan></text>
       <path
          sodipodi:nodetypes="cc"
          inkscape:connector-curvature="0"
@@ -309,35 +341,6 @@
            x="222.85715"
            id="tspan6157"
            sodipodi:role="line">$\alpha$</tspan></text>
-      <path
-         inkscape:connector-curvature="0"
-         inkscape:original-d="m 320,312.36218 0,35 30,0"
-         inkscape:path-effect="#path-effect6161"
-         id="path6159"
-         d="m 320,312.36218 0,35 30,0"
-         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Mstart);marker-end:url(#Arrow2Mend)" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text6543"
-         y="327.36218"
-         x="305"
-         style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-         xml:space="preserve"><tspan
-           y="327.36218"
-           x="305"
-           id="tspan6545"
-           sodipodi:role="line">$z$</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text6547"
-         y="357.36218"
-         x="330"
-         style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-         xml:space="preserve"><tspan
-           y="357.36218"
-           x="330"
-           id="tspan6549"
-           sodipodi:role="line">$x$</tspan></text>
       <path
          sodipodi:nodetypes="cc"
          inkscape:connector-curvature="0"
@@ -379,13 +382,53 @@
          sodipodi:linespacing="125%"
          id="text5747-6"
          y="272.36221"
-         x="405"
+         x="410"
          style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
          xml:space="preserve"><tspan
            y="272.36221"
-           x="405"
+           x="410"
            id="tspan5749-0"
-           sodipodi:role="line">$o$</tspan></text>
+           sodipodi:role="line">$O$</tspan></text>
+      <path
+         inkscape:connector-curvature="0"
+         inkscape:original-d="m 324.83744,327.66416 0,35 30,0"
+         inkscape:path-effect="#path-effect6161-8"
+         id="path6159"
+         d="m 324.83744,327.66416 0,35 30,0"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Mstart);marker-end:url(#Arrow2Mend)" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text6543"
+         y="342.66418"
+         x="309.83743"
+         style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           y="342.66418"
+           x="309.83743"
+           id="tspan6545"
+           sodipodi:role="line">$z$</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text6547"
+         y="372.66418"
+         x="329.83743"
+         style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           y="372.66418"
+           x="329.83743"
+           id="tspan6549"
+           sodipodi:role="line">$x$</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text3136"
+         y="347.83295"
+         x="328.68143"
+         style="font-size:5.97873497px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           y="347.83295"
+           x="328.68143"
+           id="tspan3138"
+           sodipodi:role="line">$\otimes y$</tspan></text>
     </g>
   </g>
 </svg>

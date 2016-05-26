@@ -20,19 +20,18 @@ is directly linked to dynamo action \citep{moffat1978}.
 It would be interesting to find a system which exhibits a large helicity,
 as a possible candidate for future researches of the geodynamo.
 Furthermore we are interested in the propagation of inertial waves in different fluid domains.\\
-The systems we want to study in this thesis is given by a librating cone, which is compared to
-a librating frustum, by inserting a bottom plate into the apex.
-Inertial waves are excited by a temporal modulation of the rotation frequency.
+The systems we want to study in this thesis is given by a rotating cone, which is compared to
+a frustum, by inserting a bottom plate into the apex.
+Inertial waves are excited by a temporal modulation of the rotation frequency, which is denoted as libration.
 The objective is to examine the ability to generate inertial modes or wave attractors.
 Furthermore we want to study the properties of the helicity of the system and investigate the
 decay of inertial oscillations.\\
 In this chapter we will use linearized equations. Due to the axial symmetry with the rotating axis,
 this problem could be reduced to two dimensions.
 However, we want to test the code in a three dimensional setup.
-One reason for this is a possible future application of the setup.
-This objective would be to study the decay of turbulence in the apex of the cone,
-a simulation in three dimensions can not be avoided in this case.
-
+One reason for this is a possible future application.
+Th objective would be to study the decay of turbulence in the apex of the cone.
+A simulation in three dimensions can not be avoided in this case.
 
 \section{Theoretical Description}
 \label{cone:theorie_theo}
@@ -41,7 +40,7 @@ This section gives a brief theoretical description of the problem adapted from \
 Instead of a cone, a comparison to the two-dimensional analogy of a wedge, is made.
 This system is based on the idea to introduce a geometric shape, which contains a singularity.\\
 Let us consider the propagation of an inertial wave ray, emitted at one of the upper edges of
-the wedge as shown in figure \ref{cone:theorie}.
+the wedge, as shown in figure \ref{cone:theorie}.
 The wave propagates under the angle $\theta = \arccos(\omega/2)$, with respect to the horizontal axis.
 For each reflection the propagation angle with respect to the rotation axis is preserved.
 In the case of $\theta<\alpha$ we have a supercritical reflection,
@@ -75,7 +74,7 @@ To be more precisely
 
 the prime denotes the properties after a reflection.
 This means that the overall propagation time into the apex of the cone becomes infinity, along with the energy density and the wave number.
-The apex of the cone introduces a so to speak open geometry into the fluid domain and is acting as an attractor to inertial waves.
+Thus, the apex is acting as an attractor to inertial waves.
 As a conclusion it follows that since no reflection out of the cone apex can occur, the possibility of inertial modes is not given.
 
 \section{Experiment}
@@ -102,7 +101,7 @@ The total rotation rate is proportional to
 \end{align}
 
 where $\omega$ is the libration frequency with the amplitude $\epsilon_0=\SI{0.2}{\radian}$.
-The excitation mechanism is a results from the wall friction, induced
+The excitation mechanism is a result from the wall friction, induced
 by the modulation of the constant rotation frequency $\Omega_0$.
 
 \begin{figure}[!b]
@@ -117,7 +116,7 @@ by the modulation of the constant rotation frequency $\Omega_0$.
       }
 \end{figure}
 
-For the analysis the dynamic pressure field was measured at at different depths along the rotation axis.
+For the analysis the dynamic pressure field was measured at different depths along the rotation axis.
 The ratio of libration to the constant rotation frequency was varied in the range of ${0.25\leq\omega/2\Omega_0\leq1}$.
 The pressure and phase lag spectrum  show that no consistent peaks are observable for different measurment heights.
 Hence, no inertial modes are existing.
@@ -157,7 +156,7 @@ modulated, it is necessary to introduce the boundary conditions
 
 However, obtaining a linearized version of the boundary methods is not as easy.
 In addition we think it is safer to use No-Slip boundaries with zero velocity, as
-the taylor-couette system showed that other velocities other than zero, could create a larger numerical error.
+the taylor-couette system showed that velocities other than zero, can create a larger numerical error.
 The alternative option is the introduction of an accelerated frame of reference.
 In this case the boundary conditions do not need to be modified, but the coriolis forcing term is given by \citep{Tilgner2007}.
 
@@ -217,7 +216,7 @@ In the remaining sections of this chapter we want to use the following conventio
 \begin{description}
     \item[$H$]{Total height of the simulation domain}
     \item[$h_c$]{Height of the Cone}
-    \item[$h_t$]{Height of the bottom plate for a frustum}
+    \item[$h_b$]{Height of the bottom plate}
     \item[$r$]{Radius of the bottom plate}
     \item[$O$]{Offset at the top of the Cone}
     \item[$\alpha$]{Slope of the Cone}
@@ -266,7 +265,7 @@ For a resonance of the system ($\omega=1.2$), it takes further time until a stea
 
 \begin{figure}[!pb]
   \includegraphics{gfx/cone/cylinder/cyl_vz.pdf}
-  \caption{Kinetic energy in $z$-direction for the direct forcing second-method and different libration frequencies.
+  \caption{Kinetic energy in $z$-direction for the direct forcing 2nd-order method at different libration frequencies.
   \label{fig:cone:cyl_vzmode}
   }
 \end{figure}
@@ -279,11 +278,11 @@ The computation is given by
     A\left(\left<v_z^2\right>\right) = \frac{\max(\argmax(\left<v_z^2\right>_{v})) - \max(\argmin(\left<v_z^2\right>_{v}))}{2}
 \end{align}
 
-Since the error of this calculation depends on the total simulation time it was ensured that all simulations,
+Since the error of this calculation depends on the total simulation time, it was ensured that all simulations
 were carried out long enough.
-For an equal simulation time the error for a resonance will be in the range off $\sigma_A \approx 5\% - 10\%$.
-In case of no resonance we estimate $\sigma_A \approx 2.5\% - 5\%$.\\
-Secondly we want to compute the normalized helicity of the system, given by
+For the same simulation times, the error for a resonance is estimated in the range $\sigma_A \approx 5\% - 10\%$,
+When no resonance are present, we estimate an error of order $\sigma_A \approx 2.5\% - 5\%$.\\
+Secondly we will  compute the normalized helicity of the system, given by
 
 \begin{align}
 H(t) = \frac{\int_V \dif V \vec{v} (\nabla \times \vec{v})}
@@ -303,8 +302,8 @@ The discretization of the rotation operator is using a central difference of sec
 \label{cone:sec:lib_cylinder}
 
 As a first step towards the implementation of the librating cone, simulations of fluid flow in a librating cylinder were carried out.
-Despite the theoretical and experimental results, discussed in this chapter,
-it is difficult to find results in literature which would be suitable for an appropriate validation.
+Despite the theoretical and experimental results we discussed so far,
+it is difficult to find results in literature which would be suitable for an appropriate validation for the cone.
 For the cylinder on the other hand, theoretical and numerical results are available.\\
 The theoretical solution for the inviscid case, was introduced in chapter \ref{NUMERIK}.
 Due to the excitation by libration the possible observable modes have to be axially symmetric, meaning the azimuthal wavenumber is $k=0$.
@@ -320,7 +319,7 @@ The main simulation parameters are given by
 \begin{tabular}{c|c|c|c|c|c|c|c }
  $\leftarrow  \omega \rightarrow $ & $\Gamma$ & $\Delta t$ & $\Delta x$ & $c^2$ & $\Ekman$  & $l_x, l_y, l_z$ & $T_{end}$\\
 \hline
- $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $\nicefrac{0.5}{1.1}$ & $10^{-4}$ & $\nicefrac{1}{128}$ & 500 & $10^{-4}$  & (1.1, 1.1, 1.1) & 100\\
+ $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $\nicefrac{0.5}{1.1}$ & $10^{-4}$ & $\nicefrac{1}{128}$ & 500 & $10^{-4}$  & (1.1, 1, 1) & 100\\
 \end{tabular}
 \vspace*{0.7ex}
 \end{center}
@@ -339,11 +338,11 @@ The results for the computation of the amplitude $A\left(\left<v_z^3\right>\righ
 frequency are shown in Figure \ref{fig:cone:cyl}.
 All immersed boundary methods show a similar profile.
 The largest amplitude deviations can be spotted at a frequency of $\omega=1.2$ and are of the order $\approx5\cdot10^{-3}$.\\
-It can be noted that at this position the largest resonance M\RN{1} occurs and is of the order $\approx3.5\cdot10^{-2}$.
+It can be noted that at this position the largest resonance M\RN{1} occurs which is of the order $\approx3.5\cdot10^{-2}$.
 Two other resonances can be observed at $\omega=0.75$ (M\RN{2}) and $\omega\approx1.7$ (M\RN{2}), which are
 of order ${\approx1.3\cdot10^{-2}}$.
-To make the deviations between the methods more visible, two inset plots are shown
-set to the location $\omega=0.8$ and $\omega=1.0$.\\
+To make the deviations between the methods more visible, two inset plots which are
+set to the location $\omega=0.8$ and $\omega=1.0$., are shown.
 For both positions, the largest amplitude is given by the direct forcing method of 2nd order, followed by
 the volume penalization method of 2nd and 4th order.
 The amplitude difference betweens the first two methods is just slighty visible when looking at the right inset plot.
@@ -358,7 +357,7 @@ The results are shown in table \ref{cone_cyleigenvalues}.
 There are four possible candidates,  which could correspond to the peaks in the spectrum.
 The largest peak at M\RN{1} is close to the eigenvalues of the (1, 2) and (2, 4) mode.
 The left peak  M\RN{2} could be related to the (2, 2) mode,  whereas the peak on the right side M\RN{3} is close to the eigenvalue of the (1, 4) mode.
-The eigenvalues for even $n$ are not considered. Due to the excitation by libration  only azimuthal velocity fields which are even,
+The eigenvalues for even $n$ are not considered. Due to the excitation by libration,  only azimuthal velocity fields which are even,
 in relation to the plane $z=H/2$ are possible \citep{Sauret2012}.
 Furthermore we are not considering modes with $m\geq2$. These modes are not even visible at an Ekman number of $5\cdot10^{-5}$,
 due to viscous damping of large wavenumbers, according to \citep{Sauret2012}.\\
@@ -412,8 +411,9 @@ With exception of the sign, which is eliminated by taking the absolute value of 
 
 The theoretical profiles for the inviscid problem, look indeed very similar to the simulated profiles.
 The simulation profiles are slightly distorted on the walls of the fluid domain, in
-comparison to the theoretical profiles
-For all (n, m)-modes the number of wave nodes in $z$, and $x$ direction is indentical.
+comparison to the theoretical profiles.
+For all modes, the number of wave nodes in $z$, and $x$ direction is identical,
+ when comparing the theoretical and numerical profiles.
 
 \subsubsection{Helicity}
 
@@ -450,7 +450,7 @@ For all immersed boundary methods numerical oscillations are observable.
 Figure \ref{cone:cyl_oscillations} shows this for the 2nd and 4th order direct forcing method and $\omega=1.5$.
 The profile is taken along the $z$-Axis at $(x,y)=(\nicefrac{1}{2},\nicefrac{1}{2})$.
 It can be noted that the error is larger in the regions near to the wall.
-One important detail is that the oscillations are only observable in $z$-Direction, not
+One important detail is that the oscillations are only observable in $z$-direction, not
 in th $(x,y)$ plane.
 For the 4th order method the upwinding scheme has been used, in contrast to the FTCS-Scheme at 2nd order.
 It is visible that the oscillations are slightly diminished, when using the 4th order scheme.
@@ -459,7 +459,7 @@ It is visible that the oscillations are slightly diminished, when using the 4th 
 
 The ratio between the numerical and physical viscosity was computed, according to equation \ref{NUMERIC:NUMVIS}.
 The results are shown in figure \ref{cone:cyl_numvis}.
-The red bar denotes the wavevektor for the width of an inertial wave node $\propto \Ekman^{1/3.}$.
+The red bar denotes the wavevektor for the width of an inertial wave, which is $\propto \Ekman^{1/3.}$.
 For this value the ratio is $\approx{0.977}$.
 For both methods a decrease in the numerical viscosity can  be observed.
 At larger wave vektors the 4th order method has a better approximation, than the 2nd order method.
@@ -484,14 +484,14 @@ An numerical study of the non-linear system was performed by \citep{Sauret2012}.
 The inertial modes, which were found in this study confirms our results.
 One difference is a slight shift $\approx0.06$ of the eigenvalues,
 due to the mistakenly used aspect-ratio .
-Furthermore three additinonal modes were found in this study, which do not occur
+Furthermore three additional modes were found in this study, which do not occur
 in our frequency spectrum.
 One explanation for this is that we used a  larger Ekman number in this simulations $\propto10^-4$.
-The width of a resconance peak is proportional to the damping rate of the system, in analogy to an harmonic oscillator.
-\footnote{Privave communication A.Tilgner}
+The width of a resonance peak is proportional to the damping rate of the system, in analogy to an harmonic oscillator.
+\footnote{Private communication A.Tilgner}
 Due to the stronger damping in our simulations the spectrum is smeared out (wie kann man das am besten schreiben?).\\
 All methods are able to reproduce these results, with exception of the interpolation method.
-Unfortunately We were not able to figure out the reason for the numerical unstability.
+Unfortunately we were not able to figure out the reason for the numerical unstability.
 The almost indentical errors of the volume penalization and direct forcing method of 2nd order,
 indicate that the timestep could be to small.
 The velocities local to the domain boundarie are so small, that the damping force (IP-Method) is almost identical
@@ -517,14 +517,15 @@ It still remains unclear why the oscillations only occur in the $z$-direction.
 
 \subsubsection{Numerical Viscosity}
 
-The numerical viscositiy was computed in order to determine the influence on the Ekman number.
-For the physical properties of our system, we estimate wavelengts in the range of $1 - \Ekman^{1/3}$.
-The error of the numerical viscosity in this range can be neglected, according to figure \ref{cone:cyl_numvis}.
+The numerical viscosity was computed in order to determine its influence on the system.
+For the physical properties of our system, we estimate wavelengths in the range of $1 - \Ekman^{1/3}$.
+The error of the numerical viscosity in this range can be neglected.
 
 \subsubsection{Helicity}
 
-The computation shows that the total helicity of the cylinder is zero, due to the axial symmetry in $z$-direction.
-The helicty in the upper and lower part of the cylinder cancels each other out.
+The computation shows that the total helicity of the cylinder is zero.
+This result is not unexpected.
+Due to the axial symmetry in $z$-direction., the helicty in the upper and lower part of the cylinder cancels each other out.
 
 \newpage
 

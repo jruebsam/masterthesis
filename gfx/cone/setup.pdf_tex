@@ -51,7 +51,7 @@
   \begin{picture}(1,0.9464746)%
     \put(0,0){\includegraphics[width=\unitlength]{setup.pdf}}%
     \put(0.05681941,0.4176587){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$H$}}}%
-    \put(0.94218835,0.40655178){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$h_c$}}}%
+    \put(0.83112056,0.4192454){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$h_c$}}}%
     \put(0.69029034,0.13990529){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$h_b$}}}%
     \put(0.56931796,0.29707083){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$r$}}}%
     \put(0.11076661,0.69215478){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\alpha$}}}%
