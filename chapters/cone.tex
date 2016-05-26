@@ -221,6 +221,7 @@ In the remaining sections of this chapter we want to use the following conventio
     \item[$r$]{Radius of the bottom plate}
     \item[$O$]{Offset at the top of the Cone}
     \item[$\alpha$]{Slope of the Cone}
+    \item[$\Theta$]{Propagation angle of an inertial wave, with respect to the horizontal axis.}
     \item[$\Omega$]{Rotation rate}
     \item[$\omega$]{Frequency of the libration}
     \item[$\epsilon$]{Amplitude of the libration, default is 1\footnote{Not important due to the linearization}}
@@ -298,20 +299,21 @@ The discretization of the rotation operator is using a central difference of sec
 
 
 \section{Simulation of a Librating Cylinder}
+\subsection{Introduction}
 \label{cone:sec:lib_cylinder}
 
-As a first step towards the implemenation of the librating cone,
-simulations of fluid flow in a librating cylinder were carried out.
-Despite the the theoretical and experimental results, discussed in section \ref{cone:theorie_theo}, \ref{cone:theorie_exp},
-
-it is diffult to find results in literature which would be suitable for an appropiate validation for the cone.
+As a first step towards the implementation of the librating cone, simulations of fluid flow in a librating cylinder were carried out.
+Despite the theoretical and experimental results, discussed in this chapter,
+it is difficult to find results in literature which would be suitable for an appropriate validation.
 For the cylinder on the other hand, theoretical and numerical results are available.\\
-
-\subsection{Setup}
-
-The simulations were performed for all immersed boundary methods introduced in chapter \ref{IBM}.
-Due to a misunterstanding the aspect ratio of the cylinder was set to $\Gamma=r/H=\nicefrac{0.5}{1.1}$ instead of $\frac{1}{2}$.
+The theoretical solution for the inviscid case, was introduced in chapter \ref{NUMERIK}.
+Due to the excitation by libration the possible observable modes have to be axially symmetric, meaning the azimuthal wavenumber is $k=0$.
+All possible modes are therefore defined by the indices $(n, m)$, corresponding to the radial and axial wavenumber.\\
+The simulations were performed with a librating cylinder, of aspect ratio $\Gamma=r/H=\nicefrac{0.5}{1.1}$
+\footnote{Due to a misunderstanding the aspect ratio of the cylinder was set to $\Gamma=r/H=\nicefrac{0.5}{1.1}$ instead of $\frac{1}{2}$.}
+, and a varying libration frequency.
 The main simulation parameters are given by
+
 
 \begin{center}
 \vspace*{0.7ex}
@@ -322,16 +324,59 @@ The main simulation parameters are given by
 \end{tabular}
 \vspace*{0.7ex}
 \end{center}
-\newpage
+
+The simulations were performed for all immersed boundary methods used in this thesis, with 2nd and 4th order finite differences.
+The results will presented and discussed separately to the results of the librating cone in the next section, for reasons of clarity.
 
 \clearpage
 
+
+\subsection{Results}
+\subsubsection{Frequency Spectrum}
+
+For all simulations, the kinetic energy of the $z$-component of the velocity was computed.
+The results for the computation of the amplitude $A\left(\left<v_z^3\right>\right)$, in dependcy of the libration
+frequency are shown in Figure \ref{fig:cone:cyl}.
+All immersed boundary methods show a similar profile.
+The largest amplitude deviations can be spotted at a frequency of $\omega=1.2$ and are of the order $\approx5\cdot10^{-3}$.\\
+It can be noted that at this position the largest resonance M\RN{1} occurs and is of the order $\approx3.5\cdot10^{-2}$.
+Two other resonances can be observed at $\omega=0.75$ (M\RN{2}) and $\omega\approx1.7$ (M\RN{2}), which are
+of order ${\approx1.3\cdot10^{-2}}$.
+To make the deviations between the methods more visible, two inset plots are shown
+set to the location $\omega=0.8$ and $\omega=1.0$.\\
+For both positions, the largest amplitude is given by the direct forcing method of 2nd order, followed by
+the volume penalization method of 2nd and 4th order.
+The amplitude difference betweens the first two methods is just slighty visible when looking at the right inset plot.
+It seems like these three methods yield nearly the same results for alle frequencies.
+For all remaining methods  no strict order or grouping can be recognized.\\
+The results for the interpolation method are not presented here, since the simulations became numerically unstable.
+
+\subsubsection{Eigenvalues for the inviscid equations}
+
+For a comparison to the theoretical solution, the eigenvalues for the (n, m)-inertial modes with $n\in[1,6]$ and $m\in[1, 2]$ were computed.
+The results are shown in table \ref{cone_cyleigenvalues}.
+There are four possible candidates,  which could correspond to the peaks in the spectrum.
+The largest peak at M\RN{1} is close to the eigenvalues of the (1, 2) and (2, 4) mode.
+The left peak  M\RN{2} could be related to the (2, 2) mode,  whereas the peak on the right side M\RN{3} is close to the eigenvalue of the (1, 4) mode.
+The eigenvalues for even $n$ are not considered. Due to the excitation by libration  only azimuthal velocity fields which are even,
+in relation to the plane $z=H/2$ are possible \citep{Sauret2012}.
+Furthermore we are not considering modes with $m\geq2$. These modes are not even visible at an Ekman number of $5\cdot10^{-5}$,
+due to viscous damping of large wavenumbers, according to \citep{Sauret2012}.\\
+A further comparison was done, by computing the eigenmodes, for the possible (n, k) values of M\RN{1}, M\RN{2} and M\RN{3}.
+The results are shown in figure \ref{cone:cyl_modes}.
+The assumed (4, 2) mode is not shown since the profiles do not match.
+The theoretical solution yields the pressure field of the inertial mode.
+Since this quantity is not directly accessible from the simulation results,
+the absolute velocity in $z$-direction, averaged over the simulation time, is computed.
+This expression should be proportional to the theoretical pressure gradient in $z$-direction.
+With exception of the sign, which is eliminated by taking the absolute value of $v_z$.
+\clearpage
 \begin{figure}[!t]
   \centering
   \includegraphics{gfx/cone/cylinder/cylinder.pdf}  \caption{\label{fig:cone:cyl}
-    Amplitude of the kinectic energy of $v_z$, as function of the liberating frequency $\omega$,
-   for the direct forcing (DF), volume penalization (VP) method with or without Volume Fraction and
-      second and fourth order (o2/o4) finite differences.}
+    Amplitude of the kinectic energy in $v_z$, as function of the liberating frequency $\omega$.
+   For the direct forcing (DF), volume penalization (VP) method with or without Volume Fraction and
+      2nd(o2)  and 4th(o4) order finite differences.}
 \end{figure}
 
 \bgroup\large
@@ -349,118 +394,77 @@ The main simulation parameters are given by
         n=6 &   1.825743         &              1.547435 &    \\ \hline
 
 \bottomrule
-\label{cone_cyleigenvalues}
 \end{tabular}
-\caption{Eigenvalues of the (n, m)-inertial modes in  a cylinder with aspect ratio $\nicefrac{5}{11}$.
-            Possible modes are highlighted.}
+\caption{Eigenvalues of the (n, m)-inertial modes in a cylinder with aspect ratio $\nicefrac{5}{11}$.
+            Possible modes are highlighted.  \label{cone_cyleigenvalues} }
 \end{table}
 \egroup
 \clearpage
 
-\subsection{Results}
-\subsubsection{Frequency Spectrum}
-
-For all simulations, the kinetic energy of the $v_z$ velocity component was computed.
-The results for the computation of the amplitude $A\left(\left<v_z^3\right>\right)$, in dependcy of the libration
-frequency are shown in Figure \ref{fig:cone:cyl}.
-All methods which were used show a similar profile.
-The largest amplitude deviations can be spotted at a frequency of $\omega=1.2$ and are of the order $\approx5\cdot10^{-3}$.\\
-It can be noted that a large resonance  occurs at the position $\omega=1.2$ of the order $\approx3.5\cdot10^{-2}$, followed by two
-smaller resonances at $\omega=0.75$ and $\omega\approx1.7$ of order $\approx1.3\cdot10^{-2}$.
-To make the deviations between the methods more visible, two inset plots are shown
-set to the location $\omega=0.8$ and $\omega=1.0$.\\
-For both positions, the largest amplitude is given by the direct forcing method of second order, followed by
-the volume penalization method of second and fourth order.
-The amplitude difference betweens the first two methods is just slighty visible when looking at the right inset plot.
-It seems like these three methods yield nearly the same results for alle frequencies.
-For all remaining methods  no strict order or grouping can be recognized.\\
-The results for the interpolation method are not plotted in this spectrum, since the simulations became numerically unstable.
-
-\subsubsection{Eigenvalues for the inviscid equations}
-
-For a comparison to the theoretical solution introduced in section \ref{numerik:rotatingoderso}
-the eigenvalues for the (n, m)-inertial modes with $n\in[1,6]$ and $m\in[1, 2]$ were  computed.
-The results are shown in table \ref{cone_cyleigenvalues}.
-There are four possible canditates,  which could correspond to the peaks in the spectrum.
-The largest peak at $\omega=1.2$ is close to the eigenvalues of the (1, 2) and (2, 4) mode.
-The left peak at $\omega=0.75$ could be the (2, 2) mode,
-whereas the peak on the right side at $\omega=1.7$ is close to the eigenvalue of teh (1, 4) mode (evlt. M1 M2 M3 defi).
-The eigenvalues for even $n$ are not considered. Due to the libration mechanism only azimuthal velocity fields which are even,
-in relation to the plane $z=H/2$ are possible \citep{Sauret2012}.
-Furthermore we are not considering modes with $m\geq2$. These modes are allready not visible at an Ekman number of $5\cdot10^{-5}$,
-due to viscous damping of large wavenumbers \citep{Sauret2012} .
 
 \begin{figure}[!t]
   \centering
   \includegraphics{gfx/cone/cylinder/modes.pdf}  \caption{
-      bla
+      Theoretical inertial modes compared to the absolute velocity component $v_z$.
+      For the peaks \RN{1}, \RN{2} and \RN{3}.
       \label{cone:cyl_modes}}
 \end{figure}
 
-A further comparison was done, by computing the eigenmodes for the possible (n, k) modes of the different peaks.
-The results are shown in figure \ref{cone:cyl_modes}.
-Since the pressure is not directly accessabel we computed the absolute velocity in $z$-direction, which should
-correlate with the theoretical pressure gradient in $z$-direction.
-Bis auf das vorzeichen sind die structuren sich sehr ähnlich.
--betrag beding sonst integral null
--eine mode fällt raus und ist nicht dargestellt.
+The theoretical profiles for the inviscid problem, look indeed very similar to the simulated profiles.
+The simulation profiles are slightly distorted on the walls of the fluid domain, in
+comparison to the theoretical profiles
+For all (n, m)-modes the number of wave nodes in $z$, and $x$ direction is indentical.
 
 \subsubsection{Helicity}
 
-The computation of the helicity was splitted into an integral over the upper and lower half
+The computation of the helicity was splited into an integral over the upper and lower half
 of the cylinder.  A result for $\omega=1.5$ is exemplarly shown in figure \ref{cone:cyl_helicity}.
-In the upper half of the cylinder a negative helicity can observed, the maximum of the amplitude is of order $10^{-1}$.
-In the lower half of the cylinder a positive helicity can observed, the maximum is of the same order as before.
+In the upper half of the cylinder a negative helicity can be observed, the maximum of the amplitude is of order $10^{-1}$.
+In the lower half of the cylinder a positive helicity can be observed, the maximum is of the same order as before.
 The helicities are symmetric with respect to zero, thus $H_{\text{up.}} = -H_{\text{low.}}$.
-As a result, it can be noted that the total helicity of the cylinder evaluates to zero for all times.
+As a result it follows, that the total helicity of the cylinder is zero for all times.
 
-\subsubsection{Numerical Oscillations}
-
-For all immersed boundary methods numericall oscillations are observable.
-Figure \ref{cone:cyl_oscillations} shows this for the 2nd and 4th order direct forcing method and $\omega=1.5$.
-The profile is taken along the $z$-Axis at $(x,y)=(\nicefrac{1}{2},\nicefrac{1}{2})$.
-It can be noted that the error is larger in the regions near to the wall.
-One important detail is that the oscillations are only observable in $z$-Direction not
-in th $(x,y)$ plane.
-For the 4th order method an upwinding scheme has been used. In comparison to the second order FTCS-Scheme,
-it is visible that the oscillations are slightly dimished.
-
-\subsubsection{Numerical Viscosity}
-
-Finally the ratio between the numerical and physical viscosity was computed, according to equation \ref{THEORIE}.
-The results are shown in figure \ref{cone:cyl_numvis}.
-The red bar denotes the $K$ vektor for the width of an inertial wave $\propto \Ekman^{1/3.}$
-For this value the ratio is $\approx{0.977}$.
-For larger wave vektors the 4th order method has a better approximation, than 2nd order.
-For both methods a decrease in the numerical viscosity can  be observed.
-The largest possible wave vektor of the  system is possible for $\lambda = 2\Delta x$,
-it follows that $K_{\text{max}} = \nicefrac{2\pi}{\lambda} \approx 402.1$.
-kmin bla.
-
-\clearpage
-\begin{figure}[!t]
+\begin{figure}[!p]
   \centering
   \includegraphics{gfx/cone/cylinder/helicity.pdf}  \caption{
-      Time-depent Helicity for $\omega=1.5$. The direct forcing method of second order was used.
+      Time-dependent Helicity $H(t)$ for $\omega=1.5$. The direct forcing method of second order was used.
       \label{cone:cyl_helicity}
       }
-\end{figure}
-\begin{figure}[!p]
   \centering
   \includegraphics{gfx/cone/cylinder/oscillations.pdf}  \caption{
       Numerical oscillations on the axis $(x,y) = 0.5, 0.5$ and variable $z$.
       For direct forcing method of second (o2) and fourth (o4) order, at $\omega=1.5$.
       \label{cone:cyl_oscillations}
       }
-\end{figure}
-\begin{figure}[!b]
   \centering
   \includegraphics{gfx/cone/cylinder/numvis.pdf}  \caption{
-      relative Numerical Viscositiy computed for $\Ekman=10^{-4}$ for 2nd and 4th- order central differencing schemes.
-      The red line indicates the wave vector of an inertial wave node.
+      Ratio $D_N/D_P$ of  numerical viscosity  $D_N$ and physical viscosity computed for $\Ekman=10^{-4}$. For 2nd and 4th- order central differencing schemes.
+      The red line indicates the wave vector of an inertial wave node with width $\Ekman^{1/3}$.
       \label{cone:cyl_numvis}
       }
 \end{figure}
+
+\subsubsection{Numerical Oscillations}
+
+For all immersed boundary methods numerical oscillations are observable.
+Figure \ref{cone:cyl_oscillations} shows this for the 2nd and 4th order direct forcing method and $\omega=1.5$.
+The profile is taken along the $z$-Axis at $(x,y)=(\nicefrac{1}{2},\nicefrac{1}{2})$.
+It can be noted that the error is larger in the regions near to the wall.
+One important detail is that the oscillations are only observable in $z$-Direction, not
+in th $(x,y)$ plane.
+For the 4th order method the upwinding scheme has been used, in contrast to the FTCS-Scheme at 2nd order.
+It is visible that the oscillations are slightly diminished, when using the 4th order scheme.
+
+\subsubsection{Numerical Viscosity}
+
+The ratio between the numerical and physical viscosity was computed, according to equation \ref{NUMERIC:NUMVIS}.
+The results are shown in figure \ref{cone:cyl_numvis}.
+The red bar denotes the wavevektor for the width of an inertial wave node $\propto \Ekman^{1/3.}$.
+For this value the ratio is $\approx{0.977}$.
+For both methods a decrease in the numerical viscosity can  be observed.
+At larger wave vektors the 4th order method has a better approximation, than the 2nd order method.
+The largest possible wave vektor of the  system is possible for $\lambda = 2\Delta x$,
+it follows that $K_{\text{max}} = \nicefrac{2\pi}{\lambda} \approx 402.1$.
 \clearpage
 
 \subsection{Discussion}
@@ -470,22 +474,26 @@ kmin bla.
 We assume that the peaks in the frequency spectrum can be identified as inertial modes.
 The computed eigenvalues  are close to the peak positions in the spectrum and a first good indicator.
 However  the assumption that M\RN{1} could be the (4, 2)-Mode is wrong.
-The representation of the $v_z$-component in figure \ref{cone:cyl_modes}, in comparison to the pressure gradient
+The representation of the averaged $v_z$-component in figure \ref{cone:cyl_modes}, in comparison to the pressure gradient
 clarifies that the peak M\RN{1} corresponds to the (2, 1)-Mode.
 M\RN{2} corresponds to the (2,2)- Mode and M\RN{3}  to the (4, 1)-Mode.\\
-The results of the simulations are therefore in a good agreement with the theoretical description of the inviscid case.\\
+The distortion in the averaged velocity profiles can be explained to the viscous friction from domain boundaries.
+The results of the simulations are therefore in a good agreement with the theoretical description of the inviscid case.
+\\
 An numerical study of the non-linear system was performed by \citep{Sauret2012}.
 The inertial modes, which were found in this study confirms our results.
 One difference is a slight shift $\approx0.06$ of the eigenvalues,
-due to the mistakenly used aspect-ratio of $\nicefrac{5}{11}$, instead of$\nicefrac{1}{2}$.
+due to the mistakenly used aspect-ratio .
 Furthermore three additinonal modes were found in this study, which do not occur
-in our frequency spectrum. due to the smaller ekman number
-One explanation for this is that we use a relatively larger Ekman number used in this simulations $10^-4$.
--discussion damping breite, hidden spectrum.\\
-All methods are able to reproduce these results, with exception the the interpolation method.
-We were not able to figure out the reason for the numerical unstability.
+in our frequency spectrum.
+One explanation for this is that we used a  larger Ekman number in this simulations $\propto10^-4$.
+The width of a resconance peak is proportional to the damping rate of the system, in analogy to an harmonic oscillator.
+\footnote{Privave communication A.Tilgner}
+Due to the stronger damping in our simulations the spectrum is smeared out (wie kann man das am besten schreiben?).\\
+All methods are able to reproduce these results, with exception of the interpolation method.
+Unfortunately We were not able to figure out the reason for the numerical unstability.
 The almost indentical errors of the volume penalization and direct forcing method of 2nd order,
-indicate that the timestep maybe to small.
+indicate that the timestep could be to small.
 The velocities local to the domain boundarie are so small, that the damping force (IP-Method) is almost identical
 to setting the velocity direct to zero (DF-Method).
 
@@ -511,33 +519,13 @@ It still remains unclear why the oscillations only occur in the $z$-direction.
 
 The numerical viscositiy was computed in order to determine the influence on the Ekman number.
 For the physical properties of our system, we estimate wavelengts in the range of $1 - \Ekman^{1/3}$.
-The error of the numerical viscosity in this range can be neglected, according to figure \label{cone:cyl_numvis}.
+The error of the numerical viscosity in this range can be neglected, according to figure \ref{cone:cyl_numvis}.
 
 \subsubsection{Helicity}
 
-The computation shows that the total helicity of the cylinder is zero, due to the axial symmetrie in
-$z$-direction.
+The computation shows that the total helicity of the cylinder is zero, due to the axial symmetry in $z$-direction.
 The helicty in the upper and lower part of the cylinder cancels each other out.
-This results will be used as a comparsion to the cone.
 
-\subsection{Summary}
-
-All methods were able to reproduce the modes M\RN{1}, M\RN{2} and M\RN{3},
-The only exeption is the interpolation method, which is numerical unstable.
-This is a little bit of a disappointing results, since this methods tends to contain
-the smallest numerical error.
-Another point which should be consider for future simulations are the numerical oscillations.
-This could be fixed with an improvement method, for example with the use of free slip boundaries
--kleinerer grient an den seiten
--abeir schwieriger zu implementiern
-As an alternative a higher resolution  could be used, which is computational expensive.
-
-what have we done
-zusammen fassung results
-- good first step
--erflogreich in übereintstimmung mit der simulation
--für kleine eckman zahlen simulairen interessant um mehr moden zu finden
-outlook hd simulationen
 \newpage
 
 \section{Simulation of a Librating Cone}
@@ -995,6 +983,7 @@ relativ linear abfall für alle moden
 \subsubsection{Ray Tracer}
 
 
+\section{Summary}
 \subsection{Summary}
 freeslip besser
 
@@ -1003,4 +992,20 @@ In addition to default helicity compuattion, we will also compute
 Furthermore we will compute the normalized helicity of the system given by
 in the accelerated frame of reference and also for the inertial system with an additional offset in the velocity
 given by $\vec{u} = \vec{u}|_{\text{rot.}} + \Omega(t) \times \vec{r}$.
-\\
+
+All methods were able to reproduce the modes M\RN{1}, M\RN{2} and M\RN{3},
+The only exeption is the interpolation method, which is numerical unstable.
+This is a little bit of a disappointing results, since this methods tends to contain
+the smallest numerical error.
+Another point which should be consider for future simulations are the numerical oscillations.
+This could be fixed with an improvement method, for example with the use of free slip boundaries
+-kleinerer grient an den seiten
+-abeir schwieriger zu implementiern
+As an alternative a higher resolution  could be used, which is computational expensive.
+
+what have we done
+zusammen fassung results
+- good first step
+-erflogreich in übereintstimmung mit der simulation
+-für kleine eckman zahlen simulairen interessant um mehr moden zu finden
+outlook hd simulationen

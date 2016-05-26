@@ -13,7 +13,7 @@ cmap = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#
 def main():
     dpath = '/home/upgp/jruebsam/simulations/april16/week2/cylinder_series/data/df/o2/omg_1.5/omg_1.5'
 
-    f, ax = style.newfig(1., 0.5)
+    f, ax = style.newfig(1., 0.6)
 
     x = np.linspace(0 , 1.1, 128)
 

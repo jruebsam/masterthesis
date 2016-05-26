@@ -16,7 +16,7 @@ def main():
 
 
 
-    f, ax = style.newfig(1., 0.5)
+    f, ax = style.newfig(1., 0.6)
 
     x = np.linspace(0 , 1.1, 128)
 

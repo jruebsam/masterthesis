@@ -18,7 +18,7 @@ def nvis_o4(k, D, dx):
     return D/(12*dx**2)*(32*np.cos(k*dx) -2*np.cos(2*k*dx) - 30.)/(-D*k**2)
 
 def main():
-    f, ax = style.newfig(1., 0.5)
+    f, ax = style.newfig(1., 0.6)
 
     dx = 1/128.
     ek = 1e-4
