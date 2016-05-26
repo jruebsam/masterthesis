@@ -51,7 +51,7 @@
   \begin{picture}(1,0.99400413)%
     \put(0,0){\includegraphics[width=\unitlength]{cone.pdf}}%
     \put(0.89435684,0.41249573){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$H$}}}%
-    \put(0.75453414,0.78597665){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\theta$}}}%
+    \put(0.8058862,0.77149259){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\theta$}}}%
     \put(0.702961,0.19717542){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$z$}}}%
     \put(0.79865892,0.05362855){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x$}}}%
     \put(0.53036291,0.90380208){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\Omega$}}}%
@@ -61,6 +61,6 @@
     \put(0.21487228,0.59556297){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\vec{c}_g$}}}%
     \put(0.44341925,0.44377716){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$L$}}}%
     \put(0.4437992,0.2782596){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$L^{\prime}$}}}%
-    \put(0.03528025,0.77815826){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\alpha$}}}%
+    \put(0.08663246,0.76235765){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\alpha$}}}%
   \end{picture}%
 \endgroup%
