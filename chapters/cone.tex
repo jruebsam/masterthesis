@@ -825,7 +825,7 @@ The differences of the helicity, between the cone and the frustum are marginal.
 However it can be noted that the positions of the peaks (\RN{1]}), (\RN{2}) and (\RN{8}),
 corresponds to an increase.
 Overall it can be said that the computed relative helicity of the system is small in
-comparsion maximum value of 1.
+comparison to maximum value of 1.
 
 \begin{figure}[!b]
   \centering
@@ -837,30 +837,6 @@ comparsion maximum value of 1.
 \end{figure}
 
 \clearpage
-
-\subsubsection{Decay Rates}
-\ref{cone:results:decay}
-
-The simulation of the decay of inertial waves, was performed for the peak (\RN{1}) in the frustum,
-for all heights $h_+$. As a comparison the same frequencies were used for
-a simulation of the decay in the cone.
-Figure \ref{fig:cone:finaldecayexample} shows the decay in the energy component $\left<v_z^2\right>$ exemplarly.
-Here a comparison is made between the frustum and the cone for $\omega=1.25$ and $h_+=0.25$.
-
-
--the example shows teh fit for t<30
-
-
--ablkingraten für maxima ploten und vergleichen den verlauf
--resultate fit schnell gemacht
-- positionen erläutern
-- ablkingraten dargestellt in figure so und so
-- diskussion
-
--bedingungen m1 für cone und frustum
--abklingraten example
--2 abfälle
--fit ergebnisse
 
 \begin{figure}[!b]
 \centering
@@ -883,33 +859,6 @@ Here a comparison is made between the frustum and the cone for $\omega=1.25$ and
     }
 \end{minipage}
 \end{figure}
-%%
-%%\begin{figure}[!pt]
-%%
-%%  \centering
-%%  \includegraphics{gfx/cone/final/decay/decay_example.pdf}
-%%  \caption{
-%%      \label{fig:cone:finaldecayexample}
-%%    Simulation of a cone (green) and a frustum (blue) for different offsets at the
-%%    top.
-%%    }
-%%\end{figure}
-%%\begin{figure}[!pt]
-%%
-%%  \centering
-%%  \includegraphics{gfx/cone/final/decay/fit_decay.pdf}
-%%  \caption{
-%%      \label{fig:cone:finaldecayfit}
-%%    Simulation of a cone (green) and a frustum (blue) for different offsets at the
-%%    top.
-%%    }
-%%\end{figure}
-\clearpage
-\subsubsection{Comparison to a Higher Resolution}
-
--nachträglich zum cylinder
--test alte ergebnisse evtl erläutern
--numerical oscillations vorhanden aber smaller ?
 
 \begin{figure}[!b]
 
@@ -921,6 +870,35 @@ Here a comparison is made between the frustum and the cone for $\omega=1.25$ and
     top.
     }
 \end{figure}
+\clearpage
+
+\subsubsection{Decay Rates}
+
+The simulation of the decay of inertial waves, was performed for the peak (\RN{1}) in the frustum,
+for all heights $h_+$.
+As a comparison the same frequencies were used for a simulation of the decay in the cone.
+Figure \ref{fig:cone:finaldecayexample} shows the decay in the energy  $\left<v_z^2\right>(t)$  exemplary,
+for $\omega=1.25$ and $h_+=0.25$ on a semi-log plot.
+
+For both geometries there are two different decay rates observable.
+For the frustum the first decay takes place in the time intervall $0\leq t\leq 100$,
+followed by a slow decay for $t>100$.
+The cone shows a faster decay in the intervall $0\leq t\leq 30$, followed by the a slow decay for $t>30$.
+It can be noted that the energy in the cone decays faster until $t\approx100$, after this time
+both decays rates are  equal.  In contrast to the cone, the decay of the frustum  is superimposed by an oscillation.
+
+Figure \ref{cone:results:decay} shows the interpolated values of the decay rate for different
+height $h_+$.  The time intervall for the interpolation was set to $0 \leq t \leq 25$.
+The decay rate of the cone is about $1.5-2$ times as large as the decay rate for the frustum.
+Both decay rates are not constant.
+It furthermore can be noted, that the decay rate in the frustum could correlate with
+the amplitude of the peak (\RN{1}), as shown in figure \ref{fig:cone:finalampmax}.
+
+\subsubsection{Comparison to a Higher Resolution}
+
+A part of the simulations was repeated with a spatial discretization of $\Delta x= \nicefrac{1}{256}$.
+
+
 \clearpage
 
 \section{Discussion}
