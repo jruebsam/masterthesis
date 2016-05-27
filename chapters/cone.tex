@@ -691,7 +691,7 @@ Overall it appears that the (spectrum) can be divided into two domains $\Omega_1
 This result is not unexpected, since we choose the slope $\alpha$ of the cone such that for $\omega=1$, it is parallel
 do the group velocity $\vec{c}_{g}$.
 
-\subsubsection{Transition from Cylinder to Cone }
+\subsection{Transition from Cylinder to Cone }
 
 The results of the simulations are shown in figure \ref{fig:cone:transition}.
 For $r=0$ we can see the inertial modes of a librating cylinder, which is in accordance
@@ -988,7 +988,7 @@ to vary the offset on top.
 \subsubsection{Spectrum}
 
 For both scenarios, the cone and the frustum, resonances can be seen.
-The observation of the velocity profile for these resonances indicates that,
+The observation of the velocity profile for these resonances indicates that
 the peak (\RN{1}) and (\RN{2}) are inertial modes in the frustum.
 
 One assumption was that the resonance (\RN{8}) is related to the (\RN{2}) mode.
@@ -999,48 +999,68 @@ should not act as an attractor which is in contrast to this observation.
 The propagation angle for \RN{2} is $\Theta=\arccos(0.85/2)\approx65^\circ$.
 For this value a wave ray on the upper edges of the cone is traveling directly
 into the cone apex.
-A possible explanation is, that these wave rays are not reflected due damping effects in
-the apex of the cone, as a results a downward traveling waves is observed.
+A possible explanation is that such a wave is not reflected due damping effects in
+the apex of the cone. As a results a downward traveling waves is observed.
+However with this approach, we are still not able to explain the resonance of the peak (\RN{8}),
+in the spectrum.
+
+\begin{figure}[!b]
+  \begin{minipage}[c]{0.4\textwidth}
+      \centering
+      \includegraphics{gfx/cone/discussion/corners.pdf}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[c]{0.5\textwidth}
+      \caption{\label{fig:conediscuss:corners}
+        Wave path from an upper corner of the cone.
+        For a wave ray with a frequency at the minimum close to peak (\RN{6}) (red).
+        For a wave ray with the frequency at the position of peak (\RN{3}) (green).
+      }
+  \end{minipage}
+\end{figure}
+
+The shift of the resonance peaks are a result from a change in the geometry.
+In analogy to the previous simulation, we assume that with a change of the offset on top
+a possible inertial can only exist in an distorted state. Therefore the propagation angle $\Theta$ has to change,
+which is equivalent to a shift in the frequency domain.\\
+We were not able to find a reasonable explanation for the change in the amplitudes,
+the assumption was that for $h_+=0$ the damping due to the small corners at the top
+would affect the amplitudes the strongest, this is not the case.\\
+The next point we want to discuss is the \RN{6} mode.
+For the cone geometry this resonance is still apparent.
+The assumption that this resonance is an inertial mode,
+violates the argument that the apex of the cone, acts as
+an attractor.
+We want to give a possible explanation, as shown in figure \ref{fig:conediscuss:corners}.
+The plot shows the wave path from an upper edge of the cone, for the frequency $\omega_{\text{min}}$
+of the minimum at the left side of the peak (\RN{6}).
+With an increase in the frequency the propagation angle decreases.
+For $\omega<\omega_{\text{min}}$ the wave is reflected on the slope of the cone.
+For $\omega>\omega_{\text{min}}$ the reflections is above the slope on the walls resulting from the offset $O$.
+Our assumption is that the reflection on the slope of the cone creates more dissipation.
+This is due direct forcing method, which creates a more pixelated border at the slope cone,
+in comparison to the side walls on top of the cone.
+As a result the energy and therefore the amplitude increases,
+when the way ray is passing the corner on top of the cone.\\
 
 
 
-for this behaviour would be that wave rays are traveling directly
-into the apex of the cone
-
-
-
-
-shows that this is not the exact case.
-
--we have a downward traveling wave at least it looks like thiss
-- assumption
-
-however this is difficu
-
--equivalent to the case from experiment
-
-
-
--ideat (\RN{8}) is related to (\RN{2})
-
-
-
-By replacing the frustum with the cone it can seen that
 
 
 
 
 
 
-Furthermore it can be seen that the i
-
--m8 mode looks similar hower the velocitiy profile indicates a downwoard traveling wave
-- one assumpiton is that the wave is directly in the cone apex due to damping no reflection is possible
 
 
 
--shift geometrie vergleich mit vorherigem chapter
--amplitude damping
+
+
+
+
+
+ which is still
+apparent
 
 
 
@@ -1054,18 +1074,10 @@ Furthermore it can be seen that the i
 
 -fehler 8er mode bild zylinder theorie reibung
 
-\begin{figure}[!bp]
-  \begin{minipage}[c]{0.4\textwidth}
-      \centering
-      \includegraphics{gfx/cone/discussion/corners.pdf}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[c]{0.5\textwidth}
-      \caption{\label{fig:conediscuss:corners}
-        Simulation of uiaetr n
-      }
-  \end{minipage}
-\end{figure}
+MAIN RESULT
+By replacing the frustum with the cone it can seen that
+-rn1 wird gedämpft traveling wave
+
 
 \subsubsection{Helicity}
 - warum größer null
@@ -1076,6 +1088,7 @@ Furthermore it can be seen that the i
 \subsubsection{Decay Rates}
 - die decay raten machen deutlich das  die oszillation abklingen
 - inertialmode gedämpft
+- bild decay
 
 \subsubsection{Higher Resoltuion}
 -shows difference
