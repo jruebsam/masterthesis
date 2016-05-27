@@ -13,7 +13,7 @@ In this thesis we will not consider MHD-equations.  \footnote{MHD - Magnetohydro
 However in general it is considered that the helicity of a fluid domain $\Omega$, given by
 
 \begin{align}
-    \int_{\Omega}\dif V  \vec{u} \left( \nabla \times \vec{u} \right)
+    \int_{\Omega}\dif V  \vec{v} \left( \nabla \times \vec{v} \right)
 \end{align}
 
 is directly linked to dynamo action \citep{moffat1978}.
@@ -772,7 +772,7 @@ For the peak (\RN{8}) for the cone, a downward traveling wave can be observed .
   \includegraphics{gfx/cone/final/transition.pdf}
   \caption{
       \label{fig:cone:finaltransition}
-    Simulation of a cone (green) and a frustum (blue) for different offsets at the
+    Resonance spectrum for the simulation of a cone (green) and a frustum (blue) for different offsets $h_+$ at the
     top.
     }
 \end{figure}
@@ -800,25 +800,39 @@ For the peak (\RN{8}) for the cone, a downward traveling wave can be observed .
 
 \subsubsection{Helicity}
 
-The results for  the helicity are exemplary shown in figur \ref{fig:cone:finalhelicity}.
+We want to exemplary show the results for the computation of the relative helicity, for  the case $h_+=0.25$.
+For all other heights frequency shifts and small changes in the amplitude can be observed,
+that are not of importance for further discussions.
+The results are exemplary shown in figure \ref{fig:cone:finalhelicity}.
 For the computation the inertial frame of reference was used.
+Therefore an additional offset in the velocity,  given by
+\begin{align}
+    \vec{v} = \vec{v}|_{\text{rot.}} + \Omega(t) \times \vec{r} = \vec{v}|_{\text{rot.}} +
+     \begin{pmatrix}
+           -y \epsilon \cos(\omega t) \\
+           x \epsilon \cos(\omega t) \\
+           0\\
+         \end{pmatrix}
+\end{align}
 
-in the accelerated frame of reference and also for the inertial system with an additional offset in the velocity
-given by $\vec{u} = \vec{u}|_{\text{rot.}} + \Omega(t) \times \vec{r}$.
+has to be considered.
 
-- nicht so ins detail gehen
-- important features
-- sehr kleine helizität normierung
-- steigung beim critical slope
-- diskutiere bereiche links rechts
+For both cases, the frustum and the cone, a positive helicity can be observed in the region $\theta<\alpha$, which is of
+the order $5\cdot 10^-2$.
+At the critical slope $\theta=\alpha$ the helicity decreases, below zero and is of the order $-1\cdot10^{-1}$.
+For $\omega>1.8$ the helicty is increasing slightly above zero to the order $10^-3$.
+The differences of the helicity, between the cone and the frustum are marginal.
+However it can be noted that the positions of the peaks (\RN{1]}), (\RN{2}) and (\RN{8}),
+corresponds to an increase.
+Overall it can be said that the computed relative helicity of the system is small in
+comparsion maximum value of 1.
 
 \begin{figure}[!b]
   \centering
   \includegraphics{gfx/cone/final/helicity.pdf}
   \caption{
       \label{fig:cone:finalhelicity}
-    Simulation of a cone (green) and a frustum (blue) for different offsets at the
-    top.
+      Computation of the relative helicity.
     }
 \end{figure}
 
