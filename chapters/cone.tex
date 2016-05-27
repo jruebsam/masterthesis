@@ -754,31 +754,33 @@ The height $h_+$ is in descending order, from top to bottom.
 Each plot contains two spectra, one for the cone  and the other one for the frustum.
 We beginn with a qualitative description of the curves for the frustum.\\
 At all heights $h_+$, several resonance modes can be observed. For now we will consider the case where ${h_+=0.25}$.
-For this height the largest peaks occur in the spectrum, which are numerated here in decreasing order of the amplitude.\\
-The largest mode (\RN{1}) can be observed at a frequency $\omega=1.05$, the amplitude is of the order $5\cdot10^{-4}$.
-The second mode (\RN{2}) can be found at $\omega=0.9$ of order $3.7\cdot10^{-4}$, followed by
-a possible mode (\RN{3}) at $\omega=0.5$ of order $2.8\cdot10^{-4}$.
+For this height the largest peaks occur in the spectrum, which are numerated here in decreasing order of the amplitude.
+
+The largest peak (\RN{1}) can be observed at a frequency $\omega=1.25$, the amplitude is of the order $5\cdot10^{-4}$.
+The second peak (\RN{2}) can be found at $\omega=0.9$ of order $3.7\cdot10^{-4}$, followed by
+a peak (\RN{3}) at $\omega=0.5$ of order $2.8\cdot10^{-4}$.
 On the right side of the spectrum there are two possible small resonances at $\omega=1.7$ and $\omega=1.5$ (\RN{4}, \RN{5}).
 For the case $h_+=0.5$  we can see small additional resonances  (\RN{6}) at $\omega=1.8$ and (\RN{7}) at $\omega=0.55$,
 the latter is embedded in the slope of the (\RN{3}) mode.
-For all peaks (except (\RN{7}), it can be noted, that a lowering of the offset height $h_+$ results
-into a shift towards higher frequencies. This can be best seen when looking at the peaks (\RN{1}) and (\RN{2}).\\
+
 Let us now consider the results of the cone.
-Above the critical slope $\alpha=\theta$ nearly all resonances are eliminated. One exception is the (\RN{4}) mode for
-$h_+=0.5$ and $h_+=0.375$. Another exepction is at the position of the previous (\RN{1}) mode of the frustum.
+Above the critical slope $\alpha=\theta$ nearly all resonances are eliminated. One exception is the (\RN{6}) peak for
+$h_+\geq0.375$. Another exception is at the position of the previous (\RN{1}) peak of the frustum.
 For $h_+=0.5$ (see \textbf{O}) a small increase in the amplitude can be observed.
-On the left side of the critcal slope we can identfiy the (\RN{3})-peak
+
+On the left side of the critical slope we can identify the (\RN{3})-peak
 at the same frequency and same order as for the frustum. To the left side of this point the spectrum for
 the cone and the frustum are similar.
+Furthermore at the position of peak (\RN{2}) of the cone, we now see a slightly diminished peak \RN{8}.
+The maximum has the same frequency for $h_+=0.5$ but diverges slightly with an decrease of the height $h_+$.\\
+For all peaks (except (\RN{7}), it can be noted, that a lowering of the offset height $h_+$ results
+into a shift towards higher frequencies. This can be best seen when looking at the peaks (\RN{1}) and (\RN{2}).
 
-\begin{figure}[!bp]
-  \centering
-  \includegraphics{gfx/cone/final/amp_pos.pdf}
-  \caption{
-      \label{fig:cone:finalampmax}
-    top.
-    }
-\end{figure}
+For a better overview, the change in the amplitudes and shift in the frequencies, are shown in
+figure \label{fig:cone:finalampmax} for the peaks \RN{1}, \RN{2}, \RN{3} and \RN{8}.
+The amplitude of \RN{1} and \RN{2} have a maximum at $h_+= 0.25$. For \RN{3} and \RN{8} the amplitude decreases almost linear.
+From the second plot it can be noted that with an decrease in the height $h_+$,
+all peaks shift approximately linear to lower frequencies.
 
 \begin{figure}[!pt]
   \centering
@@ -791,12 +793,25 @@ the cone and the frustum are similar.
 \end{figure}
 \clearpage
 
-Furthermore at the position of peak (\RN{2}) of the cone, we now see a slightly diminshed mode \RN{8}.
-The maximum is at the same frequency at $h_+=0.5$ but diverges slightly with an decrease of the height $h_+$.\\
-
-For a better overview, the change in the amplitudes and shift in the frequencies, is shown in
-figure \label{fig:cone:finalampmax} for the peaks \RN{1}, \RN{2}, \RN{3} and \RN{8}.
-The amplitude of \RN{1} and \RN{2} are the largest at $h_+= 0.25$, for \RN{3} and \RN{8} it decreases almost linear.
+\begin{figure}[!tp]
+  \centering
+  \includegraphics{gfx/cone/final/amp_pos.pdf}
+  \caption{
+      \label{fig:cone:finalampmax}
+      Amplitude and frequency position of the resonances (\RN{1}), (\RN{2}), (\RN{3}) and (\RN{8})
+      for different offsets $h_+$.
+    }
+\end{figure}
+\begin{figure}[!bp]
+  \centering
+  \includegraphics{gfx/cone/final/modes.pdf}
+  \caption{
+      \label{fig:cone:finalmodesexp}
+      Velocity component $v_z$ in the $xz$ plane at y=\nicefrac{1}{2}.
+       For the peaks (\RN{1}), (\RN{2}) and (\RN{8}) in the Cone or Frustum at $h_+=0.25$.
+    }
+\end{figure}
+\clearpage
 
 \subsubsection{Helicity}
 
@@ -809,8 +824,7 @@ For the computation the inertial frame of reference was used.
 - steigung beim critical slope
 - diskutiere bereiche links rechts
 
-\clearpage
-\begin{figure}[!pt]
+\begin{figure}[!b]
   \centering
   \includegraphics{gfx/cone/final/helicity.pdf}
   \caption{
@@ -818,14 +832,9 @@ For the computation the inertial frame of reference was used.
     Simulation of a cone (green) and a frustum (blue) for different offsets at the
     top.
     }
-  \centering
-  \includegraphics{gfx/cone/final/decay/decay_example.pdf}
-  \caption{
-      \label{fig:cone:finaldecayexample}
-    Simulation of a cone (green) and a frustum (blue) for different offsets at the
-    top.
-    }
 \end{figure}
+
+\clearpage
 
 \subsubsection{Decay Rates}
 \ref{cone:results:decay}
@@ -846,16 +855,68 @@ Here a comparison is made between the frustum and the cone for $\omega=1.25$ and
 - ablkingraten dargestellt in figure so und so
 - diskussion
 
-\subsubsection{Decay rates}
-
 -bedingungen m1 für cone und frustum
 -abklingraten example
 -2 abfälle
 -fit ergebnisse
 
+\begin{figure}[!b]
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics{gfx/cone/final/decay/decay_example.pdf}
+  \caption{
+      \label{fig:cone:finaldecayexample}
+    Simulation of a cone (green) and a frustum (blue) for different offsets at the
+    top.
+    }
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics{gfx/cone/final/decay/fit_decay.pdf}
+  \caption{
+      \label{fig:cone:finaldecayfit}
+    Simulation of a cone (green) and a frustum (blue) for different offsets at the
+    top.
+    }
+\end{minipage}
+\end{figure}
+%%
+%%\begin{figure}[!pt]
+%%
+%%  \centering
+%%  \includegraphics{gfx/cone/final/decay/decay_example.pdf}
+%%  \caption{
+%%      \label{fig:cone:finaldecayexample}
+%%    Simulation of a cone (green) and a frustum (blue) for different offsets at the
+%%    top.
+%%    }
+%%\end{figure}
+%%\begin{figure}[!pt]
+%%
+%%  \centering
+%%  \includegraphics{gfx/cone/final/decay/fit_decay.pdf}
+%%  \caption{
+%%      \label{fig:cone:finaldecayfit}
+%%    Simulation of a cone (green) and a frustum (blue) for different offsets at the
+%%    top.
+%%    }
+%%\end{figure}
+\clearpage
 \subsubsection{High Resolution Comparison}
 
 -test alte ergebnisse evtl erläutern
+
+\begin{figure}[!b]
+
+  \centering
+  \includegraphics{gfx/cone/final/hd_comparison.pdf}
+  \caption{
+      \label{fig:cone:finalhdcomp}
+    Simulation of a cone (green) and a frustum (blue) for different offsets at the
+    top.
+    }
+\end{figure}
 
 \clearpage
 

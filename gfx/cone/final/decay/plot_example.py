@@ -17,7 +17,7 @@ def main():
 
     path = [cone, frustum]
 
-    f, ax = style.newfig(0.9)
+    f, ax = style.newfig(0.5, 1.5)
     omg = 1.25
     h = 0.25
 
@@ -48,7 +48,7 @@ def main():
                 % (popt[0], perr[0]))
 
     plt.yscale('log')
-    plt.legend(ncol = 2, fontsize=8, loc='upper right',
+    plt.legend(ncol = 1, fontsize=8, loc='upper right',
            fancybox=True, shadow=True)
 
     ax.set_xlabel(r'Simulation Time t')
@@ -62,7 +62,7 @@ def main():
     ax.set_xlim(0, 120)
     ax.set_ylim(1e-11, 2*1e-3)
     ax.grid(True)
-    plt.subplots_adjust(bottom=0.1)
+    plt.subplots_adjust(bottom=0.2, left=0.2)
     plt.savefig('decay_example.pdf')
 
 if __name__=='__main__':

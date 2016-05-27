@@ -19,15 +19,15 @@ def main():
           'frame':50, 'offset':25, 'h': 0.25}
 
     p2 = {'omg': 1.25, 'path':pcone   , 'label' : r'(\rom{1}) Cone',
-          'frame':70, 'offset':25, 'h': 0.25}
+          'frame':70, 'offset':15, 'h': 0.25}
 
     p3 = {'omg': 0.9,  'path':pfrustum  , 'label' : r'(\rom{2}) Frustum',
           'frame':60, 'offset':30, 'h': 0.25}
 
     p4 = {'omg': 0.85, 'path':pcone   , 'label' : r'(\rom{8}) Cone',
-          'frame':50, 'offset':25, 'h': 0.25}
+          'frame':50, 'offset':30, 'h': 0.25}
 
-    fig, axes = plt.subplots(2, 4, figsize=style.figsize(0.9))
+    fig, axes = plt.subplots(2, 4, figsize=style.figsize(1.0))
     c = bipolar(neutral=0, lutsize=1024)
 
     for ax, p in zip(axes.T, [p1, p2, p3, p4]):
@@ -70,7 +70,7 @@ def main():
     cb.set_label(r'$\propto v_z$')
 
     axes[0, 0].set_ylabel(r'$t_0$')
-    axes[1, 0].set_ylabel(r'$t_1$')
+    axes[1, 0].set_ylabel(r'$t_0 + \Delta t^*$')
     plt.savefig('modes.pdf')
 
 if __name__=='__main__':

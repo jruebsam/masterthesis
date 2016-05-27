@@ -17,7 +17,7 @@ def main():
 
     pathes = [cone, frustum]
 
-    f, ax = style.newfig(0.5)
+    f, ax = style.newfig(0.5, 1.5)
     maxima = [1.45, 1.35, 1.25, 1.15, 1.05 ]
     hss  = np.linspace(0, 0.5, 5)
 
