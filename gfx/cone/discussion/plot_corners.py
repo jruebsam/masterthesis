@@ -30,7 +30,7 @@ def main():
 
     rs = [0.375, 0.25]
 
-    f, ax = plt.subplots(1, figsize=style.figsize(0.5, 1.0))
+    f, ax = plt.subplots(1, figsize=style.figsize(0.4, 1.))
 
     # build a rectangle in axes coords
     left, width = .25, .5
@@ -88,7 +88,7 @@ def main():
             x = [0, 1]
             y = [htop, htop -hl]
             if i==3:
-                ax.plot(x, y, 'r', label=r'Peak \rom{6}')
+                ax.plot(x, y, 'r', label=r' (\rom{6})')
             else:
                 ax.plot(x, y, 'r')
 
@@ -101,7 +101,7 @@ def main():
             x = [0, r]
             y = [htop, htop -hl]
             if i==3:
-                ax.plot(x, y, 'g', label=r'Peak \rom{3}')
+                ax.plot(x, y, 'g', label=r'(\rom{3})')
             else:
                 ax.plot(x, y, 'g')
 
