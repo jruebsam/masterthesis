@@ -536,19 +536,19 @@ Due to the axial symmetry in $z$-direction., the helicty in the upper and lower 
 
 \section{Simulation of a Librating Cone}
 
-In this section we will discuss the different numerical simulations, which has been performed
-with a librating cone. We begin with the comparison to the experiment performed by \citep{Beardsley1970}.
-As a next step we analyse the physical behaviour when performing the transition from a cylinder
-to a cone and finally  we will investigate the influence of different offsets on top of the cone.
+In this section we will introduce the different numerical simulations, which has been performed
+with a librating cone. We begin with a simulation inspired by the experiment of \citep{Beardsley1970}.
+As a next step we simulate the transition from a cylinder to a librating cone.
+Finally  we will investigate the influence of different offsets on top of the cone.
 All simulations performed in this section use the introduced setup with different geometric parameters.
-As a IBM we choose the direct forcing  method of second order.
+As an immersed boundary methods we choose the direct forcing  method of 2nd order.
 
-\subsection{Simulation of the Experiment}
+\subsection{Simulation of the Experimental Setup}
 
 The setup for this simulation is oriented on the experimental setup given by \citep{Beardsley1970}, which
-we disussed in section ().
-For the simulation we choose an Ekman number of $\Ekman =  10^{-4}$, since a simulation of higher ekman numbers is
-closer to the experiment is difficult to realize due to the computational effort.
+we discussed in section ().
+For the simulation we choose an Ekman number of $\Ekman =  10^{-4}$, since a simulation of higher Ekman numbers,
+closer to the experiment, is difficult to realize, due to the computational effort.
 Furthermore we set $\alpha = \arccos(1/2) = 60^{\circ}$, $H=1$ and $r=0.5$.
 This means that for $\omega=1$, the propagation of an inertial wave package is parallel to the slope of the cone.
 For the offset on top of the cone, we obtain the condition
@@ -571,18 +571,14 @@ $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $10^{-5}$ & $\nicefrac{1}{128}$ & 50
 \vspace*{0.7ex}
 \end{center}
 
-\clearpage
+\subsection{Transition from a Cylinder to a Cone}
 
-\subsection{Simulation of the Transition from a Cylinder to a Cone}
-
-
-The next objective is to test the influence of different gap radii $r$ at the bottom of the frustum.
+The objective of this simulation is to test the influence of different gap radii $r$ at the bottom of the frustum.
 We propose a setting where we begin with the possible largest bottom gap, which is $r=0.5$.
 As a next step we iteratively decrease the size of the gap by $\Delta r = 0.125$ until $r=0$ is reached.
-An alternative approach to this woudld be to change the offset from the bottom of the cone, which would result in a constant
+An alternative approach to this would be to change the offset from the bottom of the cone, which would result in a constant
 slope but different heights of the simulation domain.
-The influence on the simulation domain is shown in figure ()(b).
-For $r=0.5$ the domain is given by a cylinder, which than transforms into a cone with a frustum and finally with an apex for $r=0$.
+  For $r=0.5$ the domain is given by a cylinder, which than transforms into a cone with a frustum and finally with an apex for $r=0$.
 The main simulation parameters are given by
 
 \begin{center}
@@ -596,46 +592,28 @@ $[0,\; 0.5], \Delta r =0.125$ & $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $10^
 \vspace*{0.7ex}
 \end{center}
 
+%\begin{figure}[!bp]
+%      \centering
+%        \resizebox{0.9\textwidth}{!}{
+%       \import{gfx/cone//}{comparison.pdf_tex}
+%      }
+%      \caption{
+%          Wave reflection for $o>0$ in the upper edges of the cone (left) and
+%          an attractor for $o=0$ (right), in the upper edges of the cone.
+%      \label{cone:img_finalattractor}
+%      }
+%\end{figure}
+
 \subsection{Simulation Librating Cone and Frustum with Differing Offsets at the Top}
 
-A a closure, this section represents the results computed with a new modified setup, which are more in accordance
-with the experiment we introduced.
-The improvements are based on the results and insights, which were gained from the previous simulations of the librating cone.
-We want to adress the  most important points
-
-\begin{itemize}
-    \item The radius of the bottom plate of the frustum has a strong influence on
-          the reflection of inertial waves.
-          Due to the Ekman number of $\Ekman=10^{-4}$ we use, which is one order of magnitude
-          above the experiment we assumed that a stronger damping acts on an inertial wave
-          at the bottom plate.
-
-    \item As a second point, we want to adress the influence of the offset on top of the cone,
-          which has been left out from any discussion so far.
-          It can be assumed this offset has a strong influence
-          on inertial wave propagation.
-          In particular for the intervall $\Theta<\alpha$, where wave super-critical reflection into the top corners occurs.
-          In the case where $O=0$, the corners of the cone act as an attractor, as pointed out in figure \ref{cone:img_finalattractor}.
-          For small gap sizes it applies that a inertial wave will be damped, in analogy to the bottom gap.
-\end{itemize}
-
-As a conlusion a larger gap radius $r$ for the bottom plate, will be introduced.
-The exact influence of the offset is unknow, therefore we propose a series of simulations with different offsets.
-
-\begin{figure}[!bp]
-      \centering
-        \resizebox{0.9\textwidth}{!}{
-       \import{gfx/cone//}{comparison.pdf_tex}
-      }
-      \caption{
-          Wave reflection for $o>0$ in the upper edges of the cone (left) and
-          an attractor for $o=0$ (right), in the upper edges of the cone.
-      \label{cone:img_finalattractor}
-      }
-\end{figure}
-
-\subsubsection{Setup}
-
+We want to briefly adress the influence of the offset on top of the cone,
+which has been left out from any discussion so far.
+It can be assumed this offset has an influence on inertial wave propagation.
+In particular for the intervall $\Theta<\alpha$, where wave super-critical reflection into the top corners occurs.
+In the case where $O=0$, the corners of the cone act as an attractor.
+For small gap sizes it could be possible that a inertial wave will be damped.
+The exact influence of the offset is unknown, therefore we propose a series of simulations with different offsets.
+Furthermore  a larger gap radius $r$ in comparison to the experiment is used.\\
 In this setup the radius $r$ is implitciy set by changing the height of the
 bottom plate to $h_b=0.375$.  The resulting radius is $r \approx 0.22$.
 This is done in order to maintain the constant slope of $\alpha=60$,
@@ -683,14 +661,12 @@ $\leftarrow h_+ \rightarrow$ & $ \leftarrow  \omega \rightarrow $ & $\epsilon$ &
 \vspace*{0.7ex}
 \end{center}
 
-For h and w choose specific points as explained in the discussion ( ?)
-As a last step we will repeat a part of the simulations for an Ekman number of $\Ekman = 10^{-3}$
--hd simulaiton nachträglich
 
 \clearpage
 
 \section{Results}
-\subsection{Results \& Discussion for the experiment}
+\subsection{Simulation of the experimental setup}
+
 \label{cone:exp}
 
 \begin{figure}[!bp]
@@ -715,7 +691,7 @@ Overall it appears that the (spectrum) can be divided into two domains $\Omega_1
 This result is not unexpected, since we choose the slope $\alpha$ of the cone such that for $\omega=1$, it is parallel
 do the group velocity $\vec{c}_{g}$.
 
-\subsubsection{Results \& Discussion transition }
+\subsubsection{Transition from Cylinder to Cone }
 
 The results of the simulations are shown in figure \ref{fig:cone:transition}.
 For $r=0$ we can see the inertial modes of a librating cylinder, which is in accordance
@@ -745,8 +721,8 @@ With a further decrease in $r$, the (2, 2) mode is annihilated.
 \clearpage
 
 
-\subsection{Results of the Cone with different offset at top}
-\subsubsection{Spectrum for the Simulation with Different Offsets}
+\subsection{Results of the Cone with Different Offsets at the Top}
+\subsubsection{Spectrum}
 
 The results for this simulation are shown in figure \ref{fig:cone:finaltransition}.
 On the left side of the plot  the frequency spectrum is shown, the right side illustrates the used geometry.
@@ -826,6 +802,9 @@ For the peak (\RN{8}) for the cone, a downward traveling wave can be observed .
 
 The results for  the helicity are exemplary shown in figur \ref{fig:cone:finalhelicity}.
 For the computation the inertial frame of reference was used.
+
+in the accelerated frame of reference and also for the inertial system with an additional offset in the velocity
+given by $\vec{u} = \vec{u}|_{\text{rot.}} + \Omega(t) \times \vec{r}$.
 
 - nicht so ins detail gehen
 - important features
@@ -912,10 +891,11 @@ Here a comparison is made between the frustum and the cone for $\omega=1.25$ and
 %%    }
 %%\end{figure}
 \clearpage
-\subsubsection{High Resolution Comparison}
+\subsubsection{Comparison to a Higher Resolution}
 
 -nachträglich zum cylinder
 -test alte ergebnisse evtl erläutern
+-numerical oscillations vorhanden aber smaller ?
 
 \begin{figure}[!b]
 
@@ -927,11 +907,10 @@ Here a comparison is made between the frustum and the cone for $\omega=1.25$ and
     top.
     }
 \end{figure}
-
 \clearpage
 
 \section{Discussion}
-\subsection{Discussion the Experiment Simulation}
+\subsection{Simulation of the Experimental Setup}
 
 One possible assumption, regarding the position of the maximum with respect to the frequency, is that
 the expansion of the frustum with a tip  results in a shift to lower frequencies.
@@ -953,8 +932,7 @@ is strongly damped due to wall friction.
 DISCUSS T:\\
 damping  could be propt $\Ekman \vec{K}$.
 
-\subsection{Discussion of the Transition}
-
+\subsection{Transition from Cylinder to Cone}
 IDEA:
 We now want to further investigate the results from the previous simulation.
 The assumption was made, that the inserted bottom plate is to narrow to support an efficient reflection
@@ -992,40 +970,68 @@ For $r=0$ we have the indentical setup to the simulation in section \ref{cone:ex
   }
 \end{figure}
 
-\subsection{Discussion of the Librating Cone with Different Offsets}
+\clearpage
 
+\subsection{Librating Cone with Different Offsets}
 
-\subsubsection{Spectrum for the Simulation with Different Offsets}
+\subsection{Motivation}
+
+The improvements are based on the results and insights, which were gained from the previous simulations of the librating cone.
+We want to adress the  most important points
+
+\begin{itemize}
+    \item The radius of the bottom plate of the frustum has a strong influence on
+          the reflection of inertial waves.
+          Due to the Ekman number of $\Ekman=10^{-4}$ we use, which is one order of magnitude
+          above the experiment we assumed that a stronger damping acts on an inertial wave
+          at the bottom plate.
+    \item As a second point, we want to adress the influence of the offset on top of the cone,
+          which has been left out from any discussion so far.
+          It can be assumed this offset has a strong influence
+          on inertial wave propagation.
+          In particular for the intervall $\Theta<\alpha$, where wave super-critical reflection into the top corners occurs.
+          In the case where $O=0$, the corners of the cone act as an attractor, as pointed out in figure \ref{cone:img_finalattractor}.
+          For small gap sizes it applies that a inertial wave will be damped, in analogy to the bottom gap.
+\end{itemize}
+
+blablbablabla
+\clearpage
+
+\subsubsection{Spectrum}
+
+-man kann moden sehen
+
+-shift geometrie vergleich mit vorherigem chapter
 
 -links von m3 gleiches spectrum bild strahlengang bei m3
--shift geometrie erklärung
--vergleich zylinder mode evlt im paper nachschauen
+-mode rechts oben sollte eigentlich nicht vorhanden sein
+-strahlengang bild und mögliche erklärung
+
+-vergleich zylinder mode schwierig
+
 -gucke animationen alle moden im vergeich beispielbilder  cone/frustom vgl
 
 -fehler 8er mode bild zylinder theorie reibung
 
 \subsubsection{Helicity}
-
+- warum größer null
+- dann kleiner null
 -helicity is sehr klein system ist nicht gut geignet für einen dynamo?
 -check fehler berechnung l2 norm
 
+\subsubsection{Decay Rates}
+- die decay raten machen deutlich das  die oszillation abklingen
+- inertialmode gedämpft
 
+\subsubsection{Higher Resoltuion}
+-shows difference
+-reduzierung von oszillationen
 
-
--results erstmal machen
--wichtig diskussion turbulenz!
-
-
+\clearpage
 
 \section{Summary}
-\subsection{Summary}
-freeslip besser
 
-In addition to default helicity compuattion, we will also compute
-
-Furthermore we will compute the normalized helicity of the system given by
-in the accelerated frame of reference and also for the inertial system with an additional offset in the velocity
-given by $\vec{u} = \vec{u}|_{\text{rot.}} + \Omega(t) \times \vec{r}$.
+\subsection{Librating Cylinder}
 
 All methods were able to reproduce the modes M\RN{1}, M\RN{2} and M\RN{3},
 The only exeption is the interpolation method, which is numerical unstable.
@@ -1036,6 +1042,9 @@ This could be fixed with an improvement method, for example with the use of free
 -kleinerer grient an den seiten
 -abeir schwieriger zu implementiern
 As an alternative a higher resolution  could be used, which is computational expensive.
+-freeslip besser
+
+\subsection{Librating Cone}
 
 what have we done
 zusammen fassung results
@@ -1043,3 +1052,8 @@ zusammen fassung results
 -erflogreich in übereintstimmung mit der simulation
 -für kleine eckman zahlen simulairen interessant um mehr moden zu finden
 outlook hd simulationen
+
+
+
+\clearpage
+
