@@ -904,9 +904,20 @@ both decays rates are  equal.  In contrast to the cone, the decay of the frustum
 Figure \ref{fig:cone:finaldecayfit} shows the interpolated values of the decay rate for different
 heights $h_+$.  The time interval for the interpolation was set to $0 \leq t \leq 25$.
 The decay rate of the cone is about $1.5-2$ times as large as the decay rate for the frustum.
-Both decay rates are not constant.
-It furthermore can be noted, that the decay rate in the frustum could correlate with
-the amplitude of the peak M\RN{1}, as shown in figure \ref{fig:cone:finalampmax}.
+Finally in figure \ref{fig:cone:decayphaseexample}, the velocity profile for different timesteps during the decay in
+the frustum is shown.
+It can be seen that the as time passes, the wave is traveling into the apex of the cone.
+A profile for the frustum is not shown here, but it should be mentioned that in this case reflections to the top occur
+and the decay is homogeneous over the fluid domain.
+
+\begin{figure}[!b]
+  \centering
+  \includegraphics{gfx/cone/final/decay/phase_decay.pdf}
+  \caption{
+      \label{fig:cone:decayphaseexample}
+        Velocity profile for the cone for different times.
+    }
+\end{figure}
 
 \subsubsection{Comparison to a Higher Resolution}
 
@@ -917,10 +928,8 @@ $h_+\in\{0.0, 0.125\}$.
 The results in comparison to the lower resolution is shown in figure \ref{fig:cone:finalhdcomp}.
 All peaks in the spectrum for the high resolution, are in accordance with the previous computations.
 It can be noted that the higher resolution spectra are slightly shifted to the top.
-The numerical oscillations we discussed in section (), are still present but not as strong
-the amplitude was estimated to be 4 time smaller.
-
-
+Furthermore it shall be mentioned that numerical oscillations  are still present.
+However the amplitude is of order 4 times smaller compared to the lower resolution.
 
 
 \clearpage
@@ -1115,8 +1124,12 @@ In summary it can be said that this value is to small to be of interest for furt
 
 \subsubsection{Decay Rates}
 
-The decay rates show that an inertial mode in the frustum has a slower decay rate
-than the equivalent  case in a cone.
+The computed decay rates show that an inertial mode in the frustum has a slower decay
+than the equivalent case in a cone.
+
+-different offset should not make a different to the decay rate
+
+
 Furthermore it can be seen that the
 
 -die oscillationsen klingen gleichmäßig ab
