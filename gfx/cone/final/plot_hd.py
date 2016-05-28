@@ -65,10 +65,12 @@ def main():
         if (j==0) or (j==2):
             c = cp[0] if 'hd' in dr else cp[1]
             lab = r'$\Delta x = 1/256$' if 'hd' in dr else r'$\Delta x = 1/128$'
+            lab = r'$h_+=0$; ' + lab
             ax.plot(omgs, a_vz, 'o-', color = c, ms=ms, lw=lw,mew=mew, label=lab)
         else:
-            c = cp[1] if 'hd' in dr else cp[2]
+            c = cp[3] if 'hd' in dr else cp[4]
             lab = r'$\Delta x = 1/256$' if 'hd' in dr else r'$\Delta x = 1/128$'
+            lab = r'$h_+=0.125$; ' + lab
             ax.plot(omgs, a_vz, 'o-', color=c,  ms=ms, lw=lw, mew=mew, label=lab)
 
         os.chdir(cdir)
@@ -83,7 +85,7 @@ def main():
     formatter.set_scientific(True)
     formatter.set_powerlimits((-3,-2))
 
-    ax.legend(ncol = 2, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.3),
+    ax.legend(ncol = 2, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.25),
            fancybox=True, shadow=True)
 
     ax.yaxis.set_major_formatter(formatter)

@@ -175,31 +175,31 @@ def main():
 
     for i, ax in enumerate(axes[:, 0]):
         if i == 0:
-            ax.annotate(r'(\rom{6})', xy=(1.8, 0.0001),
+            ax.annotate(r'M\rom{6}', xy=(1.8, 0.0001),
                         xytext=(1.8, 0.0002), arrowprops=ap, **kw)
 
-            ax.annotate(r'(\rom{7})', xy=(0.55, 0.0002),
+            ax.annotate(r'M\rom{7}', xy=(0.55, 0.0002),
                         xytext=(0.55, 0.00035),  arrowprops=ap, **kw)
 
-            ax.annotate(r'(\textbf{O})', xy=(1.1, 0.00015),
+            ax.annotate(r'\textbf{O}', xy=(1.1, 0.00015),
                         xytext=(1.1, 0.00005), arrowprops=ap, **kw)
         if i == 2:
-            ax.annotate(r'(\rom{1})', xy=(1.25, 0.0004),
+            ax.annotate(r'M\rom{1}', xy=(1.25, 0.0004),
                         xytext=(1.25, 0.0002), arrowprops=ap, **kw)
 
-            ax.annotate(r'(\rom{2})', xy=(0.85, 0.00038),
+            ax.annotate(r'M\rom{2}', xy=(0.85, 0.00038),
                         xytext=(0.7, 0.0004),  arrowprops=ap, **kw)
 
-            ax.annotate(r'(\rom{3})', xy=(0.5, 0.00025),
+            ax.annotate(r'M\rom{3}', xy=(0.5, 0.00025),
                         xytext=(0.5, 0.0001),  arrowprops=ap, **kw)
 
-            ax.annotate(r'(\rom{5})', xy=(1.5, 0.0001),
+            ax.annotate(r'M\rom{5}', xy=(1.5, 0.0001),
                         xytext=(1.5, 0.0002),  arrowprops=ap, **kw)
 
-            ax.annotate(r'(\rom{4})', xy=(1.7, 0.0001),
+            ax.annotate(r'M\rom{4}', xy=(1.7, 0.0001),
                         xytext=(1.7, 0.0002),  arrowprops=ap, **kw)
 
-            ax.annotate(r'(\rom{8})', xy=(0.85, 0.00029),
+            ax.annotate(r'M\rom{8}', xy=(0.85, 0.00029),
                         xytext=(0.85, 0.0001),  arrowprops=ap, **kw)
         if i < 4:
             labels = [item.get_text() for item in ax.get_xticklabels()]
