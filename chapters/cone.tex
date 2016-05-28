@@ -1152,23 +1152,37 @@ Furthermore we could show that all immersed boundary methods were able to reprod
 The only exception is the interpolation method, which is numerical unstable.
 This is a little bit of a disappointing results, since this methods tends to contain
 the smallest numerical error.
-Finally, the results show a problem regarding the numerical implementation.
+Finally, the results show an error regarding the numerical implementation.
 For all testcases numerical oscillations could be observed which are related to the
-large Peclet number of the system. These oscillations are not an issues since they
-don't grow over the simulation time and are small in comparison to the physical solution
-of the system.
+large Peclet number of the system.
+These oscillations are not an direct an issues, since a growth of the error amplitude over time could not be observed.
+Beside that it is to consdier that the error is small in comparison to the physical solution of the system.
 
 \subsection{Librating Cone}
 
 In the second part of the chapter different simulations of
 a librating cone and a librating frustum were reviewed.
 
-what have we done
-zusammen fassung results
-- good first step
--erflogreich in übereintstimmung mit der simulation
--für kleine eckman zahlen simulairen interessant um mehr moden zu finden
-outlook hd simulationen
+The first simulation which was oriented towards the experimental setup described in \citep{Beardsley1970}.
+However, the results  were not agreement with the experiment.
+The assumption was made that the difference is based on the  stronger damping of inertial waves,
+based on the use of a larger Ekman number.
+
+In the second simulation the influence of the bottom radius of the frustum was varied
+to test its influence on the ability of inertial wave reflection.
+It could be shown that a smaller radius leads to a damping of an inertial mode and that the frequency
+shift is related to a distortion of the inertial wave geometry.
+
+In the last simulation series  the top of the cone was varied in order to test the influence on
+inertial wave propagation. Secondly the lower gap was set to a large value in contrast to the experiment
+to enable a better reflection, in accordance with results from previous simulations.
+
+The results have shown, that the offset on top affects the position and the amplitude of the resonances
+found in the frequency spectrum.
+
+-fragen
+
+-import result agreeement with theorie  blablabla
 
 
 
