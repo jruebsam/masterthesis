@@ -181,12 +181,12 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8"
-     inkscape:cx="47.688273"
-     inkscape:cy="124.30671"
+     inkscape:zoom="3.959798"
+     inkscape:cx="74.369878"
+     inkscape:cy="46.254194"
      inkscape:document-units="px"
      inkscape:current-layer="g4283"
-     showgrid="true"
+     showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1145"
      inkscape:window-x="-3"
@@ -214,7 +214,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -267,23 +267,23 @@
       <text
          sodipodi:linespacing="125%"
          id="text5743"
-         y="369.86218"
-         x="210.71429"
+         y="368.77179"
+         x="200"
          style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
          xml:space="preserve"><tspan
-           y="369.86218"
-           x="210.71429"
+           y="368.77179"
+           x="200"
            id="tspan5745"
-           sodipodi:role="line">$H$</tspan></text>
+           sodipodi:role="line">$H=l_z$</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text5747"
-         y="372.36221"
-         x="410"
+         y="367.36221"
+         x="400"
          style="font-size:4.6192112px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
          xml:space="preserve"><tspan
-           y="372.36221"
-           x="410"
+           y="367.36221"
+           x="400"
            id="tspan5749"
            sodipodi:role="line">$h_c$</tspan></text>
       <path
@@ -299,7 +299,7 @@
          inkscape:path-effect="#path-effect5761"
          id="path5759"
          d="m 350,402.36218 0,60"
-         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Mstart);marker-end:url(#Arrow2Mend)" />
+         style="fill:none;stroke:#000000;stroke-width:0.8;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Mstart);marker-end:url(#Arrow2Mend);stroke-miterlimit:4;stroke-dasharray:none" />
       <text
          sodipodi:linespacing="125%"
          id="text6143"
@@ -429,6 +429,35 @@
            x="328.68143"
            id="tspan3138"
            sodipodi:role="line">$\otimes y$</tspan></text>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.8;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow2Mstart);stroke-miterlimit:4;stroke-dasharray:none;marker-end:url(#Arrow2Mend-0)"
+         d="m 2.07506,211.53 220,0"
+         id="path3043"
+         inkscape:connector-curvature="0"
+         transform="translate(197.92494,250.8322)" />
+      <text
+         xml:space="preserve"
+         style="font-size:8px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         x="39.901028"
+         y="207.73654"
+         id="text4253"
+         sodipodi:linespacing="125%"
+         transform="translate(197.92494,250.8322)"><tspan
+           sodipodi:role="line"
+           id="tspan4255"
+           x="39.901028"
+           y="207.73654" /></text>
+      <text
+         xml:space="preserve"
+         style="font-size:8px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         x="259.49493"
+         y="458.62491"
+         id="text4257"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4259"
+           x="259.49493"
+           y="458.62491">$l_x$</tspan></text>
     </g>
   </g>
 </svg>

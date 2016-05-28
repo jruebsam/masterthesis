@@ -32,7 +32,7 @@ def main():
 
     f, ax = style.newfig(0.8)
     cdir = os.getcwd()
-    labels = ['Cone', 'Frustum']
+    labels = ['Frustum', 'Cone']
 
     for dpath, label in zip(dpaths, labels):
         os.chdir(dpath)
@@ -64,7 +64,7 @@ def main():
             a_vz/=0.16
 
 
-        ax.plot(omgs, (a_vz), 'o--', ms=4, mew=0, lw=0.5,
+        ax.plot(omgs, (a_vz), 'o-', ms=3, mew=0, lw=0.8,
                 label=label)
 
        #plt.plot(omgs, a_vphi, 'ro--')

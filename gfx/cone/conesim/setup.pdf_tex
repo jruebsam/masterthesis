@@ -50,8 +50,8 @@
   \makeatother%
   \begin{picture}(1,0.9464746)%
     \put(0,0){\includegraphics[width=\unitlength]{setup.pdf}}%
-    \put(0.05681941,0.4176587){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$H$}}}%
-    \put(0.94218835,0.40655178){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$h_c$}}}%
+    \put(0.00921889,0.422503){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$H=l_z$}}}%
+    \put(0.89776124,0.42876534){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$h_c$}}}%
     \put(0.69029034,0.13990529){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$h_b$}}}%
     \put(0.56931796,0.29707083){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$r$}}}%
     \put(0.11076661,0.69215478){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\alpha$}}}%
@@ -60,5 +60,6 @@
     \put(0.49719494,0.53849156){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$z$}}}%
     \put(0.58604918,0.40521021){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x$}}}%
     \put(0.58091338,0.51552824){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\otimes y$}}}%
+    \put(0.27353773,0.0233115){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$l_x$}}}%
   \end{picture}%
 \endgroup%

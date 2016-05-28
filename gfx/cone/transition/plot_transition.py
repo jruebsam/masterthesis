@@ -151,7 +151,8 @@ def main():
     """
 
 
-    plt.savefig('transition.pdf')
+    #plt.savefig('transition.pdf')
+    plt.show()
 
 if __name__=='__main__':
     main()
