@@ -1129,7 +1129,8 @@ Furthermore it can be seen that the
 
 \subsubsection{Higher Resoltuion}
 
-
+-oszillation wachsen nicht > resultat
+-nicht wichtig wegen größe im vergelich zu rest
 -shows difference
 -stepsize to small for good comparison
 -idea was ekman randschicht
@@ -1138,24 +1139,29 @@ Furthermore it can be seen that the
 \clearpage
 
 \section{Summary}
+
 \subsection{Librating Cylinder}
 
-in the first part of the chapter a simulation of cylinder was carried out
-in order to  compare the results to available theoretical and numerical soultios.
 
-All methods are able to reproduce these features
--ausser ip
-
--aber auch probleme zum beispiel numerische oszillation
-
-
-All methods were able to reproduce the modes M\RN{1}, M\RN{2} and M\RN{3},
+In the first part of the chapter we reviewed the simulation of a librating cylinder.
+The simulation was performed as a validation testcase for the cone,
+since for this system, more literature is available for a comparison.
+The obtained frequency spectra revealed three inertial modes,
+which are in good agreement with the theoretical results from \citep{Greenspan1990},  and the  numerical results from \citep{Sauret2012}.
+Furthermore we could show that all immersed boundary methods were able to reproduce these modes.
 The only exception is the interpolation method, which is numerical unstable.
 This is a little bit of a disappointing results, since this methods tends to contain
 the smallest numerical error.
-Another point which should be consider for future simulations are the numerical oscillations.
+Finally, the results show a problem regarding the numerical implementation.
+For all testcases numerical oscillations could be observed which are related to the
+large Peclet number of the system. These oscillations are not an issues since they
+don't grow over the simulation time and are small in comparison to the physical solution
+of the system.
 
 \subsection{Librating Cone}
+
+In the second part of the chapter different simulations of
+a librating cone and a librating frustum were reviewed.
 
 what have we done
 zusammen fassung results
