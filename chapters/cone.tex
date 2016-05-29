@@ -323,8 +323,8 @@ As a first step towards the implementation of the librating cone, simulations of
 Despite the theoretical and experimental results we discussed so far,
 it is difficult to find results in literature which would be suitable for an appropriate validation for the cone.
 For the cylinder on the other hand, theoretical and numerical results are available.\\
-The theoretical solution for the inviscid case, was introduced in chapter \ref{NUMERIK}.
-Due to the excitation by libration the possible observable modes have to be axially symmetric, meaning the azimuthal wavenumber is $k=0$.
+The theoretical solution for the inviscid case was introduced in Sec. \ref{theorie:rotating:cyl_modes}.
+Due to the excitation by libration the possible observable modes have to be axially symmetric, meaning the azimuthal wavenumber is zero.
 All possible modes are therefore defined by the indices $(n, m)$, corresponding to the radial and axial wavenumber.\\
 The simulations were performed with a librating cylinder, of aspect ratio $\Gamma=r/H=\nicefrac{0.5}{1.1}$
 \footnote{Due to a misunderstanding the aspect ratio of the cylinder was set to $\Gamma=r/H=\nicefrac{0.5}{1.1}$ instead of $\frac{1}{2}$.}
@@ -337,13 +337,13 @@ The main simulation parameters are given by
 \begin{tabular}{c|c|c|c|c|c|c|c }
  $\leftarrow  \omega \rightarrow $ & $\Gamma$ & $\Delta t$ & $\Delta x$ & $c^2$ & $\Ekman$  & $l_x, l_y, l_z$ & $T_{end}$\\
 \hline
- $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $\nicefrac{0.5}{1.1}$ & $10^{-4}$ & $\nicefrac{1}{128}$ & 500 & $10^{-4}$  & (1.1, 1, 1) & 100\\
+ $[0.2,\; 2], \Delta \omega = \nicefrac{1}{10}$ & $\nicefrac{0.5}{1.1}$ & $10^{-4}$ & $\nicefrac{1}{128}$ & 500 & $10^{-4}$  & (1.1, 1, 1) & 100\\
 \end{tabular}
 \vspace*{0.7ex}
 \end{center}
 
-The simulations were performed for all immersed boundary methods used in this thesis, with 2nd and 4th order finite differences.
-The results will presented and discussed separately to the results of the librating cone in the next section, for reasons of clarity.
+The simulations were performed for all immersed boundary methods used in this thesis, with 2nd and 4th order finite difference schemes.
+The results are presented and discussed separately in comparison to the results of the librating cone in the next section, for reasons of clarity.
 
 \clearpage
 
@@ -363,28 +363,29 @@ To make the deviations between the methods more visible, two inset plots which a
 set to the location $\omega=0.8$ and $\omega=1.0$., are shown.
 For both positions, the largest amplitude is given by the direct forcing method of 2nd order, followed by
 the volume penalization method of 2nd and 4th order.
-The amplitude difference betweens the first two methods is just slighty visible when looking at the right inset plot.
-It seems like these three methods yield nearly the same results for alle frequencies.
+The amplitude difference between the first two methods is just slightly visible when looking at the right inset plot.
+It seems like these three methods yield nearly the same results for all frequencies.
 For all remaining methods  no strict order or grouping can be recognized.\\
 The results for the interpolation method are not presented here, since the simulations became numerically unstable.
 
 \subsubsection{Eigenvalues for the inviscid equations}
 
 For a comparison to the theoretical solution, the eigenvalues for the (n, m)-inertial modes with $n\in[1,6]$ and $m\in[1, 2]$ were computed.
-The results are shown in table \ref{cone_cyleigenvalues}.
+The results are shown in Table \ref{cone_cyleigenvalues}.
 There are four possible candidates,  which could correspond to the peaks in the spectrum.
-The largest peak at M\RN{1} is close to the eigenvalues of the (1, 2) and (2, 4) mode.
-The left peak  M\RN{2} could be related to the (2, 2) mode,  whereas the peak on the right side M\RN{3} is close to the eigenvalue of the (1, 4) mode.
-The eigenvalues for even $n$ are not considered. Due to the excitation by libration,  only azimuthal velocity fields which are even,
+The largest peak at M\RN{1} is close to the eigenvalues of the (2, 1) and (4, 2) mode.
+The left peak  M\RN{2} could be related to the (2, 2) mode,  whereas the peak on the right side M\RN{3} is close to the eigenvalue of the (4, 1) mode.
+The eigenvalues for uneven $n$ are not considered. Due to the excitation by libration,  only azimuthal velocity fields which are even,
 in relation to the plane $z=H/2$ are possible \citep{Sauret2012}.
+\footnote{An uneven pressure gradient creates an even velocity field.}
 Furthermore we are not considering modes with $m\geq2$. These modes are not even visible at an Ekman number of $5\cdot10^{-5}$,
-due to viscous damping of large wavenumbers, according to \citep{Sauret2012}.\\
-A further comparison was done, by computing the eigenmodes, for the possible (n, k) values of M\RN{1}, M\RN{2} and M\RN{3}.
+due to viscous damping of large wave numbers, according to \citep{Sauret2012}.\\
+A further comparison was done by computing the eigenmodes for the possible (n, m) values of M\RN{1}, M\RN{2} and M\RN{3}.
 The results are shown in Fig. \ref{cone:cyl_modes}.
 The assumed (4, 2) mode is not shown since the profiles do not match.
 The theoretical solution yields the pressure field of the inertial mode.
 Since this quantity is not directly accessible from the simulation results,
-the absolute velocity in $z$-direction, averaged over the simulation time, is computed.
+the absolute velocity in $z$-direction, integrated over the simulation time, is computed.
 This expression should be proportional to the theoretical pressure gradient in $z$-direction.
 With exception of the sign, which is eliminated by taking the absolute value of $v_z$.
 \clearpage
@@ -422,12 +423,12 @@ With exception of the sign, which is eliminated by taking the absolute value of 
 \begin{figure}[!t]
   \centering
   \includegraphics{gfx/cone/cylinder/modes.pdf}  \caption{
-      Theoretical inertial modes compared to the absolute velocity component $v_z$.
+      Theoretical inertial modes compared to the absolute of the velocity component $v_z$ of the simulation.
       For the peaks \RN{1}, \RN{2} and \RN{3}.
       \label{cone:cyl_modes}}
 \end{figure}
 
-The theoretical profiles for the inviscid problem, look indeed very similar to the simulated profiles.
+The theoretical profiles for the inviscid problem look indeed very similar to the simulated profiles.
 The simulation profiles are slightly distorted on the walls of the fluid domain, in
 comparison to the theoretical profiles.
 For all modes, the number of wave nodes in $z$, and $x$ direction is identical,
