@@ -20,13 +20,12 @@ be presented and discussed.
 %In order to ensure a correct numerical behavior of the introduced methods, a
 %Multiple examples from simple to more complex testcases are introduced in this section.
 
-
 \subsection{Laminar Poiseuille-Flow}
 
 \begin{figure}[!bp]
   \begin{minipage}[c]{0.6\textwidth}
       \centering
-        \resizebox{0.7\textwidth}{!}{
+        \resizebox{0.9 \textwidth}{!}{
        \import{gfx/immersed_boundary/poiseuille_flow//}{setup.pdf_tex}
       }
   \end{minipage}
@@ -37,50 +36,32 @@ be presented and discussed.
   \end{minipage}
 \end{figure}
 
-\clearpage
-
-%\begin{wrapfigure}{r}{0.5\textwidth}
-%  \begin{center}
-%      \includegraphics[width=0.48\textwidth]{gfx/immersed_boundary_methods/val_volpen/poiseuilleflow.png}
-%   \end{center}
-%          \caption{ paxvleb xvle}
-%\end{wrapfigure}
-
-
-The first testcases is the laminar poiseuille-flow, the theoretical setup is presented in figure ().
-It consist of two infintiy long planes at $z=h_1$ and $z=h_2$, which are oriented
- parallel to the xy-plane and the distance $\Delta h = h_2 - h_1$ between them.
+The first testcases is the laminar poiseuille-flow, the theoretical setup is presented in Fig. \ref{validation:setup_pf}.
+It consist of two infintiy long planes at $z=h_1$ and $z=h_2$ which are oriented
+parallel to the xy-plane at a distance $\Delta h = h_2 - h_1$.
 Numerically this is realized by using periodic boundaries in xy-direction and
-no-slip boundaries in z-direction.
-The velocity profile results from an external force, given by a
- pressure gradient in x-direction, which is introduced into the naviers-stokes equation.
+No-Slip boundaries in z-direction.
+
+The velocity profile results from a pressure gradient in x-direction, which is added into the naviers-stokes equation.
 No other forces are present furthermore the flow will be independent of the y coordinate,
-hence for the steady state $\partial v_x /\partial t = 0$ the equations of motion can be reduced to:
+hence for the steady state $\partial v_x /\partial t = 0$ the non-dimensinoal equations of motion can be reduced to:
 
 \begin{align}
-\frac{\partial v}{\partial t} &= - \frac{\partial p}{\partial x} + \nu \frac{\partial^2 v_x}{\partial z^2} = 0
-\end{align}
-
-where v is the velocity in x direction.
-For the non-dimenzionalization we choose $r^* = r/L$, $v^*=v/L$, $t^* = \frac{V}{L}$
-and $p^* = p \rho V^2$ where $L=\Delta h$ and $V=v_{max}$.
-The non-dimensional equation reads
-
-\begin{align}
-\frac{\partial v}{\partial t} &= - \frac{\partial p}{\partial x}
+\frac{\partial v_x}{\partial t} &= - \frac{\partial p}{\partial x}
  + \frac{1}{Re} \frac{\partial^2 v_x}{\partial z^2} = 0
 \end{align}
 
-with $Re = VL/\nu$.
-For the volume penalization method we furthermore obtain a
-non-dimensional damping force $-\frac{H}{J}\cdot v$ with $J = VL/\eta$.
+with $Re = \nicefrac{V_{m}\Delta h}{\nu}$.
+For the non-dimenzionalization we choose $r^* = r/\Delta h$, $v^*=V_(\text{m})/\Delta h$, $t^* = \frac{V_{\text{m}}}{\Delta h}$
+and $p^* = p \rho V_{\text{max}}^2$
+
 The equation can simply be integrated twice which yields the solution
 
 \begin{align}
-v &= \frac{1}{2}\frac{\partial p}{\partial x}z^2 + zc_1 + c_2
+v_z &= \frac{1}{2}\frac{\partial p}{\partial x}z^2 + zc_1 + c_2
 \end{align}
 
-Using the noslip-boundary condition $v_x(h_1) = v_x(h_2) = 0$ and furthermore by defining
+Using the NoSlip-boundary condition $v_x(h_1) = v_x(h_2) = 0$ and furthermore by defining
 $A:=\frac{1}{2}\frac{\partial p}{\partial x} Re$ one obtains the additional conditions
 
 \begin{align}
@@ -107,64 +88,119 @@ Since $v_{max}$ has to be 1 by definition of the non-dimensionalzation we find
 \end{align}
 
 as a necessary condition for the pressure gradient.\\
-With the given theoretical solution, the next objective is the comparison
-to the default implementation, the volume penalization method and the direct forcing method.
-Since we have a flow parallel to the grid  it does not make sence to compare it to the interpolation methods
-For the comparision with a theoretical solution it is necessary to ensure that
- the surface grid points match with the total height $h$ of the channel.
-In the default setup tes gibthe noslip-boundaries are
-realized with the default implementation, like explained in section ().
-For the immersed boundary methdos the upper- and lower boundaries are given by the masking function.
-\begin{align}
-H(x, y, z) = \begin{cases}
-                    0, & \text{for \  }  z < h_2 \lor z>h_1 \\
-                    1, & \text{else}.
-             \end{cases}
-\end{align}
 
 \clearpage
 
 
 \section{Simulations}
+
+-Following conventions dx, N etc
+
+
 \subsection{Poiseuille Flow}
-just the vp and df test wegen geometry
-\subsubsection{Test of the default setup}
 
-Initially a grid convergence test was performed with the default
- implementation of the algorithm, without the use of immersed boundaries.
+The poiseuille-flow problem  is used in particular as a first validation testcase
+for the Volume-Penalization and Direct-Forcing methods.
+
+\subsubsection{Test of the Default Setup}
+
+The purpose of the first simulation is the test of the default
+implementation of the algorithm, without the use of immersed boundaries.
 For this test case this is still possible since the geometry is non-curved
- and parallel to the cartesian grid.
+and parallel to the cartesian grid.
+A grid convergence test was performed with the main simulation parameters are given by
 
-For the  numerical setup the parameters were set to $l_x=1$, $l_y=0.25$, $l_z=1$.
-The reynolds number was set to a constant value of $Re=500$, whereas the resolution $N$
- was varied in the Intervall $[16 - 128]$ with a stepsize of $\Delta N = 8$.
-The timestep was set to $\mathrm{dt}=1e-5$ and the pressure gradient to $\partial p \partial x  = 10$.
-For all resolutions the simulations were performed for finite differcen
-schemes of second and fourth order.
+\begin{center}
+\vspace*{0.7ex}
+\begin{tabular}{c|c|c|c|c|c|c }
+ $ N  $                   & $\Delta t$ & $\Delta x$            & $\Rey$  & $c^2$   & $l_x, l_y, l_z$ & $T_{end}$\\
+\hline
+ $[8, 256], \Delta N = 8 $& $10^{-4}$ & $\nicefrac{1}{N - 1}$ & 500     & $500$   & (1, 1, 1)       & 10\\
+\end{tabular}
+\vspace*{0.7ex}
+\end{center}
+
+For all resolutions the simulations were performed for finite difference
+schemes of 2nd and 4th order.
 
 \subsubsection{Test of the Volume Penalization Method}
 
-The next objective is to investigate the error of the volume penalization method.
-For this method the additional forcing term REFHERE is introduced into the equations. The non-dimenzionalzation leads to the form
+%With the given theoretical solution, the next objective is the comparison
+%to the default implementation, the volume penalization method and the direct forcing method.
+%Since we have a flow parallel to the grid  it does not make sence to compare it to the interpolation methods
+%For the comparision with a theoretical solution it is necessary to ensure that
+% the surface grid points match with the total height $h$ of the channel.
+
+For the immersed boundary methdos the upper- and lower boundaries of the channel are realized by the masking function.
+\begin{align}
+H(x, y, z) = \begin{cases}
+                    0, & \text{for \  }  h_1 \leq z \leq h_2 \\
+                    1, & \text{else}.
+             \end{cases}
+\end{align}
+
+For the volume penalization method we furthermore obtain a
+The non-dimensionalized damping force  given by
+
 \begin{align}
     \vec{f} = \frac{H}{J}v
 \end{align}
 
-with the quantity $J = 123$ as a non-dimensional forcing parameter.
-(MACH NUBMER DISCUSSION HERE) \\
-We begin by studying the behavior of the velocity profile, with variation of the Reynolds-number and the damping $J$, in the regime $Re=100-500$ and $\nu=1e-4 - 5e-1$.
-The numerical setup is equal to the one for the default methods, except we now introduce the masking function (LABELABOVE) with $h_1=0.25$ and $h_2=0.75$.
-To make sure that the channel width is equal to $\Delta h = 1$, the total height was set to $l_z\approx2.01587$. This furthermore ensures that the grid points overlap exactly
-with the masking function at $h_1$ and $h_2$. The resolution was set to $N_x\times N_y\times N_z = 64\times16\times128$.
+where $J = \nicefrac{V_{m}}{\eta}$.
 
-Finally a grid convergence study was carried out, with a constant Reynolds number and $\nu \in [1-23]$.
+\clearpage
+
+A first test is to investigate the error of the velocity profile, with a variation of the Reynolds-number and the damping rate $J$.
+The total simulation domain is set to the height $l_z=2$ with $h_1=0.25$ and $h_2=0.75$.
+A simulation series was performed with the main simulation parameters given by
+
+
+\begin{center}
+\vspace*{0.7ex}
+\begin{tabular}{c|c|c|c|c|c|c|c }
+ $ \Rey  $                      & $J$ &  $\Delta t$ & $\Delta x$            & $\Rey$  & $c^2$   & $l_x, l_y, l_z$ & $T_{end}$\\
+\hline
+ $[100, 500], \Delta \Rey = 25 $& $[10^{-5}, 5\cdot10^{-1}]  $ &  $10^{-4}$ & $\nicefrac{1}{N - 1}$ & 500     & $500$   & (1, 2, 0.25)  & 10\\
+\end{tabular}
+\vspace*{0.7ex}
+\end{center}
+
+The damping force was divided by 2 or 5 for n times.
+To make sure that the channel width is equal to $\Delta h = 1$, the total height was set to $l_z\approx2.01587$.
+This furthermore ensures that the grid points overlap exactly
+with the masking function at $h_1$ and $h_2$.
+This test was performaed for 2nd order (oder 4th order error explain)
+
+As a second test a grid convergence study was carried out, with a constant Reynolds number and $\nu \in [1-23]$.
 The resolution was varied between $N\in [4, 400]$ with $\Delta N = 4$, second and fourth order schemes were tested.
-For the correct solution the theoretical velocity profile (REF) was assumed.
+
+\begin{center}
+\vspace*{0.7ex}
+\begin{tabular}{c|c|c|c|c|c|c|c }
+ $ \Rey  $                      & $J$ &  $\Delta t$ & $\Delta x$            & $\Rey$  & $c^2$   & $l_x, l_y, l_z$ & $T_{end}$\\
+\hline
+ $[100, 500], \Delta \Rey = 25 $& $[10^{-5}, 5\cdot10^{-1}]  $ &  $10^{-4}$ & $\nicefrac{1}{N - 1}$ & 500     & $500$   & (1, 2, 0.25)  & 10\\
+\end{tabular}
+\vspace*{0.7ex}
+\end{center}
 
 \subsection{Test of the Direct Forcing Method}
-For the comparsion to the direct forcing method another grid convergence study was carried out.  As a parameter we used same as above,
 
+Since the direct forcing method does not depend on a damping parameter it is sufficient enough
+to carry out a grid convergence study
+The simulation parameter arg given by
 
+\begin{center}
+\vspace*{0.7ex}
+\begin{tabular}{c|c|c|c|c|c|c|c }
+ $ \Rey  $                      & $J$ &  $\Delta t$ & $\Delta x$            & $\Rey$  & $c^2$   & $l_x, l_y, l_z$ & $T_{end}$\\
+\hline
+ $[100, 500], \Delta \Rey = 25 $& $[10^{-5}, 5\cdot10^{-1}]  $ &  $10^{-4}$ & $\nicefrac{1}{N - 1}$ & 500     & $500$   & (1, 2, 0.25)  & 10\\
+\end{tabular}
+\vspace*{0.7ex}
+\end{center}
+
+2nd and 4th order finite difference schemes were tested.
 
 \clearpage
 
@@ -172,6 +208,7 @@ For the comparsion to the direct forcing method another grid convergence study w
 \subsection{Poiseuille Flow}
 \subsubsection{Test of the default seutp}
 The results are shown in figure \ref{fig:ema1} on a double logarithmic plot.
+-some of the discussion splitted to here maybe ?
 
 \begin{figure}[!bp]
     \centering
@@ -179,7 +216,8 @@ The results are shown in figure \ref{fig:ema1} on a double logarithmic plot.
     \caption{Relative $l_2$-error for second and fourth order schemes of the default algorithm.\label{fig:ema1}}
 \end{figure}
 
--some of the discussion splitted to here maybe ?
+\clearpage
+
 
 \subsubsection{Test of the Volume Penalization Method}
 
@@ -224,6 +262,7 @@ For the second order scheme we can see that with an increase in the resolution, 
 Even more confusing is the behaviour for the fourth order scheme.
 With increasing resolution we can see a decrease into a local minimum, followed by an increase to the same error as the second order scheme.
 
+\clearpage
 
 \subsection{Direct Forcing Method}
  the results are shown in figure X.
@@ -326,47 +365,7 @@ The second order scheme works perfectly as we compare it to the default implemen
 
 \clearpage
 \clearpage
-\clearpage
 
-\subsection{Poiseuille Flow with variable pressure gradient}
-
-Finally
-
-\begin{align}
-\frac{\partial p}{\partial x} &= P_0 \sin(\pi n z)
-\end{align}
-
-solution with the same non-dimensionalization yields
-
-\begin{align}
- \nu v &=  \sin(\pi n z)
-\end{align}
-
-with the condition
-
-\begin{align}
- P_0 &= -\frac{\pi^2n^2}{Re}
-\end{align}
-
-to satisfie $v_{max} = 1$.
-
-
-\begin{align}
- \nu v &= D \frac{\partial^2 v_x}{\partial z^2}  \Rightarrow  v_x = A e^{\sqrt{\frac{\nu}{D}}v_x}
-\end{align}
-\begin{figure}%
-    \centering
-    \subfloat[label 1]{{
-      \includegraphics{gfx/immersed_boundary/poiseuille_flow/4_sine/relative_l2error.pdf}\label{fig:mask_vp}
-        }}%
-    \qquad
-    \subfloat[label 2]{{
-      \includegraphics{gfx/immersed_boundary/poiseuille_flow/4_sine/relative_l2error_methods.pdf}\label{fig:mask_vp}
-        }}%
-    \label{fig:example}%
-\end{figure}
-
-\newpage
 \subsection{Hagen-Poiseuille Flow}
 
 \subsubsection{Theoretical description}
