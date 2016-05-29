@@ -549,7 +549,7 @@ with a librating cone. The first simulation is a setup inspired by the experimen
 In the second setup the geometrical transition, from a cylinder to a librating cone, is investigated.
 Finally we will study the influence of different offsets on top of the cone, in the last simulation.
 All performed simulations use the conventions and setup from section \ref{cone:convsetup}.
-As an immersed boundary methods the direct forcing  method of 2nd order is used.
+As an immersed boundary method the direct forcing  method of 2nd order is used.
 
 \subsection{Simulation of the Experimental Setup}
 
@@ -557,16 +557,19 @@ The setup for this simulation is oriented on the experiment with slightly change
 %\footnote{This was done to simplify the implemenation.}
 For the simulation we choose an Ekman number of $\Ekman =  10^{-4}$. A simulation of higher Ekman numbers,
 closer to the experiment, is difficult to realize, due to the computational effort.
-Furthermore we set $\alpha = \arccos(1/2) = 60^{\circ}$, $H=1$ and $r=0.5$.
-This means that for $\omega=1$, the propagation direction of a wave is parallel to the slope of the cone.
-With this choices an additional constraint is given by
+In the first part of the simulation a cone is simulated,
+with the geometric parameters $\alpha =  60^{\circ}$, $H=1$ and $r=0$.
+This means that the critical propagation frequency is $\omega_c=1$, an inertial wave traverses parallel to the slope of the cone.
+The resulting offset on top is given by the constraint
 
 \begin{align}
     O = H - h_c =  1 - r\tan{\alpha} \approx 0.134
 \end{align}
 
-The simulation has two setups in analogy to the experiment.For the second part the bottom plate is set to $h_b=0.25$.
-A series of simulations of these systems where performed, with the parameters
+In the second simulation the cone is replaced with a frustum, by setting a bottom plate to the height $0.25$.
+The total height reduces to $H=0.75$, the radius of the gap is $r\approx0.144$.
+A series of simulations for the two setups were performed.
+The main simulation parameters are given by
 
 \begin{center}
 \vspace*{0.7ex}
@@ -587,6 +590,7 @@ We propose a setting where we start with a setup, with the possible largest bott
 As a next step we iteratively decrease the size of the gap by $\Delta r = 0.125$ until $r=0$ is reached.
 For $r=0.5$ the domain is given by a  cylindric geometry, since $r=l_x/2=l_y/2$.
 with an decrease of $r$ the geometry transforms into a frustum and finally, into a cone with an apex for $r=0$.
+\clearpage
 The main simulation parameters are given by
 
 \begin{center}
@@ -615,16 +619,14 @@ $[0,\; 0.5], \Delta r =0.125$ & $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $10^
 \subsection{Simulation Librating Cone and Frustum with Differing Offsets at the Top}
 
 For the last simulation series, we propose a setup with different offsets on top of the cone.
-Furthermore  a larger gap radius $r$ in comparison to the experiment is used.\\
-In this setup the radius $r$ is implitciy set by changing the height of the
-bottom plate to $h_b=0.375$.  The resulting radius is $r \approx 0.22$.
-This is done in order to maintain the constant slope of $\alpha=60$,
-which is parallel to an inertial wave for $\omega=1$.
+Once more, two setup are used. The first setup is the cone with height $H=1$, $r=0$ and $\alpha=60$.
+The second setup is  the frustum, with a larger gap radius $r$ in comparison to the experiment.\\
+In this setup the position of the bottom plate is set to $0.375$, the resulting frustum height is $H=0.625$
+and the radius is given by$r \approx 0.22$.
 An additional offset is added to the default one,
 varying in the range of $h_+ = [0, 0.5]$ with a stepsize of $\Delta h_+ = \nicefrac{1}{5}$.
-The complete offset at the top is $O =  (\nicefrac{1}{2})\tan{\nicefrac{\pi}{3}}{2}+ h_+$.
-The main simulation parameters are given by
-COMPARSION CONE FRUSTUM UNCLEAR...
+The complete offset at the top is $O \approx 0.134 + h_+$.
+The main simulation parameters for both setups are given by
 
 \begin{center}
 \vspace*{0.7ex}
@@ -638,33 +640,24 @@ $[0,\; 0.5], \Delta h_+ =0.125$ & $[0.2,\; 2], \Delta w = \nicefrac{1}{20}$ & $1
 \end{center}
 
 It should be noted that a higher resolution for the frequency was used compared to the previous simulations.
-The total simulation time $T^*_{end.}$ is marked as $\gtrsim 100$, here we want to introduce the modification
+The total simulation time $T^*_{end.}$ is marked as $\gtrsim 100$. Here we want to introduce the modification
 
 \begin{align}
     T_{\text{end.}}^* = \underbrace{\Bigl\lfloor\left(\text{T}_{\text{end}}\frac{\omega}{2\pi}\right)\Bigr\rfloor}_{
-        \text{Floor}
+        \text{Versteht man das oder muss ich das erklären?}
         }\frac{2\pi}{\omega} + \frac{2\pi}{\omega}
 \end{align}
 
-As a consequence the ending time  of all simulations, is set to the point where the libration force is crossing zero.
+As a consequence the ending time  of all simulations is set to the point, where the libration force is crossing zero.
 The scenario we want to study from there on is the decay of inertial waves.
-To achieve this we continue a simlations with the previously computed endstates and set the libration amplitude $\epsilon$ to zero.
-With the use of the modified endtime, we assume all that all intertial waves are
+
+To achieve this a simulation with the previously computed endstate is continued,
+with the libration amplitude $\epsilon$ set to zero.
+With the use of the modified endtime, the assumption is that all intertial waves are
 approximately in the same phase with respect to their libration frequency.
-The simulation parameters changes according to
-
-\begin{center}
-\vspace*{0.7ex}
-\begin{tabular}{c|c|c|c}
-%\begin{tabular}{p{0.1\linewidth}| p{0.1\linewidth}| p{0.1\linewidth}|  p{0.1\linewidth}| p{0.1\linewidth}| p{0.1\linewidth} }
-$\leftarrow h_+ \rightarrow$ & $ \leftarrow  \omega \rightarrow $ & $\epsilon$ & $T_{\text{end}}$\\
-\hline
- see \ref{p.xx} & see \ref{p.xx} & 0 & 150\\
-\end{tabular}
-\vspace*{0.7ex}
-\end{center}
-
--hd simulation and helicity?
+The end time for this simulations is set to  $T_{end} = 150$.
+Finally a simulation series with the same settings as before,
+but with a higher resolution of $\Delta x = \nicefrac{1}{256}$, will be repeated.
 
 \clearpage
 
