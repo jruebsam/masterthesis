@@ -75,7 +75,7 @@ def main():
         ax.set_xlabel('x', labelpad = 0.1)
         ax.set_ylabel('z', labelpad = 0.1)
         ax.set_aspect('equal')
-        ax.text(right, 0.5*(bottom+top), 'r=%.3f' % (0.5 - radius),
+        ax.text(right, 0.5*(bottom+top), 'r=%.3f' % (radius),
                 horizontalalignment='center',
                 verticalalignment='center',
                 rotation='vertical',

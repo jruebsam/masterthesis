@@ -94,7 +94,7 @@ def main():
     ax.grid(True)
     #ax.set_ylim(0, 5*1e-4)
     ax.set_xlim(0.2, 2)
-    plt.axvline(1, color='#e41a1c', lw=0.75, label=r'Crit.Slope $\alpha = \theta$')
+    plt.axvline(1, color='#e41a1c', lw=0.75, label=r'$\omega = \omega_c$')
     plt.axhline(0, color='k', lw=1.4)
 
     ax.legend(ncol = 1, fontsize=8, loc='upper right',
