@@ -91,7 +91,7 @@ def main():
 
         #l2rel, l2abs, res = np.array(l2rel), np.array(l2abs), np.array(res)
         os.chdir(cdir)
-        plt.plot(res, l2rel, mark, color = gen.next(), label = r'$\nu = {}$'.format(nu) , mew=0, ms=3, lw=0.5)
+        plt.plot(res, l2rel, mark, color = gen.next(), label = r'$J = {}$'.format(nu) , mew=0, ms=3, lw=0.5)
 
     os.chdir(plot_dir)
     plt.subplots_adjust(right=0.84, bottom=0.15)

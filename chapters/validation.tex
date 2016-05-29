@@ -8,7 +8,7 @@ the laws of conservation, in particular the conservation of mass.
 In the first part of this section an introduction to different testcases
 will be given. Three different test problem were chosen,
 the poisseille flow, hagen-poiseuille flow and the taylor-couette system.
-In the second part the result for the different testcases will
+In the 2nd part the result for the different testcases will
 be presented and discussed.
 
 %In general it is necessary to obtain a good evaluation of the numerical truncation error,
@@ -172,7 +172,7 @@ with the masking function at $h_1$ and $h_2$.
 This test was performaed for 2nd order (oder 4th order error explain)
 
 As a second test a grid convergence study was carried out, with a constant Reynolds number and $\nu \in [1-23]$.
-The resolution was varied between $N\in [4, 400]$ with $\Delta N = 4$, second and fourth order schemes were tested.
+The resolution was varied between $N\in [4, 400]$ with $\Delta N = 4$, 2nd and 4th order schemes were tested.
 
 \begin{center}
 \vspace*{0.7ex}
@@ -206,14 +206,28 @@ The simulation parameter arg given by
 
 \section{Results}
 \subsection{Poiseuille Flow}
-\subsubsection{Test of the default seutp}
-The results are shown in figure \ref{fig:ema1} on a double logarithmic plot.
--some of the discussion splitted to here maybe ?
+\subsubsection{Default seutp}
+
+The results of the grid convergence study are shown in figure \ref{fig:ema1}.
+The double logarithmic axis shows the dependency of the computed relative $l_2$-error norm
+with respect to the grid resolution.
+
+On this scale, the 4th order finite differnce schemes has a linear decreasing error.
+For the smallest resolution $N=8$ the error is of order $10^{-3}$,
+in contrast to the highest resolution $N=256$, with an error of order $10^{-6}$
+A convergence rate of the error  was computed by linear interpolation in the log-log space,
+the results is about -2.257.
+Hence, it can be said that the accuracy of the method is of 2nd order for this testcase,
+which is is in contradiction with the theory.
+
+The error of the second order finite difference scheme is of the order $10^{-8}$.
+The value is approximately constant and not depend of the grid resolution.
+
 
 \begin{figure}[!bp]
     \centering
     \includegraphics{gfx/immersed_boundary/poiseuille_flow/1_default/relative_l2error.pdf}
-    \caption{Relative $l_2$-error for second and fourth order schemes of the default algorithm.\label{fig:ema1}}
+    \caption{Relative $l_2$-error for 2nd and 4th order finite difference schemes of the default algorithm without the use of an immersed boundary.\label{fig:ema1}}
 \end{figure}
 
 \clearpage
@@ -221,22 +235,28 @@ The results are shown in figure \ref{fig:ema1} on a double logarithmic plot.
 
 \subsubsection{Test of the Volume Penalization Method}
 
-The resulting velocity profile is exemplarily shown in figure \ref{fig:vp_flow}, for varying $\nu$ and a constant reynolds number $Re=500$, for the second order scheme.\\
-It can be noted that with an decrease of $\nu$, the numerical solution converges against the theoretical one.
-The quadratic part of the velocity profile inside the fluid domain is independent of the damping constant $\nu$.
+The first simulation was  a parameter study with variable Reynolds number $Re$ and damping rate $J$.
+A first impression of the influence of the damping rate $J$ , is given by the velocity profiles of the numerical solution.
+This is exemplarily shown in figure \ref{fig:vp_flow}, for variable $J$ and a constant reynolds number $Re=500$.
+It can be noted that with an decrease of $J$, the numerical solution converges against the theoretical one.
+The quadratic part of the velocity profile inside the fluid domain is independent of the damping constant $J$.
 
 \begin{figure}[!b]
   \centering
-  \includegraphics{gfx/immersed_boundary/poiseuille_flow/2_vp/vp_profile.pdf}\label{fig:vp_flow}
-  \caption{Geschwindigkeistprofile im Kanal bei Variation der Dämpfungskonstante $\nu$ und Reynoldszahl $Re=500$.}
+  \includegraphics{gfx/immersed_boundary/poiseuille_flow/2_vp/vp_profile.pdf}  \caption{\label{fig:vp_flow}
+    Velocity profile of the numerical solution with variable $J$ and $\Rey = 500$.}
 \end{figure}
 
+Furthermore
+
+
 -a slight offset is introduced into the velocity profile (rest diskussion)
+
 In the masked area of the volume we can see an exponential decrease of the total velocity.(erklärung diskussion)
 
 2.For an error estimation, the relative $l_2$-error was computed.
 
-The results for the second order scheme are shown in figure \ref{fig:vp_error}.
+The results for the 2nd order scheme are shown in figure \ref{fig:vp_error}.
 
 \begin{figure}[!t]
   \centering
@@ -254,13 +274,14 @@ The results are shown in figure().
 
 \begin{figure}[!t]
   \centering
-  \includegraphics{gfx/immersed_boundary/poiseuille_flow/2_vp/vp_convergence.pdf}\label{fig:vp_conv}
-  \caption{Absoluter und relativer Fehler in Abhängigkeit von Dämpfungskonsante $\nu$ und Reynoldszahl $Re$.}
+  \includegraphics{gfx/immersed_boundary/poiseuille_flow/2_vp/vp_convergence.pdf}
+  \caption{\label{fig:vp_conv}
+      Relative $l_2$ error for variable damping rate $J$, for 2nd and 4th order finite difference schemes.}
 \end{figure}
 One can observe again that a decrease in $\nu$  yields a smaller error.
-For the second order scheme we can see that with an increase in the resolution, the error increases and finally converges against a constant value.
-Even more confusing is the behaviour for the fourth order scheme.
-With increasing resolution we can see a decrease into a local minimum, followed by an increase to the same error as the second order scheme.
+For the 2nd order scheme we can see that with an increase in the resolution, the error increases and finally converges against a constant value.
+Even more confusing is the behaviour for the 4th order scheme.
+With increasing resolution we can see a decrease into a local minimum, followed by an increase to the same error as the 2nd order scheme.
 
 \clearpage
 
@@ -273,27 +294,27 @@ With increasing resolution we can see a decrease into a local minimum, followed 
 \section{Discussion}
 \subsection{Poiseuille Flow}
 \subsubsection{Test of the default setup}
-For the finite difference scheme of second order, the error behaves not as assumed.
+For the finite difference scheme of 2nd order, the error behaves not as assumed.
 Instead of the decline one would expect with the decrease of the resolution, the  error is nearly constant.
 This behaviour can be explained due to the lack of complexity of the test case.
- As the theoretical solution is a polynom of second order
+ As the theoretical solution is a polynom of 2nd order
 no higher order terms will occur in the numerical solution, hence the
- second order scheme is capable of a perfect approximation, independent of the
+ 2nd order scheme is capable of a perfect approximation, independent of the
 grid resolution. The remaining error terms, are of the order $10e^{-8}$,
  which is extremly small and occur due to the floating point round off.
-With this in mind the behavior of the fourth-order scheme is even more unexpected.
+With this in mind the behavior of the 4th-order scheme is even more unexpected.
 We see a linear decrease of the error on the log scale.
-The result of a power law fit yields a convergence rate of second order.
-Furthermore the error is much larger compared to the second order scheme,
+The result of a power law fit yields a convergence rate of 2nd order.
+Furthermore the error is much larger compared to the 2nd order scheme,
  there is a decrease from $10e^{-2}$ to $10e^{-5}$.
 The test case reveals that an error exists in the default implementation of the boundarie conditions.
 An explanation can be given with comparison of the theoretical solution. The laplace operator is given by
  $ \nu \pdn[^2 v_x]{x^2} = 2A = \frac{1}{\nu}\pdn[p]{x}$
 Using the mirroring method creates a discontinuous function at the boundaries, since the laplace operator changes the sign.
-When using the second order method the tree-point-stencil evaluates to the correct value $\pdn[^2 v_x]{x^2} = 1$.
-The five-point-stencil of the fourth orderer scheme evaluates to $\pdn[^2 v_x]{x^2} = 1$, since it uses one point behind the boundary.
+When using the 2nd order method the tree-point-stencil evaluates to the correct value $\pdn[^2 v_x]{x^2} = 1$.
+The five-point-stencil of the 4th orderer scheme evaluates to $\pdn[^2 v_x]{x^2} = 1$, since it uses one point behind the boundary.
 As a result the discontinuity creates an error in the higher order scheme.\\
-For this testcase the second order method yields better results, however we
+For this testcase the 2nd order method yields better results, however we
 have to keep in mind that the testcase yields a polynomial solution,
 it is not clear how the results will end up for a complex testcase.
 Furthermore in this testcase the boundaries have a large impact since the pressure gradient is parallel to wall,
@@ -325,7 +346,7 @@ An explanation of this behaviour can by given by revising the theoretical soluti
 The error does not converge towards zero, which means there has to be some discrepancy to the theoretical solution.
 For a constant $\nu$ there is an offset to the theoretical solution, which we allready saw in figure (REF).
 Hence by increasing the resolution the numerical solution converges towards the wrong solution.
-The error increases since for a lower resolution, the velocity profile is closer to the assumed theoretical for the second order method.
+The error increases since for a lower resolution, the velocity profile is closer to the assumed theoretical for the 2nd order method.
 
 \begin{align}
  \nu v &= D \frac{\partial^2 v_x}{\partial z^2}  \Rightarrow  v_x = A e^{\sqrt{\frac{\nu}{D}}v_x}
@@ -343,20 +364,20 @@ The error increases since for a lower resolution, the velocity profile is closer
 \end{figure}
 
 
-The explanation for the fourth order convergence has again to do with the discretization error at the boundary.
+The explanation for the 4th order convergence has again to do with the discretization error at the boundary.
 Figure () shows schematically the velocity profiles for the volume penalizaton method compared to the theoretical.
 Due to the different  profiles, the numerical evaluation of the laplace operator results
-into different friction rates for the border point \textbf(B), but  also for the first next neighboor in the fluid domain \textbf(R1) when fourth order schemes are used.
-For the fourth order scheme the laplace operator at the boundary evaluates to a slightly (CALCULATE) negative value), which means the friction at the boundary due to
+into different friction rates for the border point \textbf(B), but  also for the first next neighboor in the fluid domain \textbf(R1) when 4th order schemes are used.
+For the 4th order scheme the laplace operator at the boundary evaluates to a slightly (CALCULATE) negative value), which means the friction at the boundary due to
 viscosity is stronger. The result is a smaller velocity profile which when increasing the resolution starts to overlap best with the theoretical solution at the minimal error.
-Finally when increasing the resolution further the error increases since the method converges towards the same resolution as the second order scheme (IMAGE MAYBE?).
+Finally when increasing the resolution further the error increases since the method converges towards the same resolution as the 2nd order scheme (IMAGE MAYBE?).
 An attempt has been made to fit the numerical solution to a quadratic profile for the comparision to a theoretical solution but this didn't work due to blabla
 (FIT IDEA NOT WORKING CONVERGENCE AGAINST HIGH RESOLUTION.
 
 \subsection{Direct Forcing Method}
 -We can see o4 not working reason is the same as we can se in figure n) , the laplacian is wrong caclulated at the point B.
 As a results an error is induced at the boundaries of the domain.
-The second order scheme works perfectly as we compare it to the default implementation.
+The 2nd order scheme works perfectly as we compare it to the default implementation.
 
 
 \subsection{Hagen-Poiseuille Flow}
@@ -413,14 +434,14 @@ the sound speed was set to $c^2 = 100$ to fullfill the incompressibilty conditio
 any influence of choice of the sound speed on the resulting error, further simulations were carried out with a diffent $c^2$ and will be discussed}
 With this choice the cfl-condition for the system is given by $\Delta t < \min(\Delta x^2 \cdot Re, \Delta x / 10)$.
 The resulting timestep for the highest resolution is $\Delta t = 1e-4$.
-With the above defined setup all methods introduced in section were tested, for second and fourth order finite difference stencils.\\
+With the above defined setup all methods introduced in section were tested, for 2nd and 4th order finite difference stencils.\\
 For the penalization method the non-dimensionalized damping was set to $J=1e-4$.
 It would be possible to choose a larger time step for the lower resolution cases, which means that in general
 one would apply a smaller damping rate $J$ in a case of applicaton. To remain consistent in the error convergence, here $J$ and
 therefore $\Delta t$ was not altered.\\
 The results of the computation are shown from figure () to figure().
 In figure (X) the relative $l_2$-error is shown for the volume penalization method with and without the volume fraction method
-for second and fourth order. The modified volume fraction method is not present since the computed error is almost identical to the default method,
+for 2nd and 4th order. The modified volume fraction method is not present since the computed error is almost identical to the default method,
 such that the values overlap in the plot.
 
 \begin{figure}[!pt]
@@ -456,23 +477,23 @@ a convergence rate of order  $\epsilon \propto N^{\approx1.16}$
 The volume fraction methods results in a slighty better convergence rate of $\approx 1.65$.
 The overall error is smaller, due to the faster converge rates and of order $5e-4$ for the
 highest resolution. For all methods the error is in the order of $1e-2$, above a resolution of 100 points.
-The best results are achieved for the second order volume fraction method, except for the highest resolution.\\
-Figure () shows the error of the Direct Forcing method with and without the volume fraction method for second
-and fourth order. The error convergence is almost identical to the volume penalization method, when not using the volume
+The best results are achieved for the 2nd order volume fraction method, except for the highest resolution.\\
+Figure () shows the error of the Direct Forcing method with and without the volume fraction method for 2nd
+and 4th order. The error convergence is almost identical to the volume penalization method, when not using the volume
 fraction method, of the order $\approx 1.2$. The convergence of the volume fraction methods is of order $\approx 1.45$
 and therefore slighly weaker the for the volume penalization method.
-As before the best error convergence is given by the volume fraction methond of second order.\\
+As before the best error convergence is given by the volume fraction methond of 2nd order.\\
 In Figure (X) we can see the error convergence of the interpolation schemes.
-Here we used second and fourth order schemes, furthermore we compare the interpolation with and without the
+Here we used 2nd and 4th order schemes, furthermore we compare the interpolation with and without the
 use of the direct forcing method.
-The fourth order interpolation with direct forcing is not shown, since the resulting velocity fields are becoming
-numerically unstable. The fourth order interpolation without DF also results into a larger error but in this case
+The 4th order interpolation with direct forcing is not shown, since the resulting velocity fields are becoming
+numerically unstable. The 4th order interpolation without DF also results into a larger error but in this case
 the velocity field seems to be stable \footnote{This behaviour will be discussed in more detail in section ()}, the
 convergence rate is of order $\approx 1.4$ and the error in the regime $1e-1$ to $4e-3$.
-The best and furthermore identical results are achieved for the second order interpolation with and without
+The best and furthermore identical results are achieved for the 2nd order interpolation with and without
 use of the direct forcing method. The convergence rate is of order $\approx 2.35$ and the error
 decreases from the order $2e-2$ to $1e-5$. The identy of these methods occurs due to the decoupling of the velocity fields
-on the border ot the fluid domain. Since the interpolation stencil seperates the fluid and wall domain, the second order
+on the border ot the fluid domain. Since the interpolation stencil seperates the fluid and wall domain, the 2nd order
 stencil doesn't see any points in the wall domain, therefore there is no difference in using the direct forcing method.\\
 Finally figure () shows the previous methods with the best convergence rates in one plot.
 In summary we can say that the overall converges rate of the interpolation method is of one order better
@@ -480,8 +501,8 @@ than the volume and direct forcing methods with volume fraction. Furthermore the
 between one and two order of magnitudes below all other methods, depending on the resolution.
 The grid convergence study was than repeated once again in order to test the influence of the sound speed with $c^2 = 400$.
 As a result it turned out that for all methods the difference in the relative $l_2$-error can be neglected, except
-for the fourth order interpolation schemes, in this case the overall error grows. An exemplary plot which compares
-the error can be found in Appendix in figure (). This behaviour indicates that when using the interpolation with fourth order
+for the 4th order interpolation schemes, in this case the overall error grows. An exemplary plot which compares
+the error can be found in Appendix in figure (). This behaviour indicates that when using the interpolation with 4th order
 an error is induced which is proportional to $c^2\nabla \rho$.\\
 As we allready could observe in section (), each immersed boundary method does not converge against the exact theoretical solution.
 Therefore, for each method, a grid convergence study was peformed where the theoretical solution is given by a
@@ -503,17 +524,17 @@ and the interpolation method.
 \end{figure}
 
 The convergence rate of the volume penalization method and direct forcing method are of order $\approx 1.44$ and $\approx 1.6$.
-Since the finite difference methods are of second order, one would expect a similar decrease in the error.
+Since the finite difference methods are of 2nd order, one would expect a similar decrease in the error.
 However we can explain this behaviour by having a look at the velocity profile substracted from the theoretical solution.
 Figure () (b) shows this exemplarly for the direct forcing volume fraction method. It can be noted that
 the error vanishes in the middle section of the fluid error whereas the largest differences occur at the fluid domain border.
 Therefore we propose that the bad convergence is caused by different approximations of the wall region for different resolutions.
 Since the boundary is not mimiced exactly but approximated by the nearest neighboor points in the wall domain, the actual position
 of the boundary is dependent of the resolution.\\
-The interpolation method of fourth order converges with a rate of $\approx 1.4$ order. It is therefore even worse than the volume penalization and
+The interpolation method of 4th order converges with a rate of $\approx 1.4$ order. It is therefore even worse than the volume penalization and
 direct forcing method, altough the overall error is smaller for lower resolutions. Again one possible explanation would be the different rasterization
 of the domain border, which does not affect the velocity profiles due to the interpolation but the coupling of the pressure.\\
-The second order interpolation method converges is of order $\approx 2.35$, which is better than the expected order of two.
+The 2nd order interpolation method converges is of order $\approx 2.35$, which is better than the expected order of two.
 The fluid domain is interpolated at the same positions and since no pressure coupling over the fluid wall occurs the induced error is small.
 
 

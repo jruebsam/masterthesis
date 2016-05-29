@@ -56,7 +56,7 @@ def main():
         flow = profiles[idx]
         z = np.linspace(0, 2, len(flow))
         colorVal = scalarMap.to_rgba(values[idx])
-        ax.plot(z, flow, color=colorVal, label=r'$\nu={}$'.format(nu))
+        ax.plot(z, flow, color=colorVal, label=r'$J={}$'.format(nu))
 
 
     z = np.linspace(0, 2, rs)
@@ -66,7 +66,7 @@ def main():
     pr = re2pr(re, 10, h1, h2)
     flow=tflow(z, h1, h2)
     b = flow>-5
-    ax.plot(z[b], flow[b], 'k--', label=r'theorie')
+    ax.plot(z[b], flow[b], 'k--', label=r'Theory')
 
     ax.set_xlabel('Z')
     ax.set_ylabel('Geschwindigkeit v')
