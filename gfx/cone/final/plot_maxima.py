@@ -62,7 +62,7 @@ def main():
             amp, _ = get_amp(vz)
             amps.append(amp)
 
-        ax1.plot(hs, amps, 'o-',  ms=3, mew=0, alpha=0.8, label=r'(\rom{%i})' % key)
+        ax1.plot(hs, amps, 'o-',  ms=3, mew=0, alpha=0.8, label=r'M\rom{%i}' % key)
         ax2.plot(hs, mode, 'o-',  ms=3, mew=0, alpha=0.8)
     ax1.grid()
     ax2.grid()
