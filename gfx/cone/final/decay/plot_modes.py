@@ -34,6 +34,11 @@ def main():
             ax.set_ylabel(r'z')
             ax.set_yticks([0, 1])
             ax.yaxis.labelpad = -5
+
+            labels = [item.get_text() for item in ax.get_yticklabels()]
+            labels[1] = '1.25'
+            labels[0] = '0'
+            ax.set_yticklabels(labels)
         else:
             ax.yaxis.set_major_locator(plt.NullLocator())
 
@@ -49,6 +54,8 @@ def main():
     #cbar = f.colorbar(cax, shrink=0.8)
     cbar.set_label(r'$\propto v_z$', fontsize=12)
     cbar.set_ticks([])
+
+
 
     plt.subplots_adjust(wspace=0.01, left=0.1, bottom =0.15)
 

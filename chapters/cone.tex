@@ -662,7 +662,7 @@ but with a higher resolution of $\Delta x = \nicefrac{1}{256}$, will be repeated
 \clearpage
 
 \section{Results}
-\subsection{Experimental Setup}
+\subsection{Setup from the Experiment}
 \label{cone:exp}
 
 \begin{figure}[!bp]
@@ -911,7 +911,7 @@ and the decay is homogeneous over the fluid domain.
   \includegraphics{gfx/cone/final/decay/phase_decay.pdf}
   \caption{
       \label{fig:cone:decayphaseexample}
-        Velocity profile for the decay in the cone for different times.
+        Velocity profile for the decay in the cone for different times, for $h_+=0.25$ and $\omega=1.24$.
     }
 \end{figure}
 
@@ -931,11 +931,11 @@ However the amplitude is estimated to be four times smaller, in comparison to th
 \clearpage
 
 \section{Discussion}
-\subsection{Simulation of the Experimental Setup}
+\subsection{Setup from the Experiment}
 
 For $\omega < \omega_c$ the results for both setups are similar.
 A possible explanation is that in this domain, the cone tip does not act as an attractor.
-An inertial wave propagates the top, after a reflection on the side of the cone.
+An inertial wave propagates to the top, after a reflection on the side of the cone.
 Hence, for both setups as similar spectrum exist.
 
 The differences occur when $\omega$ is reaching the critical frequency $\omega = \omega_c$. In this scenario an inertial wave emitted from the
@@ -949,14 +949,14 @@ Neither the experiment nor the theoretical description, are in accordance with t
 
 An explanation could be given by the fact that a different Ekman number was used for the simulations.
 The simulation used an Ekman number of $\Ekman = 10^{-4}$, the width
-of an inertial wave ray can be estimated to $\Ekman^{\nicefrac{1}{3}}\approx 0.046$ according to \citep{ATPAPER}.
-The experiment used an Ekman number of $\Ekman = 10^{-5}$ resulting in a  width of $\Ekman^{\nicefrac{1}{3}}\approx 0.022$.
-As a consequence the width of an inertial wave ray is around twice the size as in the experiment.
+of an inertial wave ray can be estimated to $\Ekman^{\nicefrac{1}{3}}\approx 0.046$ according to \citep{ATPAPER???}.
+The experiment used an Ekman number of $\Ekman = 10^{-5}$, resulting in a  width of $\Ekman^{\nicefrac{1}{3}}\approx 0.022$.
+As a consequence the width of an inertial wave ray, is around twice the size as in the experiment.
 It can be assumed that a wave reflecting on the bottom of the frustum
 is stronger damped as in the experiment.
 The bottom plate of the frustum is to narrow to support an efficient reflection
-of inertial waves, due to frictional losses.
-(WIE GENAU IST DIE WEITE DEFINIERT ..)
+of inertial waves, due to frictional losses.\\
+(TODO: PAPER FINDEN, EXACTE DEFINITON DER BREITE)
 
 \subsection{Transition from a Cylinder to a Cone}
 
@@ -965,10 +965,10 @@ by varying the radius of the bottom of the frustum and investigate the influence
 on the reflection of inertial waves.
 
 The simulation shows that the transition from the cylinder
-to the frustum results in a shift of (2, 2)-Mode.
-Furthermore it can be seen that the mode is damped with an decrease of the bottom gap width.
+to the frustum results in a shift of the modes.
+Furthermore it can be seen that the all modes are damped with an decrease of the bottom gap width.
 An explanation for the shift can be given by having a look at the inertial mode structure,
- for different radii as shown in Fig. \ref{fig:cone:phase}.\\
+for different radii as shown in Fig. \ref{fig:cone:phase}, for the (2, 1) mode.\\
 For $r=0.5$ we have an inertial mode, which is symmetric to the plane $z=h/2$.
 In this plane, the waves excited from the bottom and top of the cylinder, annihilate each other to a wave node.
 An decrease of the radius breaks the axial symmetry of the inertial mode.
@@ -986,7 +986,7 @@ is shifted downwards.
 \end{figure}
 
 The attempt was made to obtain the new position of the center,
-by computing the intersection of the diagonals from the top to the bottom edges of the frustum.
+by computing the intersection of the diagonals, from the top to the bottom edges of the frustum.
 The resulting center height is given by
 
 \begin{align}
@@ -995,25 +995,25 @@ c  = r \frac{h}{r+\nicefrac{l_x}{2}}
 \end{align}
 
 The resulting points are in a good agreement, as the marked position in Fig. \ref{fig:cone:phase} show.
-In order for an inertial mode, to exists in the new shape, it is necessary to increase the propagation angle $\Theta$.
+In order for an inertial mode to exists in the new shape, it is necessary to increase the propagation angle $\Theta$.
 This is equivalent with a shift to a lower libration frequency.
-For $r \rightarrow 0$ the center position converges against zero, the mode cannot exist in this state.
+For $r \rightarrow 0$ the center position converges against zero. Hence, the mode cannot exist in this state.
 
 \clearpage
 
-\subsection{Librating Cone with Different Offsets On Top}
+\subsection{Librating Cone and Frustum with Different Offsets on Top}
 
 \subsubsection{Motivation}
 
 For the simulations which has been carried out to this point,
-the influence of the offset on top of the cone has been left out from any discussion.
-It can be assumed this offset has an influence on inertial wave propagation.
+the influence of the offset on top of the cone, has been left out from any discussion.
+It can be assumed that this offset has an influence on inertial wave propagation.
 In particular for the intervall $\omega<\omega_c$, where a downward traveling waves is
 reflected upwards.
 In the case where the offset is set to zero, the corners of the cone act as an attractor.
 For small gap sizes it could be possible that a inertial wave will be damped,
-which is in accordance with the available results.
-This motivates as the simulation series with different offsets.
+which is in accordance with the previous results.
+This motivates a simulation series with different offsets.
 The simulation of the transition from a cylinder to a cone shows
 that a damping acts on an inertial wave when reflecting at the bottom,
 which  depends on the radius of the bottom gap.
@@ -1022,15 +1022,13 @@ This motivates the use of a larger radius at the bottom in comparison to the exp
 \subsubsection{Spectrum}
 
 For both scenarios, the cone and the frustum, resonances can be seen.
-The observation of the velocity profile for these resonances indicates that
-the peak M\RN{1} and M\RN{2} are inertial modes in the frustum.
-
+The observation of the velocity profile for these resonances indicates,
+that the peak M\RN{1} and M\RN{2} are inertial modes in the frustum.
 One assumption was that the resonance M\RN{8} is related to the M\RN{2} mode.
 However, the velocity profile of M\RN{2} indicates a downward traveling wave.
 
 Since the mode is located below the critical slope $\omega < \omega_c$, the cone apex
 should not act as an attractor, which is in contrast to this observation.
-
 The propagation angle for M\RN{2} is $\Theta=\arccos(0.85/2)\approx65^\circ$.
 For this value a wave ray on the upper edges of the cone is traveling directly
 into the cone apex.
@@ -1038,21 +1036,6 @@ A possible explanation is that such a wave is not reflected due damping effects 
 the apex of the cone. As a results a downward traveling waves is observed.
 However with this approach, we are still not able to explain the resonance of the peak (\RN{8}),
 in the spectrum.
-
-\begin{figure}[!b]
-  \begin{minipage}[c]{0.4\textwidth}
-      \centering
-      \includegraphics{gfx/cone/discussion/corners.pdf}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[c]{0.5\textwidth}
-      \caption{\label{fig:conediscuss:corners}
-        Wave path from an upper corner of the cone.
-        For a wave ray with a frequency at the minimum close to peak (\RN{6}) (red).
-        For a wave ray with the frequency at the position of peak (\RN{3}) (green).
-      }
-  \end{minipage}
-\end{figure}
 
 The shift of the resonance peaks are a result from a change in the geometry.
 In analogy to the previous simulation, we assume that with a change of the offset on top
@@ -1067,11 +1050,29 @@ which is in accordance with the assumption.
 But the decrease for $h_+>0.25$ is difficult to explain.
 Even more confusing are  the peaks M\RN{3} and M\RN{8} where an decrease in the amplitude
 can be observed.
+
+\begin{figure}[!t]
+  \begin{minipage}[c]{0.4\textwidth}
+      \centering
+      \includegraphics{gfx/cone/discussion/corners.pdf}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[c]{0.5\textwidth}
+      \caption{\label{fig:conediscuss:corners}
+        Wave path from an upper corner of the cone.
+        For a wave ray with a frequency at the minimum close to peak (\RN{6}) (red).
+        For a wave ray with the frequency at the position of peak (\RN{3}) (green).
+      }
+  \end{minipage}
+\end{figure}
+
+
 The next point in this discussion is the M\RN{6} mode.
 For the cone geometry this resonance is still apparent.
 The assumption that this resonance is an inertial mode,
 violates the argument that the apex of the cone, acts as
 an attractor.
+
 A possible explanation is given in Fig. \ref{fig:conediscuss:corners}.
 The plot shows the wave path from an upper edge of the cone, for the frequency $\omega_{\text{min}}$,
 of the minimum at the left side of the peak M\RN{6}.
@@ -1079,25 +1080,28 @@ With an increase in the frequency the propagation angle decreases.
 For $\omega<\omega_{\text{min}}$ the wave is reflected on the slope of the cone.
 For $\omega>\omega_{\text{min}}$ the reflections is above the slope, on the walls resulting from the offset $O$.
 The assumption is that the reflection on the slope of the cone creates more dissipation.
-This is due to the direct forcing method, which creates a more pixelized border at the slope cone,
+This is due to the direct forcing method, which creates a more pixelized border on the slope,
 in comparison to the side walls on top of the cone.
 As a result the energy and therefore the amplitude increases,
-when the way ray is passing the corner to the top of the cone.\\
+when the way ray is passing the corner to the top of the cone.
+
 A similar idea can be applied to the left side of the peak \RN{3}.
 For $\omega<\omega_{\text{min}}$ the wave is reflected on the slope of the cone.
-for  $\omega>\omega_{\text{min}}$ the reflection moves to bottom plate of the frustum,
-or on the slope for the case of a cone.
+for  $\omega>\omega_{\text{min}}$ the reflection moves to the bottom plate of the frustum,
+or remains on the slope in case of the cone.
 This could explain why for $\omega<\omega_{\text{min}}$  the spectra look identical,
 since the wave ray does not see the difference between the cone and the frustum.
 This argumentation is furthermore consistent with the results from the first simulation.
+
 It has to be concerned that this are of course theoretical assumptions and a wave ray is not only emitted at
-upper edges of the cone.\\
-As a last point of the discussion of the spectrum, we go back to the (\RN{1}) inertial mode.
+upper edges of the cone.\\ (TODO: DISCUSS WAVES FROM UPPER EDGES WITH A.TILGNER)
+
+As a last point of the discussion of the spectrum, we go back to the M\RN{1} inertial mode.
 The results of the simulations show that an inertial mode exists for the frustum.
 When taking away the bottom plate the inertial mode in not apparent instead
 a downward traveling wave into the apex can be observed.
-This results is in excellent agreement with the theoretical ideas and the experiment we introduced
-at the beginning of this chapter.\\
+This results is in excellent agreement, with the theoretical ideas and the experiment we introduced
+at the beginning of this chapter.
 
 \clearpage
 \subsubsection{Helicity}
