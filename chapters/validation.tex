@@ -1,34 +1,24 @@
 \section{Validation}
 
+This section reviews the validation of immersed boundary methods.
+The main goal of this validation is to determine the numerical error and the
+numerical stability of a method.
+Furthermore it is important to test if a  method supports the
+the laws of conservation, in particular the conservation of mass.
+In the first part of this section an introduction to different testcases
+will be given. Three different test problem were chosen,
+the poisseille flow, hagen-poiseuille flow and the taylor-couette system.
+In the second part the result for the different testcases will
+be presented and discussed.
 
-einleitung
-ziel
-
-aufbau dieser section
-
-
-wir  begginen mit einer einleidung zu tde verschiden testszenarien
-
-
-
-
-This part of the thesis the thesis deals with the numerical validation of the immersed
-boundary methods
-
-In order to ensure a correct numerical behavior of the introduced methods, a
-
-
-Multiple examples from simple to more complex testcases are introduced in this section.
-
-
-
-In general it is necessary to obtain a good evaluation of the numerical truncation error,
- the numerical stability over longer periods of time
-and the fullfilment of the conversation laws, most importantly mass conservation.
-Grid convergence studys against theoretical and high-resolution numerical solutions
-will be performed and compared for the different IBMs.
-
--we wnat to introduce different testcase
+%In general it is necessary to obtain a good evaluation of the numerical truncation error,
+% the numerical stability over longer periods of time
+%and Grid convergence studys against theoretical and high-resolution numerical solutions
+%will be performed and compared for the different IBMs.
+%This part of the thesis the thesis deals with the numerical validation of the immersed
+%boundary methods
+%In order to ensure a correct numerical behavior of the introduced methods, a
+%Multiple examples from simple to more complex testcases are introduced in this section.
 
 
 \subsection{Laminar Poiseuille-Flow}
@@ -182,6 +172,12 @@ For the comparsion to the direct forcing method another grid convergence study w
 \subsection{Poiseuille Flow}
 \subsubsection{Test of the default seutp}
 The results are shown in figure \ref{fig:ema1} on a double logarithmic plot.
+
+\begin{figure}[!bp]
+    \centering
+    \includegraphics{gfx/immersed_boundary/poiseuille_flow/1_default/relative_l2error.pdf}
+    \caption{Relative $l_2$-error for second and fourth order schemes of the default algorithm.\label{fig:ema1}}
+\end{figure}
 
 -some of the discussion splitted to here maybe ?
 
