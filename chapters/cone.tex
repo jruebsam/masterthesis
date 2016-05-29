@@ -6,21 +6,21 @@ Following the introduction and validation of the immersed boundary methods,
 we now want to exemplary investigate a rotating fluid system using these methods.
 The objective is to reproduce  physical properties, with respect to theoretical and experimental results.
 In relation to the research focus of the geophysical fluid mechanics research group, there are a variety
-topics of interest.\\
-One area of research lies in the exploration of dynamo effects in geological and stellar system.
+of topics of interest.\\
+One area of research lies in the exploration of dynamo effects in geological and stellar systems.
 In particular this means the generation of magnetic fields by electrically conducting fluids on large scales.
-In this thesis we will not consider MHD-equations.  \footnote{MHD - Magnetohydrodynamics}
-However in general it is considered that the helicity of a fluid domain $\Omega$, given by
+In this thesis we will not consider MHD-equations.  \footnote{MHD - Magnetohydrodynamic}
+However in general it is considered that the helicity of a fluid domain $V$, given by
 
 \begin{align}
-    \int_{\Omega}\dif V  \vec{v} \left( \nabla \times \vec{v} \right)
+    \int_{V}\dif V  \vec{v} \left( \nabla \times \vec{v} \right)
 \end{align}
 
 is directly linked to dynamo action \citep{moffat1978}.
 It would be interesting to find a system which exhibits a large helicity,
 as a possible candidate for future researches of the geodynamo.
-Furthermore we are interested in the propagation of inertial waves in different fluid domains.\\
-The systems we want to study in this thesis is given by a rotating cone, which is compared to
+Furthermore another interested is the propagation of inertial waves in different fluid domains.\\
+The system we want to study in this thesis is given by a rotating cone, which is compared to
 a frustum, by inserting a bottom plate into the apex.
 Inertial waves are excited by a temporal modulation of the rotation frequency, which is denoted as libration.
 The objective is to examine the ability to generate inertial modes or wave attractors.
@@ -30,22 +30,25 @@ In this chapter we will use linearized equations. Due to the axial symmetry with
 this problem could be reduced to two dimensions.
 However, we want to test the code in a three dimensional setup.
 One reason for this is a possible future application.
-Th objective would be to study the decay of turbulence in the apex of the cone.
+The objective would be to study the decay of turbulence in the apex of the cone.
 A simulation in three dimensions can not be avoided in this case.
 
 \section{Theoretical Description}
 \label{cone:theorie_theo}
 
-This section gives a brief theoretical description of the problem adapted from \citep{Greenspan1969}, \citep{Beardsley1970}.
+This section gives a brief theoretical description of the problem we adapted from \citep{Greenspan1969}, \citep{Beardsley1970}.
 Instead of a cone, a comparison to the two-dimensional analogy of a wedge, is made.
-This system is based on the idea to introduce a geometric shape, which contains a singularity.\\
+This system is based on the idea to introduce a geometric shape containing a singularity.\\
 Let us consider the propagation of an inertial wave ray, emitted at one of the upper edges of
 the wedge, as shown in Fig. \ref{cone:theorie}.
-The wave propagates under the angle $\theta = \arccos(\omega/2)$, with respect to the horizontal axis.
+The wave propagates under the angle $\theta$, with respect to the horizontal axis.
 For each reflection the propagation angle with respect to the rotation axis is preserved.
 In the case of $\theta<\alpha$ we have a supercritical reflection,
 thus a downward traveling wave ray is reflected downslope.
-
+As a result the wave travels towards the lower vertex of the wedge.
+It can be shown from the reflection properties, given by Eq. \ref{theorie:reflections},
+that the time for a wave ray to travel the path between two reflections is constant \citep{Beardsley1970}.
+To be more precise
 \begin{figure}[!bp]
   \begin{minipage}[c]{0.6\textwidth}
       \centering
@@ -56,23 +59,19 @@ thus a downward traveling wave ray is reflected downslope.
   \begin{minipage}[c]{0.3\textwidth}
       \caption{
           Propagation of an inertial wave emitted from the top edge of a wedge,
-           where $\Theta$ indicates the direction parallel to the group velocity
+           where $\theta$ indicates the direction parallel to the group velocity
             $\vec{c_g}$.  $L$ and $L^{\prime}$ are the path lengths before and after a reflection.
       \label{cone:theorie}
       }
   \end{minipage}
 \end{figure}
 
-As a results the wave travels towards the lower vertex of the wedge.
-It can be shown from the reflection properties, given by Eq. \ref{theorie:reflections},
-that the time for a wave ray to travel the path between two reflections is constant \citep{Beardsley1970}.
-To be more precisely
 
 \begin{align}
     \frac{L}{|\vec{c}_g|} = \frac{L^{\prime}}{|\vec{c}_g^{\prime}|}
 \end{align}
 
-the prime denotes the properties after a reflection.
+where $L$ is the path length between to reflections, the prime denotes the properties after a reflection.
 This means that the overall propagation time into the apex of the cone becomes infinity, along with the energy density and the wave number.
 Thus, the apex is acting as an attractor to inertial waves.
 As a conclusion it follows that since no reflection out of the cone apex can occur, the possibility of inertial modes is not given.
@@ -82,17 +81,17 @@ As a conclusion it follows that since no reflection out of the cone apex can occ
 
 For a test of these theoretical assumptions, an experimental study was performed by \citep{Beardsley1970}.
 The schematic setup is shown in Fig. \ref{cone:setup_experiment}.
-In the first part of the experiment a plexiglass cylinder, containing a conical shaped cavity,
-of height $H=\SI{19.95}{\centi\meter}$ and a radius of $r=\SI{19.95}{\centi\meter}$ was used.
-The apex half angle was set to $\alpha=24^{\circ}3.7^{\prime}$ degree.
+In the first part of the experiment, a plexiglass cylinder, containing a conical shaped cavity,
+of height $H=\SI{19.95}{\centi\meter}$ and a radius of $r=\SI{19.95}{\centi\meter}$ was used and filled with water.
+The apex half angle was set to $\beta=24^{\circ}3.7^{\prime}$ degree.
 For the rotation rate a frequency of $\Omega_0 =\SI{6.28}{\radian\per\second}$ was chosen.
-As a fluid, water was used, the resulting viscosity, given by \citep{tipler2003}, is $\nu = \SI{1.0}{\milli\pascal\second}$.
 The resulting Ekman number is
 
 \begin{align}
     \Ekman = \frac{\nu}{\omega r H^2} \approx 7.72\cdot 10^{-6}
 \end{align}
 
+where $\nu = \SI{1.0}{\milli\pascal\second}$  \citep{tipler2003}.
 In order to exite inertial waves the cone is librating.
 The total rotation rate is proportional to
 
@@ -101,7 +100,7 @@ The total rotation rate is proportional to
 \end{align}
 
 where $\omega$ is the libration frequency with the amplitude $\epsilon_0=\SI{0.2}{\radian}$.
-The excitation mechanism is a result from the wall friction, induced
+The excitation of the fluid results from the wall friction, induced
 by the modulation of the constant rotation frequency $\Omega_0$.
 
 \begin{figure}[!b]
@@ -121,29 +120,43 @@ The ratio of libration to the constant rotation frequency was varied in the rang
 The pressure and phase lag spectrum  show that no consistent peaks are observable for different measurment heights.
 Hence, no inertial modes are existing.
 \\
-In the second part of the experiment, the apex of the cone was replaced by a frustum, through the
-insertion of a bottom plate in the cone at the position $z/H = 0.261$.
+In the second part of the experiment, the apex of the cone was replaced by a frustum,
+with a bottom plate at the position $z/H = 0.261$.
 This setup yields the possibility that a wave ray can be reflected on the bottom.
 The pressure and phase lag spectrum in this setup show that
-independent of the height resonances occur which can be associated with standing waves.
+independent of measurement depth of the pressure, resonances occur which can be associated with standing waves.
 Hence, inertial modes exist.
+\\
+\\
+
+One objective in this thesis is to compare the simulation results to this experiment.
+
+- not adresse different reflection properties
+- in this case the reflection is given by
+- two regions
+critical slow $\omega_c = 0$.
+which can be computed by (PUT THIS IN SETUP)
+\begin{align}
+    \omega = 2\cos(\theta_c) = 2\cos(\arctan(\frac{1 - O}{\nicefrac{l_x}{2} - r}))
+\end{align}
+
 
 \clearpage
 
 \section{Numerical Implementation of Libration}
 
 For the numerical implementation of the experiment, a modified set of the equations
-introduced in section \ref{THEORIE:ROT}, is presented here.
+introduced in Sec. \ref{THEORIE:ROT}, is presented here.
 It has to be concerned, that the system has now a time-dependent rotation rate.
-For the non-dimensional system, with $\vec{u}^* =  \vec{u} (|\vec{\Omega}|L)^{-1}$, we set
+For the non-dimensional system we set
 
 \begin{align}
-    \vec{\Omega(t)} = 1 \; + \; \epsilon \cos(\omega t)\vec{e}_z
+    \vec{\Omega}(t) = 1 \; + \; \epsilon \cos(\omega t)\vec{e}_z
 \end{align}
 
 There are two options for an implementation.
-First of all, we can choose a rotating coordinate system with a constant velocity $\Omega_0$.
-This means the we can directly use the equations \ref{theorie:rotns}. Since the overall rotation rate of the system is
+First of all, a rotating coordinate system with a constant velocity $\Omega_0$ can be chosen.
+This enables the direct use of the Eqs. \ref{theorie:rotns}. Since the overall rotation rate of the system is
 modulated, it is necessary to introduce the boundary conditions
 
 \begin{align}
@@ -155,10 +168,10 @@ modulated, it is necessary to introduce the boundary conditions
 \end{align}
 
 However, obtaining a linearized version of the boundary methods is not as easy.
-In addition we think it is safer to use No-Slip boundaries with zero velocity, as
-the taylor-couette system showed that velocities other than zero, can create a larger numerical error.
+In addition it can be assumed that it is safer to use No-Slip boundaries with zero velocity, as
+the taylor-couette system showed that velocities other than zero can create a larger numerical error.
 The alternative option is the introduction of an accelerated frame of reference.
-In this case the boundary conditions do not need to be modified, but the coriolis forcing term is given by \citep{Tilgner2007}.
+In this case the boundary conditions do not need to be modified, but the coriolis forcing term $\vec{f}$ is given by \citep{Tilgner2007}.
 
 \begin{align}
     \vec{f} &= 2 \vec{\Omega} \times \vec{v} + \pdn[]{t}\left(\vec{\Omega} \times \vec{v} \right)
@@ -184,13 +197,13 @@ The non-linear advection term is removed from the equations of motion, which
 are then given by
 
 \begin{align}
-    \label{theorie:rotns}
-    \pdn[u]{t} = -c^2\nabla \rho + \Ekman \Delta \vec{u} + \vec{f} \qquad;& \qquad  \nabla \vec{v} = 0
+    \label{cone_theorie:rotns}
+    \pdn[v]{t} = -c^2\nabla \rho + \Ekman \Delta \vec{v} + \vec{f} \qquad;& \qquad  \nabla \vec{v} = 0
 \end{align}
 
-Finally one additional stability criterion shall be introduced,
+Finally, one additional stability criterion shall be introduced.
 It is important that the time for propagating information from on side of the domain
-to the other, is much smaller than the overall rotation rate.
+to the other is much smaller than the overall rotation rate.
 \footnote{Private communication with A. Tilgner}
 This can be estimated by
 
@@ -198,7 +211,8 @@ This can be estimated by
     t = \sqrt{\frac{2}{c^2}} << 2\pi
 \end{align}
 
-Thus the propagation time and therefore this criterion, depends on the artificial sound speed.
+where $c$ is the artificial speed of sound.
+Thus the propagation time and therefore this criterion, depends on the artificial sound speed $c$.
 A good estimation is given by setting $c^2 = 500$.
 It could be observed that otherwise, not only physical wrong results are obtained but also
 numerical instabilities can occur.
@@ -209,10 +223,6 @@ numerical instabilities can occur.
 \section{Conventions \& Setup}
 \label{cone:convsetup}
 
-which can be computed by (PUT THIS IN SETUP)
-\begin{align}
-    \omega = 2\cos(\theta_c) = 2\cos(\arctan(\frac{1 - O}{\nicefrac{l_x}{2} - r}))
-\end{align}
 
 This section introduces the setup which has been used for the simulations presented in this chapter.
 Fig. \ref{cone:setup_image} shows the geometry of the fluid domain.
@@ -252,7 +262,7 @@ In the remaining sections of this chapter we want to use the following conventio
 \section{Data Analysis}
 
 The main interest, in the analysis of the simulation data, lies in the identification of possible inertial modes.
-A appropriate choice is to consider the energy in the $z$-component of the  velocity, which is given by
+An appropriate choice is to consider the energy in the $z$-component of the  velocity, which is given by
 
 \begin{align}
     \left<v_z^2 \right>(t) =  \int \dif V v_z(t)^2 \approx \sum_{i, j, k}^{N_x,N_y,N_z} \Delta x \Delta y \Delta z \left.v_z(t)^2 \right|_{i,j,k}
@@ -267,8 +277,8 @@ This has multiple benefits
             in the $v_z$-component are created by inertial oscillations.
 \end{itemize}
 
-In Fig. \ref{fig:cone:cyl_vzmode}, this energy is shown exemplarly for two libration frequencies for a cylinder.
-\footnote{The results are taken from section \ref{cone:sec:lib_cylinder}}
+In Fig. \ref{fig:cone:cyl_vzmode}, this energy is shown exemplary for two libration frequencies for a cylinder.
+\footnote{The results are taken from Sec. \ref{cone:sec:lib_cylinder}}
 For a resonance of the system ($\omega=1.2$), it takes further time until a steady state, with a constant oscillation is reached.
 
 \begin{figure}[!pb]
@@ -288,9 +298,9 @@ The computation is given by
 
 Since the error of this calculation depends on the total simulation time, it was ensured that all simulations
 were carried out long enough.
-For the same simulation times, the error for a resonance is estimated in the range $\sigma_A \approx 5\% - 10\%$,
-When no resonance are present, we estimate an error of order $\sigma_A \approx 2.5\% - 5\%$.\\
-Secondly we will compute the relative helicity of the system, given by \citep{PAPER}.
+For the same simulation times, the error of one resonance is estimated in the range $\sigma_A \approx 5\% - 10\%$,
+When no resonances are present, the error is estimated to be of order $\sigma_A \approx 2.5\% - 5\%$.\\
+Another part of the analysis is the computation of the relative helicity of the system, given by \citep{PAPER}.
 
 \begin{align}
 H(t) = \frac{\int_V \dif V \vec{v} (\nabla \times \vec{v})}
@@ -301,7 +311,7 @@ H(t) = \frac{\int_V \dif V \vec{v} (\nabla \times \vec{v})}
  | \nabla \times \vec{v}_{i, j, k}|\right)}
 \end{align}
 
-The discretization of the rotation operator is using a central difference of second order.
+For the discretization of the rotation operator, a central difference scheme of 2nd order is used.
 \clearpage
 
 
@@ -548,7 +558,7 @@ In this section we will introduce the simulations, which has been performed
 with a librating cone. The first simulation is a setup inspired by the experiment of \citep{Beardsley1970}.
 In the second setup the geometrical transition, from a cylinder to a librating cone, is investigated.
 Finally we will study the influence of different offsets on top of the cone, in the last simulation.
-All performed simulations use the conventions and setup from section \ref{cone:convsetup}.
+All performed simulations use the conventions and setup from Sec. \ref{cone:convsetup}.
 As an immersed boundary method the direct forcing  method of 2nd order is used.
 
 \subsection{Simulation of the Experimental Setup}
@@ -705,7 +715,7 @@ The results for the simulations are shown in Fig. \ref{fig:cone:transition}.
 On the left side of the plot  the frequency spectrum is shown, the right side illustrates the used geometry.
 The radius $r$ decreases from the top to the bottom.
 For $r=0$  the inertial modes of a librating cylinder can be observed, which is in accordance
-to the results of the librating  cylinder, we discussed in section \ref{cone:sec:lib_cylinder}.
+to the results of the librating  cylinder, we discussed in Sec. \ref{cone:sec:lib_cylinder}.
 The result for $r=0.5$ is identical to the simulation of the cone from the previous section.
 
 With an decrease of the radius a change in the position and amplitude of the

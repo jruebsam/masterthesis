@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{324.57385254bp}%
+    \setlength{\unitlength}{324.57600098bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,10 +48,10 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.47617293)%
+  \begin{picture}(1,0.47616978)%
     \put(0,0){\includegraphics[width=\unitlength]{experiment.pdf}}%
-    \put(0.50150113,0.20084485){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$h$}}}%
-    \put(0.16902311,0.08440258){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\alpha$}}}%
-    \put(0.30119209,0.01799918){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$r$}}}%
+    \put(0.50149781,0.20084352){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$H$}}}%
+    \put(0.16902199,0.08440202){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\beta$}}}%
+    \put(0.3011901,0.01799906){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$r$}}}%
   \end{picture}%
 \endgroup%
