@@ -46,7 +46,7 @@ def main():
     rs = np.linspace(0, 0.5, 5)[::-1]
     cdir = os.getcwd()
 
-    f, axes = plt.subplots(len(rs), 2, figsize=style.figsize(1., np.sqrt(2)),
+    f, axes = plt.subplots(len(rs), 2, figsize=style.figsize(1., np.sqrt(2)*0.9),
                             gridspec_kw = {'width_ratios':[3, 1]})
     # build a rectangle in axes coords
     left, width = .25, .5
@@ -93,7 +93,7 @@ def main():
         a_ekin, a_vz, a_vphi = [], [], []
         omgsn = []
 
-        for i, simpath in enumerate(sorted(simpathes)):
+        for j, simpath in enumerate(sorted(simpathes)):
             #print simpath
             data = np.genfromtxt(simpath)
             time = data[:, 0]
@@ -108,13 +108,20 @@ def main():
 
             #plt.plot(time, vz, label=simpath.split('/')[-1])
             a_vz.append(amp)
-            omgsn.append(omgs[i])
+            omgsn.append(omgs[j])
 
-        ax.plot(omgsn, a_vz, 'o--', ms=4, mew=0, alpha=0.8, dashes = (1,2, 4, 2))
+        if i>0:
+            ax.plot(omgsn, a_vz, 'o-',  ms=3, mew=0, alpha=0.8)
+        else:
+            ax.plot(omgsn, a_vz, 'o-',  ms=3, mew=0, alpha=0.8, label='Spectrum')
 
 
         if i>0:
             ax.axvline(2*np.cos(np.pi/2. -np.arctan(radius/l)), color='#e41a1c', lw=0.75)
+        else:
+            ax.axvline(2*np.cos(np.pi/2. -np.arctan(radius/l)), color='#e41a1c',
+                        lw=0.75, label=r' $\omega_c$')
+
         ax.set_ylabel(radius)
         os.chdir(cdir)
 
@@ -144,15 +151,14 @@ def main():
         else:
             ax.set_xlabel(r'$\omega$')
 
-    """
-    plt.subplots_adjust(top=0.8, bottom =0.15)
-    ax.legend(ncol = 3, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.3),
+    plt.sca(axes[0, 0])
+    plt.legend(ncol = 3, fontsize=9, loc='upper center', bbox_to_anchor=(0.5, 1.4),
            fancybox=True, shadow=True)
-    """
 
+    plt.subplots_adjust(bottom =0.05, top =0.9)
 
-    #plt.savefig('transition.pdf')
-    plt.show()
+    plt.savefig('transition.pdf')
+    #plt.show()
 
 if __name__=='__main__':
     main()

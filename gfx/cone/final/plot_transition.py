@@ -61,7 +61,7 @@ def main():
     rs = np.linspace(0, 0.5, 5)[::-1]
     cdir = os.getcwd()
 
-    f, axes = plt.subplots(len(rs), 2, figsize=style.figsize(1., np.sqrt(2)),
+    f, axes = plt.subplots(len(rs), 2, figsize=style.figsize(1., np.sqrt(2)*0.9),
                             gridspec_kw = {'width_ratios':[3, 1]})
     # build a rectangle in axes coords
     left, width = .25, .5
@@ -149,7 +149,7 @@ def main():
         if i>0:
             ax.axvline(1, color='#e41a1c', lw=0.75)
         else:
-            ax.axvline(1, color='#e41a1c', lw=0.75, label=r'Crit.Slope $\alpha = \theta$')
+            ax.axvline(1, color='#e41a1c', lw=0.75, label=r'$\omega_c$')
         ax.set_ylabel(radius)
         os.chdir(cdir)
 
