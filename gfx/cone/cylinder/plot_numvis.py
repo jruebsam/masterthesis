@@ -43,7 +43,7 @@ def main():
 
     ax.set_ylim(0.3, 1.2)
     ax.set_xlim(0, 402)
-    ax.set_xlabel(r'Wavevektor $K$')
+    ax.set_xlabel(r'Wave number K')
     ax.set_ylabel(r'$D_{\mathrm{N}}/D_{\mathrm{P}}$')
     plt.subplots_adjust(bottom=0.2)
 

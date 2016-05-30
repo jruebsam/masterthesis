@@ -33,6 +33,20 @@ def main():
     fig, axes = plt.subplots(2, 3, figsize=style.figsize(0.9))
     print axes.shape
 
+    for ax, text in zip([axes[0, 2], axes[1, 2]], ['Theory', 'Simulation']):
+        # build a rectangle in axes coords
+        left, width = .25, .5
+        bottom, height = .25, .5
+        right = left + width
+        top = bottom + height
+        of = 0.3
+        ax.text(right + 0.4, 0.5*(bottom+top), text,
+                fontsize=12,
+                horizontalalignment='left',
+                verticalalignment='center',
+                rotation='vertical',
+                transform=ax.transAxes)
+
 
     axes[0, 0].set_ylabel(r'$\nabla p\cdot \vec{e}_z$')
     axes[1, 0].set_ylabel(r'$\int \mathrm{dt}|v_z(y=1/2)|$')
@@ -60,6 +74,7 @@ def main():
 
         ax.imshow(v.T, origin='lower', extent=[-0.05, 1.05, 0, 1.1] )
         ax.set_xlim(0, 1)
+
 
     plt.savefig('modes.pdf')
 
