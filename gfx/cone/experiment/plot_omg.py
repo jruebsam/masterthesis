@@ -18,7 +18,7 @@ from mpl_toolkits.axes_grid1.inset_locator import mark_inset
 cmap = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf']
 
 from cycler import cycler
-plt.rc('axes', prop_cycle=(cycler('color', cmap)))
+#plt.rc('axes', prop_cycle=(cycler('color', cmap)))
 
 def get_amp(series):
     n = len(series)/4
@@ -79,6 +79,10 @@ def main():
 
     #ax.set_ylim(0., 0.04)
     #ax.set_xlim(0.15, 2.05)
+
+    ax.axvline(1.0, color='#e41a1c',
+                lw=0.75, label=r'$\omega_c$')
+
     ax.set_xlabel(r'$\omega$')
     ax.set_ylabel(r'$A\left(\left<v_z^2\right>_V\right)$')
     ax.legend(ncol = 3, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.12),

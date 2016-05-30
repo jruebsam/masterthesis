@@ -3,7 +3,7 @@
 \section{Introduction}
 
 Following the introduction and validation of the immersed boundary methods,
-we now want to exemplary investigate a rotating fluid system using these methods.
+we now want to exemplarily investigate a rotating fluid system using these methods.
 The objective is to reproduce  physical properties, with respect to theoretical and experimental results.
 In relation to the research focus of the geophysical fluid mechanics research group, there are a variety
 of topics of interest.\\
@@ -283,7 +283,7 @@ This has multiple benefits
             in the $v_z$-component are created by inertial oscillations.
 \end{itemize}
 
-In Fig. \ref{fig:cone:cyl_vzmode}, this energy is shown exemplary for two libration frequencies for a cylinder.
+In Fig. \ref{fig:cone:cyl_vzmode}, this energy is shown exemplarily for two libration frequencies for a cylinder.
 \footnote{The results are taken from Sec. \ref{cone:sec:lib_cylinder}}
 For a resonance of the system ($\omega=1.2$), it takes further time until a steady state, with a constant oscillation is reached.
 
@@ -449,7 +449,7 @@ For all modes, the number of wave nodes in $z$, and $x$ direction is identical,
 \subsubsection{Helicity}
 
 The computation of the helicity was split into an integral over the upper and lower half
-of the cylinder.  A result for $\omega=1.5$ is exemplary shown in Fig. \ref{cone:cyl_helicity}.
+of the cylinder.  A result for $\omega=1.5$ is exemplarily shown in Fig. \ref{cone:cyl_helicity}.
 In the upper half of the cylinder a negative helicity can be observed, the maximum of the amplitude is of order $10^{-1}$.
 In the lower half of the cylinder a positive helicity can be observed, the maximum is of the same order.
 The helicities are symmetric with respect to zero, thus $H_{\text{up.}} = -H_{\text{low.}}$.
@@ -567,29 +567,29 @@ Due to the axial symmetry in $z$-direction, the helicities in the upper and lowe
 
 \section{Simulation of a Librating Cone}
 
-In this section we will introduce the simulations, which has been performed
+This section introduces the simulations, which have been performed
 with a librating cone. The first simulation is a setup inspired by the experiment of \citep{Beardsley1970}.
-In the second setup the geometrical transition, from a cylinder to a librating cone, is investigated.
-A study of the influence of different offsets on top of the cone, is performed in the last simulation.
+In the second setup the geometrical transition from a cylinder to a librating cone is investigated.
+A study of the influence of different offsets on top of the cone is performed in the last simulation.
 All simulations use the conventions and setup from Sec. \ref{cone:convsetup}.
 As an immersed boundary method the Direct-Forcing method of 2nd order is used.
 
 \subsection{Simulation of the Experimental Setup}
 
-The setup for this simulation is oriented on the experiment with slightly changed parameters.
+The setup for this simulation is oriented at the experiment with slightly changed parameters.
 %\footnote{This was done to simplify the implemenation.}
-For the simulation an Ekman number of $\Ekman =  10^{-4}$ was chosen. A simulation of higher Ekman numbers
+The Ekman number is set to $\Ekman =  10^{-4}$. A simulation of higher Ekman numbers
 closer to the experiment is difficult to realize, due to the computational effort.
-In the first part of the simulation a cone is simulated,
+In the first part of the simulation a cone is simulated
 with the geometric parameters $\alpha =  60^{\circ}$, $H=1$ and $r=0$.
-This means that the critical propagation frequency is $\omega_c=1$, an inertial wave traverses parallel to the slope of the cone.
+This means that the critical libration frequency is $\omega_c=1$, where an inertial wave traverses parallel to the slope of the cone.
 The resulting offset on top is given by the constraint
 
 \begin{align}
-    O = H - h_c =  1 - r\tan{\alpha} \approx 0.134
+    O = H - h_c =  1 - \nicefrac{l_x}{2}\tan{\alpha} \approx 0.134.
 \end{align}
 
-In the second simulation the cone is replaced with a frustum, by setting a bottom plate to the height $0.25$.
+In the second simulation the cone is replaced by a frustum, by setting a bottom plate to the height $0.25$.
 The total height reduces to $H=0.75$, the radius of the gap is $r\approx0.144$.
 A series of simulations for the two setups were performed.
 The main simulation parameters are given by
@@ -598,9 +598,9 @@ The main simulation parameters are given by
 \vspace*{0.7ex}
 \begin{tabular}{c|c|c|c|c|c|c }
 %\begin{tabular}{p{0.1\linewidth}| p{0.1\linewidth}| p{0.1\linewidth}|  p{0.1\linewidth}| p{0.1\linewidth}| p{0.1\linewidth} }
-$ \leftarrow  \omega \rightarrow $ & $\Delta t$ & $\Delta x$ & $c^2$ & \Ekman  & $l_x, l_y, l_z$ & $T_{end}$\\
+$ \omega  $ & $\Delta t$ & $\Delta x$ & $c^2$ & \Ekman  & $l_x, l_y, l_z$ & $T_{end}$\\
 \hline
-$[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $10^{-5}$ & $\nicefrac{1}{128}$ & 500 & $10^{-4}$  & (\{1, 0.75\}, 1, 1) & 100\\
+$[0.2,\; 2], \Delta \omega = \nicefrac{1}{10}$ & $10^{-5}$ & $\nicefrac{1}{128}$ & 500 & $10^{-4}$  & (\{1, 0.75\}, 1, 1) & 100\\
 \end{tabular}
 \vspace*{0.7ex}
 \end{center}
@@ -609,10 +609,10 @@ $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $10^{-5}$ & $\nicefrac{1}{128}$ & 50
 
 The objective of this simulation is to test the influence of different gap radii $r$, at the bottom of the frustum.
 As before we set $H=1$ and $O\approx0.134$ but $\alpha$ will now be dependent of $r$.
-We propose a setting where we start with a setup, with the possible largest bottom gap  $r=0.5$.
-As a next step we iteratively decrease the size of the gap by $\Delta r = 0.125$ until $r=0$ is reached.
+The first setup contains  the largest possible bottom gap with $r=0.5$.
+In the next steps, the size of the gap is decreased by $\Delta r = 0.125$ until $r=0$ is reached.
 For $r=0.5$ the domain is given by a  cylindric geometry, since $r=l_x/2=l_y/2$.
-with an decrease of $r$ the geometry transforms into a frustum and finally, into a cone with an apex for $r=0$.
+With an decrease of $r$, the geometry transforms into a frustum and finally, into a cone with an apex for $r=0$.
 \clearpage
 The main simulation parameters are given by
 
@@ -620,9 +620,9 @@ The main simulation parameters are given by
 \vspace*{0.7ex}
 \begin{tabular}{c|c|c|c|c|c|c|c }
 %\begin{tabular}{p{0.1\linewidth}| p{0.1\linewidth}| p{0.1\linewidth}|  p{0.1\linewidth}| p{0.1\linewidth}| p{0.1\linewidth} }
-$\leftarrow r \rightarrow$ & $ \leftarrow  \omega \rightarrow $ & $\Delta t$ & $\Delta x$ & $c^2$ & \Ekman  & $l_x, l_y, l_z$ & $T_{end}$\\
+$ r $ & $ \omega  $ & $\Delta t$ & $\Delta x$ & $c^2$ & \Ekman  & $l_x, l_y, l_z$ & $T_{end}$\\
 \hline
-$[0,\; 0.5], \Delta r =0.125$ & $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $10^{-5}$ & $\nicefrac{1}{128}$ & 500 & $10^{-4}$  & (1, 1, 1) & 100\\
+$[0,\; 0.5], \Delta r =0.125$ & $[0.2,\; 2], \Delta \omega = \nicefrac{1}{10}$ & $10^{-5}$ & $\nicefrac{1}{128}$ & 500 & $10^{-4}$  & (1, 1, 1) & 100\\
 \end{tabular}
 \vspace*{0.7ex}
 \end{center}
@@ -641,13 +641,12 @@ $[0,\; 0.5], \Delta r =0.125$ & $[0.2,\; 2], \Delta w = \nicefrac{1}{10}$ & $10^
 
 \subsection{Simulation of a Librating Cone and Frustum with Differing Offsets at the Top}
 
-For the last simulation series, we propose a setup with different offsets on top of the cone.
-Once more, two setup are used. The first setup is the cone with height $H=1$, $r=0$ and $\alpha=60$.
-The second setup is  the frustum, with a larger gap radius $r$ in comparison to the experiment.\\
-In this setup the position of the bottom plate is set to $0.375$, the resulting frustum height is $H=0.625$
-and the radius is given by$r \approx 0.22$.
+For the last simulation series, two setups with different offsets on top of the cone are used.
+The first setup is the cone with height $H=1$, $r=0$ and $\alpha=60$,
+the second setup is  the frustum with a larger gap radius $r\approx0.22$ in comparison to the experiment.\\
+The position of the bottom plate is then $0.375$ and the resulting frustum height is $H=0.625$.
 An additional offset is added to the default one,
-varying in the range of $h_+ = [0, 0.5]$ with a stepsize of $\Delta h_+ = \nicefrac{1}{5}$.
+varying in the range of $h_+ = [0, 0.5]$ with a stepsize of $\Delta h_+ = \nicefrac{1}{8}$.
 The complete offset at the top is $O \approx 0.134 + h_+$.
 The main simulation parameters for both setups are given by
 
@@ -655,9 +654,9 @@ The main simulation parameters for both setups are given by
 \vspace*{0.7ex}
 \begin{tabular}{c|c|c|c|c|c|c|c }
 %\begin{tabular}{p{0.1\linewidth}| p{0.1\linewidth}| p{0.1\linewidth}|  p{0.1\linewidth}| p{0.1\linewidth}| p{0.1\linewidth} }
-$\leftarrow h_+\rightarrow$ & $ \leftarrow  \omega \rightarrow $ & $\Delta t$ & $\Delta x$ & $c^2$ & \Ekman  & $l_x, l_y, l_z$ & $T^*_{end}$\\
+$h_+$ & $ \omega $ & $\Delta t$ & $\Delta x$ & $c^2$ & \Ekman  & $l_x, l_y, l_z$ & $T^*_{end}$\\
 \hline
-$[0,\; 0.5], \Delta h_+ =0.125$ & $[0.2,\; 2], \Delta w = \nicefrac{1}{20}$ & $10^{-5}$ & $\nicefrac{1}{128}$ & 500 & $10^{-4}$  & (1, 1, $1+h_+$) & $\gtrsim100$\\
+$[0,\; 0.5], \Delta h_+ =0.125$ & $[0.2,\; 2], \Delta \omega = \nicefrac{1}{20}$ & $10^{-5}$ & $\nicefrac{1}{128}$ & 500 & $10^{-4}$  & (1, 1, $1+h_+$) & $\gtrsim100$\\
 \end{tabular}
 \vspace*{0.7ex}
 \end{center}
@@ -666,14 +665,18 @@ It should be noted that a higher resolution for the frequency was used compared 
 The total simulation time $T^*_{end.}$ is marked as $\gtrsim 100$. Here we want to introduce the modification
 
 \begin{align}
-    T_{\text{end.}}^* = \Bigl\lfloor\left(\text{T}_{\text{end}}\frac{\omega}{2\pi}\right)\Bigr\rfloor
+    T_{\text{end.}}^* = \underbrace{\Bigl\lfloor\left(\text{T}_{\text{end}}\frac{\omega}{2\pi}\right)\Bigr\rfloor}_
+    {\substack{
+        \text{Number of Periods}\\\text{below } T_{\text{end}}
+        }}
+    \cdot
         \frac{2\pi}{\omega} + \frac{2\pi}{\omega}
 \end{align}
 
 As a consequence the ending time  of all simulations is set to the point, where the libration force is crossing zero.
 The scenario we want to study from there on is the decay of inertial waves.
 
-To achieve this a simulation with the previously computed endstate is continued,
+To achieve this, a simulation with the previously computed end state is continued,
 with the libration amplitude $\epsilon$ set to zero.
 With the use of the modified endtime, the assumption is that all intertial waves are
 approximately in the same phase with respect to their libration frequency.
@@ -696,17 +699,18 @@ but with a higher resolution of $\Delta x = \nicefrac{1}{256}$, will be repeated
 
 The results of the simulations are shown in Fig. \ref{fig:cone_expseries}.
 For both cases, the frustum and the cone, an increase in $A\left(\left<v^2_z\right>_V\right)$ can be observed.
-From  the order $\approx 2\cdot10^{-4}$ at $\omega=0$, to  $\approx 3.4\cdot10^{-4}$ for the cone and $\approx 4\cdot10^{-4}$ for the frustum,  at $\omega=1$.
-From here one the amplitude decreases to $\approx 5\cdot10^{-5}$ at $\omega=2$.
+From  about $2\cdot10^{-4}$ at $\omega=0.2$, to  $\approx 3.4\cdot10^{-4}$ for the cone and $\approx 4\cdot10^{-4}$ for the frustum,  at $\omega=1$.
+From here on, the amplitude decreases to $\approx 5\cdot10^{-5}$ at $\omega=2$.
 A difference between the two setups can be observed in the surrounding area of $\omega=1$.
 
 For the frustum the increase of the amplitude is interrupted at $\omega=0.7$, a minimum can be observed at $\omega=0.8$, followed by
 a peak at $\omega=1$. For the cone a minimum is not directly visible but it can be noted that the
-amplitude does not increase as much at $\omega=0.7$, as for lower frequencies.\\
-The maximum for the cone, occurs at $\omega=0.9$, in comparison to the frustum an decrease in the amplitude of order $\approx 5\cdot10^{-5}$, can be observed.
-However, it has to be considered, that due do the stepwidth of $\Delta\omega = 0.1$ ,the exact position of the maxima is not apparent.
-Overall it appears that the expansion of the frustum to a cone leads to a frequency shift to the left.
-Furthermore it seams that the spectrum can be divided into two domains $0\leq\omega\leq1$ and $1 \leq \omega\leq 2$.
+amplitude does not increase as much at $\omega=0.7$ as for lower frequencies.\\
+The maxima of the frustum ($\omega=1$) and cone ($\omega=0.9$) do not occur at the same frequencies and have a difference of $0.5\cdot10^{-4}$.
+
+However, it has to be considered, that due do the step width of $\Delta\omega = 0.1$ the exact position of the maxima is not apparent.
+It appears that the expansion of the frustum to a cone leads to a frequency shift to the left.
+Furthermore, it seems that the spectrum can be divided into two domains $0\leq\omega\leq1$ and $1 \leq \omega\leq 2$.
 This result is not unexpected, since we choose the slope $\alpha$ of the cone such that $\omega_c=1$.
 
 \clearpage
@@ -724,32 +728,32 @@ This result is not unexpected, since we choose the slope $\alpha$ of the cone su
 \subsection{Transition from a Cylinder to a Cone }
 
 The results for the simulations are shown in Fig. \ref{fig:cone:transition}.
-On the left side of the plot  the frequency spectrum is shown, the right side illustrates the used geometry.
+On the left side of the plot  the frequency spectrum is shown, the right side illustrates the geometry used.
 The radius $r$ decreases from the top to the bottom.
 For $r=0.5$  the inertial modes of a librating cylinder can be observed, which is in accordance
-to the results of the librating  cylinder, we discussed in Sec. \ref{cone:sec:lib_cylinder}.
+to the results of the librating  cylinder, wich we discussed in Sec. \ref{cone:sec:lib_cylinder}.
 The result for $r=0$ is identical to the simulation of the cone from the previous section.
 
-With an decrease of the radius a change in the position and amplitude of the
+With a decrease of the radius a change in the position and amplitude of the
 inertial modes is visible.
 
-This pattern shall be exemplary discussed  for the (2, 1) mode at $\omega=1.3$, where it is the best visible.
+This pattern shall be exemplarily discussed  for the (2, 1) mode at $\omega=1.3$, where it is best visible.
 For all other modes the transition results in a similar behavior.
 
 The decrease of the radius leads to a shift to lower frequencies of the (2, 1) mode,
 from $r=0.5$ to $r=0.375$ it is of the order $\Delta \omega=0.1$.
-It can be noticed that during this shift a damping of the mode occurs.
-For $r=0.5$ the amplitude it is of order $\approx9.2\cdot10^{-3}$, for $r=0.375$ it is
-$\approx8.7\cdot10^{-3}$ and for $r=0.25$ we obtain $\approx3.8\cdot10^{-3}$.
+It can be noticed that during this shift, a damping of the mode occurs.
+For $r=0.5$ the amplitude is about $9.2\cdot10^{-3}$, for $r=0.375$ it is
+about $8.7\cdot10^{-3}$ and for $r=0.25$ we obtain $3.8\cdot10^{-3}$.
 Whereas the first decrease of the radius does not significantly affect the amplitude,
-the second decrease leads to a strong damping to less than half of the original size.
+the second decrease leads to a strong damping to less than half of the original value.
 With a further decrease in $r$, the (2, 2) mode is annihilated.
-For the (4, 1) mode, a slight increase of the amplitude at $r=0.125$, is still noticeable.
+For the (4, 1) mode, a slight increase of the amplitude at $r=0.125$ is still noticeable.
 In addition this mode is stronger damped for $r=0.375$, in comparison to the (2, 1)-mode.
 
 The vertical lines in Fig. \ref{fig:cone:transition} are set to the position $\omega=\omega_c$.
 The area $\omega<\omega_c$ can again be associated with the frequency domain, where the wave propagation angle $\theta$ is larger than
-the  slope of the cone $\alpha$ and downward traveling waves propagate to the top, after a reflection.
+the  slope of the cone $\alpha$, so that downward traveling waves propagate to the top after a reflection.
 In can be noted that in this area the amplitudes increase, which is in accordance with the
 results from the simulation of the experiment.
 
@@ -835,7 +839,7 @@ For the peak M\RN{8} for the cone, a downward traveling wave can be observed.
 
 \subsubsection{Helicity}
 
-The computed relative helicity shall be exemplary discussed for  the case ${h_+=0.25}$.
+The computed relative helicity shall be exemplarily discussed for  the case ${h_+=0.25}$.
 For all other heights, frequency shifts and small changes in the amplitude can be observed,
 that are not of importance for further discussions.
 The results are shown in Fig. \ref{fig:cone:finalhelicity}.
@@ -908,7 +912,7 @@ comparison to the maximum value of 1.
 The simulation of the decay of inertial waves was performed for the peak M\RN{1} in the frustum,
 for all heights $h_+$.
 As a comparison the same frequencies were used for a simulation of the decay in the cone.
-Fig. \ref{fig:cone:finaldecayexample} shows the decay exemplary,
+Fig. \ref{fig:cone:finaldecayexample} shows the decay exemplarily,
 for $\omega=1.25$ and $h_+=0.25$ on a semi-log plot.
 
 For both geometries there are two different decay rates observable.
