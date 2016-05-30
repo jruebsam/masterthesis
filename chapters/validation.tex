@@ -307,35 +307,42 @@ The value is approximately constant and not depend of the grid resolution.
 
 \section{Discussion}
 \subsection{Poiseuille Flow}
-\subsubsection{Test of the default setup}
-For the finite difference scheme of 2nd order, the error behaves not as assumed.
-Instead of the decline one would expect with the decrease of the resolution, the  error is nearly constant.
-This behaviour can be explained due to the lack of complexity of the test case.
- As the theoretical solution is a polynom of 2nd order
+\subsubsection{Default setup}
+
+
+The constant error of the 2nd order scheme is due to the lack of complexity of the test case.
+As the theoretical solution for the tescase is a polynom of 2nd order,
 no higher order terms will occur in the numerical solution, hence the
- 2nd order scheme is capable of a perfect approximation, independent of the
-grid resolution. The remaining error terms, are of the order $10e^{-8}$,
- which is extremly small and occur due to the floating point round off.
-With this in mind the behavior of the 4th-order scheme is even more unexpected.
-We see a linear decrease of the error on the log scale.
-The result of a power law fit yields a convergence rate of 2nd order.
-Furthermore the error is much larger compared to the 2nd order scheme,
- there is a decrease from $10e^{-2}$ to $10e^{-5}$.
-The test case reveals that an error exists in the default implementation of the boundarie conditions.
-An explanation can be given with comparison of the theoretical solution. The laplace operator is given by
- $ \nu \pdn[^2 v_x]{x^2} = 2A = \frac{1}{\nu}\pdn[p]{x}$
-Using the mirroring method creates a discontinuous function at the boundaries, since the laplace operator changes the sign.
-When using the 2nd order method the tree-point-stencil evaluates to the correct value $\pdn[^2 v_x]{x^2} = 1$.
+2nd order scheme is capable of a perfect approximation, independent of the
+grid resolution. The remaining error terms, wich  are of the order $10e^{-8}$,
+occur due to the round off error of the single precision floating-point format.
+
+The convergence of the fourth order scheme, which is of 2nd order in this testcase,
+reveals that an error exists in the default implementation of the NoSlip boundaries.
+An explanation can be given with a comparison to the theoretical solution.
+The 2nd derivative is given by
+
+\begin{align}
+    \pdn[^2 v_x]{x^2} = \frac{1}{\Rey}\pdn[p]{x} := C\in\mathbb{R}
+\end{align}
+
+The default algorithm uses a mirroring method on the boundaries of the fluid domain (see Sec. \ref{XXX}), for the No-Slip boundaries.
+Let $C_b$ be the derivative in the immersed boundary, it follows that $C_b = - C$, as a result of the mirroring.
+Therefore a discontinuity of the 2nd derivative is created at the boundaries.
+When using the 2nd order method the 3-Point stencil evaluates to the correct value $\pdn[^2 v_x]{x^2} = 1$.
 The five-point-stencil of the 4th orderer scheme evaluates to $\pdn[^2 v_x]{x^2} = 1$, since it uses one point behind the boundary.
 As a result the discontinuity creates an error in the higher order scheme.\\
-For this testcase the 2nd order method yields better results, however we
-have to keep in mind that the testcase yields a polynomial solution,
-it is not clear how the results will end up for a complex testcase.
-Furthermore in this testcase the boundaries have a large impact since the pressure gradient is parallel to wall,
-his is not the case in general.
-One possibility to avoid this error, would be to use an asymmetrich stencil, this approach is discussed in section ().
+
+%For this testcase the 2nd order method yields better results, however we
+%have to keep in mind that the testcase yields a polynomial solution,
+%it is not clear how the results will end up for a complex testcase.
+%Furthermore in this testcase the boundaries have a large impact since the pressure gradient is parallel to wall,
+%his is not the case in general.
+%One possibility to avoid this error, would be to use an asymmetrich stencil, this approach is discussed in section ().
 
 \subsubsection{Test of the Volume Penalization Method}
+
+
 1.Since the damping can not fullfill the exact boundarie conditions, a slight offset is introduced into the velocity profile\\
 
 2.
