@@ -267,47 +267,43 @@ The results for the 2nd order scheme are shown in Fig. \ref{fig:vp_error}.
 On the left side of the plot the relative error is plotted against the damping rate, the reynolds number is
 varied over a color scale. On the right side both variables are switched.
 
-A decrease in the damping rate $J$ results in an decrease of the error about 5 orders, from $1e-0$ to $1e-5$.
-With a change of Reynolds number from $500$ down to $100$ the error decrease about one order.
+A decrease in the damping rate $J$ results in an decrease of the error about four orders, from $10^{-1}$ to $10^{-5}$.
+With a change of the Reynolds number from $500$ down to $100$ the error decrease about one order.
 It can be noticed that with an decrease of $\Rey$ or $J$ the error decreases linear in the log-log space.
 For a small damping ($J>10^{-3}$) a breakdown of the linear relation can be observed.
 This is an error resulting from the numerical setup.
 \clearpage
 
-The damping in the masking area is so weak that the flow reaches the real(?) boundaries of the fluid domain,
+The damping in the masking area is so weak that the flow reaches the  boundaries of the numerical domain.
 This is not the case for $nu<1e-3$ since the velocities reaches zero before the boundaries.\\
-A linear fit in the log-log space gives an error decay rate of about 1.106 for  $J$ and about $-1.223$ with $\Rey$.
+A linear fit in the log-log space gives a  decay rate of about $1.106$ for  $J$ and about $-1.223$ for $\Rey$.
 
 The second part of the test was a grid convergence study with a constant Reynolds number, variable $J$ and grid resolution $N$.
 The results are shown in Fig. \ref{fig:ema1}.
 
 It can be noticed that a decrease in $\nu$ creates a shift in the error profile to overall smaller values.
 However it is also noticable that the error of the 2nd order scheme, increases together with the resolution.
--finally converges against a constant value.
--Even more confusing is the behaviour for the 4th order scheme.
--With increasing resolution we can see a decrease into a local minimum, followed by an increase to the same error as the 2nd order scheme.
+Even less understandable is the error function for the 4th order scheme.
+With increasing resolution  a decrease into a minimum, followed by an increase can be observed.
 
-\clearpage
+The position of minimum is shifted to the right with an decrease of $J$.
+For a constant $J>10^{-4}$ it is visible that the error for both methods converges against a
+constant error  with an increase in the resolution.
 
-subsection{Direct Forcing Method}
-(IDENTISCH ZU default method darf man das ?)
-The results of the grid convergence study are shown in Fig. \ref{fig:ema1}.
-The double logarithmic axis shows the dependency of the computed relative $l_2$-error norm
-with respect to the grid resolution.
+\subsection{Direct Forcing Method}
 
-On this scale, the 4th order finite differnce schemes has a linear decreasing error.
-For the smallest resolution $N=8$ the error is of order $10^{-3}$,
-in contrast to the highest resolution $N=256$, with an error of order $10^{-6}$
-A convergence rate of the error  was computed by linear interpolation in the log-log space,
-the results is about -2.257.
-Hence, it can be said that the accuracy of the method is of 2nd order for this testcase,
-which is is in contradiction with the theory.
-
+The results of the grid convergence study are similat to the results of the default implementation,
+except the fourth order scheme has a larger error.
+A plot of the relative $l_2$-error can be found in the Appendix  in Fig. \ref{fig:ema1}.
+The 4th order finite difference schemes has a linear decreasing error in the log-log space..
+For the smallest resolution $N=8$ the error is of order $10^{-2}$,
+in contrast to the highest resolution $N=256$, with an error of order $10^{-4}$
+The convergence rate is about $1.267$
+Hence, it can be said that the accuracy of the method is of 1st order for this testcase.
 The error of the second order finite difference scheme is of the order $10^{-8}$.
 The value is approximately constant and not depend of the grid resolution.
 
 \clearpage
-
 
 \section{Discussion}
 \subsection{Poiseuille Flow}
