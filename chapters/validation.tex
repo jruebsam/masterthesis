@@ -72,6 +72,7 @@ c_2 &= A(h_1(h_1 + h_2) - h_1^2) = Ah_1h_2\\
 The velocity is than given by the quadratic function
 
 \begin{align}
+\label{vali:pflow_theosol}
 v_x &= A(z^2 - z(h_1 + h_2) + h_1h_2)
 \end{align}
 
@@ -311,7 +312,7 @@ The value is approximately constant and not depend of the grid resolution.
 
 
 The constant error of the 2nd order scheme is due to the lack of complexity of the test case.
-As the theoretical solution for the tescase is a polynom of 2nd order,
+As the theoretical solution for the testcase is a polynom of 2nd order,
 no higher order terms will occur in the numerical solution, hence the
 2nd order scheme is capable of a perfect approximation, independent of the
 grid resolution. The remaining error terms, wich  are of the order $10e^{-8}$,
@@ -329,16 +330,9 @@ The 2nd derivative is given by
 The default algorithm uses a mirroring method on the boundaries of the fluid domain (see Sec. \ref{XXX}), for the No-Slip boundaries.
 Let $C_b$ be the derivative in the immersed boundary, it follows that $C_b = - C$, as a result of the mirroring.
 Therefore a discontinuity of the 2nd derivative is created at the boundaries.
-When using the 2nd order method the 3-Point stencil evaluates to the correct value $\pdn[^2 v_x]{x^2} = 1$.
-The five-point-stencil of the 4th orderer scheme evaluates to $\pdn[^2 v_x]{x^2} = 1$, since it uses one point behind the boundary.
-As a result the discontinuity creates an error in the higher order scheme.\\
-
-%For this testcase the 2nd order method yields better results, however we
-%have to keep in mind that the testcase yields a polynomial solution,
-%it is not clear how the results will end up for a complex testcase.
-%Furthermore in this testcase the boundaries have a large impact since the pressure gradient is parallel to wall,
-%his is not the case in general.
-%One possibility to avoid this error, would be to use an asymmetrich stencil, this approach is discussed in section ().
+When using the 2nd order method the 3-Point stencil evaluates to the correct value.
+The 5-Point stencil of the 4th order scheme evaluates to a false value, since it uses one point behind the boundary.
+As a result the discontinuity creates an error in the 4th order scheme.
 
 \subsubsection{Test of the Volume Penalization Method}
 
@@ -350,47 +344,59 @@ For the steady state a force equillibrium at the boundaries is given by the pres
  J v_x &=  \frac{1}{\Rey}\frac{\partial^2 v_x}{\partial z^2} -\pdn[p]{x}
 \end{align}
 
-which results in a constant offset $v_x(h_1) = v_x(h_2) = C\in\mathbb{R}$.
+which results in a constant offset $v_x(h_1) = v_x(h_2) =: C\in\mathbb{R}$.
 The simultaneous decrease of the $l_2$-error with $J$ is as expected.
 However it is counterintuitive that the $l_2$-error decreases with an increase of the Reynolds number.
 An explanation for this is, that the viscous force and the pressure gradient are proportional to $\nicefrac{1}{\Rey}$.
 With an increase of the Reynolds number the steady state in Eq. \ref{valid:steady_state_pflow} is shifted.
 The result is a smaller offset on the sides and and overall smaller error.
 
-
-
-
-
-An explanation of this behavior can by given by revising the theoretical solution and the finite difference stencils at the immersed boundary.
-The error does not converge towards zero, which means there has to be some discrepancy to the theoretical solution.
-For a constant $\nu$ there is an offset to the theoretical solution, which we allready saw in Fig. (REF).
-Hence by increasing the resolution the numerical solution converges towards the wrong solution.
-The error increases since for a lower resolution, the velocity profile is closer to the assumed theoretical for the 2nd order method.
-
-
-\begin{figure}[!bp]%
+\begin{figure}[!tp]%
     \centering
     \subfloat[label 1]{{
+    \label{fig:example_a}%
       \includegraphics{gfx/immersed_boundary/poiseuille_flow/discussion/stencil.pdf}
             }}%
     \qquad
     \subfloat[label 2]{{
+    \label{fig:example_b}%
       \includegraphics{gfx/immersed_boundary/poiseuille_flow/discussion/profile.pdf}
         }}%
 
-    \label{fig:example}%
 \end{figure}
 
+The grid convergency study with a constant Reynolds number and variable damping rate, generates an error
+which increases simulatenous with the grid resolution.
+An explanation for this behavior can by given by revising the theoretical solution
+and the finite difference stencils at the immersed boundary.
 
-The explanation for the 4th order convergence has again to do with the discretization error at the boundary.
-Fig. () shows schematically the velocity profiles for the volume penalizaton method compared to the theoretical.
-Due to the different  profiles, the numerical evaluation of the laplace operator results
-into different friction rates for the border point \textbf(B), but  also for the first next neighboor in the fluid domain \textbf(R1) when 4th order schemes are used.
-For the 4th order scheme the laplace operator at the boundary evaluates to a slightly (CALCULATE) negative value), which means the friction at the boundary due to
-viscosity is stronger. The result is a smaller velocity profile which when increasing the resolution starts to overlap best with the theoretical solution at the minimal error.
-Finally when increasing the resolution further the error increases since the method converges towards the same resolution as the 2nd order scheme (IMAGE MAYBE?).
-An attempt has been made to fit the numerical solution to a quadratic profile for the comparision to a theoretical solution but this didn't work due to blabla
-(FIT IDEA NOT WORKING CONVERGENCE AGAINST HIGH RESOLUTION.
+The error for both method does not converge towards zero, which means there has to be some discrepancy to the theoretical solution given by
+Eq. ref\label{vali:pflow_theosol}.
+For a constant $J$ there is an offset $C$ to the theoretical solution,
+which is given by the equillibrium accord to Eq.  \ref{valid:steady_state_pflow}.
+This means that the theoretical solution which was assumed in the first place, is wrong for the Volume-Penalization method.
+An additional offset in the flow, which is dependent of the damping rate $J$ has to be considered.
+For a low resolution, the profile of the 2nd order method is closer to the assumed theoretical, which results in a smaller
+error. With an increase to a higher resolution the error with respect to the real solution decreases.
+
+An explanation for the convergence of the 4th order can be given by furthermore considering the descrization error at the immersed boundaries.
+Fig. \ref{fig:example} shows exemplary the velocity profile near to the immersed boundary, for the Volume-Penalization method of 2nd and 4th order
+at a resolution of $N=100$.
+It can be seen that the velocity profile for the 4th order method, is slighty negative.
+The reason for this is the use of a 5-Point stencil for the discretization.
+The stencil reaches over the immersed boundary which results in a wrong computation of the laplacian.
+An explanation for the 4th order convergence is given by the velocity profiles for different resolutions,
+as shown schematically in Fig. \label{fig:example_b}.
+\footnote{The difference in the computed velocity profiles is barely visible, therefore an exaggerated version is used.}
+
+In totalvelocity profiles for three different resolution are considered for a constant $J$,
+the minimum of the error shall be defined as $N_min$.
+
+Due to the negative velocity at the boundaries the first profile $N<N_min$ lies below the theoretical assumed.
+The second profile is at $N=N_min$. The error from the border is smaller due to the increase in the resolution.
+The proifle overlaps best with the theoretical solution resulting in the minimal error.
+Finally when increasing the resolution further $N>N_min$, the error increases. The method converges towards the same resolution as the 2nd order scheme.
+
 
 \subsection{Direct Forcing Method}
 -We can see o4 not working reason is the same as we can se in Fig. n) , the laplacian is wrong caclulated at the point B.
