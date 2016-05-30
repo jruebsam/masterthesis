@@ -342,35 +342,33 @@ As a result the discontinuity creates an error in the higher order scheme.\\
 
 \subsubsection{Test of the Volume Penalization Method}
 
-
-1.Since the damping can not fullfill the exact boundarie conditions, a slight offset is introduced into the velocity profile\\
-
-2.
-which leads to an offset in the solution.
-Since for the steady state
+The offset on the boundaries arises since the Volume-Penaliztation method cannot fullfill the exact boundarie conditions.
+For the steady state a force equillibrium at the boundaries is given by the pressure gradient, the laplace operator and the damping force
 
 \begin{align}
- \nu v &= D \frac{\partial^2 v_x}{\partial z^2}  \Rightarrow  v_x = A e^{\sqrt{\frac{\nu}{D}}v_x}
+\label{valid:steady_state_pflow}
+ J v_x &=  \frac{1}{\Rey}\frac{\partial^2 v_x}{\partial z^2} -\pdn[p]{x}
 \end{align}
 
-where A is given by the offset $v(h_1)$.\\
+which results in a constant offset $v_x(h_1) = v_x(h_2) = C\in\mathbb{R}$.
+The simultaneous decrease of the $l_2$-error with $J$ is as expected.
+However it is counterintuitive that the $l_2$-error decreases with an increase of the Reynolds number.
+An explanation for this is, that the viscous force and the pressure gradient are proportional to $\nicefrac{1}{\Rey}$.
+With an increase of the Reynolds number the steady state in Eq. \ref{valid:steady_state_pflow} is shifted.
+The result is a smaller offset on the sides and and overall smaller error.
 
 
-4.Since the damping force is proportional to the velocity and therefore to the reynolds number, the offset on the channel walls remains constant.
-Due to the larger velocity profile this results in an smaller relative $l_2$-error, whereas the absolute error will increase.
 
-An explanation of this behaviour can by given by revising the theoretical solution and the finite difference stencils at the immersed boundary.
 
+
+An explanation of this behavior can by given by revising the theoretical solution and the finite difference stencils at the immersed boundary.
 The error does not converge towards zero, which means there has to be some discrepancy to the theoretical solution.
 For a constant $\nu$ there is an offset to the theoretical solution, which we allready saw in Fig. (REF).
 Hence by increasing the resolution the numerical solution converges towards the wrong solution.
 The error increases since for a lower resolution, the velocity profile is closer to the assumed theoretical for the 2nd order method.
 
-\begin{align}
- \nu v &= D \frac{\partial^2 v_x}{\partial z^2}  \Rightarrow  v_x = A e^{\sqrt{\frac{\nu}{D}}v_x}
-\end{align}
 
-\begin{figure}%
+\begin{figure}[!bp]%
     \centering
     \subfloat[label 1]{{
       \includegraphics{gfx/immersed_boundary/poiseuille_flow/discussion/stencil.pdf}
@@ -378,8 +376,8 @@ The error increases since for a lower resolution, the velocity profile is closer
     \qquad
     \subfloat[label 2]{{
       \includegraphics{gfx/immersed_boundary/poiseuille_flow/discussion/profile.pdf}
-
         }}%
+
     \label{fig:example}%
 \end{figure}
 
