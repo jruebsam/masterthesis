@@ -14,6 +14,8 @@ import matplotlib.cm as cmx
 from scipy import optimize
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
+from pycurb.analysis import loglog_power_fit as pfit
+
 def flow(x, h1, h2):
     return -4*(x**2 - x*(h1 + h2) + h1*h2)
 
@@ -101,12 +103,14 @@ def main():
     fitfunc = lambda p, x: p[0]*x**p[1]
     errfunc = lambda p, x, y: fitfunc(p, x) - y
     p0 = [1., 1.]
-    p1, success = optimize.leastsq(errfunc, p0[:], args=(nus[b], l2rel[b]))
+    #p1, success = optimize.leastsq(errfunc, p0[:], args=(nus[b], l2rel[b]))
+    p1, err = pfit(nus[b], l2rel[b])
 
     xn = np.linspace(1e-5, 1e-2)
     yn = fitfunc(p1, xn)
     fit, = ax1.plot(xn, yn, '--', lw=1)
-    legend_fit = plt.legend([fit],['fit: $ax^b$ : $b=%.3f$ +- ?' % p1[1]], loc=4, fontsize=7)
+    #legend_fit = plt.legend([fit],['fit: $ax^b$ : $b=%.3f$ +- ?' % p1[1]], loc=4, fontsize=7)
+    legend_fit = plt.legend([fit],[r'fit: $ax^b$ : $b=%.3f\pm%.4f$' % (p1[1],err[0])], loc=4, fontsize=7)
     plt.gca().add_artist(legend_fit)
     ax1.set_xlabel(r'$J$')
     ax1.set_ylabel('$l_2$-rel. error')
@@ -128,16 +132,17 @@ def main():
 
     #FIT
     b = (nus == 0.0001)
+    fitfunc = lambda p, x: p[1]*x**p[0]
     fitfunc = lambda p, x: p[0]*x**p[1]
     errfunc = lambda p, x, y: fitfunc(p, x) - y
     p0 = [-0.1, -0.1]
-    p1, success = optimize.leastsq(errfunc, p0[:], args=(res[b], l2rel[b]))
-    print success
+    #p1, success = optimize.leastsq(errfunc, p0[:], args=(res[b], l2rel[b]))
+    p1, err = pfit(res[b], l2rel[b])
 
     xn = np.linspace(100, 500, 1001)
     yn = fitfunc(p1, xn)
     fit, = ax2.plot(xn, yn, 'r--', lw=1)
-    legend_fit = plt.legend([fit],['fit: $ax^b$ : $b=%.3f$ +- ?' % p1[1]], loc=3, fontsize=7)
+    legend_fit = plt.legend([fit],[r'fit: $ax^b$ : $b=%.3f\pm%.4f$' % (p1[1],err[0])], loc=3, fontsize=7)
     plt.gca().add_artist(legend_fit)
 
     ax2.set_xlabel(r'$Re$')
