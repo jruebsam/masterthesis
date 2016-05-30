@@ -1,15 +1,16 @@
 \section{Validation}
 
 This section reviews the validation of immersed boundary methods.
-The main goal of this validation is to determine the numerical error and the
-numerical stability of a method.
-Furthermore it is important to test if a  method supports the
-the laws of conservation, in particular the conservation of mass.
-In the first part of this section an introduction to different testcases
-will be given. Three different test problem were chosen,
-the poisseille flow, hagen-poiseuille flow and the taylor-couette system.
-In the 2nd part the result for the different testcases will
-be presented and discussed.
+The main goal of the validation is to determine the numerical error and the
+numerical stability of the immersed boundary method.
+Furthermore it is important to test if conservation laws, in particular the conservation of mass,
+are fulfilled.
+
+In the first part of the chapter an introduction to different test cases
+will be given. Three different test problems were chosen.
+The flow between to planes, also known as Planar Poiseuille flow, the flow in a Pipe, referred to as Hagen-Poiseuille flow and the
+between two rotating cylinders, know as the Taylor-Couette system.
+In the second part of the chapter the result for the different test cases will be presented and discussed.
 
 %In general it is necessary to obtain a good evaluation of the numerical truncation error,
 % the numerical stability over longer periods of time
@@ -18,7 +19,7 @@ be presented and discussed.
 %This part of the thesis the thesis deals with the numerical validation of the immersed
 %boundary methods
 %In order to ensure a correct numerical behavior of the introduced methods, a
-%Multiple examples from simple to more complex testcases are introduced in this section.
+%Multiple examples from simple to more complex test cases are introduced in this section.
 
 \subsection{Laminar Poiseuille-Flow}
 
@@ -30,33 +31,35 @@ be presented and discussed.
       }
   \end{minipage}
   \begin{minipage}[c]{0.3\textwidth}
-      \caption{Theoretical setup of the poiseuille-flow channel.
+      \caption{Setup of the Poiseuille-flow channel.
       \label{validation:setup_pf}
       }
   \end{minipage}
 \end{figure}
 
-The first testcases is the laminar poiseuille-flow, the theoretical setup is presented in Fig. \ref{validation:setup_pf}.
-It consist of two infintiy long planes at $z=h_1$ and $z=h_2$ which are oriented
-parallel to the xy-plane at a distance $\Delta h = h_2 - h_1$.
+The first test case is the laminar poiseuille-flow. The theoretical setup is presented in Fig. \ref{validation:setup_pf}.
+It consist of two infinite extending  planes at $z=h_1$ and $z=h_2$, which are oriented
+parallel to the xy-plane, at a distance $\Delta h = h_2 - h_1$.
 Numerically this is realized by using periodic boundaries in xy-direction and
-No-Slip boundaries in z-direction.
+No-Slip boundaries in the z-direction.
 
-The velocity profile results from a pressure gradient in x-direction, which is added into the naviers-stokes equation.
-No other forces are present furthermore the flow will be independent of the y coordinate,
-hence for the steady state $\partial v_x /\partial t = 0$ the non-dimensinoal equations of motion can be reduced to:
-
+The velocity profile is a result from a predefined spatial constant pressure gradient $\nicefrac{\partial p}{\partial x}$
+ in x-direction, that is added into the Navier-Stokes equation.
+The steady state for the non-dimensional equations is given by \citep{}
 \begin{align}
-\frac{\partial v_x}{\partial t} &= - \frac{\partial p}{\partial x}
- + \frac{1}{Re} \frac{\partial^2 v_x}{\partial z^2} = 0
+    \label{vali:pflow_navstok}
+    \frac{\partial v_x}{\partial t} &= - \frac{\partial p}{\partial x}
+     + \frac{1}{Re} \frac{\partial^2 v_x}{\partial z^2} = 0
 \end{align}
 
-with $Re = \nicefrac{V_{m}\Delta h}{\nu}$.
-For the non-dimenzionalization we choose $r^* = r/\Delta h$, $v^*=V_(\text{m})/\Delta h$, $t^* = \frac{V_{\text{m}}}{\Delta h}$
-and $p^* = p \rho V_{\text{max}}^2$
+with the Reynolds-number defined as $Re = \nicefrac{V_{m}\Delta h}{\nu}$.
+For this system the non-dimenzionalization is given by the scales
+    $r^* = \nicefrac{r}{\Delta h}$, $v^*=\nicefrac{V_(\text{m})}{\Delta h}$,
+    $t^* = \nicefrac{V_{\text{m}}}{\Delta h}$ and $p^* = p \rho V_{\text{max}}^2$.
 
-The equation can simply be integrated twice which yields the solution
-
+\clearpage
+The velocity $V_m$ is defined as $\max(v_x(z))$.
+An integration of Eq. \ref{vali:pflow_navstok} gives
 \begin{align}
 v_z &= \frac{1}{2}\frac{\partial p}{\partial x}z^2 + zc_1 + c_2
 \end{align}
@@ -76,20 +79,16 @@ The velocity is than given by the quadratic function
 v_x &= A(z^2 - z(h_1 + h_2) + h_1h_2)
 \end{align}
 
-The maximum velocity and postinon can be obtained by simple calculus
-
+The maximum velocity and position are given by
 \begin{align}
 z_{max} &= \frac{h_1+h_2}{2} \wedge v_{max} = A\left(h_1h_2 - \frac{(h_1 + h_2)^2}{4}\right)
 \end{align}
 
-Since $v_{max}$ has to be 1 by definition of the non-dimensionalzation we find
-
+$V_{m}$ has to be 1 by the definition of the non-dimensionalzation. This gives
 \begin{align}
 \frac{\partial p}{\partial x} &= \frac{2}{Re}\frac{1}{\left(h_1h_2 - \frac{(h_1+h_2)^2}{4} \right)}
 \end{align}
-
 as a necessary condition for the pressure gradient.\\
-
 \clearpage
 
 
@@ -100,7 +99,7 @@ as a necessary condition for the pressure gradient.\\
 
 \subsection{Poiseuille Flow}
 
-The poiseuille-flow problem  is used in particular as a first validation testcase
+The Poiseuille-flow test case is used in particular as a first validation
 for the Volume-Penalization and Direct-Forcing methods.
 
 \subsubsection{Test of the Default Setup}
@@ -109,7 +108,7 @@ The purpose of the first simulation is the test of the default
 implementation of the algorithm, without the use of immersed boundaries.
 For this test case this is still possible since the geometry is non-curved
 and parallel to the cartesian grid.
-A grid convergence test was performed with the main simulation parameters are given by
+A grid convergence test was performed with the main simulation parameters given by
 
 \begin{center}
 \vspace*{0.7ex}
@@ -121,8 +120,7 @@ A grid convergence test was performed with the main simulation parameters are gi
 \vspace*{0.7ex}
 \end{center}
 
-For all resolutions the simulations were performed for finite difference
-schemes of 2nd and 4th order.
+The simulations were performed for finite difference schemes of 2nd and 4th order.
 
 \subsubsection{Test of the Volume Penalization Method}
 
@@ -166,13 +164,12 @@ A simulation series was performed with the main simulation parameters given by
 \vspace*{0.7ex}
 \end{center}
 
-The damping force was divided by 2 or 5 for n times.
+The damping force was divided by 2 or 5 for n times(EXPLAIN).
 To make sure that the channel width is equal to $\Delta h = 1$, the total height was set to $l_z\approx2.01587$.
-This furthermore ensures that the grid points overlap exactly
-with the masking function at $h_1$ and $h_2$.
-This test was performaed for 2nd order (oder 4th order error explain)
+This ensures that the grid points overlap exactly with the masking function at $h_1=0.25$ and $h_2=0.75$.
+The simulations were performed for the 2nd order method. (O4 EXPLAIN)
 
-As a second test a grid convergence study was carried out, with a constant Reynolds number and $\nu \in [1-23]$.
+As a second test a grid convergence study was carried out, with a constant Reynolds number and $J \in [1-23]$.
 The resolution was varied between $N\in [4, 400]$ with $\Delta N = 4$, 2nd and 4th order schemes were tested.
 
 \begin{center}
@@ -189,7 +186,7 @@ The resolution was varied between $N\in [4, 400]$ with $\Delta N = 4$, 2nd and 4
 
 Since the direct forcing method does not depend on a damping parameter it is sufficient enough
 to carry out a grid convergence study
-The simulation parameter arg given by
+The simulation parameter are given by
 
 \begin{center}
 \vspace*{0.7ex}
@@ -213,17 +210,16 @@ The results of the grid convergence study are shown in Fig. \ref{fig:ema1}.
 The double logarithmic axis shows the dependency of the computed relative $l_2$-error norm
 with respect to the grid resolution.
 
-On this scale, the 4th order finite differnce schemes has a linear decreasing error.
+On this scale, the 4th order finite difference scheme has a linear decreasing error.
 For the smallest resolution $N=8$ the error is of order $10^{-3}$,
-in contrast to the highest resolution $N=256$, with an error of order $10^{-6}$
+in contrast to the highest resolution $N=256$ with an error of order $10^{-6}$
 A convergence rate of the error  was computed by linear interpolation in the log-log space,
 the results is about -2.257.
-Hence, it can be said that the accuracy of the method is of 2nd order for this testcase,
+Hence, it can be said that the accuracy of the method is of 2nd order for this test case,
 which is is in contradiction with the theory.
 
-The error of the second order finite difference scheme is of the order $10^{-8}$.
+The error of the 2nd order finite difference scheme is of the order $10^{-8}$.
 The value is approximately constant and not depend of the grid resolution.
-
 
 \begin{figure}[!bp]
     \centering
@@ -276,7 +272,7 @@ This is an error resulting from the numerical setup.
 \clearpage
 
 The damping in the masking area is so weak that the flow reaches the  boundaries of the numerical domain.
-This is not the case for $nu<1e-3$ since the velocities reaches zero before the boundaries.\\
+This is not the case for $J<1e-3$ since the velocity profile is zero before it reaches the boundaries.\\
 A linear fit in the log-log space gives a  decay rate of about $1.106$ for  $J$ and about $-1.223$ for $\Rey$.
 
 The second part of the test was a grid convergence study with a constant Reynolds number, variable $J$ and grid resolution $N$.
@@ -300,7 +296,7 @@ The 4th order finite difference schemes has a linear decreasing error in the log
 For the smallest resolution $N=8$ the error is of order $10^{-2}$,
 in contrast to the highest resolution $N=256$, with an error of order $10^{-4}$
 The convergence rate is about $1.267$
-Hence, it can be said that the accuracy of the method is of 1st order for this testcase.
+Hence, it can be said that the accuracy of the method is of 1st order for this test case.
 The error of the second order finite difference scheme is of the order $10^{-8}$.
 The value is approximately constant and not depend of the grid resolution.
 
@@ -312,13 +308,13 @@ The value is approximately constant and not depend of the grid resolution.
 
 
 The constant error of the 2nd order scheme is due to the lack of complexity of the test case.
-As the theoretical solution for the testcase is a polynom of 2nd order,
+As the theoretical solution for the test case is a polynom of 2nd order,
 no higher order terms will occur in the numerical solution, hence the
 2nd order scheme is capable of a perfect approximation, independent of the
 grid resolution. The remaining error terms, wich  are of the order $10e^{-8}$,
 occur due to the round off error of the single precision floating-point format.
 
-The convergence of the fourth order scheme, which is of 2nd order in this testcase,
+The convergence of the fourth order scheme, which is of 2nd order in this test case,
 reveals that an error exists in the default implementation of the NoSlip boundaries.
 An explanation can be given with a comparison to the theoretical solution.
 The 2nd derivative is given by
@@ -371,7 +367,7 @@ An explanation for this behavior can by given by revising the theoretical soluti
 and the finite difference stencils at the immersed boundary.
 
 The error for both method does not converge towards zero, which means there has to be some discrepancy to the theoretical solution given by
-Eq. ref\label{vali:pflow_theosol}.
+Eq. \ref{vali:pflow_theosol}.
 For a constant $J$ there is an offset $C$ to the theoretical solution,
 which is given by the equillibrium accord to Eq.  \ref{valid:steady_state_pflow}.
 This means that the theoretical solution which was assumed in the first place, is wrong for the Volume-Penalization method.
@@ -380,7 +376,7 @@ For a low resolution, the profile of the 2nd order method is closer to the assum
 error. With an increase to a higher resolution the error with respect to the real solution decreases.
 
 An explanation for the convergence of the 4th order can be given by furthermore considering the descrization error at the immersed boundaries.
-Fig. \ref{fig:example} shows exemplary the velocity profile near to the immersed boundary, for the Volume-Penalization method of 2nd and 4th order
+Fig. \ref{fig:example_a} shows exemplary the velocity profile near to the immersed boundary, for the Volume-Penalization method of 2nd and 4th order
 at a resolution of $N=100$.
 It can be seen that the velocity profile for the 4th order method, is slighty negative.
 The reason for this is the use of a 5-Point stencil for the discretization.
@@ -388,17 +384,20 @@ The stencil reaches over the immersed boundary which results in a wrong computat
 An explanation for the 4th order convergence is given by the velocity profiles for different resolutions,
 as shown schematically in Fig. \label{fig:example_b}.
 \footnote{The difference in the computed velocity profiles is barely visible, therefore an exaggerated version is used.}
-
-In totalvelocity profiles for three different resolution are considered for a constant $J$,
-the minimum of the error shall be defined as $N_min$.
-
-Due to the negative velocity at the boundaries the first profile $N<N_min$ lies below the theoretical assumed.
-The second profile is at $N=N_min$. The error from the border is smaller due to the increase in the resolution.
-The proifle overlaps best with the theoretical solution resulting in the minimal error.
-Finally when increasing the resolution further $N>N_min$, the error increases. The method converges towards the same resolution as the 2nd order scheme.
+The velocity profiles for three different resolutions are considered for a constant $J$,
+the minimum of the error shall be defined as $N_{min}$.
+Due to the negative velocity at the boundary the first profile $N<N_{min}$ lies below the theoretical assumed.
+The second profile is at $N=N_{min}$. The error at the boundary is smaller due to the increase of the resolution.
+The profile overlaps best with the theoretical solution resulting in the minimal error.
+With a further increase of the resolution  $N>N_{min}$ the velocity profile drifts away from the theoretical solution,
+the error increases.  Finally the method converges towards the same solution as the 2nd order scheme.
 
 
 \subsection{Direct Forcing Method}
+
+The results for the direct forcing method show that d
+
+
 -We can see o4 not working reason is the same as we can se in Fig. n) , the laplacian is wrong caclulated at the point B.
 As a results an error is induced at the boundaries of the domain.
 The 2nd order scheme works perfectly as we compare it to the default implementation.
@@ -415,8 +414,8 @@ The 2nd order scheme works perfectly as we compare it to the default implementat
 
 \subsubsection{Theoretical description}
 
-In the previous testcase the channel walls were aligned parallel to the simulation grid, hence no further interpolation procedures
-were necessary. In order to test the accuray of the interpolation methods, we now introduce a testcase with a curved geometry.
+In the previous test case the channel walls were aligned parallel to the simulation grid, hence no further interpolation procedures
+were necessary. In order to test the accuray of the interpolation methods, we now introduce a test case with a curved geometry.
 Furthermore we have the possibility to investigate the error of non-interpolating methods on curved surfaces.\\
 The most simplest extension of the planar poiseuille flow, is the laminar flow through a pipe,
 also referred to as Hagen-Poiseuille flow. The setup of the fluid domain is schematically shown in Fig. ().
@@ -594,13 +593,13 @@ Again a Reynolds number of $Re=100$ was chosen, with a fixed resolution of $N=96
   \caption{Taylor Couette System with the inner and outer cylinder radius $R_1$ and $R_2$, and the rotation rates $\Omega_1$ and $\Omega_2$}
 \end{figure}
 
-As a last testcase for grid convergence studies we want to introduce the taylor-couette system.
+As a last test case for grid convergence studies we want to introduce the taylor-couette system.
 The setup is exemplarly shown in Fig. (). It contains of two coaxial in z-direction oriented cylinders
 with different radii $R_i$ and rotation rates $\Omega_i$. The fluid domain is given by the gap between the cylinders and
 periodic in z-direction.\\
 In dependency of the different domain paratemers different flow regimes can occur, criteria ...\\
 We examine radial couette flow where the outter cylinder does not rotate ...\\
-In constrast to the previously examined testcases this system provides different characteristics
+In constrast to the previously examined test cases this system provides different characteristics
 of the flow regime at the fluid domain border. The flow along the borders is not orthogonal to the curvature of
 the boundary like in the poiseuille flows we investigated before. Furthermore  new boundary
 conditions are introduced, to be more precisely the Dirichlet condition is now given by $|\vec{v}(\vec{r})|_{r_i} | = |\Omega_i \times \vec{r}|$.
