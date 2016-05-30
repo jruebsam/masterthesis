@@ -15,16 +15,16 @@ def main():
     pfrustum = '/home/upgp/jruebsam/simulations/mai16/week5/series_offset_l2/data'
     pcone = '/home/upgp/jruebsam/simulations/mai16/week5/series_offset_with_tip_l2/data'
 
-    p1 = {'omg': 1.25, 'path':pfrustum, 'label' : r'(\rom{1}) Frustum',
+    p1 = {'omg': 1.25, 'path':pfrustum, 'label'   : r'M\rom{1} Frustum',
           'frame':50, 'offset':25, 'h': 0.25}
 
-    p2 = {'omg': 1.25, 'path':pcone   , 'label' : r'(\rom{1}) Cone',
+    p2 = {'omg': 1.25, 'path':pcone   , 'label'   : r'M\rom{1} Cone',
           'frame':70, 'offset':15, 'h': 0.25}
 
-    p3 = {'omg': 0.9,  'path':pfrustum  , 'label' : r'(\rom{2}) Frustum',
+    p3 = {'omg': 0.9,  'path':pfrustum  , 'label' : r'M\rom{2} Frustum',
           'frame':60, 'offset':30, 'h': 0.25}
 
-    p4 = {'omg': 0.85, 'path':pcone   , 'label' : r'(\rom{8}) Cone',
+    p4 = {'omg': 0.85, 'path':pcone   , 'label'   : r'M\rom{8} Cone',
           'frame':50, 'offset':30, 'h': 0.25}
 
     fig, axes = plt.subplots(2, 4, figsize=style.figsize(1.0))

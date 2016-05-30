@@ -79,7 +79,7 @@ def main():
            fancybox=True, shadow=True)
 
     ax.set_xlabel(r'\omega')
-    ax.set_ylabel(r'$\left<v_z^2\right>$')
+    ax.set_ylabel(r'$A(\left<v_z^2\right>)$')
 
     formatter = ticker.ScalarFormatter(useMathText=True)
     formatter.set_scientific(True)
