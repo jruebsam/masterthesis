@@ -1,5 +1,6 @@
 import style
 style.setup()
+import pycurb as pc
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -17,19 +18,22 @@ from cycler import cycler
 plt.rc('axes', prop_cycle=(cycler('color', cmap)))
 
 def main():
-    dpath = '/home/upgp/jruebsam/simulations/april15/week1/hpflow/gc/'
+    dpath = '/home/upgp/jruebsam/simulations/april16/week1/tcflow/gc/'
     modes = ['ip', 'dffrac', 'vpfrac']
     labels = ['Ip', 'DF-Vol.Frac.', 'VP-Vol.Frac.']
 
-    re = 100.
-    pmax = 4./re
-    pr = 1./re
-    rrel = 0.4
-    lx, ly = 1/rrel, 1/rrel
+    ri, ro, omg  = 1., 2., 1.
+
+    lx, ly = 5., 5.
+    nu = ri/ro
+
+    A = -omg*nu**2/(1-nu**2)
+    B = omg*ri**2/(1-nu**2)
+
     resf = np.linspace(16, 256., 256./16)
     resf = np.append(resf, 512)
 
-    f, ax = style.newfig(1.)
+    f, ax = style.newfig(0.5, 1.7)
 
     for mode, label in zip(modes, labels):
         on = 'o2'
@@ -41,19 +45,25 @@ def main():
             sim_path  = os.path.join(dpath, sim_path)
 
             with tb.open_file(sim_path +"/simulation.h5") as d:
-                vz = d.root.simdata.vz[-1, :, :, 1]
+                vx = d.root.simdata.vx[-1, :, :, 1]
+                vy = d.root.simdata.vy[-1, :, :, 1]
                 h = d.root.icdata.H[:,:, 1]
+            b = (h==1)
 
-            dx = lx/rs
-            z = np.linspace(0, 2.5-dx, rs)
-            y, x = np.meshgrid(z, z)
+            p =  pc.Parameter(sim_path+"/parameter.json")
+            dim = pc.Dimension(p)
+            x, y, z = dim.get_grid()
+            x, y = x[:, :, 0], y[:, :, 0]
+            r = np.sqrt((x - lx/2.)**2 + (y-ly/2.)**2)
+            vth = A*r + B/r
+            vth[b] = 0
 
-            thflow =  (1  - ((x - 1.25)**2 + (y - 1.25)**2))*(1-h)
-            thflow[thflow<0] = 0
-            vz[thflow==0] = 0
+            vabs = np.sqrt(vx**2 + vy**2)
+            vabs[b] = 0
 
-            l2error = pa.l2_error(vz, exact=thflow)
-            l2errorabs = pa.l2_error_abs(vz, exact=thflow)
+
+            l2error = pa.l2_error(vabs, exact=vth)
+            l2errorabs = pa.l2_error_abs(vabs, exact=vth)
 
             l2rel.append(l2error)
             l2abs.append(l2errorabs)
@@ -69,21 +79,24 @@ def main():
         popt, perr = pa.loglog_power_fit(res, l2rel)#, p0=[1., -2.])
         xn = np.linspace(16, 512, 100)
         yn = popt[0]*xn**popt[1]
-        if (mode=='ip') and (on =='o2'):
-            ax.plot(xn, yn, 'k--', lw=0.5, label='Fit for IP. o2 $\propto N^b$' % popt[1])
-        ax.plot(res, l2rel, 'o'+lst, label = label + ' ' + on + ' (Fit:$b=%.3f\pm %.3f$' % (popt[1], perr[1]), ms=3, mew=0)
+        #if (mode=='ip') and (on =='o2'):
+        #    ax.plot(xn, yn, 'k--', lw=0.5, label='Fit for IP. o2 $\propto N^b$' % popt[1])
 
 
-    ax.legend(ncol = 3, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.3),
+        lb = label+ ' ' + on + (':$\lambda=%.2f\pm%.2e$'  % (popt[1], perr[1]))
+        ax.plot(res, l2rel, 'o-', ms=3, lw=0.8, mew = 0, label = lb)
+
+    plt.subplots_adjust(top=0.7, bottom =0.15, left=0.2)
+    ax.legend(ncol = 1, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.5),
            fancybox=True, shadow=True)
+
 
     ax.set_yscale('log')
     ax.set_xscale('log')
-    ax.set_ylim(4*1e-6, 2*1e-1)
+    ax.set_ylim(1e-3, 3*1e-0)
     ax.set_xlim(15, 550)
     ax.set_xlabel(r'grid points N')
     ax.set_ylabel(r'rel. $l_2$-error')
-    plt.subplots_adjust(top=0.8, bottom =0.15)
 
     plt.grid()
     plt.savefig('all.pdf')
