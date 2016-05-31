@@ -16,7 +16,7 @@ from cycler import cycler
 plt.rc('axes', prop_cycle=(cycler('color', cmap)))
 
 def main():
-    dpath = '/home/upgp/jruebsam/simulations/april15/week1/hpflow/gc/'
+    dpath = '/home/upgp/jruebsam/simulations/april16/week1/hpflow/gc/'
     modes = ['ip', 'ipzero']
     labels = ['IP', 'IP + DF']
 
@@ -28,7 +28,7 @@ def main():
     resf = np.linspace(16, 256., 256./16)
     resf = np.append(resf, 512)
 
-    f, ax = style.newfig(1.)
+    f, ax = style.newfig(0.5, 1.7)
 
     for mode, label in zip(modes, labels):
         for order in [1, 0]:
@@ -70,11 +70,13 @@ def main():
                 popt, perr = pa.loglog_power_fit(res, l2rel)#, p0=[1., -2.])
                 xn = np.linspace(16, 512, 100)
                 yn = popt[0]*xn**popt[1]
-                if (mode=='ip') and (on =='o2'):
-                    ax.plot(xn, yn, 'k--', lw=0.5, label='Fit for IP o2 $\propto N^b$' % popt[1])
-                ax.plot(res, l2rel, 'o'+lst, label = label + ' ' + on + ' (Fit:$b=%.3f\pm %.3f$' % (popt[1], perr[1]), ms=3, mew=0)
+                #if (mode=='ip') and (on =='o2'):
+                #    ax.plot(xn, yn, 'k--', lw=0.5, label='Fit for IP o2 $\propto N^b$' % popt[1])
+            lb = label+ ' ' + on + (':$\lambda=%.2f\pm%.2e$'  % (popt[1], perr[1]))
+            ax.plot(res, l2rel, 'o-', ms=3, lw=0.8, mew = 0, label = lb)
 
-    ax.legend(ncol = 3, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.3),
+    plt.subplots_adjust(top=0.7, bottom =0.15, left=0.2)
+    ax.legend(ncol = 1, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.5),
            fancybox=True, shadow=True)
 
     ax.set_yscale('log')
@@ -83,7 +85,6 @@ def main():
     ax.set_xlim(15, 550)
     ax.set_xlabel(r'grid points N')
     ax.set_ylabel(r'rel. $l_2$-error')
-    plt.subplots_adjust(top=0.8, bottom =0.15)
 
     plt.grid()
     plt.savefig('ip.pdf')
