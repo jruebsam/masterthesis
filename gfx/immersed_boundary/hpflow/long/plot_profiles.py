@@ -17,8 +17,11 @@ from cycler import cycler
 plt.rc('axes', prop_cycle=(cycler('color', cmap)))
 
 def main():
-    dpath = '/home/upgp/jruebsam/simulations/april15/week1/hpflow/long/'
-    f, (ax, ax2) = plt.subplots(1, 2, figsize = style.figsize(1, hscale=0.6))
+    dpath = '/home/upgp/jruebsam/simulations/april16/week1/hpflow/long/'
+    fs = style.figsize(0.9)#, 0.5)
+    f, axes = plt.subplots(2, 3, figsize=fs)
+
+    print fs
 
     modes = ['df', 'dffrac',  'vp',\
              'vpfrac', 'ip', 'ipzero' ]
@@ -33,7 +36,6 @@ def main():
 
     rs = 96
 
-    f, axes = plt.subplots(2, 3)
 
     for label, method, ax  in zip(labels, modes, axes.flatten()):
 
@@ -48,13 +50,17 @@ def main():
         cax = ax.imshow(rho, interpolation='nearest')
 
         plt.sca(ax)
-        c = plt.colorbar(cax, pad=0., label=r'$\rho$', format='%.3g')
+        c = f.colorbar(cax)#, pad=0., shrink=0.8, label=r'$\rho$')#, format='%.3g')
+        c.formatter.set_powerlimits((0, 0))
+        c.update_ticks()
+
         ax.axes.get_xaxis().set_ticks([])
         ax.axes.get_yaxis().set_ticks([])
-        ax.set_xlabel('x')
-        ax.set_ylabel('y')
 
-        ax.set_title('{} {}'.format(label, on))
+        ax.set_title('{} {}'.format(label, on), y=1.08)
+
+    plt.subplots_adjust(left=0.05, right=0.95, bottom=0.05)
+    plt.tight_layout()
     plt.savefig('rho.pdf')
 
 

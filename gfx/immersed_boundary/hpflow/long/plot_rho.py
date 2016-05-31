@@ -17,21 +17,19 @@ from cycler import cycler
 plt.rc('axes', prop_cycle=(cycler('color', cmap)))
 
 def main():
-    dpath = '/home/upgp/jruebsam/simulations/april15/week1/hpflow/long/'
+    dpath = '/home/upgp/jruebsam/simulations/april16/week1/hpflow/long/'
 
     modes = ['df', 'dffrac',  'vp', 'vpfrac', 'ip']
     labels = ['DF', 'DF-Vol.Frac.', 'VP', 'VP-Vol.Frac.', 'IP']
 
     re = 100.
     pmax = 4./re
-
     pr = 1./re
     rrel = 0.4
     lx, ly = 1/rrel, 1/rrel
 
     rs = 96
-
-    f, ax = style.newfig(0.8)
+    f, ax = style.newfig(0.9)
 
     for label, method  in zip(labels, modes):
 

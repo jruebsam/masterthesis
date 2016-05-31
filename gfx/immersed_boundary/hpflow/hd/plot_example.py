@@ -32,7 +32,7 @@ def main():
 
     f, ax = style.newfig(0.5, 1.7)
 
-    i=0
+    i=3
     order = 'o4'
     N = rs = 256
 
@@ -50,7 +50,7 @@ def main():
     thflow[thflow<0] = 0
 
 
-    fpath = os.path.join(dpath, 'data', modes[i], order,  ('res_%i' % N), 'simulation.h5')
+    fpath = os.path.join(dpath, 'data', modes[0], order,  ('res_%i' % N), 'simulation.h5')
 
     with tb.open_file(fpath, 'r') as d:
         vz = d.root.simdata.vz[-1, :, :, 1]
