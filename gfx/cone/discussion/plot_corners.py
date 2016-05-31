@@ -88,7 +88,7 @@ def main():
             x = [0, 1]
             y = [htop, htop -hl]
             if i==3:
-                ax.plot(x, y, 'r', label=r' (\rom{6})')
+                ax.plot(x, y, 'r', label=r'$\omega_{\mathrm{min}}$')
             else:
                 ax.plot(x, y, 'r')
 
@@ -101,7 +101,7 @@ def main():
             x = [0, r]
             y = [htop, htop -hl]
             if i==3:
-                ax.plot(x, y, 'g', label=r'(\rom{3})')
+                ax.plot(x, y, 'g', label=r'M\rom{3}')
             else:
                 ax.plot(x, y, 'g')
 

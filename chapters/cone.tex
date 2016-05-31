@@ -780,6 +780,7 @@ Let us now consider the results of the cone.
 Above the critical slope $\omega\geq\omega_c$, nearly all resonances are eliminated,
 with two exceptions, the M\RN{6} and \textbf{O} peak for $h_+\geq0.375$.
 The \textbf{O} peak can be associated with an M\RN{1}-mode for the cone.
+For further discussions the minimum $\omega_{\text{min}}$ to the left of M\RN{6} is shown.
 
 On the left side of the critical frequecy $w_c$, we can identify the M\RN{3}-peak
 at the same frequency and same order as for the frustum. To the left side of this point, the spectrum for
@@ -906,6 +907,8 @@ comparison to the maximum value of 1.
 
 The simulation of the decay of inertial waves was performed for the peak M\RN{1} in the frustum,
 for all heights $h_+$.
+This coice is motivated by the position of M\RN{1} which is above $\omega_c$ for all heights.
+Hence, the expectation is a fast decay into the apex for the cone and a slower decay for the frustum.
 As a comparison the same frequencies were used for a simulation of the decay in the cone.
 Fig. \ref{fig:cone:finaldecayexample} shows the decay exemplarily,
 for $\omega=1.25$ and $h_+=0.25$ on a semi-log plot.
@@ -945,9 +948,10 @@ $h_+\in\{0.0, 0.125\}$.
 The results in comparison to the lower resolution are shown in Fig. \ref{fig:cone:finalhdcomp}.
 All peaks in the spectrum for the high resolution are in accordance with the previous computations.
 It can be noted that the higher resolution spectra are slightly shifted to the top.
-Furthermore it shall be mentioned that numerical oscillations  are still present.
-However the amplitude is estimated to be four times smaller, in comparison to the low resolution.
-
+Furthermore it shall be mentioned that numerical oscillations, like for the cyinder
+(see Fig. \ref{cone:cyl_oscillations}) are still present.
+The amplitude of these oscillations is about half the size in comparsion to the oscillations for
+a low resolution with $\Delta x = \nicefrac{1}{128}$.
 
 \clearpage
 
@@ -970,14 +974,13 @@ Neither the experiment \citep{Beardsley1970} nor the theoretical description by 
 are in accordance with the results of the simulation.
 
 An explanation could be given by the fact that a different Ekman number ($\Ekman = 10^{-4}$), was used for the simulations,
-while the width of an inertial wave ray can be estimated to $\Ekman^{\nicefrac{1}{3}}\approx 0.046$, according to \citep{ATPAPER???}.
+while the width of the envelope of an inertial wave ray can be estimated to $\Ekman^{\nicefrac{1}{3}}\approx 0.046$, according to \citep{Tilgner2000}.
 The experiment used an Ekman number of $\Ekman = 10^{-5}$, resulting in a  width of $\Ekman^{\nicefrac{1}{3}}\approx 0.022$.
 As a consequence, the width of an inertial wave ray is around twice the size as in the experiment.
 It can be assumed that a wave reflecting on the bottom of the frustum
 is stronger damped as in the experiment.
-e
+The bottom plate of the frustum is too narrow to support an efficient reflection
 of inertial waves, due to frictional losses.\\
-(TODO: PAPER FINDEN, EXACTE DEFINITON DER BREITE)
 
 \subsection{Transition from a Cylinder to a Cone}
 
@@ -1052,12 +1055,12 @@ However, the velocity profile of M\RN{8} indicates a downward traveling wave.
 
 Since the mode is located below the critical slope $\omega < \omega_c$, the cone apex
 should not act as an attractor, which is in contrast to this observation.
-The propagation angle for M\RN{2} is $\theta=\arccos(0.85/2)\approx65^\circ$.
+The propagation angle for M\RN{8} is about $65^\circ$.
 For this value a wave ray on the upper edges of the cone is traveling directly
 into the cone apex.
-A possible explanation is that such a wave is not reflected due damping effects in
-the apex of the cone. As a result, a downward traveling waves is observed.
-However, with this approach we are still not able to explain the resonance of the peak M\RN{8},
+A possible explanation is that such a wave is not reflected due to damping effects in
+the apex of the cone. As a result, a downward traveling wave is observed.
+However, with this approach we are still not able to explain the resonance of the M\RN{8} peak
 in the spectrum.
 
 The shift of the resonance peaks is a result from the change in the geometry.
@@ -1082,9 +1085,10 @@ can be observed.
   \hfill
   \begin{minipage}[c]{0.5\textwidth}
       \caption{\label{fig:conediscuss:corners}
-        Wave path from an upper corner of the cone,
-        for a wave ray with a frequency at the minimum close to peak (\RN{6}) (red) and
-        for a wave ray with the frequency at the position of peak (\RN{3}) (green).
+        Wave paths from the upper edges of the cone,
+        for a wave ray with a frequency at the position $\omega_{\text{min}}$ (red) and
+        for a wave ray with the frequency at the position of peak (\RN{3}) (green),
+            for different heigths $h_+$.
       }
   \end{minipage}
 \end{figure}
@@ -1096,10 +1100,8 @@ For the cone geometry the M\RN{6} resonance is still apparent.
 The assumption that this resonance is an inertial mode,
 violates the argument that the apex of the cone acts as
 an attractor.
-
 A possible explanation is given in Fig. \ref{fig:conediscuss:corners}.
-The plot shows the wave path from an upper edge of the cone, for the frequency $\omega_{\text{min}}$,
-of the minimum in the spectrum at the left side of the peak M\RN{6}.
+The plot shows the wave path from an upper edge of the cone, for the frequency $\omega_{\text{min}}$.
 With an increase in the frequency the propagation angle decreases.
 For $\omega<\omega_{\text{min}}$ the wave is reflected on the slope of the cone.
 For $\omega>\omega_{\text{min}}$ the reflection is above the slope, on the walls resulting from the offset $O$.
@@ -1108,25 +1110,25 @@ This is due to the Direct-Forcing method, which creates a more pixelized border 
 in comparison to the side walls on top of the cone.
 As a result the energy and therefore the amplitude increases,
 when the wave ray is passing the corner to the top of the cone.
+With this argumentation it is still not possible to explain the slight increase \textbf{O}.
 
-A similar idea can be applied to the left side of the peak \RN{3}.
-For $\omega<\omega_{\text{min}}$ the wave is reflected on the slope of the cone.
-for  $\omega>\omega_{\text{min}}$ the reflection moves to the bottom plate of the frustum,
+
+A similar idea can be applied to the left side of the peak \RN{3} (see Fig. \ref{fig:conediscuss:corners}).
+For $\omega<\omega(\text{M\RN{3}})$ the wave is reflected on the slope of the cone.
+for  $\omega>\omega(\text{M\RN{3}})$ the reflection moves to the bottom plate of the frustum,
 or remains on the slope in case of the cone.
-This could explain why for $\omega<\omega_{\text{min}}$  the spectra look identical,
+This could explain why for   $\omega<\omega(\text{M\RN{3}})$  the spectra look identical,
 since the wave ray does not see the difference between the cone and the frustum.
 This argumentation is furthermore consistent with the results from the first simulation.
-
 It has to be concerned that these are of course theoretical assumptions and a wave ray is not only emitted at the
-upper edges of the cone.\\ (TODO: DISCUSS WAVES FROM UPPER EDGES WITH A.TILGNER)
+upper edges of the cone.\\ (TODO: EXPLANATION CHARACTERIST SURFACES)
 
 As a last point of the discussion of the spectrum, we go back to the M\RN{1} inertial mode.
 The results of the simulations show that an inertial mode exists for the frustum.
 When taking away the bottom plate the inertial mode is not apparent instead
 a downward traveling wave into the apex can be observed.
-This results is in excellent agreement with the theoretical ideas and the experiment we introduced
-at the beginning of this chapter.
-
+This results is in excellent agreement with the theoretical ideas and the experiment we introduced in Sec.
+\ref{cone:theorie_exp}, \ref{cone:theorie_theo}.
 \clearpage
 \subsubsection{Helicity}
 
@@ -1150,7 +1152,7 @@ Those results furthermore demonstrate that the apex of the cone is acting as an 
 With that in mind it can be said that the system could be interesting for further researches,
 for example the study of the decay of turbulences in the apex of the cone.
 
-\subsubsection{Higher Resoltuion}
+\subsubsection{Higher Resolution Simulation}
 
 The resulting frequency spectra for the higher resolutions show,
 that the default resolution of ${\Delta x = \nicefrac{1}{128}}$ yields

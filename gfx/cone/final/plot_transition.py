@@ -27,6 +27,12 @@ cc = itertools.cycle(plt.cm.spectral(np.linspace(0,1,10)))
 plt.rcParams['text.latex.preamble']=r'\makeatletter \newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@} \makeatother'
 plt.rcParams.update()
 
+def plot_arrow(ax, xa, ya, xt, yt, text):
+    ap=dict(arrowstyle='-|>' , facecolor='black', lw=0.8)
+    kw=dict(size=10., horizontalalignment='center', verticalalignment='bottom')
+    ax.annotate(text, xy=(xa, ya),
+                xytext=(xt, yt), arrowprops=ap, **kw)
+
 def get_omg(w, r):
     gamma = np.arccos(w/2.)
     hc = 0.5*np.tan(np.pi/3.)
@@ -175,14 +181,18 @@ def main():
 
     for i, ax in enumerate(axes[:, 0]):
         if i == 0:
-            ax.annotate(r'M\rom{6}', xy=(1.8, 0.0001),
-                        xytext=(1.8, 0.0002), arrowprops=ap, **kw)
-
-            ax.annotate(r'M\rom{7}', xy=(0.55, 0.0002),
-                        xytext=(0.55, 0.00035),  arrowprops=ap, **kw)
+            plot_arrow(ax, 1.8, 0.0001, 1.8, 0.0002, r'M\rom{6}')
+            plot_arrow(ax, 0.55, 0.0002, 0.55, 0.00035, r'M\rom{7}')
 
             ax.annotate(r'\textbf{O}', xy=(1.1, 0.00015),
                         xytext=(1.1, 0.00005), arrowprops=ap, **kw)
+
+            plot_arrow(ax, 1.65, 0.00005, 1.65, 0.00015, r'$\omega_{\mathrm{min}}$')
+
+        if i ==1:
+            plot_arrow(ax, 1.75, 0.00005, 1.75, 0.00015, r'$\omega_{\mathrm{min}}$')
+            plot_arrow(ax, 1.85, 0.0001, 1.85, 0.0002, r'M\rom{6}')
+
         if i == 2:
             ax.annotate(r'M\rom{1}', xy=(1.25, 0.0004),
                         xytext=(1.25, 0.0002), arrowprops=ap, **kw)
