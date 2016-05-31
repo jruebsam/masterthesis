@@ -203,8 +203,9 @@
     %\usepackage{tgpagella}
     \usepackage{fourier}
 
-\includeonly{chapters/cone}
-%\includeonly{chapters/validation}
+%\includeonly{chapters/cone}
+%\includeonly{chapters/validation/pflow, chapters/validation/hpflow, chapters/validation/tcflow}
+\includeonly{chapters/validation/hpflow}
 \begin{document}
 
 
@@ -282,7 +283,11 @@
 \include{chapters/cuda}
 \include{chapters/python_api}
 \include{chapters/immersed_boundary}
-\include{chapters/validation}
+
+\include{chapters/validation/pflow}
+\include{chapters/validation/hpflow}
+\include{chapters/validation/tcflow}
+
 \include{chapters/cone}
 \include{chapters/outlook}
 

@@ -1,12 +1,5 @@
-\subsection{Hagen-Poiseuille Flow}
-\section{Summary}
-
-\clearpage
-\clearpage
 
 \subsection{Hagen-Poiseuille Flow}
-
-\subsubsection{Theoretical description}
 
 In the previous test case the channel walls were aligned parallel to the simulation grid, hence no further interpolation procedures
 were necessary. In order to test the accuray of the interpolation methods, we now introduce a test case with a curved geometry.
@@ -16,11 +9,22 @@ also referred to as Hagen-Poiseuille flow. The setup of the fluid domain is sche
 We consider a flow in z-Direction where the total size of the simulation domain is set to $L_x = L_y = L$.
 The immersed boundary is restricted by a wall at the radius $r_0=0.4L$ where r is defined as the distance from the pipe center $\vec{m} = (L/2, L/2)^T$.
 The length $L_z$ can be chosen arbitrary due to the flow invariance in z direction.\\
+
 \begin{figure}[!bp]
-  \centering
-  \includegraphics[width=0.8\textwidth]{gfx/immersed_boundary/val_volpen/poiseuilleflow.png}\label{b}
-  \caption{Theoretical setup of the poiseuille-flow channel.}
+  \begin{minipage}[c]{0.6\textwidth}
+      \centering
+        \resizebox{0.9 \textwidth}{!}{
+       \import{gfx/immersed_boundary/hpflow///}{setup.pdf_tex}
+      }
+  \end{minipage}
+  \begin{minipage}[c]{0.3\textwidth}
+      \caption{Theoretical setup of the poiseuille-flow channel.
+                \label{validation:setup_pf}
+      }
+  \end{minipage}
 \end{figure}
+
+
 For an analytical solution of this problem we referr to [CITEFLUID].
 Once again we can assume a steady state flow which implies $\partial v_z/\partial t = 0$. With the introduction of cylindrical coordinates $(r, \phi, x)$
 and the assumption that the flow is independent of $\phi$ the equation of motion reduces to
