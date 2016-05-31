@@ -88,7 +88,7 @@ def main():
             x = [0, 1]
             y = [htop, htop -hl]
             if i==3:
-                ax.plot(x, y, 'r', label=r'$\omega_{\mathrm{min}}$')
+                ax.plot(x, y, 'r', label=r'$\omega_{\mathrm{min}(h_+)}$')
             else:
                 ax.plot(x, y, 'r')
 
