@@ -605,7 +605,63 @@ $[0.2,\; 2], \Delta \omega = \nicefrac{1}{10}$ & $10^{-5}$ & $\nicefrac{1}{128}$
 \vspace*{0.7ex}
 \end{center}
 
-\subsection{Transition from a Cylinder to a Cone}
+\subsection{Results}
+%\subsection{Results of the Setup from the Experiment}
+\label{cone:exp}
+
+\begin{figure}[!bp]
+  \centering
+  \includegraphics{gfx/cone/experiment/experiment.pdf}
+  \caption{Amplitude $A\left(\left<v^2_z\right>_V\right)$ as a function of the libration frequency $\omega$,
+            for the cone and the frustum.  \label{fig:cone_expseries} }
+\end{figure}
+
+The results of the simulations are shown in Fig. \ref{fig:cone_expseries}.
+For both cases, the frustum and the cone, an increase in $A\left(\left<v^2_z\right>\right)$ can be observed.
+From  about $2\cdot10^{-4}$ at $\omega=0.2$, to  $\approx 3.4\cdot10^{-4}$ for the cone and $\approx 4\cdot10^{-4}$ for the frustum,  at $\omega=1$.
+From here on, the amplitude decreases to $\approx 5\cdot10^{-5}$ at $\omega=2$.
+A difference between the two setups can be observed in the surrounding area of $\omega=1$.
+
+For the frustum the increase of the amplitude is interrupted at $\omega=0.7$, a minimum can be observed at $\omega=0.8$, followed by
+a peak at $\omega=1$. For the cone a minimum is not directly visible but it can be noted that the
+amplitude does not increase as much at $\omega=0.7$ as for lower frequencies.\\
+The maxima of the frustum ($\omega=1$) and cone ($\omega=0.9$) do not occur
+at the same frequencies and have a difference of $0.5\cdot10^{-4}$ in amplitude.
+
+However, it has to be considered, that due do the step width of $\Delta\omega = 0.1$ the exact position of the maxima is not apparent.
+It appears that the expansion of the frustum to a cone leads to a frequency shift to the left.
+Furthermore, it seems that the spectrum can be divided into two domains $0\leq\omega\leq1$ and $1 \leq \omega\leq 2$.
+This result is not unexpected, since we choose the slope $\alpha$ of the cone such that $\omega_c=1$.
+
+\subsection{Discussion}
+%\subsection{Discussion of the Setup from the Experiment}
+\label{cone:discussion_experiment}
+
+For $\omega < \omega_c$ the results for both setups are similar.
+A possible explanation is that in this domain the cone tip does not act as an attractor.
+An inertial wave propagates to the top after a reflection on the side of the cone.
+Hence, for both setups a similar spectrum exists.
+
+The differences occur when $\omega$ reaches the critical frequency $\omega = \omega_c$. In this scenario, an inertial wave emitted from the
+top edge, traverses directly into the apex of the cone, or is reflected slightly at the bottom plate of the frustum.
+As a result we see the slight increase in the amplitude for the frustum.
+
+For $\omega > \omega_c$ further resonances in the spectrum of the frustum should be observable,
+since the bottom plate enables the reflection of inertial waves.
+The similar decay of the amplitude for both geometries refutes this assumption.
+Neither the experiment \citep{Beardsley1970} nor the theoretical description by \citep{Greenspan1990}
+are in accordance with the results of the simulation.
+
+An explanation could be given by the fact that a different Ekman number ($\Ekman = 10^{-4}$), was used for the simulations,
+while the width of the envelope of an inertial wave ray can be estimated to $\Ekman^{\nicefrac{1}{3}}\approx 0.046$, according to \citep{Tilgner2000}.
+The experiment used an Ekman number of $\Ekman = 10^{-5}$, resulting in a  width of $\Ekman^{\nicefrac{1}{3}}\approx 0.022$.
+As a consequence, the width of an inertial wave ray is around twice the size as in the experiment.
+It can be assumed that a wave reflecting on the bottom of the frustum
+is stronger damped as in the experiment.
+The bottom plate of the frustum is too narrow to support an efficient reflection
+of inertial waves, due to frictional losses.\\
+
+\subsection{Simulation of the Transition from a Cylinder to a Cone}
 
 The objective of this simulation is to test the influence of different gap radii $r$, at the bottom of the frustum.
 As before we set $H=1$ and $O\approx0.134$ but $\alpha$ will now be dependent of $r$.
@@ -613,7 +669,6 @@ The first setup contains  the largest possible bottom gap with $r=0.5$.
 In the next steps, the size of the gap is decreased by $\Delta r = 0.125$ until $r=0$ is reached.
 For $r=0.5$ the domain is given by a  cylindric geometry, since $r=l_x/2=l_y/2$.
 With an decrease of $r$, the geometry transforms into a frustum and finally, into a cone with an apex for $r=0$.
-\clearpage
 The main simulation parameters are given by
 
 \begin{center}
@@ -639,7 +694,102 @@ $[0,\; 0.5], \Delta r =0.125$ & $[0.2,\; 2], \Delta \omega = \nicefrac{1}{10}$ &
 %      }
 %\end{figure}
 
+
+\begin{figure}[!pt]
+  \centering
+  \includegraphics{gfx/cone/transition/transition.pdf}
+  \caption{\label{fig:cone:transition}
+      Amplitude $A\left(\left<v^2_z\right>_V\right)$ as a function of the libration frequency $\omega$,
+      for the transition from a cylinder to a cone.
+  }
+\end{figure}
+
+\subsection{Results}%Transition from a Cylinder to a Cone }
+
+The results for the simulations are shown in Fig. \ref{fig:cone:transition}.
+On the left side of the plot  the frequency spectrum is shown, the right side illustrates the geometry used.
+The radius $r$ decreases from the top to the bottom.
+For $r=0.5$  the inertial modes of a librating cylinder can be observed, which is in accordance
+to the results of the librating  cylinder, wich we discussed in Sec. \ref{cone:sec:lib_cylinder}.
+The result for $r=0$ is identical to the simulation of the cone from the previous section.
+
+With a decrease of the radius a change in the position and amplitude of the
+inertial modes is visible.
+
+This pattern shall be exemplarily discussed  for the (2, 1) mode at $\omega=1.3$, where it is best visible.
+For all other modes the transition results in a similar behavior.
+
+The decrease of the radius leads to a shift to lower frequencies of the (2, 1) mode,
+from $r=0.5$ to $r=0.375$ it is of the order $\Delta \omega=0.1$.
+It can be noticed that during this shift, a damping of the mode occurs.
+For $r=0.5$ the amplitude is about $9.2\cdot10^{-3}$, for $r=0.375$ it is
+about $8.7\cdot10^{-3}$ and for $r=0.25$ we obtain $3.8\cdot10^{-3}$.
+Whereas the first decrease of the radius does not significantly affect the amplitude,
+the second decrease leads to a strong damping to less than half of the original value.
+With a further decrease in $r$, the (2, 2) mode is annihilated.
+For the (4, 1) mode, a slight increase of the amplitude at $r=0.125$ is still noticeable.
+In addition this mode is stronger damped for $r=0.375$, in comparison to the (2, 1)-mode.
+
+The vertical lines in Fig. \ref{fig:cone:transition} are set to the position $\omega=\omega_c$.
+The area $\omega<\omega_c$ can again be associated with the frequency domain, where the wave propagation angle $\theta$ is larger than
+the  slope of the cone $\alpha$, so that downward traveling waves propagate to the top after a reflection.
+In can be noted that in this area the amplitudes increase, which is in accordance with the
+results from the simulation of the experiment.
+
+\subsection{Discussion}% ransition from a Cylinder to a Cone}
+\label{cone:discussion_transition}
+
+The simulation shows that the transition from the cylinder
+to the frustum results in a shift of the modes.
+Furthermore it can be seen that the all modes are damped with a decrease of the bottom gap width.
+An explanation for the shift can be given by having a look at the inertial mode structure,
+for different radii as shown in Fig. \ref{fig:cone:phase}, for the (2, 1) mode.\\
+For $r=0.5$ we have an inertial mode, which is symmetric to the plane $z=h/2$.
+In this plane, the waves excited from the bottom and top of the cylinder, annihilate each other to a wave node.
+An decrease of the radius breaks the vertical symmetry of the inertial mode.
+As a result only a distorted version of the mode can exist, where the center of the wave node
+is shifted downwards.
+
+\begin{figure}[!b]
+  \centering
+  \includegraphics{gfx/cone/transition/phase.pdf}
+  \caption{\label{fig:cone:phase}
+    Inertial mode structure for the (2,1) Mode from the cylinder at different radii on the bottom of the frustum.
+    The white points mark the center of the wave node, computed with Eq.  \ref{cone:wavenodeeqn}.
+  }
+\end{figure}
+
+The attempt was made to obtain the new position of the center,
+by computing the intersection of the diagonals, from the top to the bottom edges of the frustum.
+The resulting center height is given by
+
+\begin{align}
+\label{cone:wavenodeeqn}
+c  = r \frac{h}{r+\nicefrac{l_x}{2}}
+\end{align}
+
+The resulting points are in a good agreement, as the marked position in Fig. \ref{fig:cone:phase} show.
+For the same inertial mode the propagation angle $\theta$ has to be
+increased for it to exist in the narrower shape.
+
+This is equivalent to a shift to a lower libration frequency.
+For $r \rightarrow 0$ the center position converges against zero. Hence, the mode cannot exist in this state.
+
 \subsection{Simulation of a Librating Cone and Frustum with Differing Offsets at the Top}
+
+For the simulations which have been carried out to this point in this thesis,
+the influence of the offset on top of the cone has been left out from any discussion.
+As we saw, this offset has an influence on inertial wave propagation.
+In particular for the intervall $\omega<\omega_c$, where  downward traveling waves are
+reflected upwards.
+In the case where the offset is set to zero, the corners of the cone act as an attractor.
+For small gap sizes it could be possible that an inertial wave will be damped,
+which is in accordance with the previous results.
+This motivates a simulation series with different offsets.
+The simulation of the transition from a cylinder to a cone showed
+that a damping acts on an inertial wave when reflecting at the bottom,
+which  depends on the radius of the bottom gap.
+This motivates the use of a larger radius at the bottom in comparison to the experiment.
 
 For the last simulation series, two setups with different offsets on top of the cone are used.
 The first setup is the cone with height $H=1$, $r=0$ and $\alpha=60$,
@@ -684,84 +834,7 @@ The end time for this simulations is set to  $T_{end} = 150$.
 Finally a simulation series with the same settings as before,
 but with a higher resolution of $\Delta x = \nicefrac{1}{256}$, will be repeated.
 
-\clearpage
-
-\section{Results}
-\subsection{Setup from the Experiment}
-\label{cone:exp}
-
-\begin{figure}[!bp]
-  \centering
-  \includegraphics{gfx/cone/experiment/experiment.pdf}
-  \caption{Amplitude $A\left(\left<v^2_z\right>_V\right)$ as a function of the libration frequency $\omega$,
-            for the cone and the frustum.  \label{fig:cone_expseries} }
-\end{figure}
-
-The results of the simulations are shown in Fig. \ref{fig:cone_expseries}.
-For both cases, the frustum and the cone, an increase in $A\left(\left<v^2_z\right>_V\right)$ can be observed.
-From  about $2\cdot10^{-4}$ at $\omega=0.2$, to  $\approx 3.4\cdot10^{-4}$ for the cone and $\approx 4\cdot10^{-4}$ for the frustum,  at $\omega=1$.
-From here on, the amplitude decreases to $\approx 5\cdot10^{-5}$ at $\omega=2$.
-A difference between the two setups can be observed in the surrounding area of $\omega=1$.
-
-For the frustum the increase of the amplitude is interrupted at $\omega=0.7$, a minimum can be observed at $\omega=0.8$, followed by
-a peak at $\omega=1$. For the cone a minimum is not directly visible but it can be noted that the
-amplitude does not increase as much at $\omega=0.7$ as for lower frequencies.\\
-The maxima of the frustum ($\omega=1$) and cone ($\omega=0.9$) do not occur
-at the same frequencies and have a difference of $0.5\cdot10^{-4}$ in amplitude.
-
-However, it has to be considered, that due do the step width of $\Delta\omega = 0.1$ the exact position of the maxima is not apparent.
-It appears that the expansion of the frustum to a cone leads to a frequency shift to the left.
-Furthermore, it seems that the spectrum can be divided into two domains $0\leq\omega\leq1$ and $1 \leq \omega\leq 2$.
-This result is not unexpected, since we choose the slope $\alpha$ of the cone such that $\omega_c=1$.
-
-\clearpage
-
-\begin{figure}[!pt]
-  \centering
-  \includegraphics{gfx/cone/transition/transition.pdf}
-  \caption{\label{fig:cone:transition}
-      Amplitude $A\left(\left<v^2_z\right>_V\right)$ as a function of the libration frequency $\omega$,
-      for the transition from a cylinder to a cone.
-  }
-\end{figure}
-
-\clearpage
-\subsection{Transition from a Cylinder to a Cone }
-
-The results for the simulations are shown in Fig. \ref{fig:cone:transition}.
-On the left side of the plot  the frequency spectrum is shown, the right side illustrates the geometry used.
-The radius $r$ decreases from the top to the bottom.
-For $r=0.5$  the inertial modes of a librating cylinder can be observed, which is in accordance
-to the results of the librating  cylinder, wich we discussed in Sec. \ref{cone:sec:lib_cylinder}.
-The result for $r=0$ is identical to the simulation of the cone from the previous section.
-
-With a decrease of the radius a change in the position and amplitude of the
-inertial modes is visible.
-
-This pattern shall be exemplarily discussed  for the (2, 1) mode at $\omega=1.3$, where it is best visible.
-For all other modes the transition results in a similar behavior.
-
-The decrease of the radius leads to a shift to lower frequencies of the (2, 1) mode,
-from $r=0.5$ to $r=0.375$ it is of the order $\Delta \omega=0.1$.
-It can be noticed that during this shift, a damping of the mode occurs.
-For $r=0.5$ the amplitude is about $9.2\cdot10^{-3}$, for $r=0.375$ it is
-about $8.7\cdot10^{-3}$ and for $r=0.25$ we obtain $3.8\cdot10^{-3}$.
-Whereas the first decrease of the radius does not significantly affect the amplitude,
-the second decrease leads to a strong damping to less than half of the original value.
-With a further decrease in $r$, the (2, 2) mode is annihilated.
-For the (4, 1) mode, a slight increase of the amplitude at $r=0.125$ is still noticeable.
-In addition this mode is stronger damped for $r=0.375$, in comparison to the (2, 1)-mode.
-
-The vertical lines in Fig. \ref{fig:cone:transition} are set to the position $\omega=\omega_c$.
-The area $\omega<\omega_c$ can again be associated with the frequency domain, where the wave propagation angle $\theta$ is larger than
-the  slope of the cone $\alpha$, so that downward traveling waves propagate to the top after a reflection.
-In can be noted that in this area the amplitudes increase, which is in accordance with the
-results from the simulation of the experiment.
-
-\clearpage
-
-
-\subsection{Results of the Cone and Frustum with Different Offsets at the Top}
+\subsection{Results}% of the Cone and Frustum with Different Offsets at the Top}
 \subsubsection{Spectrum}
 
 The results for this simulation are shown in Fig. \ref{fig:cone:finaltransition}.
@@ -954,100 +1027,8 @@ Furthermore it shall be mentioned that numerical oscillations, like for the cyin
 The amplitude of these oscillations is about half the size in comparsion to the oscillations for
 a low resolution with $\Delta x = \nicefrac{1}{128}$.
 
-\clearpage
+\subsection{Discussion}%Librating Cone and Frustum with Different Offsets on Top}
 
-\section{Discussion}
-\subsection{Setup from the Experiment}
-\label{cone:discussion_experiment}
-
-For $\omega < \omega_c$ the results for both setups are similar.
-A possible explanation is that in this domain the cone tip does not act as an attractor.
-An inertial wave propagates to the top after a reflection on the side of the cone.
-Hence, for both setups a similar spectrum exists.
-
-The differences occur when $\omega$ reaches the critical frequency $\omega = \omega_c$. In this scenario, an inertial wave emitted from the
-top edge, traverses directly into the apex of the cone, or is reflected slightly at the bottom plate of the frustum.
-As a result we see the slight increase in the amplitude for the frustum.
-
-For $\omega > \omega_c$ further resonances in the spectrum of the frustum should be observable,
-since the bottom plate enables the reflection of inertial waves.
-The similar decay of the amplitude for both geometries refutes this assumption.
-Neither the experiment \citep{Beardsley1970} nor the theoretical description by \citep{Greenspan1990}
-are in accordance with the results of the simulation.
-
-An explanation could be given by the fact that a different Ekman number ($\Ekman = 10^{-4}$), was used for the simulations,
-while the width of the envelope of an inertial wave ray can be estimated to $\Ekman^{\nicefrac{1}{3}}\approx 0.046$, according to \citep{Tilgner2000}.
-The experiment used an Ekman number of $\Ekman = 10^{-5}$, resulting in a  width of $\Ekman^{\nicefrac{1}{3}}\approx 0.022$.
-As a consequence, the width of an inertial wave ray is around twice the size as in the experiment.
-It can be assumed that a wave reflecting on the bottom of the frustum
-is stronger damped as in the experiment.
-The bottom plate of the frustum is too narrow to support an efficient reflection
-of inertial waves, due to frictional losses.\\
-
-\clearpage
-
-\subsection{Transition from a Cylinder to a Cone}
-\label{cone:discussion_transition}
-
-The objective of this simulation was to study the previous assumption,
-by varying the radius of the bottom of the frustum and investigate the influence
-on the reflection of inertial waves.
-
-The simulation shows that the transition from the cylinder
-to the frustum results in a shift of the modes.
-Furthermore it can be seen that the all modes are damped with a decrease of the bottom gap width.
-An explanation for the shift can be given by having a look at the inertial mode structure,
-for different radii as shown in Fig. \ref{fig:cone:phase}, for the (2, 1) mode.\\
-For $r=0.5$ we have an inertial mode, which is symmetric to the plane $z=h/2$.
-In this plane, the waves excited from the bottom and top of the cylinder, annihilate each other to a wave node.
-An decrease of the radius breaks the vertical symmetry of the inertial mode.
-As a result only a distorted version of the mode can exist, where the center of the wave node
-is shifted downwards.
-
-\begin{figure}[!b]
-  \centering
-  \includegraphics{gfx/cone/transition/phase.pdf}
-  \caption{\label{fig:cone:phase}
-    Inertial mode structure for the (2,1) Mode from the cylinder at different radii on the bottom of the frustum.
-    The white points mark the center of the wave node, computed with Eq.  \ref{cone:wavenodeeqn}.
-  }
-\end{figure}
-
-The attempt was made to obtain the new position of the center,
-by computing the intersection of the diagonals, from the top to the bottom edges of the frustum.
-The resulting center height is given by
-
-\begin{align}
-\label{cone:wavenodeeqn}
-c  = r \frac{h}{r+\nicefrac{l_x}{2}}
-\end{align}
-
-The resulting points are in a good agreement, as the marked position in Fig. \ref{fig:cone:phase} show.
-For the same inertial mode the propagation angle $\theta$ has to be
-increased for it to exist in the narrower shape.
-
-This is equivalent to a shift to a lower libration frequency.
-For $r \rightarrow 0$ the center position converges against zero. Hence, the mode cannot exist in this state.
-
-\clearpage
-
-\subsection{Librating Cone and Frustum with Different Offsets on Top}
-
-\subsubsection{Motivation}
-
-For the simulations which have been carried out to this point in this thesis,
-the influence of the offset on top of the cone has been left out from any discussion.
-As we saw, this offset has an influence on inertial wave propagation.
-In particular for the intervall $\omega<\omega_c$, where  downward traveling waves are
-reflected upwards.
-In the case where the offset is set to zero, the corners of the cone act as an attractor.
-For small gap sizes it could be possible that an inertial wave will be damped,
-which is in accordance with the previous results.
-This motivates a simulation series with different offsets.
-The simulation of the transition from a cylinder to a cone showed
-that a damping acts on an inertial wave when reflecting at the bottom,
-which  depends on the radius of the bottom gap.
-This motivates the use of a larger radius at the bottom in comparison to the experiment.
 
 \subsubsection{Spectrum}
 
@@ -1126,7 +1107,7 @@ since the wave ray does not see the difference between the cone and the frustum.
 This argumentation is furthermore consistent with the results from the first simulation
 (see discussion Sec. \ref{cone:discussion_experiment}).
 It has to be concerned that these are of course theoretical assumptions and a wave ray is not only emitted at the
-upper edges of the cone.\\ (TODO: EXPLANATION CHARACTERIST SURFACES)
+upper edges of the cone.\\ (EXPL. CHARACTERIST SURFACES)
 
 As a last point of the discussion of the spectrum, we go back to the M\RN{1} inertial mode.
 The results of the simulations show that an inertial mode exists for the frustum.
@@ -1134,13 +1115,13 @@ When taking away the bottom plate the inertial mode is not apparent instead
 a downward traveling wave into the apex can be observed.
 This results is in excellent agreement with the theoretical ideas and the experiment we introduced in Sec.
 \ref{cone:theorie_exp}, \ref{cone:theorie_theo}.
-\clearpage
+
 \subsubsection{Helicity}
 
 The objectve behind the computation of the helicity was to see if this system could be used
 for further simulations, concerning MHD-equations and the generation of a dynamo.
 The results show that the total helicity of the system is not zero in contrast to the cylinder.
-An explanation therefore can be given by the asymmetry of the system in $z$-direction.(MORE DETAILS?)
+An explanation therefore can be given by the asymmetry of the system in $z$-direction.
 The frequency spectrum of the relative helicity of the  system can be separated into two different regions.
 For $\omega<\omega_c$ the largest helicity of order $5\cdot10^{-2}$ is observable.
 It can be said that this value is too small to be of interest for further researches.
@@ -1166,7 +1147,7 @@ is equal.
 For a better comparison it could be interesting to repeat the simulations with a
 higher resolution in the frequency stepping and a smaller Ekman number.
 Furthermore the resulting velocity profiles support the assumption
-that the numerical oscillations are based on the Peclet criterion.(MORE DETAILS?)
+that the numerical oscillations are based on the Peclet criterion.
 Since the oscillations are small with respect to the physical solution and not
 growing over time, the error is acceptable for the moment.
 However a simulation of smaller Ekman numbers could be problematic.
