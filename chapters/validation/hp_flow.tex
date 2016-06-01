@@ -1,4 +1,4 @@
-\section{Hagen-Poiseuille Flow}
+\subsection{Hagen-Poiseuille Flow}
 
 In the previous test case the channel walls were aligned parallel to the simulation grid. Hence, no further interpolation procedures
 are necessary to mimic the exact boundaries.
@@ -99,7 +99,6 @@ The main parameters of the simulation are  given by
 With this setup all immersed boundary methods were tested for 2nd and 4th order finite difference schemes.\\
 Like in section () the non-dimensionalized damping, for the Volume-Penalization was set to $J=10^{-4}$.
 
-
 \subsection{Results}
 
 \subsubsection{Grid Convergence Study}
@@ -166,23 +165,16 @@ between one and two order of magnitudes below all other methods, depending on th
 \subsubsection{Long-Term Simulations}
 
 The long-term simulations were performed in order to test the numerical-stability and the conservation of mass.
-For all methods, except the IP-o4 method, the simulation were numerical stable.
-
+For all methods, except the IP-o4 method, these simulation were numerically stable.
 For all o2 methods, the density averaged of the fluid domain is constant, which indicates that the total mass flux through the
-boundaries has to be zero.
+fluid domain boundaries is zero.
 It can be seen that for all methods of o4 oscillations in the density emerge.
-This is exemplariliy shown in Fig.  \ref{hpflow:results_long_ts} for the Direct-Forcing Vol.Frac. method of 4th order.
-The profile of the other methods of o4, can be fonud in Appendix ().
-
-Finally in Fig. \ref{hpflow:results_long_example} the averaged density with respect to the simulation time is shown for the
-4th order methods.
-For the default Direct-Forcing and Volume-Penalization methods the density increases to about $5\cdot10^{-5}$.
-For methods with volume fraction the density decreases to bla.
-ip bla
-
-For all methods the a change in the average density can be observed, however
-es gibt eine sättigung für alle verfahren spätestens bei 1600.
-und die  wert ist eher klein.
+This is exemplariliy shown in Fig.  \ref{hpflow:results_long_ts} for the DF-VP-o4 method.
+The profile of the other o4 methods of is shown in Appendix ().
+Finally in Fig. \ref{hpflow:results_long_example} the averaged density with respect to the simulation time is, shown for the
+o4 methods.  For the VP and DF methods the density increases to above $5\cdot10^{-5}$.
+The VF methods have a decrease in the density, which is remains of the order $10^{-4}$.
+For all o4 methods a change in the averaged density followed by a saturation can be observed.
 
 \begin{figure}[tp]
   \begin{minipage}[c]{0.5\textwidth}
@@ -200,14 +192,22 @@ und die  wert ist eher klein.
 \end{figure}
 
 \subsection{Discussion}
-\subsubsection{Grid Convergence Study}
+
+-all method
+
 
 
 -alle methoden except ip haben gleiche fehler ordnung
 -fraction methdos is a little bit better
+-ip ist am besten mit 2 ordnung
+
 -the best error is interpolation
 
 - ip o4 unstable mit mit DF o4 possible explanation is given in sec. .
+- density reaches over the simulation domain
+
+
+- warum ist ip unstable ???
 - ip o2 identical to o4
 
 
@@ -215,26 +215,11 @@ und die  wert ist eher klein.
 on the border ot the fluid domain. Since the interpolation stencil seperates the fluid and wall domain, the 2nd order
 stencil doesn't see any points in the wall domain, therefore there is no difference in using the direct forcing method.\\
 
-\subsubsection{Grid Convergence Study with Comparsion to High Resolution Solution}
-\label{vali:hpflow_discussion}
-
--different boundaries
-
-Therefore we propose that the bad convergence is caused by different approximations of the wall region for different resolutions.
-Since the boundary is not mimiced exactly but approximated by the nearest neighboor points in the wall domain, the actual position
-of the boundary is dependent of the resolution.\\
-
--interpolation o2  comparison to paper with gc study
-
-The interpolation method of 4th order converges with a rate of $\approx 1.4$ order. It is therefore even worse than the volume penalization and
-direct forcing method, altough the overall error is smaller for lower resolutions. Again one possible explanation would be the different rasterization
-of the domain border, which does not affect the velocity profiles due to the interpolation but the coupling of the pressure.\\
-The 2nd order interpolation method converges is of order $\approx 2.35$, which is better than the expected order of two.
-The fluid domain is interpolated at the same positions and since no pressure coupling over the fluid wall occurs the induced error is small.
-
 \subsubsection{Long-Term Simulations}
--density changes
--a part goes into immersed boundary
--howerver the overall influence can be neglected
+- density changes
+- interpolation at the boarders
+- a part goes into immersed boundar
+- howerver the overall influence can be neglected
+- explanation decoupling of the pressure
 
 

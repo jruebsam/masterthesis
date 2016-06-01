@@ -2,15 +2,33 @@
 
 This section reviews the validation of immersed boundary methods.
 The main goal of the validation is to determine the numerical error and the
-numerical stability of the immersed boundary method.
+numerical stability of an immersed boundary method.
 Furthermore it is important to test if conservation laws, in particular the conservation of mass,
 are fulfilled.
 
 In the first part of the chapter an introduction to different test cases
 will be given. Three different test problems were chosen.
-The flow between to planes, also known as Planar Poiseuille flow, the flow in a Pipe, referred to as Hagen-Poiseuille flow and the
+The flow between to planes, also known as Planar Poiseuille flow, the flow in a Pipe, referred to as Hagen-Poiseuille flow and the flow
 between two rotating cylinders, know as the Taylor-Couette system.
 In the second part of the chapter the result for the different test cases will be presented and discussed.
+
+\paragraph{Conventions}\mbox{}\\
+
+In this section the following abbreviations will be used
+
+\begin{multicols}{2}
+\begin{description}
+    \item[VP]{Volume-Penalization Method}
+    \item[DF]{Direct Forcing Method}
+    \item[IP]{Interpolation Method}
+    \item[VF]{Volume-Fraction Extension}
+    \item[o2]{Finite Difference Schemes of 2nd order}
+    \item[o4]{Finite Difference Schemes of 4th order}
+\end{description}
+\end{multicols}
+
+For example, DF-VF-o2 method, refers to the Direct-Forcing method, extended with the Volume-Fraction
+method and the use of 2nd order Finite Difference Schemes.
 
 %In general it is necessary to obtain a good evaluation of the numerical truncation error,
 % the numerical stability over longer periods of time
@@ -20,6 +38,7 @@ In the second part of the chapter the result for the different test cases will b
 %boundary methods
 %In order to ensure a correct numerical behavior of the introduced methods, a
 %Multiple examples from simple to more complex test cases are introduced in this section.
+\clearpage
 
 \subsection{Laminar Poiseuille-Flow}
 
@@ -91,12 +110,7 @@ $V_{m}$ has to be 1 by the definition of the non-dimensionalzation. This gives
 as a necessary condition for the pressure gradient.\\
 \clearpage
 
-\section{Simulations}
-
--Following conventions dx, N etc
-
-
-\subsection{Poiseuille Flow}
+\subsection{Simulations}
 
 The Poiseuille-flow test case is used in particular as a first validation
 for the Volume-Penalization and Direct-Forcing methods.
@@ -181,7 +195,7 @@ The resolution was varied between $N\in [4, 400]$ with $\Delta N = 4$, 2nd and 4
 \vspace*{0.7ex}
 \end{center}
 
-\subsection{Test of the Direct Forcing Method}
+\subsubsection{Test of the Direct Forcing Method}
 
 Since the direct forcing method does not depend on a damping parameter it is sufficient enough
 to carry out a grid convergence study
@@ -201,8 +215,7 @@ The simulation parameter are given by
 
 \clearpage
 
-\section{Results}
-\subsection{Poiseuille Flow}
+\subsection{Results}
 \subsubsection{Default seutp}
 
 The results of the grid convergence study are shown in Fig. \ref{fig:ema1}.
@@ -286,7 +299,7 @@ The position of minimum is shifted to the right with an decrease of $J$.
 For a constant $J>10^{-4}$ it is visible that the error for both methods converges against a
 constant error  with an increase in the resolution.
 
-\subsection{Direct Forcing Method}
+\subsubsection{Direct Forcing Method}
 
 The results of the grid convergence study are similat to the results of the default implementation,
 except the fourth order scheme has a larger error.
@@ -301,8 +314,7 @@ The value is approximately constant and not depend of the grid resolution.
 
 \clearpage
 
-\section{Discussion}
-\subsection{Poiseuille Flow}
+\subsection{Discussion}
 \subsubsection{Default setup}
 
 
@@ -392,7 +404,7 @@ With a further increase of the resolution  $N>N_{min}$ the velocity profile drif
 the error increases.  Finally the method converges towards the same solution as the 2nd order scheme.
 
 
-\subsection{Direct Forcing Method}
+\subsubsection{Direct Forcing Method}
 
 The results for the direct forcing method show that d
 
