@@ -1,16 +1,24 @@
+\chapter{IBM2}
+\clearpage
 \section{Validation}
 
-This section reviews the validation of immersed boundary methods.
-The main goal of the validation is to determine the numerical error and the
-numerical stability of an immersed boundary method.
+%This part of the thesis the thesis deals with the numerical validation of the immersed
+%boundary methods
+%In the first part of the chapter an introduction to different test cases
+%will be given. Three different test problems were chosen.
+%The flow between to planes, also known as Planar Poiseuille flow, the flow in a Pipe, referred to as Hagen-Poiseuille flow and the flow
+%between two rotating cylinders, know as the Taylor-Couette system.
+%In the second part of the chapter the result for the different test cases will be presented and discussed.
+%In the first part of the chapter an introduction to different test cases
+%will be given.
+This section presents the numerical validation of the immersed boundary methods.
+The objective of the validation is to determine the numerical accuracy and
+the numerical stability for each method.
 Furthermore it is important to test if conservation laws, in particular the conservation of mass,
 are fulfilled.
-
-In the first part of the chapter an introduction to different test cases
-will be given. Three different test problems were chosen.
+For the validation three different test problems were chosen.
 The flow between to planes, also known as Planar Poiseuille flow, the flow in a Pipe, referred to as Hagen-Poiseuille flow and the flow
 between two rotating cylinders, know as the Taylor-Couette system.
-In the second part of the chapter the result for the different test cases will be presented and discussed.
 
 \paragraph{Conventions}\mbox{}\\
 
@@ -28,14 +36,35 @@ In this section the following abbreviations will be used
 \end{multicols}
 
 For example, DF-VF-o2 method, refers to the Direct-Forcing method, extended with the Volume-Fraction
-method and the use of 2nd order Finite Difference Schemes.
+method and the use of 2nd order finite difference schemes.
+
+\paragraph{Grid Convergence Studys}\mbox{}\\
+
+For the validation multiple grid convergence studys were performed.
+The concept of a grid convergence study is to vary the grid resolution of the numerical domain and
+calculate the error of the simulation with respect to an assumed theoretical solution.
+The relative error $\epsilon$ is computed by the relative $l_2$-norm
+
+\begin{align}
+    \epsilon = \frac{\int \dif V \left(a^{\text{th}} - a^{\text{num}}\right)^2}{\int \dif V \left( a^{\text{th}} \right)^2}
+     = \frac{\sum_{i,j,k}^{N_x, N_y, N_z}
+      \left(a^{\text{th}}_{i,j,k}  - a^{\text{num}}_{i, j, k}  \right)^2}
+     {\sum_{i,j,k}^{N_x, N_y, N_z} \left( a^{\text{th}}_{i,j,k} \right)^2}
+ \end{align}
+
+where $a^{\text{th}}$ corresponds to the theoretical and $a^{\text{num}}$ to the numerical solution.
+The numerical error is usually given by a power law of the form $\epsilon = N^\lambda$, i.e for a finite difference scheme of 2nd order
+this is the truncation error given by the remaining terms  of the taylor expansion.
+For an evaluation of the error convergence the results of the grid convergence study are, if possible, linear fitted in the log-log space, to obtain the
+convergence rate $\lambda$.
+
+
+
 
 %In general it is necessary to obtain a good evaluation of the numerical truncation error,
 % the numerical stability over longer periods of time
 %and Grid convergence studys against theoretical and high-resolution numerical solutions
 %will be performed and compared for the different IBMs.
-%This part of the thesis the thesis deals with the numerical validation of the immersed
-%boundary methods
 %In order to ensure a correct numerical behavior of the introduced methods, a
 %Multiple examples from simple to more complex test cases are introduced in this section.
 \clearpage
@@ -76,7 +105,6 @@ For this system the non-dimenzionalization is given by the scales
     $r^* = \nicefrac{r}{\Delta h}$, $v^*=\nicefrac{V_(\text{m})}{\Delta h}$,
     $t^* = \nicefrac{V_{\text{m}}}{\Delta h}$ and $p^* = p \rho V_{\text{max}}^2$.
 
-\clearpage
 The velocity $V_m$ is defined as $\max(v_x(z))$.
 An integration of Eq. \ref{vali:pflow_navstok} gives
 \begin{align}
@@ -88,11 +116,10 @@ $A:=\frac{1}{2}\frac{\partial p}{\partial x} Re$ one obtains the additional cond
 
 \begin{align}
 c_1 &= A\frac{h_1^2 -h_2^2}{h_2 - h_1} = -A(h_1+h_2)\\
-c_2 &= A(h_1(h_1 + h_2) - h_1^2) = Ah_1h_2\\
+c_2 &= A(h_1(h_1 + h_2) - h_1^2) = Ah_1h_2
 \end{align}
 
 The velocity is than given by the quadratic function
-
 \begin{align}
 \label{vali:pflow_theosol}
 v_x &= A(z^2 - z(h_1 + h_2) + h_1h_2)
@@ -107,8 +134,7 @@ $V_{m}$ has to be 1 by the definition of the non-dimensionalzation. This gives
 \begin{align}
 \frac{\partial p}{\partial x} &= \frac{2}{Re}\frac{1}{\left(h_1h_2 - \frac{(h_1+h_2)^2}{4} \right)}
 \end{align}
-as a necessary condition for the pressure gradient.\\
-\clearpage
+as a necessary condition for the pressure gradient.
 
 \subsection{Simulations}
 
@@ -159,9 +185,6 @@ The non-dimensionalized damping force  given by
 \end{align}
 
 where $J = \nicefrac{V_{m}}{\eta}$.
-
-\clearpage
-
 A first test is to investigate the error of the velocity profile, with a variation of the Reynolds-number and the damping rate $J$.
 The total simulation domain is set to the height $l_z=2$ with $h_1=0.25$ and $h_2=0.75$.
 A simulation series was performed with the main simulation parameters given by
