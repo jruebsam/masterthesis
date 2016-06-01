@@ -1,10 +1,22 @@
-\chapter{Addional Figures and Calculations}
-\section{Chapter 1}
-The contents...
+\chapter{Calculations}
 
-\begin{minipage}{\linewidth}
-\begin{lstlisting}[caption='Grid Convergence Study Example']
+\section{Theoretial Fundamentals}
+\section{Numerical Methods}
 
+\chapter{Figures}
+\section{Validation}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics{gfx/immersed_boundary/hpflow/long/rho.pdf}\label{fig:hpflow_allgc_theo}
+  \caption{Densitiy oscillations for different immersed boundary methods with the use  of 4th order finite difference schemes.}
+\end{figure}
+
+\chapter{Source Code}
+
+%\begin{lstlisting}[caption='RK-Stability Computation']
+\section{Runge-Kutta stability computation}
+\begin{python}
 import matplotlib.pyplot as plt
 import numpy as np
 from math import factorial as fac
@@ -25,7 +37,6 @@ def radial_sort(x, y):
 
 def main():
     f, ax = style.newfig(0.8)
-
     x = np.linspace(-4, 4, 1500)
     X, Y = np.meshgrid(x, x)
     C = X + 1j*Y
@@ -34,12 +45,9 @@ def main():
         b = np.zeros_like(C)
         for j in range(0,i):
             b += C**j/fac(j)
-
         out = np.where(np.diff((np.abs(b)<=1).astype('float')) != 0)
         pts = np.column_stack((X[out], Y[out]))
-        x = pts[:, 0]
-        y = pts[:, 1]
-
+        x, y = pts[:, 0], pts[:, 1]
         try:
             x, y = radial_sort_line(x,y)
             x = np.append(x, x[0])
@@ -50,15 +58,17 @@ def main():
             out = interpolate.splev(unew, tck)
             plt.plot(out[1], out[0])
         except:
-            print i
-
+            print 'Error for %i' % i
     plt.show()
 
 if __name__=='__main__':
     main()
 
-\end{lstlisting}
-\end{minipage}
+\end{python}
+%#\end{lstlisting}
 \clearpage
+
+\section{Chapter 1}
+The contents...
 \chapter{Python API}
 Addional Figures and Calculations

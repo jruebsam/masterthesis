@@ -57,17 +57,49 @@
           {[}{{{\color{delim}{[}}}}{1}
           {]}{{{\color{delim}{]}}}}{1},
     }
-    \lstset{ %
-        language=python,
-        numbers=left,
-        frame=single,
-        showstringspaces=true,
-            basicstyle=\footnotesize\ttfamily,
-            keywordstyle=\color{blue}\ttfamily\textbf,
-        identifierstyle=\color{magenta}\ttfamily,
-        stringstyle=\color{red}\ttfamily,
-        commentstyle=\color{cyan}\ttfamily\textit
-    }
+
+
+%Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
+
+% Custom colors
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+language=Python,
+otherkeywords={self},             % Add keywords here
+basicstyle=\footnotesize\ttfamily,
+keywordstyle=\footnotesize\ttfamily\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+showstringspaces=false          ,  %
+rulecolor=\color{black}
+}}
+
+
+% Python environment
+\lstnewenvironment{python}[1][]
+{
+\pythonstyle
+\lstset{#1}
+}
+{}
+
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+\pythonstyle
+\lstinputlisting[#1]{#2}}}
+
+% Python for inline
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
+
+
 
     \usepackage{mathrsfs}
 
@@ -204,7 +236,7 @@
     \usepackage{fourier}
 
 %\includeonly{chapters/validation/pflow, chapters/validation/hp_flow, chapters/validation/tc_flow}
-\includeonly{chapters/validation/tc_flow}
+\includeonly{chapters/validation/hp_flow, chapters/appendix}
 \begin{document}
 
 
@@ -280,7 +312,6 @@
 \include{chapters/theorie}
 \include{chapters/numerik}
 \include{chapters/cuda}
-\include{chapters/python_api}
 \include{chapters/immersed_boundary}
 
 \include{chapters/validation/pflow}
@@ -296,6 +327,7 @@
 
 \begin{appendices}
 \include{chapters/appendix}
+%\include{chapters/python_api}
 \end{appendices}
 
 \printbibliography

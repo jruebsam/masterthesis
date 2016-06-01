@@ -234,11 +234,16 @@ the error vanishes in the middle section of the fluid error whereas the largest 
 
 \subsubsection{Long-Term Simulations}
 
-\begin{figure}[!p]
-  \centering
-  \includegraphics{gfx/immersed_boundary/hpflow/long/rho.pdf}\label{fig:hpflow_allgc_theo}
-  \caption{blabla}
+-all methods of 4th order show oscillations
+-example see () rest appendix
+- the long simulations in order to check if density grows
 
+- for so und so positive up to
+- the rest methods negative
+
+
+
+\begin{figure}
   \centering
   \includegraphics{gfx/immersed_boundary/hpflow/long/ts.pdf}\label{fig:hpflow_allgc_theo}
   \caption{blabla}
@@ -247,7 +252,7 @@ the error vanishes in the middle section of the fluid error whereas the largest 
 \clearpage
 
 \subsection{Discussion}
-\subsubsection{Grid Convergence Study with comparsion to the Theoretical Solution}
+\subsubsection{Grid Convergence Study}
 bla
 Therefore we propose that the bad convergence is caused by different approximations of the wall region for different resolutions.
 Since the boundary is not mimiced exactly but approximated by the nearest neighboor points in the wall domain, the actual position
@@ -268,6 +273,8 @@ The 2nd order interpolation method converges is of order $\approx 2.35$, which i
 The fluid domain is interpolated at the same positions and since no pressure coupling over the fluid wall occurs the induced error is small.
 
 \subsubsection{Long-Term Simulations}
-bla
+-density changes
+-a part goes into immersed boundary
+-howerver the overall influence can be neglected
 
 
