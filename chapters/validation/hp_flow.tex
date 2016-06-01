@@ -99,133 +99,69 @@ The main parameters of the simulation are  given by
 With this setup all immersed boundary methods were tested for 2nd and 4th order finite difference schemes.\\
 Like in section () the non-dimensionalized damping, for the Volume-Penalization was set to $J=10^{-4}$.
 
-\clearpage
 
 \subsection{Results}
 
-\subsubsection{Grid Convergence Study with comparsion to the Theoretical Solution}
+\subsubsection{Grid Convergence Study}
 
-The results of the grid convergence study are shown from Fig. () to Fig.().
-For a better overview the results are distributed into four plots.
-%The first plot shows the error of the Volumen-Penalization method,
-%the second plot shows the error of the Direct-Forcing,
-%the third plot shows the error of the Interpolation method and
-%finally the fourth plot shows the methods with the smallest $l_2$-error
-%for each method in comparsion.
+The results of the grid convergence study are shown from Fig. \ref{vali:hp_flow_gc_vp} to Fig. \ref{vali:hp_flow_gc_all}.
+For a better overview the results are distributed into four plots,
+for all methods (except IP-o4) an approximately linear decrease in the double logarithmic space can be observed.
 
-In Fig. (X) the relative $l_2$-error is shown for the volume penalization method with and without the volume fraction method
-for 2nd and 4th order.
+In Fig. \ref{vali:hp_flow_gc_vp} the relative $l_2$-error is shown for different VP-methods.
+For the default VP-method of o2 and o4 the error converges rate is about $\lambda=1.17$,
+o4 has a smaller error than o2.
+The optional use of the VF-method improves the error converges to about $\lambda=1.65$.
+Here the o2 method as a smaller error.
+It can be noted that the overall error is smaller ($\approx 10^{-2}$ for $N=100$)
+when using the optional VF-method in comparsion to the default VP-method ($\approx2\cdot 10^{-2}$ for $N=100$)
 
-For all methods an approximately linear decrease  can be observed.
+In Fig. \ref{vali:hp_flow_gc_df} the relative $l_2$-error is shown for different DF-methods.
+For the default DF-method of o2 and o4 the error convergence rate is about $\lambda=1.2$,
+again o4 has a smaller error than o2.
+The optional use of the VF-method improves the error convergence to about $\lambda=1.4$,
+which is worse in comparison to the VP-method, the o2 method has a smaller error then o4.
+The overall error is smaller ($\approx 1.5 \cdot 10^{-2}$ for $N=100$) for the VF-method,
+in comparsion to the default DF-method ($\approx2\cdot 10^{-2}$ for $N=100$)
 
-The error of volume penalizations methods decrease from the order $1e-1$ to $2e-3$, with
-a convergence rate of order  $\epsilon \propto N^{\approx1.16}$
 
-The volume fraction methods results in a slighty better convergence rate of $\approx 1.65$.
-The overall error is smaller, due to the faster converge rates and of order $5e-4$ for the
+In Fig. \ref{vali:hp_flow_gc_ip} the relative $l_2$-error is shown for different IP-methods.
 
-highest resolution. For all methods the error is in the order of $1e-2$, above a resolution of 100 points.
-The best results are achieved for the 2nd order volume fraction method, except for the highest resolution.
 
-Fig. () shows the error of the Direct Forcing method with and without the volume fraction method for 2nd
-and 4th order. The error convergence is almost identical to the volume penalization method, when not using the volume
-fraction method, of the order $\approx 1.2$. The convergence of the volume fraction methods is of order $\approx 1.45$
-and therefore slighly weaker the for the volume penalization method.
-As before the best error convergence is given by the volume fraction methond of 2nd order.
+For the IP-o4 method the decay rate is about $1.4$.
+For the IP-o2 and IP-DF-o4 method the errors are identical, the decay rate is about $2.4$
+The IP-DF-o4 method is numerically not stable and therefore not shown.
+From the interpolation methods the IP-o2 method gives the smallest error  ($\approx 5 \cdot 10^{-5}$ for $N=100$).
 
-In Fig. (X) we can see the error convergence of the interpolation schemes.
-Here we used 2nd and 4th order schemes, furthermore we compare the interpolation with and without the
-use of the direct forcing method thus setting the velocity zero .
 
-The 4th order interpolation with direct forcing is not shown, since the resulting velocity fields are becoming
-numerically unstable. The 4th order interpolation without DF also results into a larger error but in this case
-the velocity field seems to be stable the
-
-convergence rate is of order $\approx 1.4$ and the error in the regime $1e-1$ to $4e-3$.
-The best and furthermore identical results are achieved for the 2nd order interpolation with and without
-use of the direct forcing method. The convergence rate is of order $\approx 2.35$ and the error
-decreases from the order $2e-2$ to $1e-5$.
-
-Finally Fig. () shows the previous methods with the best convergence rates in one plot.
-In summary we can say that the overall converges rate of the interpolation method is of one order better
-than the volume and direct forcing methods with volume fraction. Furthermore the relative error of the interpolation method ranges
+Finally Fig. \ref{vali:hp_flow_gc_all} shows the method  with the best convergence
+rates from the DF, VP and IP methods in one plot.
+In summary it can be said that the overall converges rate of the IP-o2-method is of one order better
+than the VP-VF and DF-VF methods. The relative error of the interpolation method ranges
 between one and two order of magnitudes below all other methods, depending on the resolution.
 
-
-\clearpage
 \begin{figure}[!bp]
   \begin{minipage}[c]{0.5\textwidth}
       \includegraphics{gfx/immersed_boundary/hpflow/theo/vp.pdf}
-      \caption{Relative $l_2$-error for different Volume-Penalization methods.}
+      \caption{\label{vali:hp_flow_gc_vp}
+          Relative $l_2$-error for different Volume-Penalization methods.}
   \end{minipage}
   \begin{minipage}[c]{0.5\textwidth}
       \includegraphics{gfx/immersed_boundary/hpflow/theo/df.pdf}
-      \caption{Relative $l_2$-error for different Direct-Forcing methods.}
+      \caption{\label{vali:hp_flow_gc_df}
+          Relative $l_2$-error for different Direct-Forcing methods.}
   \end{minipage}
   \begin{minipage}[c]{0.5\textwidth}
       \includegraphics{gfx/immersed_boundary/hpflow/theo/ip.pdf}
-      \caption{Relative $l_2$-error for different Interpolation methods.}
+      \caption{\label{vali:hp_flow_gc_ip}
+          Relative $l_2$-error for different Interpolation methods.}
   \end{minipage}
   \begin{minipage}[c]{0.5\textwidth}
       \includegraphics{gfx/immersed_boundary/hpflow/theo/all.pdf}
-      \caption{Relative $l_2$-error for the methods with the smallest error in comparsion.}
+      \caption{\label{vali:hp_flow_gc_all}
+          Relative $l_2$-error for the methods with the smallest error in comparsion.}
   \end{minipage}
 \end{figure}
-\clearpage
-\subsubsection{Grid Convergence Study with Comparsion to High Resolution Solution}
-
-
-As we allready could observe in section (), each immersed boundary method does not converge against the exact theoretical solution.
-Therefore, for each method, he theoretical solution is given by a
-high resolution solution of each method with $N=512$ points.
-This type of grid convergence study is often proposed
-when no theoretical solution of the fluid problem can be achieved (SOURCE).
-Here we use $N\in\{16, 32, 64, 128, 256\}$ for the number of grid points, for the comparision.
-
-The problem occuring with other $N$ is the position of grid points, which would not exactly overlap anymore with
-the high resolution grid  of the theoretical solution of $N=512$.
-An alternative would be to use interpolation methods for the exact positions, but the possible disadvantage with these method
-would be an additional error resulting from the interpolation scheme.\\
-
-The results for this simulation will be discussed exemplarily for the Volume-Penalization method, the Direct-Forcing method with
-use of the Volume-Fraction method and 2nd order, the Interpolation method, for 2nd and 4th order finite difference schemes.
-Not all results are considered  because the computation contains an error, due to a false assumption.
-This will be discussed in more detail in Sec. \ref{vali:hpflow_discussion}
-The relative $l_2$-error of this simulations is shown in Fig. \ref{vali:hpflow_results_gchd_all}.
-
-For the Direct-Forcing and Volume-Penalization methods the error convergence rate is about  $1.45$ and $1.6$.
-The interpolation method with 4th order finite differences has a smaller decay about $1.4$, altough the overall error
-is smaller.
-The interpolation method with 2nd order has a decay about 2.35 and contains the smallest error.
-
-In Fig. \ref{vali:hpflow_results_gchd_example} the difference between the theoretical profile from Eq. () and
-the computed velocity profile for the Direct Forcing method is shown for a resolution of $N=256$.
-It can be noticed that the error vanishes in the center of the fluid domain, but is large at the border
-about ().
-
-
-
-\begin{figure}[!bp]
-  \begin{minipage}[c]{0.5\textwidth}
-      \includegraphics{gfx/immersed_boundary/hpflow/hd/all.pdf}
-      \caption{\label{vali:hpflow_results_gchd_all}
-          Relative $l_2$-error for the Volume-Penalization, Direct-Forcing  methods.}
-
-  \end{minipage}
-  \begin{minipage}[c]{0.5\textwidth}
-      \includegraphics{gfx/immersed_boundary/hpflow/hd/example.pdf}
-      \caption{\label{vali:hpflow_results_gchd_example}
-        Exemplarily velocity difference .
-         }
-  \end{minipage}
-\end{figure}
-
-%The convergence rate of the volume penalization method and direct forcing method are of order $\approx 1.44$ and $\approx 1.6$.
-%Since the finite difference methods are of 2nd order, one would expect a similar decrease in the error.
-%However we can explain this behaviour by having a look at the velocity profile substracted from the theoretical solution.
-%Fig. () (b) shows this exemplarly for the direct forcing volume fraction method. It can be noted that
-%the error vanishes in the middle section of the fluid error whereas the largest differences occur at the fluid domain border.
-
 
 \subsubsection{Long-Term Simulations}
 
@@ -248,7 +184,7 @@ For all methods the a change in the average density can be observed, however
 es gibt eine sättigung für alle verfahren spätestens bei 1600.
 und die  wert ist eher klein.
 
-\begin{figure}[!bp]
+\begin{figure}[tp]
   \begin{minipage}[c]{0.5\textwidth}
       \includegraphics{gfx/immersed_boundary/hpflow/long/ts.pdf}
       \caption{\label{hpflow:results_long_ts}
@@ -262,9 +198,6 @@ und die  wert ist eher klein.
       }
   \end{minipage}
 \end{figure}
-
-
-\clearpage
 
 \subsection{Discussion}
 \subsubsection{Grid Convergence Study}

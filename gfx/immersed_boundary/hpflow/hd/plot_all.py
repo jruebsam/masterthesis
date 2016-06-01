@@ -25,7 +25,6 @@ def main():
 
     labels = ['DF-Vol.Frac', 'VP-Vol.Frac', 'IP' , 'IP']
     orders = [1, 1, 1, 0]
-    orders = [0, 0, 0, 0]
 
     re = 100.
     pmax = 4./re
