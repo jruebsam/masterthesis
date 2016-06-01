@@ -25,6 +25,7 @@ def main():
 
     labels = ['DF-Vol.Frac', 'VP-Vol.Frac', 'IP' , 'IP']
     orders = [1, 1, 1, 0]
+    orders = [0, 0, 0, 0]
 
     re = 100.
     pmax = 4./re
@@ -80,6 +81,7 @@ def main():
             thflow[thflow<0] = 0
             vz[thflow==0] = 0
             """
+
             th = shrink_grid(vz, large_array=thflow)
 
             l2error = pa.l2_error(vz, exact=th)
@@ -110,7 +112,7 @@ def main():
     ax.set_yscale('log')
     ax.set_xscale('log')
     #ax.set_ylim(4*1e-6, 2*1e-1)
-    #ax.set_xlim(15, 550)
+    ax.set_xlim(10, 300)
     ax.set_xlabel(r'grid points N')
     ax.set_ylabel(r'rel. $l_2$-error')
 
