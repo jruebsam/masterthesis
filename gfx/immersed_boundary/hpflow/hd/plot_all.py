@@ -11,6 +11,8 @@ from scipy import stats
 import itertools as it
 from scipy import optimize
 
+from pycurb.analysis import shrink_grid
+
 cmap = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf']
 
 from cycler import cycler
@@ -29,8 +31,9 @@ def main():
     pr = 1./re
     rrel = 0.4
     lx, ly = 1/rrel, 1/rrel
-    resf = np.linspace(16, 256., 256./16)
-    resf = np.append(resf, 512)
+    #resf = np.linspace(16, 256., 256./16)
+    #resf = np.append(resf, 512)
+    resf = [16, 32, 64, 128, 256]
 
     f, ax = style.newfig(0.5, 1.7)
 
@@ -42,14 +45,21 @@ def main():
         hd_simpath = os.path.join(dpath, os.path.dirname(__file__), "data", hd_varpath)
 
         with tb.open_file(hd_simpath +"/simulation.h5") as d:
-            vx = d.root.simdata.vx[-1, :, :, 1]
-            vy = d.root.simdata.vy[-1, :, :, 1]
+            #vx = d.root.simdata.vx[-1, :, :, 1]
+            thflow = d.root.simdata.vz[-1, :, :, 1]
             h = d.root.icdata.H[:,:, 1]
+
+
+        thflow*=(1 - h)
+        print thflow.shape
+        """
         dx = lx/512.
         z = np.linspace(0, 2.5-dx, 512)
         y, x = np.meshgrid(z, z)
         thflow =  (1  - ((x - lx/2.)**2 + (y - ly/2.)**2))*(1-h)
-        thflow[thflow<0] = 0
+
+        thflow = vx**2 + vy**2
+        """
 
         for rs in reversed(resf):
             var_path = os.path.join(mode, on, 'res_%i' % rs)
@@ -63,13 +73,17 @@ def main():
             dx = lx/rs
             z = np.linspace(0, 2.5-dx, rs)
             y, x = np.meshgrid(z, z)
+            vz*=(1-h)
 
+            """
             thflow =  (1  - ((x - 1.25)**2 + (y - 1.25)**2))*(1-h)
             thflow[thflow<0] = 0
             vz[thflow==0] = 0
+            """
+            th = shrink_grid(vz, large_array=thflow)
 
-            l2error = pa.l2_error(vz, exact=thflow)
-            l2errorabs = pa.l2_error_abs(vz, exact=thflow)
+            l2error = pa.l2_error(vz, exact=th)
+            l2errorabs = pa.l2_error_abs(vz, exact=th)
 
             l2rel.append(l2error)
             l2abs.append(l2errorabs)

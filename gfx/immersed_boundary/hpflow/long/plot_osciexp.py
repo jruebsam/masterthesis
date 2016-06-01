@@ -56,7 +56,7 @@ def main():
 
     ax.set_xlabel('y')
     ax.set_ylabel('z')
-    ax.set_title(r'DF-Vol.Frac. o2, $N=256$')
+    ax.set_title(r'DF-Vol.Frac. o4, $N=256$')
     ax.set_xticks([0, 1])
     ax.set_yticks([0, 1])
 
