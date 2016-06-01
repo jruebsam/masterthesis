@@ -29,7 +29,7 @@ def main():
     lx, ly = 1/rrel, 1/rrel
 
     rs = 96
-    f, ax = style.newfig(0.9)
+    f, ax = style.newfig(0.5, 1.7)
 
     for label, method  in zip(labels, modes):
 
@@ -39,10 +39,14 @@ def main():
         sim_path = os.path.join(dpath, os.path.dirname(__file__), "data", var_path)
         d = np.genfromtxt(os.path.join(sim_path , on +'.ekin'))
 
-        ax.plot(d[:, 0], d[:, 3], label=label+ ' ' + on )
+        ax.plot(d[:, 0], d[:, 3], label=label+ ' ' + on , lw=0.8)
 
 
     ax.legend(ncol = 2, fontsize=8, loc='lower left', fancybox=True, shadow=True)
+
+    plt.subplots_adjust(top=0.7, bottom =0.15, left=0.2)
+    ax.legend(ncol = 2, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.5),
+           fancybox=True, shadow=True)
 
     ax.set_xlabel('Total time')
     ax.set_ylabel(r'$\rho$')

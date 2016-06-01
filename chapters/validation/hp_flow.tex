@@ -14,15 +14,6 @@ The center of the pipe is set to $(y, z) = (l_y/2, l_z/2)$.
 The velocity profile is a result from a predefined spatial constant pressure gradient $\nicefrac{\partial p}{\partial x}$.
 in x-direction, that is added into the Navier-Stokes equation.
 
-%the sound speed was set to $c^2 = 100$ to fullfill the incompressibilty condition $Ma = v/c < 0.1$. \footnote{In order to exclude
-%any influence of choice of the sound speed on the resulting error, further simulations were carried out with a diffent $c^2$ and will be discussed}
-%With this choice the cfl-condition for the system is given by $\Delta t < \min(\Delta x^2 \cdot Re, \Delta x / 10)$.
-%The resulting timestep for the highest resolution is $\Delta t = 1e-4$.
-%The grid convergence study was than repeated once again in order to test the influence of the sound speed with $c^2 = 400$.
-%As a result it turned out that for all methods the difference in the relative $l_2$-error can be neglected, except
-%for the 4th order interpolation schemes, in this case the overall error grows. An exemplary plot which compares
-%the error can be found in Appendix in Fig. (). This behaviour indicates that when using the interpolation with 4th order
-%an error is induced which is proportional to $c^2\nabla \rho$.\\
 
 \begin{figure}[!bp]
       \centering
@@ -243,11 +234,17 @@ the error vanishes in the middle section of the fluid error whereas the largest 
 
 
 
-\begin{figure}
-  \centering
-  \includegraphics{gfx/immersed_boundary/hpflow/long/ts.pdf}\label{fig:hpflow_allgc_theo}
-  \caption{blabla}
+\begin{figure}[!bp]
+  \begin{minipage}[c]{0.5\textwidth}
+      \includegraphics{gfx/immersed_boundary/hpflow/long/ts.pdf}
+      \caption{Relative $l_2$-error for different Volume-Penalization methods.}
+  \end{minipage}
+  \begin{minipage}[c]{0.5\textwidth}
+      \includegraphics{gfx/immersed_boundary/hpflow/long/example.pdf}
+      \caption{Relative $l_2$-error for different Direct-Forcing methods.}
+  \end{minipage}
 \end{figure}
+
 
 \clearpage
 
