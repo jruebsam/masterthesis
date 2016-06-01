@@ -1,10 +1,19 @@
 \subsection{Taylor-Couette Flow}
 
 \subsubsection{Theoretical description}
-\begin{figure}[!b]
-  \centering
-  \includegraphics[width=0.3\textwidth]{gfx/immersed_boundary/tcflow/tcsystem.pdf}\label{fig:tcflow_system}
-  \caption{Taylor Couette System with the inner and outer cylinder radius $R_1$ and $R_2$, and the rotation rates $\Omega_1$ and $\Omega_2$}
+
+\begin{figure}[!bp]
+  \begin{minipage}[c]{0.6\textwidth}
+      \centering
+        \resizebox{0.9 \textwidth}{!}{
+       \import{gfx/immersed_boundary/tcflow//}{tcsystem.pdf_tex}
+      }
+  \end{minipage}
+  \begin{minipage}[c]{0.3\textwidth}
+      \caption{Setup of the Poiseuille-flow channel.
+      \label{validation:setup_pf}
+      }
+  \end{minipage}
 \end{figure}
 
 As a last test case for grid convergence studies we want to introduce the taylor-couette system.
