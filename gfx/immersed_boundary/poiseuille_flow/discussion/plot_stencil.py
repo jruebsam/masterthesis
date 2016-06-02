@@ -28,7 +28,7 @@ def main():
     do4 = path+'/data/nu_0.001000/o4/res_100'
 
     ds = [do2, do4]
-    for p,l  in zip(ds, ['o2', 'o4']):
+    for p,l  in zip(ds, ['DF2', 'DF4']):
         with tb.open_file(os.path.join(p, 'simulation.h5'), 'r') as d:
             vx = d.root.simdata.vx[-1]
             h = d.root.icdata.H[0, 0, :]

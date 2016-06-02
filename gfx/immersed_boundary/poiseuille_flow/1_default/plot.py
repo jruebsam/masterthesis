@@ -56,7 +56,8 @@ def main():
 
         l2rel, l2abs, res = np.array(l2rel), np.array(l2abs), np.array(res)
         #np.save(path, np.column_stack((res, l2rel, l2abs)))
-        ax.plot(res, l2rel, '^--',  label=order)
+        label = 'FD2' if order=='o2' else 'FD4'
+        ax.plot(res, l2rel, '^--',  label=label)
 
 
         if order == 'o4':

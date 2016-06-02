@@ -68,8 +68,8 @@ def main():
     b = flow>-5
     ax.plot(z[b], flow[b], 'k--', label=r'Theory')
 
-    ax.set_xlabel('Z')
-    ax.set_ylabel('Geschwindigkeit v')
+    ax.set_xlabel(r'$z$')
+    ax.set_ylabel(r'Velocity $v_z$')
 
     ax.set_xlim(0, 2)
     ax.set_ylim(-0.5, 2)
