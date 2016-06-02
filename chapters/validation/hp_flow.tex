@@ -217,24 +217,21 @@ The simulation of the Hagen-Poisseuille flow points out multiple numerical probl
 implementations.
 The first which shall be consider, is the error in the IP method.
 
-The IP-FD4 methods contains an error which is about one to two orders larger that for the IP-FD2 method.
-An explanation can be given with Fig.\ref{valid:hpflow_velodiff_discussion}.
-Here the velocity profiles for the IP-FD4 and FD2 method were substracted in the $(y, z)$-plane.
-It can be noted that the velocity differences inside of the fluid domain are small, but in the wall region
-especially close to the domain order the difference between these velocities is of order $10^{-2}$.
-Again this behavior can be explained by the used 5-Point stencil for the FD4 scheme.
-The stencil reaches over the domain boundaries an incorporates errors.
-For the FD2 method this is not a problem at all the domain is decoupled by the domain border on which all
-velocities are interpolated.
-The idea of the combination with the DF method was to set the velocities in the wall region to zero,
-in order to zero. However this leads to the unstable behavior we could obsevre.
-The assumption is that in this case the density creates an error outside of the domain boundaries since
-again because of the use of a 5-Poiant stencil.
+The IP-FD4 methods contains an error which is about one to two orders larger in comparison to the  IP-FD2 method.
+Fig.\ref{valid:hpflow_velodiff_discussion} shows the substracted velocity profiles for the IP-FD4 and FD2 method in the $(y, z)$-plane.
 
--the only case were the domain is decoupled is IP-DF2 therefore no difference between set zero.
-
-An attempt was made to interpolate the density at the border according to \citep{PAPER}
-the results are not presented in this thesis as it tourn out it is also numerical unstable.
+It can be noted that the velocity differences inside of the fluid domain is small, but large in the wall region.
+Especially close to the immersed boundary the difference  is of order $10^{-2}$.
+One explanation for this results is the use of a different stencil for the FD4 scheme.
+The 5-Point stencil reaches over the domain boundaries an incorporates errors by a false approximation, similar to the Poiseuille flow.
+This is not a problem for the FD2 method due to the use of a 3-Point stencil.
+The motivation of the combination of IP and DF method, was to set the velocities in the wall region to zero,
+however the computation is numerical unstable.
+One assumption is that this instability is created by the density which still interpolates over the domain boundaries.
+The only case were the wall in fluid domain are decoupled are the FD2 methods.
+Therefore no difference between the IP-FD2 and the IP+DF-FD2 method can be observed.
+An additional attempt was made to interpolate the density at the border according to \citep{PAPER}
+the results are not presented in this thesis, since it turns out the the copmutation is also numerical unstable.
 
 The second problem concerning this numerical implementation is are the resulting density oscillations
 which occur for the FD4 methods.
