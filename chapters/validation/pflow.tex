@@ -17,8 +17,8 @@ the numerical stability for each method.
 Furthermore it is important to test if conservation laws, in particular the conservation of mass,
 are fulfilled.
 For the validation three different test problems were chosen.
-The flow between to planes, also known as Planar Poiseuille flow, the flow in a Pipe, referred to as Hagen-Poiseuille flow and the flow
-between two rotating cylinders, know as the Taylor-Couette system.
+The flow between to planes, also known as planar Poiseuille flow, the flow in a Pipe, referred to as Hagen-Poiseuille flow and the flow
+between two rotating cylinders, known as the Taylor-Couette system.
 
 \paragraph{Conventions}\mbox{}\\
 
@@ -30,8 +30,8 @@ In this section the following abbreviations will be used
     \item[DF]{Direct Forcing Method}
     \item[IP]{Interpolation Method}
     \item[VF]{Volume-Fraction Extension}
-    \item[o2]{Finite Difference Schemes of 2nd order}
-    \item[o4]{Finite Difference Schemes of 4th order}
+    \item[FD2]{Finite Difference Schemes of 2nd order}
+    \item[FD4]{Finite Difference Schemes of 4th order}
 \end{description}
 \end{multicols}
 
@@ -43,7 +43,7 @@ method and the use of 2nd order finite difference schemes.
 For the validation multiple grid convergence studys were performed.
 The concept of a grid convergence study is to vary the grid resolution of the numerical domain and
 calculate the error of the simulation with respect to an assumed theoretical solution.
-The relative error $\epsilon$ is computed by the relative $l_2$-norm
+The relative error $\epsilon$ is computed by the $l_2$-norm by (see \citep{QUELLE})
 
 \begin{align}
     \epsilon = \frac{\int \dif V \left(a^{\text{th}} - a^{\text{num}}\right)^2}{\int \dif V \left( a^{\text{th}} \right)^2}
@@ -53,13 +53,10 @@ The relative error $\epsilon$ is computed by the relative $l_2$-norm
  \end{align}
 
 where $a^{\text{th}}$ corresponds to the theoretical and $a^{\text{num}}$ to the numerical solution.
-The numerical error is usually given by a power law of the form $\epsilon = N^\lambda$, i.e for a finite difference scheme of 2nd order
+The numerical error is often given by a power law of the form $\epsilon = N^\lambda$, i.e for a finite difference scheme of 2nd order
 this is the truncation error given by the remaining terms  of the taylor expansion.
 For an evaluation of the error convergence the results of the grid convergence study are, if possible, linear fitted in the log-log space, to obtain the
 convergence rate $\lambda$.
-
-
-
 
 %In general it is necessary to obtain a good evaluation of the numerical truncation error,
 % the numerical stability over longer periods of time
@@ -69,7 +66,7 @@ convergence rate $\lambda$.
 %Multiple examples from simple to more complex test cases are introduced in this section.
 \clearpage
 
-\subsection{Laminar Poiseuille-Flow}
+\subsection{Laminar Poiseuille Flow}
 
 \begin{figure}[!bp]
   \begin{minipage}[c]{0.6\textwidth}
@@ -79,46 +76,55 @@ convergence rate $\lambda$.
       }
   \end{minipage}
   \begin{minipage}[c]{0.3\textwidth}
-      \caption{Setup of the Poiseuille-flow channel.
+      \caption{Flow in a channel of height $\Delta h = h_2 - h_1$, with periodic boundaries in $x$ and $y$ direction and
+       a predefined pressure gradient $\nabla p$.
       \label{validation:setup_pf}
       }
   \end{minipage}
 \end{figure}
 
-The first test case is the laminar poiseuille-flow. The theoretical setup is presented in Fig. \ref{validation:setup_pf}.
+The numerical setup of this test case is presented in Fig. \ref{validation:setup_pf}.
 It consist of two infinite extending  planes at $z=h_1$ and $z=h_2$, which are oriented
 parallel to the xy-plane, at a distance $\Delta h = h_2 - h_1$.
-Numerically this is realized by using periodic boundaries in xy-direction and
-No-Slip boundaries in the z-direction.
+A infinite long channel is numerically realized by using periodic boundaries in x- and y-direction.
+For the walls immersed boundaries, or in case of the default algorithm No-Slip boundaries, are used.
+The fluid flow in the channel is a result from a predefined constant pressure gradient $\nicefrac{\partial p}{\partial x}$
+in the fluid domain, which vanishes in the boundaries.
+In the implementation this pressure gradient is added into the Navier-Stokes equation as an additional forcing term.
+For the steady state the flow is independent of the $x$ and $y$ coordinate.
+The equations of motion, here in the non-dimensional form, are according to \citep{Kundu2012} given by
 
-The velocity profile is a result from a predefined spatial constant pressure gradient $\nicefrac{\partial p}{\partial x}$
- in x-direction, that is added into the Navier-Stokes equation.
-The steady state for the non-dimensional equations is given by \citep{}
 \begin{align}
     \label{vali:pflow_navstok}
     \frac{\partial v_x}{\partial t} &= - \frac{\partial p}{\partial x}
      + \frac{1}{Re} \frac{\partial^2 v_x}{\partial z^2} = 0
 \end{align}
 
-with the Reynolds-number defined as $Re = \nicefrac{V_{m}\Delta h}{\nu}$.
-For this system the non-dimenzionalization is given by the scales
-    $r^* = \nicefrac{r}{\Delta h}$, $v^*=\nicefrac{V_(\text{m})}{\Delta h}$,
-    $t^* = \nicefrac{V_{\text{m}}}{\Delta h}$ and $p^* = p \rho V_{\text{max}}^2$.
+where $Re = \nicefrac{V_{m}\Delta h}{\nu}$, with the non-dimensionalization defined as
 
-The velocity $V_m$ is defined as $\max(v_x(z))$.
-An integration of Eq. \ref{vali:pflow_navstok} gives
+\begin{align}
+    \text{Length:}\qquad &  \vec{r}^* = \frac{\vec{r}}{\Delta h}  &
+    \qquad \text{Velocity:}\qquad& \vec{v}^* =  \frac{\vec{v}}{V_{\text{M}}}\\
+    \text{Time:}  \qquad & t^* = \frac{t \cdot V_\text{M}}{\Delta h}&
+    \qquad  \text{Pressure:}\qquad & p^* = \frac{\nabla p}{\rho V_\text{M}^2}
+\end{align}
+%For this system the non-dimenzionalization is given by the scales
+%    $r^* = \nicefrac{r}{\Delta h}$, $v^*=\nicefrac{V_(\text{m})}{\Delta h}$,
+%    $t^* = \nicefrac{V_{\text{m}}}{\Delta h}$ and $p^* = p \rho V_{\text{max}}^2$.
+
+where $V_\text{M}$ is defined by the maximal velocity in the channel $\max(v_x(z))$.
+By the integration of Eq. \ref{vali:pflow_navstok} it follows that
 \begin{align}
 v_z &= \frac{1}{2}\frac{\partial p}{\partial x}z^2 + zc_1 + c_2
 \end{align}
 
-Using the NoSlip-boundary condition $v_x(h_1) = v_x(h_2) = 0$ and furthermore by defining
-$A:=\frac{1}{2}\frac{\partial p}{\partial x} Re$ one obtains the additional conditions
-
+The integration constants are obtain by setting $v_x(h_1) = v_x(h_2) = 0$.
 \begin{align}
-c_1 &= A\frac{h_1^2 -h_2^2}{h_2 - h_1} = -A(h_1+h_2)\\
-c_2 &= A(h_1(h_1 + h_2) - h_1^2) = Ah_1h_2
+c_1 = A\frac{h_1^2 -h_2^2}{h_2 - h_1} = -A(h_1+h_2)\qquad ;& \qquad
+c_2 = A(h_1(h_1 + h_2) - h_1^2) = Ah_1h_2
 \end{align}
 
+with the definition $A:=\frac{1}{2}\frac{\partial p}{\partial x} Re$
 The velocity is than given by the quadratic function
 \begin{align}
 \label{vali:pflow_theosol}
@@ -127,19 +133,22 @@ v_x &= A(z^2 - z(h_1 + h_2) + h_1h_2)
 
 The maximum velocity and position are given by
 \begin{align}
-z_{max} &= \frac{h_1+h_2}{2} \wedge v_{max} = A\left(h_1h_2 - \frac{(h_1 + h_2)^2}{4}\right)
+z_{\text{M}} &= \frac{h_1+h_2}{2} \wedge v_{\text{M}} = A\left(h_1h_2 - \frac{(h_1 + h_2)^2}{4}\right)
 \end{align}
 
-$V_{m}$ has to be 1 by the definition of the non-dimensionalzation. This gives
+Due to the non-dimensionalization it is necessary that $V_{\text{M}} \overset{!}{=}  1$.
+It follows that
+
 \begin{align}
 \frac{\partial p}{\partial x} &= \frac{2}{Re}\frac{1}{\left(h_1h_2 - \frac{(h_1+h_2)^2}{4} \right)}
 \end{align}
-as a necessary condition for the pressure gradient.
+
+has to be fullfilled as a necessary condition for the pressure gradient.
 
 \subsection{Simulations}
 
-The Poiseuille-flow test case is used in particular as a first validation
-for the Volume-Penalization and Direct-Forcing methods.
+The Poiseuille flow is used in particular as a first validation test case
+for the VP, DF method  and the default implementation without immersed boundaries.
 
 \subsubsection{Test of the Default Setup}
 

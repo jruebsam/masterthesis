@@ -1,6 +1,6 @@
 %% Creator: Inkscape inkscape 0.48.3.1, www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
-%% Accompanies image file 'tcsystem.pdf' (pdf, eps, ps)
+%% Accompanies image file 'setup.pdf' (pdf, eps, ps)
 %%
 %% To include the image in your LaTeX document, write
 %%   \input{<filename>.pdf_tex}
@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{252.9347168bp}%
+    \setlength{\unitlength}{249.51081543bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,14 +48,14 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.81706532)%
-    \put(0,0){\includegraphics[width=\unitlength]{tcsystem.pdf}}%
-    \put(0.40278778,0.63267789){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$r_i$}}}%
-    \put(0.62562851,0.66427562){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$r_o$}}}%
-    \put(0.86690305,0.40649339){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$d$}}}%
-    \put(-0.00162342,0.40381353){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$h$}}}%
-    \put(0.46618198,0.15934523){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x$}}}%
-    \put(0.59229037,0.14451637){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$y$}}}%
-    \put(0.49148495,0.2732086){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$z$}}}%
+  \begin{picture}(1,0.64998699)%
+    \put(0,0){\includegraphics[width=\unitlength]{setup.pdf}}%
+    \put(0.03456189,0.23103488){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$z$}}}%
+    \put(0.13455985,0.08103786){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x$}}}%
+    \put(0.12877994,0.20519154){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\otimes y$}}}%
+    \put(0.03340073,0.01454369){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$z=h_1$}}}%
+    \put(0.03213805,0.60673389){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$z=h_2$}}}%
+    \put(0.04729006,0.32894717){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\Delta h$}}}%
+    \put(0.19370341,0.42270133){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\nabla p$}}}%
   \end{picture}%
 \endgroup%
