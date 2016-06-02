@@ -201,19 +201,57 @@ For all FD4 methods the change in the averaged density is followed by a saturati
 
 \subsection{Discussion}
 
--all method
+the simultaion shows that two difficulties arise
+oscillations
 
 
+instability  for the interpolation method
+- o4 stable but the error is much larger
+- o4 error velocity reaches over the border
 
--alle methoden except ip haben gleiche fehler ordnung
--fraction methdos is a little bit better
--ip ist am besten mit 2 ordnung
+- idea set velocity zero in order to destroy remaining influeces
 
+- assumption problem with the density which seach over the border -> instabilty
+- the attempt was made to interpolate the density according to paper
+- short description
+- the result is unstable even for o2 methods
+
+oscillations nicht eindeutig geklärt werden
+- pressure decoupling due
+- error  over the border creates an error in the pressure but not for all points
+- therefore this happpens just at the 4th order
+
+last but not least error discussion
+
+
+- volume penalization anywhere ?
+- ansonsten diplomarbeit no validation. ..
+
+- description from fadlun
+- direct forcing method  bla bla
+- direct forcing with volume fraction
+- df ohne vf wesentlich schlechter als bei u
+
+gilmanov ip
+- paper 1  fehler ordnung
+
+- paper 2 fehler ordnung
+
+finally :
+- die flow problems die wir hier haben sind nicht so komplex ndaher
+vllt die bessere konvergenz
+
+SUMMARY:
+- oscilllation abklären -> rhie chow -> outlook
+- interpolation fehler -> was soll man sagen
+
+- alle methoden except ip haben gleiche fehler ordnung
+- fraction methdos is a little bit better
+- ip ist am besten mit 2 ordnung
+
+
+%ALTE NOTIZEN
 -the best error is interpolation
-
-- ip o4 unstable mit mit DF o4 possible explanation is given in sec. .
-- density reaches over the simulation domain
-
 
 - warum ist ip unstable ???
 - ip o2 identical to o4
