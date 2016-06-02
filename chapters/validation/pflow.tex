@@ -248,22 +248,20 @@ The simulation where performed for FD2 and FD4 methods.
 \clearpage
 
 \subsection{Results}
-\subsubsection{Basic Setup}
+\subsubsection{Test of the Basic Setup}
 
 The results of the grid convergence study are shown in Fig. \ref{fig:ema1}.
 The double logarithmic axis shows the dependency of the computed relative $l_2$-error norm
 with respect to the grid resolution.
 
-On this scale, the 4th order finite difference scheme has a linear decreasing error.
+On this scale, the FD4 has a linear decreasing error.
 For the smallest resolution $N=8$ the error is of order $10^{-3}$,
-in contrast to the highest resolution $N=256$ with an error of order $10^{-6}$
-A convergence rate of the error  was computed by linear interpolation in the log-log space,
-the results is about -2.257.
-Hence, it can be said that the accuracy of the method is of 2nd order for this test case,
-which is is in contradiction with the theory.
-
+in contrast to the highest resolution $N=256$ with an error of order $10^{-6}$.
+A convergence rate of the error  was computed  according to $\lambda\approx -2.26$.
+Hence, it can be said that the accuracy of the method is above 2nd order for this test case,
+which is is in contradiction with the theory assuming a 4th order.
 The error of the 2nd order finite difference scheme is of the order $10^{-8}$.
-The value is approximately constant and not depend of the grid resolution.
+The value is approximately constant and does not depend on the grid resolution.
 
 \begin{figure}[!bp]
     \centering
@@ -271,30 +269,29 @@ The value is approximately constant and not depend of the grid resolution.
     \caption{Relative $l_2$-error for 2nd and 4th order finite difference schemes of the basic algorithm without the use of an immersed boundary.\label{fig:ema1}}
 \end{figure}
 
-\clearpage
-
 
 \subsubsection{Test of the Volume Penalization Method}
 
-The first simulation was  a parameter study with variable Reynolds number $Re$ and damping rate $J$.
-A first impression of the influence of the damping rate $J$ , is given by the velocity profiles of the numerical solution.
-This is exemplarily shown in Fig. \ref{fig:vp_flow}, for variable $J$ and a constant reynolds number $Re=500$.
+The first simulation was  a parameter study with variable Reynolds number and damping rate.
+A first impression of the influence of the damping rate $J$ is given by the velocity profiles of the numerical solution.
+This is exemplarily shown in Fig. \ref{fig:vp_flow}, for varying $J$ and $Re=500$ .
 It can be noted that with an decrease of $J$, the numerical solution converges against the theoretical one.
-
-\begin{figure}[!b]
-  \centering
-  \includegraphics{gfx/immersed_boundary/poiseuille_flow/2_vp/vp_profile.pdf}  \caption{\label{fig:vp_flow}
-    Velocity profile of the numerical solution with variable $J$ and $\Rey = 500$.}
-\end{figure}
-
 Furthermore it can be seen that the quadratic part of the velocity profile,
 inside of the fluid domain ($0.5\leq z \leq 1.5$), is independent of the damping constant $J$.
 Merely a slight offset at the boundaries creates a constant shift of the velocity profile.
 In the masked area of the volume a decrease in velocity is visible which could  eventually be described by an
 exponential law.
 
-For an error estimation, the relative $l_2$-error was computed.
-The results for the 2nd order scheme are shown in Fig. \ref{fig:vp_error}.
+\begin{figure}[!t]
+  \centering
+  \includegraphics{gfx/immersed_boundary/poiseuille_flow/2_vp/vp_profile.pdf}  \caption{\label{fig:vp_flow}
+    Velocity profile of the numerical solution with variable $J$ and $\Rey = 500$.}
+\end{figure}
+
+For an error estimation, the relative $l_2$-error was computed, the results are shown in Fig. \ref{fig:vp_error}.
+On the left side of the plot the relative error is plotted against the damping rate and the reynolds number is
+varied over a color scale. On the right side both variables ($J$ and $\Rey$) are switched.
+
 \begin{figure}[!b]
   \centering
   \includegraphics{gfx/immersed_boundary/poiseuille_flow/2_vp/vp_error.pdf}  \caption{\label{fig:vp_error}
@@ -305,49 +302,44 @@ The results for the 2nd order scheme are shown in Fig. \ref{fig:vp_error}.
       Relative $l_2$ error for variable damping rate $J$, for 2nd (blue) and 4th (red) order finite difference schemes.}
 \end{figure}
 
-On the left side of the plot the relative error is plotted against the damping rate, the reynolds number is
-varied over a color scale. On the right side both variables are switched.
 
 A decrease in the damping rate $J$ results in an decrease of the error about four orders, from $10^{-1}$ to $10^{-5}$.
-With a change of the Reynolds number from $500$ down to $100$ the error decrease about one order.
+With a change of the Reynolds number from $500$ to $100$ the error decreases about one order.
 It can be noticed that with an decrease of $\Rey$ or $J$ the error decreases linear in the log-log space.
 For a small damping ($J>10^{-3}$) a breakdown of the linear relation can be observed.
 This is an error resulting from the numerical setup.
-\clearpage
-
 The damping in the masking area is so weak that the flow reaches the  boundaries of the numerical domain.
-This is not the case for $J<1e-3$ since the velocity profile is zero before it reaches the boundaries.\\
+This is not the case for $J<1e-3$ since the velocity profile is zero before it reaches the boundaries.
 A linear fit in the log-log space gives a  decay rate of about $1.106$ for  $J$ and about $-1.223$ for $\Rey$.
 
 The second part of the test was a grid convergence study with a constant Reynolds number, variable $J$ and grid resolution $N$.
 The results are shown in Fig. \ref{fig:ema1}.
+It can be noticed that a decrease in $J$ creates a shift in the error profile to overall smaller values.
+However it is also noticable that the error of the FD2 method increases together with the resolution.
 
-It can be noticed that a decrease in $\nu$ creates a shift in the error profile to overall smaller values.
-However it is also noticable that the error of the 2nd order scheme, increases together with the resolution.
-Even less understandable is the error function for the 4th order scheme.
+Even less understandable is the error function for the FD4 method.
 With increasing resolution  a decrease into a minimum, followed by an increase can be observed.
-
 The position of minimum is shifted to the right with an decrease of $J$.
 For a constant $J>10^{-4}$ it is visible that the error for both methods converges against a
 constant error  with an increase in the resolution.
 
-\subsubsection{Direct Forcing Method}
+\clearpage
 
-The results of the grid convergence study are similat to the results of the basic implementation,
-except the fourth order scheme has a larger error.
-A plot of the relative $l_2$-error can be found in the Appendix  in Fig. \ref{fig:ema1}.
-The 4th order finite difference schemes has a linear decreasing error in the log-log space..
+\subsubsection{Test of the Direct Forcing Method}
+
+The results of this grid convergence study for the DF method,
+are similar to the results of the basic implementation, except the DF-FD4 method has a larger error.
+A plot of the relative $l_2$-error can be found in the Appendix,  in Fig.\ref{fig:vali_pflow_3gc}.
+The FD4 method has a linear decreasing error in the log-log space.
 For the smallest resolution $N=8$ the error is of order $10^{-2}$,
 in contrast to the highest resolution $N=256$, with an error of order $10^{-4}$
-The convergence rate is about $1.267$
-Hence, it can be said that the accuracy of the method is of 1st order for this test case.
+The convergence rate is about $\lambda\approx1.267$.
+Hence, it can be said that the accuracy of the method is above first order for this test case.
 The error of the second order finite difference scheme is of the order $10^{-8}$.
 The value is approximately constant and not depend of the grid resolution.
 
-\clearpage
-
 \subsection{Discussion}
-\subsubsection{Basic Setup}
+\subsubsection{Test of the Basic Setup}
 
 
 The constant error of the 2nd order scheme is due to the lack of complexity of the test case.
@@ -401,7 +393,6 @@ The result is a smaller offset on the sides and and overall smaller error.
     \label{fig:example_b}%
       \includegraphics{gfx/immersed_boundary/poiseuille_flow/discussion/profile.pdf}
         }}%
-
 \end{figure}
 
 The grid convergency study with a constant Reynolds number and variable damping rate, generates an error
@@ -436,7 +427,7 @@ With a further increase of the resolution  $N>N_{min}$ the velocity profile drif
 the error increases.  Finally the method converges towards the same solution as the 2nd order scheme.
 
 
-\subsubsection{Direct Forcing Method}
+\subsubsection{Test of the Direct Forcing Method}
 
 The results for the direct forcing method show that d
 

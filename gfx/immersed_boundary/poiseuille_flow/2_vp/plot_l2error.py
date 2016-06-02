@@ -113,7 +113,7 @@ def main():
     legend_fit = plt.legend([fit],[r'fit: $ax^b$ : $b=%.3f\pm%.4f$' % (p1[1],err[0])], loc=4, fontsize=7)
     plt.gca().add_artist(legend_fit)
     ax1.set_xlabel(r'$J$')
-    ax1.set_ylabel('$l_2$-rel. error')
+    ax1.set_ylabel('$l_2$-rel. error $\epsilon$')
     ax1.set_xscale('log')
     ax1.set_yscale('log')
     ax1.set_xlim(0.8*1e-4, 8)
@@ -146,7 +146,7 @@ def main():
     plt.gca().add_artist(legend_fit)
 
     ax2.set_xlabel(r'$Re$')
-    ax2.set_ylabel('$l_2$-rel. error')
+    ax2.set_ylabel('$l_2$-rel. error $\epsilon$')
     ax2.set_xscale('log')
     ax2.set_yscale('log')
     ax2.set_xlim(90, 550)

@@ -100,7 +100,7 @@ def main():
     plt.yscale('log')
     plt.xscale('log')
     plt.xlabel('Gridpoints N')
-    plt.ylabel('$l_2$-rel. error')
+    plt.ylabel('$l_2$-rel. error $\epsilon$')
     plt.xlim(7, 350)
     plt.ylim(1e-5, 1e-1)
     #plt.show()

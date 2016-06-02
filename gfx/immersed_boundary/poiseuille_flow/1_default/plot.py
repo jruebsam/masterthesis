@@ -80,7 +80,7 @@ def main():
     ax.set_yscale('log')
 
     ax.set_xlabel(r'gridpoints $N$')
-    ax.set_ylabel(r'relative $l_2$-error')
+    ax.set_ylabel(r'relative $l_2$-error $\epsilon$')
 
     ax.set_xlim(5, 300)
     ax.set_ylim(1e-10, 1e-1)
