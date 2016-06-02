@@ -17,7 +17,7 @@ from cycler import cycler
 plt.rc('axes', prop_cycle=(cycler('color', cmap)))
 
 def main():
-    dpath = '/home/upgp/jruebsam/simulations/april16/week1/hpflow/long/'
+    path = '/home/upgp/jruebsam/simulations/april16/week1/hpflow/gc/data'
     modes = ['dffrac', 'vpfrac', 'ip', 'ip']
     labels = ['DF-Vol.Frac', 'VP-Vol.Frac', 'IP' , 'IP']
     orders = [1, 1, 1, 0]
@@ -30,39 +30,30 @@ def main():
     resf = np.linspace(16, 256., 256./16)
     resf = np.append(resf, 512)
 
-    f, ax = style.newfig(0.5, 1.7)
+    f, ax = style.newfig(0.4, 1.)
 
-    i=3
-    order = 'o4'
-    on = order
-    N = rs = 256
-    method = modes[1]
+    d = tb.open_file(path + '/ip/o4/res_128/gfx/00000020.h5')
+    d2 = tb.open_file(path  + '/ipzero/o2/res_128/gfx/00000020.h5')
 
+    vz1 = d.root.xy.vz[:]
+    vz2 = d2.root.xy.vz[:]
 
-    var_path = os.path.join(method, on)
-    sim_path = os.path.join(dpath, os.path.dirname(__file__), "data", var_path, 'simulation.h5')
-
-    with tb.open_file(sim_path, 'r') as d:
-        rho = d.root.simdata.rho[-1, :, :, 1]
-
-    print rho.shape
-
-    im = ax.imshow(rho.T, origin='lower', interpolation='nearest', extent=[0, 1, 0, 1])
+    im = ax.imshow(np.abs(vz1-vz2), origin='lower', interpolation='nearest', extent=[0, 1, 0, 1])
     c = plt.colorbar(im)
     c.formatter.set_powerlimits((0, 0))
     c.update_ticks()
 
     #c.set_ticks([])
 
-    ax.set_xlabel('y')
-    ax.set_ylabel('z')
-    ax.set_title(r'$\rho(y, z), N=96$')
+    ax.set_ylabel(r'|v_x^{\text{FD4}} - v_x^{\text{FD2}}|')
     ax.set_xticks([0, 1])
     ax.set_yticks([0, 1])
 
-    plt.subplots_adjust(top=0.7, bottom =0.15, left=0.2)
+    #plt.subplots_adjust(top=0.7, bottom =0.15, left=0.2)
 
-    plt.savefig('example.pdf')
+    plt.savefig('vzdiff.pdf')
+    d.close()
+    d2.close()
 
 if __name__=='__main__':
     main()

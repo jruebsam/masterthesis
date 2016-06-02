@@ -192,7 +192,7 @@ For all FD4 methods the change in the averaged density is followed by a saturati
   \begin{minipage}[c]{0.5\textwidth}
       \includegraphics{gfx/immersed_boundary/hpflow/long/example.pdf}
       \caption{\label{hpflow:results_long_example}
-        Density in the xy plane at $T_{\text{end}}=1600$, for the DF-VP-FD2 method.
+        Density in the (y, z) plane, at $T_{\text{end}}=1600$, for the DF-VP-FD2 method.
       }
   \end{minipage}
 \end{figure}
@@ -201,10 +201,81 @@ For all FD4 methods the change in the averaged density is followed by a saturati
 
 \subsection{Discussion}
 
-the simultaion shows that two difficulties arise
-oscillations
+\begin{figure}[!bp]
+  \begin{minipage}[c]{0.4\textwidth}
+      \centering
+      \includegraphics{gfx/immersed_boundary/hpflow/discussion/vzdiff.pdf}
+  \end{minipage}
+  \begin{minipage}[c]{0.6\textwidth}
+      \caption{Absolute value of the velocity difference between the IP-FD2 and IP-FD4 in the (y, z)-plane.
+      \label{valid:hpflow_velodiff_discussion}
+      }
+  \end{minipage}
+\end{figure}
+
+The simulation of the Hagen-Poisseuille flow points out multiple numerical problems of the
+implementations.
+The first which shall be consider, is the error in the IP method.
+
+The IP-FD4 methods contains an error which is about one to two orders larger that for the IP-FD2 method.
+An explanation can be given with Fig.\ref{valid:hpflow_velodiff_discussion}.
+Here the velocity profiles for the IP-FD4 and FD2 method were substracted in the $(y, z)$-plane.
+It can be noted that the velocity differences inside of the fluid domain are small, but in the wall region
+especially close to the domain order the difference between these velocities is of order $10^{-2}$.
+Again this behavior can be explained by the used 5-Point stencil for the FD4 scheme.
+The stencil reaches over the domain boundaries an incorporates errors.
+For the FD2 method this is not a problem at all the domain is decoupled by the domain border on which all
+velocities are interpolated.
+The idea of the combination with the DF method was to set the velocities in the wall region to zero,
+in order to zero. However this leads to the unstable behavior we could obsevre.
+The assumption is that in this case the density creates an error outside of the domain boundaries since
+again because of the use of a 5-Poiant stencil.
+
+-the only case were the domain is decoupled is IP-DF2 therefore no difference between set zero.
+
+An attempt was made to interpolate the density at the border according to \citep{PAPER}
+the results are not presented in this thesis as it tourn out it is also numerical unstable.
+
+The second problem concerning this numerical implementation is are the resulting density oscillations
+which occur for the FD4 methods.
+
+One possible explanation for this behaviour might be an odd-even decoupling of the density.
+The change in the density in the numerical algorithm is computed my $\partial_t \rho = -\nabla\cdot \vec{v}$.
+Hower the discretization of the point only uses the neighboors not the point it selft
+therefore two neighboor points in the density can see blablab
+
+Howere this is also for o2 the case
+
+The oscillation could be a result of an wrong computation at the border which than propagates into one
+velocit field.
 
 
+\clearpage
+last but not least error discussion
+- volume penalization anywhere ?
+- ansonsten diplomarbeit no validation. ..
+- description from fadlun
+- direct forcing method  bla bla
+- direct forcing with volume fraction
+- df ohne vf wesentlich schlechter als bei u
+
+gilmanov ip
+- paper 1  fehler ordnung
+- paper 2 fehler ordnung
+
+finally :
+- die flow problems die wir hier haben sind nicht so komplex ndaher
+vllt die bessere konvergenz
+
+SUMMARY:
+- oscilllation abklären -> rhie chow -> outlook
+- interpolation fehler -> was soll man sagen
+
+- alle methoden except ip haben gleiche fehler ordnung
+- fraction methdos is a little bit better
+- ip ist am besten mit 2 ordnung
+
+%notizen
 instability  for the interpolation method
 - o4 stable but the error is much larger
 - o4 error velocity reaches over the border
@@ -220,34 +291,6 @@ oscillations nicht eindeutig geklärt werden
 - pressure decoupling due
 - error  over the border creates an error in the pressure but not for all points
 - therefore this happpens just at the 4th order
-
-last but not least error discussion
-
-
-- volume penalization anywhere ?
-- ansonsten diplomarbeit no validation. ..
-
-- description from fadlun
-- direct forcing method  bla bla
-- direct forcing with volume fraction
-- df ohne vf wesentlich schlechter als bei u
-
-gilmanov ip
-- paper 1  fehler ordnung
-
-- paper 2 fehler ordnung
-
-finally :
-- die flow problems die wir hier haben sind nicht so komplex ndaher
-vllt die bessere konvergenz
-
-SUMMARY:
-- oscilllation abklären -> rhie chow -> outlook
-- interpolation fehler -> was soll man sagen
-
-- alle methoden except ip haben gleiche fehler ordnung
-- fraction methdos is a little bit better
-- ip ist am besten mit 2 ordnung
 
 
 %ALTE NOTIZEN
