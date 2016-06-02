@@ -148,27 +148,28 @@ has to be fullfilled as a necessary condition for the pressure gradient.
 \subsection{Simulations}
 
 The Poiseuille flow is used in particular as a first validation test case
-for the VP, DF method  and the default implementation without immersed boundaries.
+for the VP, DF method  and the basic implementation.
 
-\subsubsection{Test of the Default Setup}
+\subsubsection{Test of the Basic Setup}
 
-The purpose of the first simulation is the test of the default
-implementation of the algorithm, without the use of immersed boundaries.
+The purpose of the first simulation is to test  the basic
+implementation of the algorithm which does not use immersed boundaries.
 For this test case this is still possible since the geometry is non-curved
-and parallel to the cartesian grid.
+and parallel to the cartesian grid. The heights for this setup are set to $h_1=0$ and $h_2=1$.
 A grid convergence test was performed with the main simulation parameters given by
+\footnote{For reasons of clarity only the important simulation parameters, depending on the setup and the performed simulation,  will be presented in this thesis.}
 
 \begin{center}
 \vspace*{0.7ex}
 \begin{tabular}{c|c|c|c|c|c|c }
- $ N  $                   & $\Delta t$ & $\Delta x$            & $\Rey$  & $c^2$   & $l_x, l_y, l_z$ & $T_{end}$\\
+ $ N_z  $                   & $\Delta t$ & $\Delta z$            & $\Rey$  & $c^2$   & $l_z$ & $T_{end}$\\
 \hline
- $[8, 256], \Delta N = 8 $& $10^{-4}$ & $\nicefrac{1}{N - 1}$ & 500     & $500$   & (1, 1, 1)       & 10\\
+ $[8, 256], \Delta N = 8 $& $10^{-4}$ & $\nicefrac{1}{N - 1}$ & 500     & $500$   &  1   & 10\\
 \end{tabular}
 \vspace*{0.7ex}
 \end{center}
 
-The simulations were performed for finite difference schemes of 2nd and 4th order.
+The simulation was performed for FD2 and FD4 methods.
 
 \subsubsection{Test of the Volume Penalization Method}
 
@@ -178,22 +179,22 @@ The simulations were performed for finite difference schemes of 2nd and 4th orde
 %For the comparision with a theoretical solution it is necessary to ensure that
 % the surface grid points match with the total height $h$ of the channel.
 
-For the immersed boundary methdos the upper- and lower boundaries of the channel are realized by the masking function.
+For the immersed boundary methods the upper and lower boundaries of the channel are realized by the masking function.
 \begin{align}
-H(x, y, z) = \begin{cases}
+H(z) = \begin{cases}
                     0, & \text{for \  }  h_1 \leq z \leq h_2 \\
                     1, & \text{else}.
              \end{cases}
 \end{align}
 
-For the volume penalization method we furthermore obtain a
-The non-dimensionalized damping force  given by
+For the VP-method an additional forcing term for Eq. \ref{vali:pflow_navstok} of the form
 
 \begin{align}
     \vec{f} = \frac{H}{J}v
 \end{align}
 
-where $J = \nicefrac{V_{m}}{\eta}$.
+has to be introduced, where the non-dimensionalized damping force is given by where $J = \nicefrac{V_{m}}{\eta}$.
+
 A first test is to investigate the error of the velocity profile, with a variation of the Reynolds-number and the damping rate $J$.
 The total simulation domain is set to the height $l_z=2$ with $h_1=0.25$ and $h_2=0.75$.
 A simulation series was performed with the main simulation parameters given by
@@ -201,54 +202,53 @@ A simulation series was performed with the main simulation parameters given by
 
 \begin{center}
 \vspace*{0.7ex}
-\begin{tabular}{c|c|c|c|c|c|c|c }
- $ \Rey  $                      & $J$ &  $\Delta t$ & $\Delta x$            & $\Rey$  & $c^2$   & $l_x, l_y, l_z$ & $T_{end}$\\
+\begin{tabular}{c|c|c|c|c|c|c|c|c }
+ $ \Rey  $                      & $J$ & $N_z$ &  $\Delta t$ & $\Delta x$            & $\Rey$  & $c^2$   & $l_z$ & $T_{end}$\\
 \hline
- $[100, 500], \Delta \Rey = 25 $& $[10^{-5}, 5\cdot10^{-1}]  $ &  $10^{-4}$ & $\nicefrac{1}{N - 1}$ & 500     & $500$   & (1, 2, 0.25)  & 10\\
+ $[100, 500], \Delta \Rey = 25 $& $[10^{-5}, 5\cdot10^{-1}]  $ & 64 &  $10^{-4}$ & $\nicefrac{1}{N - 1}$ & 500     & $500$   & $\approx{2.015871}$ & 10\\
 \end{tabular}
 \vspace*{0.7ex}
 \end{center}
 
-The damping force was divided by 2 or 5 for n times(EXPLAIN).
-To make sure that the channel width is equal to $\Delta h = 1$, the total height was set to $l_z\approx2.01587$.
+The stepping rate of $J$ was varied such that each order of magnitude is covered by two values, i.e. $10^{-1}$ and $5\cdot10^{-1}$.
+To ensure that the channel width is equal to $\Delta h = 1$, the total height was set to $l_z\approx2.01587$.
 This ensures that the grid points overlap exactly with the masking function at $h_1=0.25$ and $h_2=0.75$.
-The simulations were performed for the 2nd order method. (O4 EXPLAIN)
+The simulations were performed for the VP-FD2 method.
 
-As a second test a grid convergence study was carried out, with a constant Reynolds number and $J \in [1-23]$.
+As a second test a grid convergence study was carried out, with a constant Reynolds number.
 The resolution was varied between $N\in [4, 400]$ with $\Delta N = 4$, 2nd and 4th order schemes were tested.
 
 \begin{center}
 \vspace*{0.7ex}
 \begin{tabular}{c|c|c|c|c|c|c|c }
- $ \Rey  $                      & $J$ &  $\Delta t$ & $\Delta x$            & $\Rey$  & $c^2$   & $l_x, l_y, l_z$ & $T_{end}$\\
+ $ N_z  $                      & $J$ &  $\Delta t$ & $\Delta z$            & $\Rey$  & $c^2$   & $l_z$ & $T_{end}$\\
 \hline
- $[100, 500], \Delta \Rey = 25 $& $[10^{-5}, 5\cdot10^{-1}]  $ &  $10^{-4}$ & $\nicefrac{1}{N - 1}$ & 500     & $500$   & (1, 2, 0.25)  & 10\\
+ $[8, 280], \Delta N_z = 4 $& $[10^{-4}, 5\cdot10^{-2}]  $ &  $10^{-4}$ & $\nicefrac{1}{N - 1}$ & 500     & $500$   & $\approx{2.015871}$  & 10\\
 \end{tabular}
 \vspace*{0.7ex}
 \end{center}
 
 \subsubsection{Test of the Direct Forcing Method}
 
-Since the direct forcing method does not depend on a damping parameter it is sufficient enough
-to carry out a grid convergence study
-The simulation parameter are given by
+Since the DF method does not depend on a damping parameter it is sufficient enough
+to carry out a grid convergence study.  The simulation parameter are given by
 
 \begin{center}
 \vspace*{0.7ex}
-\begin{tabular}{c|c|c|c|c|c|c|c }
- $ \Rey  $                      & $J$ &  $\Delta t$ & $\Delta x$            & $\Rey$  & $c^2$   & $l_x, l_y, l_z$ & $T_{end}$\\
+\begin{tabular}{c|c|c|c|c|c|c }
+ $ N_z  $                       &  $\Delta t$ & $\Delta z$            & $\Rey$  & $c^2$   & $l_z$ & $T_{end}$\\
 \hline
- $[100, 500], \Delta \Rey = 25 $& $[10^{-5}, 5\cdot10^{-1}]  $ &  $10^{-4}$ & $\nicefrac{1}{N - 1}$ & 500     & $500$   & (1, 2, 0.25)  & 10\\
+ $[8, 280], \Delta N_z = 4 $ &  $10^{-4}$ & $\nicefrac{1}{N - 1}$ & 500     & $500$   & $\approx{2.015871}$  & 10\\
 \end{tabular}
 \vspace*{0.7ex}
 \end{center}
 
-2nd and 4th order finite difference schemes were tested.
+The simulation where performed for FD2 and FD4 methods.
 
 \clearpage
 
 \subsection{Results}
-\subsubsection{Default seutp}
+\subsubsection{Basic Setup}
 
 The results of the grid convergence study are shown in Fig. \ref{fig:ema1}.
 The double logarithmic axis shows the dependency of the computed relative $l_2$-error norm
@@ -268,7 +268,7 @@ The value is approximately constant and not depend of the grid resolution.
 \begin{figure}[!bp]
     \centering
     \includegraphics{gfx/immersed_boundary/poiseuille_flow/1_default/relative_l2error.pdf}
-    \caption{Relative $l_2$-error for 2nd and 4th order finite difference schemes of the default algorithm without the use of an immersed boundary.\label{fig:ema1}}
+    \caption{Relative $l_2$-error for 2nd and 4th order finite difference schemes of the basic algorithm without the use of an immersed boundary.\label{fig:ema1}}
 \end{figure}
 
 \clearpage
@@ -333,7 +333,7 @@ constant error  with an increase in the resolution.
 
 \subsubsection{Direct Forcing Method}
 
-The results of the grid convergence study are similat to the results of the default implementation,
+The results of the grid convergence study are similat to the results of the basic implementation,
 except the fourth order scheme has a larger error.
 A plot of the relative $l_2$-error can be found in the Appendix  in Fig. \ref{fig:ema1}.
 The 4th order finite difference schemes has a linear decreasing error in the log-log space..
@@ -347,7 +347,7 @@ The value is approximately constant and not depend of the grid resolution.
 \clearpage
 
 \subsection{Discussion}
-\subsubsection{Default setup}
+\subsubsection{Basic Setup}
 
 
 The constant error of the 2nd order scheme is due to the lack of complexity of the test case.
@@ -358,7 +358,7 @@ grid resolution. The remaining error terms, wich  are of the order $10e^{-8}$,
 occur due to the round off error of the single precision floating-point format.
 
 The convergence of the fourth order scheme, which is of 2nd order in this test case,
-reveals that an error exists in the default implementation of the NoSlip boundaries.
+reveals that an error exists in the basic implementation of the NoSlip boundaries.
 An explanation can be given with a comparison to the theoretical solution.
 The 2nd derivative is given by
 
@@ -366,7 +366,7 @@ The 2nd derivative is given by
     \pdn[^2 v_x]{x^2} = \frac{1}{\Rey}\pdn[p]{x} := C\in\mathbb{R}
 \end{align}
 
-The default algorithm uses a mirroring method on the boundaries of the fluid domain (see Sec. \ref{XXX}), for the No-Slip boundaries.
+The basic algorithm uses a mirroring method on the boundaries of the fluid domain (see Sec. \ref{XXX}), for the No-Slip boundaries.
 Let $C_b$ be the derivative in the immersed boundary, it follows that $C_b = - C$, as a result of the mirroring.
 Therefore a discontinuity of the 2nd derivative is created at the boundaries.
 When using the 2nd order method the 3-Point stencil evaluates to the correct value.
@@ -443,5 +443,5 @@ The results for the direct forcing method show that d
 
 -We can see o4 not working reason is the same as we can se in Fig. n) , the laplacian is wrong caclulated at the point B.
 As a results an error is induced at the boundaries of the domain.
-The 2nd order scheme works perfectly as we compare it to the default implementation.
+The 2nd order scheme works perfectly as we compare it to the basic implementation.
 
