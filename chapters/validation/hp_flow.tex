@@ -235,19 +235,22 @@ the results are not presented in this thesis, since it turns out the the copmuta
 
 The second problem concerning this numerical implementation is are the resulting density oscillations
 which occur for the FD4 methods.
+One possible explanation for this behaviour might be the odd-even decoupling of the density.
+For a further explanation consider the change of density, for a single grid point, which is proportional to
 
-One possible explanation for this behaviour might be an odd-even decoupling of the density.
-The change in the density in the numerical algorithm is computed my $\partial_t \rho = -\nabla\cdot \vec{v}$.
-Hower the discretization of the point only uses the neighboors not the point it selft
-therefore two neighboor points in the density can see blablab
+\begin{align}
+    \rho^{j+1} \propto v^j_{i+1} - v_{i-1} \propto \rho^{j-1}_{i+2} - 2 \rho^{j-1}_{i}  + \rho^{j-1}_{i-2} + \text{rem. terms.}
+\end{align}
 
-Howere this is also for o2 the case
+for the one-dimenisonial case and an FD2 method. The density is implicit coupled over the
+velocity to itself but neighboring grid points are independent of each other.
 
-The oscillation could be a result of an wrong computation at the border which than propagates into one
-velocit field.
+The oscillation could be a result of an wrong computation in the density
+for the points where the 5-Point stencil reaches over the domain bounday.
+Due to the odd-even decoupling the computed error is different in the grids .
+Overall the oscillation are small and therefore not yet a concern
 
 
-\clearpage
 last but not least error discussion
 - volume penalization anywhere ?
 - ansonsten diplomarbeit no validation. ..
@@ -271,31 +274,7 @@ SUMMARY:
 - alle methoden except ip haben gleiche fehler ordnung
 - fraction methdos is a little bit better
 - ip ist am besten mit 2 ordnung
-
-%notizen
-instability  for the interpolation method
-- o4 stable but the error is much larger
-- o4 error velocity reaches over the border
-
-- idea set velocity zero in order to destroy remaining influeces
-
-- assumption problem with the density which seach over the border -> instabilty
-- the attempt was made to interpolate the density according to paper
-- short description
-- the result is unstable even for o2 methods
-
-oscillations nicht eindeutig geklärt werden
-- pressure decoupling due
-- error  over the border creates an error in the pressure but not for all points
-- therefore this happpens just at the 4th order
-
-
-%ALTE NOTIZEN
 -the best error is interpolation
-
-- warum ist ip unstable ???
-- ip o2 identical to o4
-
 
  The identy of these methods occurs due to the decoupling of the velocity fields
 on the border ot the fluid domain. Since the interpolation stencil seperates the fluid and wall domain, the 2nd order
