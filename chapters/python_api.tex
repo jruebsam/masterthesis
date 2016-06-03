@@ -87,8 +87,7 @@ Additionally it is possible to create a generator which takes the data from an o
 exemplary shown. At first the generator is created by using a generator function, afterwards it is possible to define certain attributes
 for example the radius of a cylindric fluid domain.\\
 
-\begin{minipage}{\linewidth}
-\begin{lstlisting}[caption='Generator class usage']
+\begin{python} [caption='Generator class usage']
 import pycurb as pc #import the simulation API
 import pycurb.testcase as tf #import testcases
 import pycurb.ic as as ic    #import initial conditions
@@ -106,8 +105,7 @@ generator = pc.Generator.from_ic(ic.taylor_couette)
 generator.add_option('SETV', True)
 generator.add_option('ri', ri)
 generator.add_option('ro', ro)
-\end{lstlisting}
-\end{minipage}
+\end{python}
 
 \section{Simulation Class}
 
@@ -125,8 +123,7 @@ with the data creation. The last step is execution of the cuda code which can be
 class function.  A minimal usecase of the complete procedure shown in listing (X).
 
 
-\begin{minipage}{\linewidth}
-\begin{lstlisting}[caption='Generator class usage']
+\begin{python}[caption='Generator class usage']
 import pycurb as pc
 import pycurb.ic as ic
 
@@ -137,8 +134,7 @@ sim.parameter.set('NY', 128)
 sim.parameter.set_condition('o2', order)
 sim.generate_files(generator)
 sim.start_simulation()
-\end{lstlisting}
-\end{minipage}
+\end{python}
 
 \section{Usage Example}
 
@@ -162,8 +158,7 @@ is than opened by the python script, furthermore the execution of the simulation
 Finally we start by generating all simulation data by executing the modified version of our script. Afterwards we start
 the parallelization script for which we have to specify the file including the simulation path and the number of gpus and cuda machines we want to use.
 
-\begin{minipage}{\linewidth}
-\begin{lstlisting}[caption='Grid Convergence Study Example']
+\begin{python}[caption='Grid Convergence Study Example']
 import pycurb as pc
 import pycurb.testcase as tf
 import numpy as np
@@ -208,9 +203,7 @@ def main():
 
 if __name__=='__main__':
     main()
-\end{lstlisting}
-\end{minipage}
-\clearpage
+\end{python}
 
 The script creates a thread-safe queue and a number of threads, one for each gpu per machine.
 Each thread automatically fetches a job from the queue, than logs into the assigned cuda machine

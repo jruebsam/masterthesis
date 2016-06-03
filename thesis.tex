@@ -234,7 +234,7 @@ rulecolor=\color{black}
     %\usepackage{tgpagella}
     \usepackage{fourier}
 
-\includeonly{chapters/validation/pflow, chapters/validation/hp_flow, chapters/validation/tc_flow, chapters/appendix}
+%\includeonly{chapters/validation/pflow, chapters/validation/hp_flow, chapters/validation/tc_flow, chapters/appendix}
 %\includeonly{chapters/validation/hp_flow, chapters/appendix}
 \begin{document}
 
@@ -330,10 +330,10 @@ rulecolor=\color{black}
 
 \begin{appendices}
 \include{chapters/appendix}
-%\include{chapters/python_api}
+\include{chapters/python_api}
 \end{appendices}
 
 \printbibliography
-\input{chapters/danksagung}
-\input{chapters/declaration}
+\include{chapters/danksagung}
+\include{chapters/declaration}
 \end{document}
