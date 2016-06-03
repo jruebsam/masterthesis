@@ -5,6 +5,7 @@
 
 \chapter{Figures}
 \section{Validation}
+\section{Poiseuille Flow}
 
 
 \begin{figure}[!bp]
@@ -14,11 +15,22 @@
     \label{fig:vali_pflow_3gc}
 \end{figure}
 
+\section{Hagen-Poiseuille Flow}
+
 \begin{figure}[!h]
   \centering
   \includegraphics{gfx/immersed_boundary/hpflow/long/rho.pdf}
   \caption{Densitiy oscillations for different immersed boundary methods with the use of FD4. The IP+DF FD4 method is not stable.}
     \label{fig:hpflow_allgc_theo}
+\end{figure}
+
+\section{Taylor-Coeutte  Flow}
+
+\begin{figure}[!bp]
+  \includegraphics{gfx/immersed_boundary/tcflow/long/vz_profiles_o4.pdf}
+  \caption{\label{tcflow:results_vprofiles_o4}
+    Substraction of the numerial velocity profile from the theoretical
+        for all FD4 methods.}
 \end{figure}
 
 \chapter{Source Code}

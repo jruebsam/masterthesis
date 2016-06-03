@@ -38,7 +38,7 @@ In literature this system is usually referred to as circular coutte flow (CCF) \
 The problem can be reduced to polar coordinates $(r, \phi)$ and the equations of motion for the steady state are given by \citep{Kundu2012}
 \begin{align}
     \label{vali:tc_flow_eqnavstok}
-    -\frac{u^2_\phi}{r} = - \frac{\partial p}{\partial r} \qquad ;& \qquad 0 = \frac{1}{Re}\frac{\partial}{\partial r}\left(\frac{1}{r}\frac{\partial}{\partial r}(r u_\phi)\right)
+    -\frac{v^2_\phi}{r} = - \frac{\partial p}{\partial r} \qquad ;& \qquad 0 = \frac{1}{Re}\frac{\partial}{\partial r}\left(\frac{1}{r}\frac{\partial}{\partial r}(r v_\phi)\right)
 \end{align}
 
 \clearpage
@@ -55,7 +55,7 @@ For the non-dimensionalization we choose the default convention, according to  \
 The flow is then characterized by the Reynolds number $Re = \nicefrac{\Omega R_1d}{\nu}$.
 With the integration of Eq. \ref{vali:tc_flow_eqnavstok}, according to \citep{Kundu2012}, the solution is given by
 \begin{align}
-    u_\phi = Ar + \frac{B}{r}
+    v_\phi = Ar + \frac{B}{r}
 \end{align}
 where $A$ and $B$ are defined as
 \begin{align}
@@ -95,7 +95,7 @@ The main parameters of the long-term simulations are  given by
 
 \subsection{Results}
 
-\subsubsection{Grid Convergence Study with comparsion to the Theoretical Solution}
+\subsubsection{Grid Convergence Study}
 
 
 The results of the grid convergence study are shown from Fig. \ref{vali:tc_flow_gc_vp} to Fig. \ref{vali:tc_flow_gc_all}.
@@ -121,16 +121,25 @@ The IP+DF-FD4 method is numerically not stable and therefore not shown.
 From the interpolation methods the IP-o4 method gives the smallest error for $N>100$ which is of order $10 \cdot 10^{-3}$.
 Again it can be seen that the convergence decreases above $N\approx100$ for all methods.
 
-Finally Fig. \ref{vali:tc_flow_gc_all} shows the methods  with the best convergence
+%For all methods, except IP+DF-FD4) an approximately linear decrease in the double logarithmic space can be observed.
+%In summary it can be said that the overall convergence rate of the IP-FD2-method is of one order better
+%than the VP-VF and DF-VF methods. The relative error of the interpolation method ranges
+%between one and two order of magnitudes below all other methods, depending on the resolution.
+
+Finally Fig. \ref{vali:tc_flow_gc_all} shows the methods with the best convergence
 rates from the different DF, VP and IP methods in one plot.
 It can be noted that in this validation not alle errors are decreasing linear.
 The best results are given by the interpolation methods, with small differences in the overall error
 and convergence rate.
 
-%For all methods, except IP+DF-FD4) an approximately linear decrease in the double logarithmic space can be observed.
-%In summary it can be said that the overall convergence rate of the IP-FD2-method is of one order better
-%than the VP-VF and DF-VF methods. The relative error of the interpolation method ranges
-%between one and two order of magnitudes below all other methods, depending on the resolution.
+\paragraph{Velocity error profiles}\mbox{}\\
+
+Beside the computation of the $l_2$-error the local difference between the theoretical and numerical velocity
+profile was computed, by substracting the vector fields from each other in the $(x, y)$ plane.
+The results for the FD2 schemes are presented in Fig. \ref{tcflow:results_vprofiles_o2}, the profiles
+for the FD4 schemes are shown in the Appendix in Fig. \ref{tcflow:results_vprofiles_o4}.
+
+
 
 \clearpage
 \begin{figure}[!bp]
@@ -157,12 +166,59 @@ and convergence rate.
 \end{figure}
 \clearpage
 
-\subsubsection{Long-Term Simulations}
-rho example densitiy
 
+
+\begin{figure}[!bp]
+  \includegraphics{gfx/immersed_boundary/tcflow/long/vz_profiles_o2.pdf}
+  \caption{\label{tcflow:results_vprofiles_o2}
+    Substraction of the numerial velocity profile from the theoretical
+        for all FD2 methods.}
+\end{figure}
+
+\begin{figure}[!bp]
+  \begin{minipage}[c]{0.5\textwidth}
+      \includegraphics{gfx/immersed_boundary/tcflow/long/ts_o2.pdf}
+      \caption{\label{tcflow:results_long_ts_o2}
+            Averaged density for FD2 metdods with respect to the simulation time.
+          }
+  \end{minipage}
+  \begin{minipage}[c]{0.5\textwidth}
+      \includegraphics{gfx/immersed_boundary/tcflow/long/ts_o4.pdf}
+      \caption{\label{tcflow:results_long_ts_o4}
+            Averaged density for FD4 metdods with respect to the simulation time.
+      }
+  \end{minipage}
+\end{figure}
+
+\clearpage
+\subsubsection{Velocity profiles}
+
+-in figt blabla
+-it can be seen that  comparsion maximum difference
+
+\subsubsection{Long-Term Simulations}
+
+The long-term simulations were performed to test the numerical-stability and the conservation of mass.
+For all methods, except the IP-DF4 method, these simulation were numerically stable.
+The density was averaged of the fluid domain by Eq.  \ref{vali:density_calc}
+
+-the denisiy fluctuates for both DF2 and DF4.
+Furthermore for both cases oscillation can be observed.
+
+For all FD2 methods the averaged density is zero, which indicates that the total mass flux through the
+fluid domain boundaries is zero.
+
+The profile of the other DF4 methods of is shown in Appendix \ref{fig:hpflow_allgc_theo}.
+
+Finally in Fig. \ref{hpflow:results_long_example} the averaged density with respect to the simulation time is, shown for the
+FD4 methods.  For the VP and DF methods the density increases to above $5\cdot10^{-5}$.
+The VF methods have a decrease in the density, which is remains of the order $10^{-4}$.
+For all FD4 methods the change in the averaged density is followed by a saturation.
 \subsubsection{Velocity Profiles}
 
 \subsection{Discussion}
+
+-density div u ist nicht 0 deswegen auch fehler in o2
 
 
 \section{Summary}

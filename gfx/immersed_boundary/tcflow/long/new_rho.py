@@ -33,6 +33,8 @@ def main():
     for on in ['o2', 'o4']:
         f, ax = style.newfig(0.5, 1.7)
         for label, method  in zip(labels, modes):
+
+            onn = 'FD2' if on=='o2' else 'FD4'
             var_path = os.path.join(method, on, 'res_96')
             sim_path = os.path.join(dpath, os.path.dirname(__file__), "data", var_path)
             d = np.genfromtxt(os.path.join(sim_path , 'res_96.ekin'))

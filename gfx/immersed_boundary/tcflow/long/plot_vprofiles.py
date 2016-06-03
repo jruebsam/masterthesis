@@ -26,7 +26,7 @@ def main():
     print fs
     modes = ['df', 'dffrac',  'vp',\
              'vpfrac', 'ip', 'ipzero' ]
-    labels = ['DF', 'DF-Vol.Frac.', 'VP', 'VP-Vol.Frac.', 'IP', 'IP+DF']
+    labels = ['DF', 'DF-VF.', 'VP', 'VP-VF', 'IP', 'IP+DF']
 
     ri, ro, omg  = 1., 2., 1.
 
@@ -40,7 +40,8 @@ def main():
 
     for label, method, ax  in zip(labels, modes, axes.flatten()):
 
-        on = 'o2'
+        on = 'o4'
+        onn = 'FD2' if on=='o2' else 'FD4'
 
         var_path = os.path.join(method, on)
         sim_path = os.path.join(dpath,   var_path)
@@ -73,11 +74,11 @@ def main():
         ax.axes.get_xaxis().set_ticks([])
         ax.axes.get_yaxis().set_ticks([])
 
-        ax.set_title('{} {}'.format(label, on), y=1.08)
+        ax.set_title('{} {}'.format(label, onn), y=1.08)
 
     plt.subplots_adjust(left=0.05, right=0.95, bottom=0.05)
     plt.tight_layout()
-    plt.savefig('vz_profiles_o2.pdf')
+    plt.savefig('vz_profiles_%s.pdf' % on)
 
 
 if __name__=='__main__':
