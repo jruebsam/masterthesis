@@ -230,7 +230,7 @@ however the computation is numerical unstable.
 One assumption is that this instability is created by the density which still interpolates over the domain boundaries.
 The only case were the wall in fluid domain are decoupled are the FD2 methods.
 Therefore no difference between the IP-FD2 and the IP+DF-FD2 method can be observed.
-An additional attempt was made to interpolate the density at the border according to \citep{PAPER}
+An additional attempt was made to interpolate the density at the border according to \citep{Gilmanov2003}
 the results are not presented in this thesis, since it turns out the the copmutation is also numerical unstable.
 
 The second problem concerning this numerical implementation are the density oscillations
@@ -256,49 +256,17 @@ Due to the decoupling the computed error evolves different on decoupled pressure
 %Due to the odd-even decoupling the computed error is different in the grids .
 %Overall the oscillation are small and therefore not yet a concern
 
-last but not least error discussion
-- volume penalization anywhere ?
-- ansonsten diplomarbeit no validation. ..
-
-In \citep{FADLUN} the Direct forcing method was tested and compared to
-a linear interpolation method similar to ours.
-Yy  computing the formation of a vortex ring created by an
-
-comparison
-
-A test of the interpolation method can be found in \citep{}, \citep{}.
-
-- description from fadlun
-- direct forcing method  bla bla
-- direct forcing with volume fraction
-- df ohne vf wesentlich schlechter als bei u
-
-gilmanov ip
-- paper 1  fehler ordnung
-- paper 2 fehler ordnung
-
-finally :
-- die flow problems die wir hier haben sind nicht so komplex ndaher
-vllt die bessere konvergenz
-
-SUMMARY:
-- oscilllation abklären -> rhie chow -> outlook
-- interpolation fehler -> was soll man sagen
-
-- alle methoden except ip haben gleiche fehler ordnung
-- fraction methdos is a little bit better
-- ip ist am besten mit 2 ordnung
--the best error is interpolation
-
- The identy of these methods occurs due to the decoupling of the velocity fields
-on the border ot the fluid domain. Since the interpolation stencil seperates the fluid and wall domain, the 2nd order
-stencil doesn't see any points in the wall domain, therefore there is no difference in using the direct forcing method.\\
-
-\subsubsection{Long-Term Simulations}
-- density changes
-- interpolation at the boarders
-- a part goes into immersed boundar
-- howerver the overall influence can be neglected
-- explanation decoupling of the pressure
+Finally a comparsion of the error shall be given.
+In \citep{Fadlun2000} the DF method was tested with and without the use of VF.
+Furthermore a linear interpolation method, similar to the IP was used.
+As a test case the formation of a vortex ring behind curvilinear noozle was tested.
+The results show that for the DF method the error is worse than first order, but can be
+improved with the VF method to about first order convergence.
+The interpolation method is about second order accurate.
+For all methods the error is of order $10^{-2}$ at $N=100$.
+All methods in this thesis have a convergence rate of at least first order.
+A validation of the IP method was performed in can be found in \citep{Gilmanov2003}, \citep{Gilmanov2005}.
+In \citep{Gilmanov2003} the IP method is tested by the steady flow in a lid-driven cavity containing a sphere,he error is of order $1.74$
+in  \citep{Gilmanov2005} a flow caused by an oscillation sphere in a cavitiy is studied, with an error order of $1.77$.
 
 
