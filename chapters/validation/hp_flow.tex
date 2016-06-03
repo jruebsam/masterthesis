@@ -11,7 +11,7 @@ It consist of a circular pipe with the radius $r_0$, which extends infinitely pa
 This is similar to Sec. \ref{vali:sec_lpflow_setup} realized by using periodic boundaries in $x$-direction
 and immersed boundaries for the channel wall.
 The center of the pipe is set to the center of the simulation domain ${(y_0, z_0) = (\nicefrac{l_y}{2}, \nicefrac{l_z}{2})}$.
-In analogy to the Poiseuille flow, the velocity profile is a result from a predfined pressure gradient $\nicefrac{\partial p}{\partial x}$ in x-direction,
+In analogy to the Poiseuille flow, the velocity profile is a result from a predefined pressure gradient $\nicefrac{\partial p}{\partial x}$ in x-direction,
 which  is added into the Navier-Stokes equation as an additional forcing term.
 
 \begin{figure}[!bp]
@@ -20,6 +20,7 @@ which  is added into the Navier-Stokes equation as an additional forcing term.
        \import{gfx/immersed_boundary/hpflow///}{setup.pdf_tex}
       }
       \caption{Setup for the Hagen-Poiseuille flow, given be a pipe of radius $r_0$ with the center at  ${(\nicefrac{l_y}{2}, \nicefrac{l_z}{2})}$ and of infinitesimal length.}
+    \label{validation:setup_hpflow}
 \end{figure}
 
 For an analytical solution of this problem we refer to \citep{Kundu2012}.
@@ -219,9 +220,9 @@ The first which shall be consider, is the error in the IP method.
 
 The IP-FD4 methods contains an error which is about one to two orders larger in comparison to the  IP-FD2 method.
 Fig.\ref{valid:hpflow_velodiff_discussion} shows the substracted velocity profiles for the IP-FD4 and FD2 method in the $(y, z)$-plane.
-
 It can be noted that the velocity differences inside of the fluid domain is small, but large in the wall region.
 Especially close to the immersed boundary the difference  is of order $10^{-2}$.
+
 One explanation for this results is the use of a different stencil for the FD4 scheme.
 The 5-Point stencil reaches over the domain boundaries an incorporates errors by a false approximation, similar to the Poiseuille flow.
 This is not a problem for the FD2 method due to the use of a 3-Point stencil.
@@ -230,10 +231,10 @@ however the computation is numerical unstable.
 One assumption is that this instability is created by the density which still interpolates over the domain boundaries.
 The only case were the wall in fluid domain are decoupled are the FD2 methods.
 Therefore no difference between the IP-FD2 and the IP+DF-FD2 method can be observed.
-An additional attempt was made to interpolate the density at the border according to \citep{Gilmanov2003}
-the results are not presented in this thesis, since it turns out the the copmutation is also numerical unstable.
+An additional attempt was made to interpolate the density at the border according to \citep{Gilmanov2003}.
+The results are not presented in this thesis, since it turns out that the computation is numerical unstable.
 
-The second problem concerning this numerical implementation are the density oscillations
+The second problem concerning this numerical implementation, are the density oscillations
 which occur for the FD4 methods.
 One possible explanation for this behaviour might be the odd-even decoupling of the density.
 The numercial change in the density is  proportional to
@@ -257,16 +258,23 @@ Due to the decoupling the computed error evolves different on decoupled pressure
 %Overall the oscillation are small and therefore not yet a concern
 
 Finally a comparsion of the error shall be given.
-In \citep{Fadlun2000} the DF method was tested with and without the use of VF.
-Furthermore a linear interpolation method, similar to the IP was used.
-As a test case the formation of a vortex ring behind curvilinear noozle was tested.
-The results show that for the DF method the error is worse than first order, but can be
+In \citep{Fadlun2000} the DF method was tested with and without the VF method.
+Furthermore a linear interpolation method, similar to the IP method was used.
+As a test case the formation of a vortex ring behind a curvilinear noozle was tested.
+The results show that for the DF method the error converges below first order, but can be
 improved with the VF method to about first order convergence.
 The interpolation method is about second order accurate.
 For all methods the error is of order $10^{-2}$ at $N=100$.
-All methods in this thesis have a convergence rate of at least first order.
-A validation of the IP method was performed in can be found in \citep{Gilmanov2003}, \citep{Gilmanov2005}.
-In \citep{Gilmanov2003} the IP method is tested by the steady flow in a lid-driven cavity containing a sphere,he error is of order $1.74$
-in  \citep{Gilmanov2005} a flow caused by an oscillation sphere in a cavitiy is studied, with an error order of $1.77$.
+This results for the IP-method are in argrement with this thesis, however here the DF-method has a better convergence rate of first order and
+the additional use of the VF method has a smaller influence.
+
+A validation of the IP method can be found in \citep{Gilmanov2003}, \citep{Gilmanov2005}.
+In \citep{Gilmanov2003} the IP method is tested by the steady flow in a lid-driven cavity containing a sphere, the error convergence of order $1.74$.
+In  \citep{Gilmanov2005} a flow caused by an oscillating sphere in a cavitiy is studied, with an error convergence of order $1.77$.
+In this thesis the IP-FD2 method has a convergence rate about $2.35$, above second order, which is slighty better in comparsion to these validations.
+One reason for this could the lack of complextiy in the Hagen-Poiseuille flow, as the theoretical solution is a polynom of second order.
+
+
+
 
 

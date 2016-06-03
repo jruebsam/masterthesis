@@ -8,43 +8,56 @@
       }
   \end{minipage}
   \begin{minipage}[c]{0.3\textwidth}
-      \caption{Setup of the Poiseuille-flow channel.
+      \caption{Taylor-Couette test case. Two cylinders with radii $r_i$ and $r_o$ and angular velocities $\Omega_i$ and $\Omega_o$ are oriented coaxial and parallel to the
+      $z$ axis.
       \label{validation:setup_tcflow}
       }
   \end{minipage}
 \end{figure}
 
-The setup of the Taylor-Couette flow is  shown in Fig. \ref{validation:setup_tcflow}.
-It contains of two coaxial in z-direction oriented cylinders
-with different radii $R_i$ and rotation rates $\Omega_i$. The fluid domain is given by the gap between the cylinders and
-periodic in z-direction.\\
-In dependency of the different domain paratemers different flow regimes can occur, criteria ...\\
-We examine radial couette flow where the outter cylinder does not rotate ...\\
-
+The setup of the Taylor-Couette flow test case is shown in Fig. \ref{validation:setup_tcflow}.
+It contains of two coaxial cylinders which are oriented parallel to the z-axis.
+The inner cylinder has a radius and angular velocity $r_i$ and $\Omega_i$, in analogy we define
+$r_o$ and $\Omega_o$ for the outer cylinder.
+The fluid domain is given by the gap of width $d = r_o - r_i$ between the cylinder and extends to infinite.
+For the simulation  periodic boundaries are used in $z$-direction.
 
 In constrast to the previously examined test cases this system provides different characteristics
-of the flow regime at the fluid domain border. The flow along the borders is not orthogonal to the curvature of
-the boundary like in the poiseuille flows we investigated before. Furthermore  new boundary
-conditions are introduced, to be more precisely the Dirichlet condition is now given by $|\vec{v}(\vec{r})|_{r_i} | = |\Omega_i \times \vec{r}|$.
-To begin with we want to examine the flow where the outer cyinder is not rotating, that is $\Omega_2 = 0$.
+of the flow regime at the immersed boundaries. The flow along the boundary is not orthogonal to the curvature of the geometry,
+Furthermore the velocity at the boundarys is not zero, the boundarie needs to fullfill the Dirichlet condition, which is given by
+$|\vec{v}(\vec{r})|_{r_i} | = |\Omega_i \times \vec{r}|$.
 
-In literature this system is usually referred to as circular coutte flow (CCF) (CITE).
--description flow regimes
-Furthermore we want to investigate the flow regime
-below the critical instability which means that $v_z=0$. In cylindrical coordinates the problem can be reduced to a two-dimensianol coordinate system with
-the coordinates $(r, \phi)$, given by the coordinate transformations $x=r\cos(\phi), y = r\sin(\phi)$.
-For the non-dimensionalization we choose the default convention (CITE) $x^*=x/(R_2 - R_1)$, $v^*=v/(R_1\Omega_1)$, $t^*=tR_1\Omega_1/(R_2-R_1)$ and $\rho^*=\rho$.
-The flow is then characterized by the Reynolds number $Re = \frac{\Omega R_1d}{\nu}$. With this convention the equations of motion for the steady state are given by ()
+In dependency of the domain paratemers different flow regimes can occur.
+For small differences in the rotation rate the flow is laminar and azimuthal.
+An increase of the angular velocity of the inner cylinder leads to an instability.
+In this flow regime toroidally vortices form, which are also denoted as Taylor cells,
+the flow is not pure azimuthal \citep{tritton88}.
+In this testcase only the laminar and azimuthal flow regime, where the outer cyinder is not rotating ($\Omega_o = 0$), will be considered.
+In literature this system is usually referred to as circular coutte flow (CCF) \citep{Kundu2012}.
+
+The problem can be reduced to polar coordinates $(r, \phi)$ and the equations of motion for the steady state are given by \citep{Kundu2012}
 \begin{align}
-    -\frac{u^2_\phi}{r} = - \frac{\partial p}{\partial r}, 0 = \frac{1}{Re}\frac{\partial}{\partial r}\left(\frac{1}{r}\frac{\partial}{\partial r}(r u_\phi)\right)
+    -\frac{u^2_\phi}{r} = - \frac{\partial p}{\partial r} \qquad ;& \qquad 0 = \frac{1}{Re}\frac{\partial}{\partial r}\left(\frac{1}{r}\frac{\partial}{\partial r}(r u_\phi)\right)
 \end{align}
-Integrating the equations twice leads to the solution (CITE)
+
+\clearpage
+
+For the non-dimensionalization we choose the default convention, according to  \citep{Chen2015}
+\begin{align}
+    \text{Length:}\qquad &  \vec{r}^* = \frac{\vec{r}}{r_o - r_i}  &
+    \qquad \text{Velocity:}\qquad& \vec{v}^* =  \frac{\vec{v}}{r_i\Omega_i}\\
+    \text{Time:}  \qquad & t^* = t \cdot \frac{r_i \Omega_i}{r_o - r_i}&
+    \qquad  \text{Pressure:}\qquad & p^* = \frac{\nabla p_\infty}{r_i^2\Omega_i^2}
+\end{align}
+
+
+The flow is then characterized by the Reynolds number $Re = \nicefrac{\Omega R_1d}{\nu}$. Integrating the equations twice leads to the solution (CITE)
 \begin{align}
     u_\phi = Ar + \frac{B}{r}
 \end{align}
 with
 \begin{align}
-    A = \frac{-\Omega_1R_1^2}{R^2_2 - R^2_1} ; B = \frac{\Omega_1R^2_1 R^2_2}{R^2_2 - R^2_1}
+    A = \frac{-\Omega_iR_i^2}{R^2_o - R^2_i} ; B = \frac{\Omega_iR^2_i R^2_o}{R^2_o - R^2_i}
 \end{align}
 
 \subsection{Simulations}
