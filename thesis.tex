@@ -17,7 +17,6 @@
 \usepackage{color}
 
 \usepackage{import}
-
 \usepackage[toc,page]{appendix}
 
 
@@ -269,7 +268,9 @@ rulecolor=\color{black}
        aus Hildesheim\\
        \vfill
        \begin{center}
-       2016
+        \begin{otherlanguage}{ngerman}
+       Abgabedatum: \today
+        \end{otherlanguage}
        \end{center}
        \end{large}
      \end{center}
@@ -282,8 +283,10 @@ rulecolor=\color{black}
 \pagenumbering{roman}
 \thispagestyle{empty}
 \vfill
-\noindent \textbf{Die Arbeit wurde im Zeitraum vom 12/2015 bis 06/2016 in der Arbeitsgruppe "`Fluiddynamik"'
+\begin{otherlanguage}{ngerman}
+\noindent \textbf{Die Arbeit wurde im Zeitraum vom 17.Dezember 2015 bis \today \ in der Arbeitsgruppe\\ Fluiddynamik
  unter der Betreuung von Prof. Dr. Andreas Tilgner angefertigt. }\\
+\end{otherlanguage}
 
 \vfill
 \begin{tabbing}
@@ -331,7 +334,6 @@ rulecolor=\color{black}
 \end{appendices}
 
 \printbibliography
-
-%\include{danksagung}
-
+\input{chapters/danksagung}
+\input{chapters/declaration}
 \end{document}
