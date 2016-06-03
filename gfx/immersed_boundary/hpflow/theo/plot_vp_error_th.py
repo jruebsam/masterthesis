@@ -19,7 +19,7 @@ plt.rc('axes', prop_cycle=(cycler('color', cmap)))
 def main():
     dpath = '/home/upgp/jruebsam/simulations/april16/week1/hpflow/gc/'
     modes = ['vp', 'vpfrac']
-    labels = ['VP', 'VP-Vol.Frac.']
+    labels = ['VP', 'VP-VF']
 
     re = 100.
     pmax = 4./re
@@ -69,7 +69,8 @@ def main():
             yn = popt[0]*xn**popt[1]
             #if (mode=='vpfrac') and (on =='o2'):
             #    ax.plot(xn, yn, 'k--', lw=0.5, label='Fit for VP-Vol.Frac. o2 $\propto N^b$' % popt[1])
-            lb = label+ ' ' + on + (':$\lambda=%.2f\pm%.2e$'  % (popt[1], perr[1]))
+            onn = 'FD2' if order else 'FD4'
+            lb = label+ ' ' + onn + (':$\lambda=%.2f\pm%.2e$'  % (popt[1], perr[1]))
             ax.plot(res, l2rel, 'o-', ms=3, lw=0.8, mew = 0, label = lb)
 
     plt.subplots_adjust(top=0.7, bottom =0.15, left=0.2)

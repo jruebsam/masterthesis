@@ -25,7 +25,7 @@ def main():
 
     modes = ['df', 'dffrac',  'vp',\
              'vpfrac', 'ip', 'ipzero' ]
-    labels = ['DF', 'DF-Vol.Frac.', 'VP', 'VP-Vol.Frac.', 'IP', 'IP+DF']
+    labels = ['DF', 'DF-VF.', 'VP', 'VP-VF.', 'IP', 'IP+DF']
 
     re = 100.
     pmax = 4./re
@@ -57,7 +57,7 @@ def main():
         ax.axes.get_xaxis().set_ticks([])
         ax.axes.get_yaxis().set_ticks([])
 
-        ax.set_title('{} {}'.format(label, on), y=1.08)
+        ax.set_title('{} {}'.format(label, 'FD4'), y=1.08)
 
     plt.subplots_adjust(left=0.05, right=0.95, bottom=0.05)
     plt.tight_layout()

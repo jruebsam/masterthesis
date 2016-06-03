@@ -19,7 +19,7 @@ plt.rc('axes', prop_cycle=(cycler('color', cmap)))
 def main():
     dpath = '/home/upgp/jruebsam/simulations/april16/week1/hpflow/gc/'
     modes = ['ip', 'dffrac', 'vpfrac']
-    labels = ['Ip', 'DF-Vol.Frac.', 'VP-Vol.Frac.']
+    labels = ['IP', 'DF-VF', 'VP-VF']
 
     re = 100.
     pmax = 4./re
@@ -72,7 +72,8 @@ def main():
         #if (mode=='ip') and (on =='o2'):
         #    ax.plot(xn, yn, 'k--', lw=0.5, label='Fit for IP. o2 $\propto N^b$' % popt[1])
 
-        lb = label+ ' ' + on + (':$\lambda=%.2f\pm%.2e$'  % (popt[1], perr[1]))
+        onn = 'FD2' if order else 'FD4'
+        lb = label+ ' ' + onn + (':$\lambda=%.2f\pm%.2e$'  % (popt[1], perr[1]))
         ax.plot(res, l2rel, 'o-', ms=3, lw=0.8, mew = 0, label = lb)
 
     plt.subplots_adjust(top=0.7, bottom =0.15, left=0.2)

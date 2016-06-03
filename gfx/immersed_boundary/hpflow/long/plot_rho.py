@@ -20,7 +20,7 @@ def main():
     dpath = '/home/upgp/jruebsam/simulations/april16/week1/hpflow/long/'
 
     modes = ['df', 'dffrac',  'vp', 'vpfrac', 'ip']
-    labels = ['DF', 'DF-Vol.Frac.', 'VP', 'VP-Vol.Frac.', 'IP']
+    labels = ['DF', 'DF-VF', 'VP', 'VP-VF', 'IP']
 
     re = 100.
     pmax = 4./re

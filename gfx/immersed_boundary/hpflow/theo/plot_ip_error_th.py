@@ -72,8 +72,15 @@ def main():
                 yn = popt[0]*xn**popt[1]
                 #if (mode=='ip') and (on =='o2'):
                 #    ax.plot(xn, yn, 'k--', lw=0.5, label='Fit for IP o2 $\propto N^b$' % popt[1])
-            lb = label+ ' ' + on + (':$\lambda=%.2f\pm%.2e$'  % (popt[1], perr[1]))
-            ax.plot(res, l2rel, 'o-', ms=3, lw=0.8, mew = 0, label = lb)
+            onn = 'FD2' if order else 'FD4'
+            lb = label+ ' ' + onn + (':$\lambda=%.2f\pm%.2e$'  % (popt[1], perr[1]))
+            if mode=='ipzero' and (on=='o4'):
+                pass
+
+            elif mode=='ip' and (on=='o2'):
+                ax.plot(res, l2rel, 'o-', ms=5, lw=1.3, mew = 0, label = lb)
+            else:
+                ax.plot(res, l2rel, 'o-', ms=3, lw=0.8, mew = 0, label = lb)
 
     plt.subplots_adjust(top=0.7, bottom =0.15, left=0.2)
     ax.legend(ncol = 1, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.5),
