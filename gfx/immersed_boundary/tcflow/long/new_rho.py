@@ -20,30 +20,29 @@ def main():
     dpath = '/home/upgp/jruebsam/simulations/april16/week1/tcflow/gc/'
 
     modes = ['df', 'dffrac',  'vp', 'vpfrac', 'ip']
-    labels = ['DF', 'DF-Vol.Frac.', 'VP', 'VP-Vol.Frac.', 'IP']
+    labels = ['DF', 'DF-VF', 'VP', 'VP-VF', 'IP']
 
     re = 100.
     pmax = 4./re
-
     pr = 1./re
     rrel = 0.4
     lx, ly = 1/rrel, 1/rrel
 
     rs = 96
 
-    for on in ['o2', 'o4']
-
-        f, ax = style.newfig(0.8)
+    for on in ['o2', 'o4']:
+        f, ax = style.newfig(0.5, 1.7)
         for label, method  in zip(labels, modes):
-
             var_path = os.path.join(method, on, 'res_96')
             sim_path = os.path.join(dpath, os.path.dirname(__file__), "data", var_path)
-            d = np.genfromtxt(os.path.join(sim_path , 'res96.ekin'))
-
-            ax.plot(d[:, 0], d[:, 3], label=label+ ' ' + on )
-
+            d = np.genfromtxt(os.path.join(sim_path , 'res_96.ekin'))
+            ax.plot(d[:, 0], d[:, 3], label=label+ ' ' + on , lw=0.8)
 
         ax.legend(ncol = 2, fontsize=8, loc='lower left', fancybox=True, shadow=True)
+
+        plt.subplots_adjust(top=0.7, bottom =0.15, left=0.2)
+        ax.legend(ncol = 2, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.5),
+               fancybox=True, shadow=True)
 
         ax.set_xlabel('Total time')
         ax.set_ylabel(r'$\rho$')

@@ -40,7 +40,7 @@ def main():
 
     for label, method, ax  in zip(labels, modes, axes.flatten()):
 
-        on = 'o4'
+        on = 'o2'
 
         var_path = os.path.join(method, on)
         sim_path = os.path.join(dpath,   var_path)
@@ -77,7 +77,7 @@ def main():
 
     plt.subplots_adjust(left=0.05, right=0.95, bottom=0.05)
     plt.tight_layout()
-    plt.savefig('vz_profiles.pdf')
+    plt.savefig('vz_profiles_o2.pdf')
 
 
 if __name__=='__main__':

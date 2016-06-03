@@ -19,14 +19,11 @@ plt.rc('axes', prop_cycle=(cycler('color', cmap)))
 def main():
     #dpath = '/home/upgp/jruebsam/simulations/april16/week1/tcflow/long/'
     dpath = '/home/upgp/jruebsam/simulations/april16/week1/tcflow/gc'
-    fs = style.figsize(0.9)#, 0.5)
-    f, axes = plt.subplots(2, 3, figsize=fs)
-
-    print fs
+    f, (ax, ax2) = plt.subplots(1, 2, figsize = style.figsize(1, hscale=0.6))
 
     modes = ['df', 'dffrac',  'vp',\
              'vpfrac', 'ip', 'ipzero' ]
-    labels = ['DF', 'DF-VF.', 'VP', 'VP-VF.', 'IP', 'IP+DF']
+    labels = ['DF', 'DF-Vol.Frac.', 'VP', 'VP-Vol.Frac.', 'IP', 'IP+DF']
 
     re = 100.
     pmax = 4./re
@@ -37,14 +34,13 @@ def main():
 
     rs = 96
 
+    f, axes = plt.subplots(2, 3)
 
     for label, method, ax  in zip(labels, modes, axes.flatten()):
-
-        on = 'o4'
-        onn = 'FD2' if on =='o2' else 'FD4'
+        on = 'o2'
 
         #var_path = os.path.join(method, on)
-        var_path = os.path.join(method, on, 'res_96')
+        var_path = os.path.join(method, on, 'res_128')
         sim_path = os.path.join(dpath, os.path.dirname(__file__), "data", var_path)
 
         with tb.open_file(sim_path +"/simulation.h5") as d:
@@ -53,18 +49,14 @@ def main():
         cax = ax.imshow(rho, interpolation='nearest')
 
         plt.sca(ax)
-        c = f.colorbar(cax)#, pad=0., shrink=0.8, label=r'$\rho$')#, format='%.3g')
-        c.formatter.set_powerlimits((0, 0))
-        c.update_ticks()
-
+        c = plt.colorbar(cax, pad=0., label=r'$\rho$', format='%.3g')
         ax.axes.get_xaxis().set_ticks([])
         ax.axes.get_yaxis().set_ticks([])
+        ax.set_xlabel('x')
+        ax.set_ylabel('y')
 
-        ax.set_title('{} {}'.format(label, onn), y=1.08)
-
-    plt.subplots_adjust(left=0.05, right=0.95, bottom=0.05)
-    plt.tight_layout()
-    plt.savefig('rho_%s.pdf' % on)
+        ax.set_title('{} {}'.format(label, on))
+    plt.savefig('rho.pdf')
 
 
 if __name__=='__main__':
