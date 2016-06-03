@@ -37,6 +37,7 @@ In literature this system is usually referred to as circular coutte flow (CCF) \
 
 The problem can be reduced to polar coordinates $(r, \phi)$ and the equations of motion for the steady state are given by \citep{Kundu2012}
 \begin{align}
+    \label{vali:tc_flow_eqnavstok}
     -\frac{u^2_\phi}{r} = - \frac{\partial p}{\partial r} \qquad ;& \qquad 0 = \frac{1}{Re}\frac{\partial}{\partial r}\left(\frac{1}{r}\frac{\partial}{\partial r}(r u_\phi)\right)
 \end{align}
 
@@ -51,87 +52,106 @@ For the non-dimensionalization we choose the default convention, according to  \
 \end{align}
 
 
-The flow is then characterized by the Reynolds number $Re = \nicefrac{\Omega R_1d}{\nu}$. Integrating the equations twice leads to the solution (CITE)
+The flow is then characterized by the Reynolds number $Re = \nicefrac{\Omega R_1d}{\nu}$.
+With the integration of Eq. \ref{vali:tc_flow_eqnavstok}, according to \citep{Kundu2012}, the solution is given by
 \begin{align}
     u_\phi = Ar + \frac{B}{r}
 \end{align}
-with
+where $A$ and $B$ are defined as
 \begin{align}
-    A = \frac{-\Omega_iR_i^2}{R^2_o - R^2_i} ; B = \frac{\Omega_iR^2_i R^2_o}{R^2_o - R^2_i}
+    A := \frac{-\Omega_i r_i^2}{r^2_o - r^2_i} \qquad ;& \qquad B := \frac{\Omega_i r^2_i r^2_o}{r^2_o - r^2_i}
 \end{align}
 
 \subsection{Simulations}
-is below the critical instability. With this exception all other parameters where kept the same like in section ().
+
+
+The simulations for this testcase were carried out in analogy to the Hagen-Poiseuill flow, see Sec. \ref{vali:hpflow_simsetups}.
+Here the resolution is varied on the $x$ and $y$ axis, the radii are set to $r_i=1$ and $r_o=2$ and $l_x=l_y=2.5$.
+The main parameters of the grid convergence study simulation are  given by
+
+\begin{center}
+\vspace*{0.7ex}
+\begin{tabular}{c|c|c|c|c|c|c|c }
+ $ N  $                   & $\Delta t$ & $\Delta z$            & $\Rey$  & $c^2$   & $l_x, l_y$ & $r_o, r_i$ & $T_{end}$\\
+\hline
+ $512, [16, 256], \Delta N = 16 $& $10^{-4}$ & $\nicefrac{1}{N}$ & 500     & $500$   & (2.5, 2.5) & (2, 1)     & 20\\
+\end{tabular}
+\vspace*{0.7ex}
+\end{center}
+
+The main parameters of the long-term simulations are  given by
+
+\begin{center}
+\vspace*{0.7ex}
+\begin{tabular}{c|c|c|c|c|c|c|c }
+ $ N  $                   & $\Delta t$ & $\Delta x$            & $\Rey$  & $c^2$   & $l_x, l_y$ &$r_o, r_i$ & $T_{end}$\\
+\hline
+ $96 $& $10^{-4}$ & $\nicefrac{1}{N}$ & 500     & $500$   & (2.5, 2.5)  & (2, 1)    & 10\\
+\end{tabular}
+\vspace*{0.7ex}
+\end{center}
+
 \clearpage
-no n 512
 
 \subsection{Results}
 
 \subsubsection{Grid Convergence Study with comparsion to the Theoretical Solution}
 
-The results of the grid convergence study are shown from Fig. () to Fig.().
+
+The results of the grid convergence study are shown from Fig. \ref{vali:hp_flow_gc_vp} to Fig. \ref{vali:hp_flow_gc_all}.
 For a better overview the results are distributed into four plots.
-%The first plot shows the error of the Volumen-Penalization method,
-%the second plot shows the error of the Direct-Forcing,
-%the third plot shows the error of the Interpolation method and
-%finally the fourth plot shows the methods with the smallest $l_2$-error
-%for each method in comparsion.
+For all methods (except IP+DF-FD4) an approximately linear decrease in the double logarithmic space can be observed.
 
-In Fig. (X) the relative $l_2$-error is shown for the volume penalization method with and without the volume fraction method
-for 2nd and 4th order.
+In Fig. \ref{vali:tc_flow_gc_vp} the relative $l_2$-error is shown for different VP-methods.
+For the default VP-method with FD2 and FD4 the error converges rate is about $\lambda=1.17$,
+the FD4 has a slightly smaller error than the FD2 method..
+The optional use of the VF-method improves the error converges to about $\lambda=1.65$,
+here the FD2 method has a slightly smaller error.
+It can be noted that the overall error is smaller ($\approx 10^{-2}$ for $N=100$)
+when using the VP-VF-method in comparison to the VP-method ($\approx2\cdot 10^{-2}$ for $N=100$)
 
-For all methods an approximately linear decrease  can be observed.
+In Fig. \ref{vali:tc_flow_gc_df} the relative $l_2$-error is shown for different DF-methods.
+For the default DF-method with FD2 and FD4 the error convergence rate is about $\lambda=1.2$,
+again FD4 has a smaller error than FD2.
+The optional use of the VF-method improves the error convergence to about $\lambda=1.4$,
+which is worse in comparison to the VP-method. The FD2 method has a smaller error then FD4 method when using VF.
+The overall error is smaller ($\approx 1.5 \cdot 10^{-2}$ for $N=100$) for the DF-VF-method,
+in comparsion to the DF-method ($\approx2\cdot 10^{-2}$ for $N=100$)
 
-The error of volume penalizations methods decrease from the order $1e-1$ to $2e-3$, with
-a convergence rate of order  $\epsilon \propto N^{\approx1.16}$
+In Fig. \ref{vali:tc_flow_gc_ip} the relative $l_2$-error is shown for different IP-methods.
+For the IP-FD4 method the decay rate is about $1.4$.
+For the IP-FD2 and IP+DF-FD2 method the errors are identical, the decay rate is about $2.4$
+The IP+DF-FD4 method is numerically not stable and therefore not shown.
+From the interpolation methods the IP-o2 method gives the smallest error  ($\approx 5 \cdot 10^{-5}$ for $N=100$).
 
-The volume fraction methods results in a slighty better convergence rate of $\approx 1.65$.
-The overall error is smaller, due to the faster converge rates and of order $5e-4$ for the
-
-highest resolution. For all methods the error is in the order of $1e-2$, above a resolution of 100 points.
-The best results are achieved for the 2nd order volume fraction method, except for the highest resolution.
-
-Fig. () shows the error of the Direct Forcing method with and without the volume fraction method for 2nd
-and 4th order. The error convergence is almost identical to the volume penalization method, when not using the volume
-fraction method, of the order $\approx 1.2$. The convergence of the volume fraction methods is of order $\approx 1.45$
-and therefore slighly weaker the for the volume penalization method.
-As before the best error convergence is given by the volume fraction methond of 2nd order.
-
-In Fig. (X) we can see the error convergence of the interpolation schemes.
-Here we used 2nd and 4th order schemes, furthermore we compare the interpolation with and without the
-use of the direct forcing method thus setting the velocity zero .
-
-The 4th order interpolation with direct forcing is not shown, since the resulting velocity fields are becoming
-numerically unstable. The 4th order interpolation without DF also results into a larger error but in this case
-the velocity field seems to be stable the
-
-convergence rate is of order $\approx 1.4$ and the error in the regime $1e-1$ to $4e-3$.
-The best and furthermore identical results are achieved for the 2nd order interpolation with and without
-use of the direct forcing method. The convergence rate is of order $\approx 2.35$ and the error
-decreases from the order $2e-2$ to $1e-5$.
-
-Finally Fig. () shows the previous methods with the best convergence rates in one plot.
-In summary we can say that the overall converges rate of the interpolation method is of one order better
-than the volume and direct forcing methods with volume fraction. Furthermore the relative error of the interpolation method ranges
+Finally Fig. \ref{vali:tc_flow_gc_all} shows the methods  with the best convergence
+rates from the different DF, VP and IP methods in one plot.
+In summary it can be said that the overall convergence rate of the IP-FD2-method is of one order better
+than the VP-VF and DF-VF methods. The relative error of the interpolation method ranges
 between one and two order of magnitudes below all other methods, depending on the resolution.
+
 
 \clearpage
 \begin{figure}[!bp]
   \begin{minipage}[c]{0.5\textwidth}
       \includegraphics{gfx/immersed_boundary/tcflow/theo/vp.pdf}
       \caption{Relative $l_2$-error for different Volume-Penalization methods.}
+      \label{vali:tc_flow_gc_vp}
   \end{minipage}
   \begin{minipage}[c]{0.5\textwidth}
       \includegraphics{gfx/immersed_boundary/tcflow/theo/df.pdf}
       \caption{Relative $l_2$-error for different Direct-Forcing methods.}
+      \label{vali:tc_flow_gc_df}
   \end{minipage}
   \begin{minipage}[c]{0.5\textwidth}
       \includegraphics{gfx/immersed_boundary/tcflow/theo/ip.pdf}
       \caption{Relative $l_2$-error for different Interpolation methods.}
+      \label{vali:tc_flow_gc_ip}
   \end{minipage}
   \begin{minipage}[c]{0.5\textwidth}
       \includegraphics{gfx/immersed_boundary/tcflow/theo/all.pdf}
       \caption{Relative $l_2$-error for the methods with the smallest error in comparsion.}
+      \label{vali:tc_flow_gc_all}
   \end{minipage}
 \end{figure}
 \clearpage

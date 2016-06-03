@@ -69,18 +69,23 @@ def main():
 
                 print l2error, mode, order
 
-            l2rel, l2abs, res = np.array(l2rel), np.array(l2abs), np.array(res)
-            lst = '--' if on=='o4' else ':'
+            if mode == 'ipzero' and on=='o4':
+                pass
+            else:
 
-            b = ~np.isnan(l2rel)
+                l2rel, l2abs, res = np.array(l2rel), np.array(l2abs), np.array(res)
+                lst = '--' if on=='o4' else ':'
 
-            popt, perr = pa.loglog_power_fit(res[b], l2rel[b])#, p0=[1., -2.])
-            xn = np.linspace(16, 512, 100)
-            yn = popt[0]*xn**popt[1]
-            #if (mode=='ip') and (on =='o2'):
-            #    ax.plot(xn, yn, 'k--', lw=0.5, label='Fit for IP o2 $\propto N^b$' % popt[1])
-            lb = label+ ' ' + on + (':$\lambda=%.2f\pm%.2e$'  % (popt[1], perr[1]))
-            ax.plot(res, l2rel, 'o-', ms=3, lw=0.8, mew = 0, label = lb)
+                b = ~np.isnan(l2rel)
+
+                popt, perr = pa.loglog_power_fit(res[b], l2rel[b])#, p0=[1., -2.])
+                xn = np.linspace(16, 512, 100)
+                yn = popt[0]*xn**popt[1]
+                #if (mode=='ip') and (on =='o2'):
+                #    ax.plot(xn, yn, 'k--', lw=0.5, label='Fit for IP o2 $\propto N^b$' % popt[1])
+                onn = 'FD2' if order else 'FD4'
+                lb = label+ ' ' + onn + (':$\lambda=%.2f\pm%.2e$'  % (popt[1], perr[1]))
+                ax.plot(res, l2rel, 'o-', ms=3, lw=0.8, mew = 0, label = lb)
 
     plt.subplots_adjust(top=0.7, bottom =0.15, left=0.2)
     ax.legend(ncol = 1, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.5),
@@ -92,7 +97,7 @@ def main():
     ax.set_ylim(1e-3, 2*1e-1)
     ax.set_xlim(15, 550)
     ax.set_xlabel(r'grid points N')
-    ax.set_ylabel(r'rel. $l_2$-error')
+    ax.set_ylabel(r'rel. $l_2$-error $\epsilon$')
 
     plt.grid()
     plt.savefig('ip.pdf')

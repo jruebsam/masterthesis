@@ -82,7 +82,7 @@ def main():
     ax.set_ylim(1e-4, 2*1e-1)
     ax.set_xlim(15, 550)
     ax.set_xlabel(r'grid points N')
-    ax.set_ylabel(r'rel. $l_2$-error')
+    ax.set_ylabel(r'rel. $l_2$-error $\epsilon$')
 
     plt.grid()
     plt.savefig('vp.pdf')

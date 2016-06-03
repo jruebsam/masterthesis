@@ -20,7 +20,7 @@ plt.rc('axes', prop_cycle=(cycler('color', cmap)))
 def main():
     dpath = '/home/upgp/jruebsam/simulations/april16/week1/tcflow/gc/'
     modes = ['ip', 'dffrac', 'vpfrac']
-    labels = ['Ip', 'DF-Vol.Frac.', 'VP-Vol.Frac.']
+    labels = ['Ip', 'DF', 'VP']
 
     ri, ro, omg  = 1., 2., 1.
 
@@ -76,14 +76,15 @@ def main():
 
         ms = 3 if not ((mode=='ipzero') and (on =='o2')) else 2
 
-        popt, perr = pa.loglog_power_fit(res, l2rel)#, p0=[1., -2.])
+        b = ~np.isnan(l2rel)
+        popt, perr = pa.loglog_power_fit(res[b], l2rel[b])#, p0=[1., -2.])
         xn = np.linspace(16, 512, 100)
         yn = popt[0]*xn**popt[1]
         #if (mode=='ip') and (on =='o2'):
         #    ax.plot(xn, yn, 'k--', lw=0.5, label='Fit for IP. o2 $\propto N^b$' % popt[1])
 
 
-        lb = label+ ' ' + on + (':$\lambda=%.2f\pm%.2e$'  % (popt[1], perr[1]))
+        lb = label+ r' ' + r'FD2' + (r':$\lambda=%.2f\pm%.2e$'  % (popt[1], perr[1]))
         ax.plot(res, l2rel, 'o-', ms=3, lw=0.8, mew = 0, label = lb)
 
     plt.subplots_adjust(top=0.7, bottom =0.15, left=0.2)
@@ -96,7 +97,7 @@ def main():
     ax.set_ylim(1e-3, 3*1e-0)
     ax.set_xlim(15, 550)
     ax.set_xlabel(r'grid points N')
-    ax.set_ylabel(r'rel. $l_2$-error')
+    ax.set_ylabel(r'rel. $l_2$-error $\epsilon$')
 
     plt.grid()
     plt.savefig('all.pdf')
