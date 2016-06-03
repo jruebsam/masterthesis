@@ -31,6 +31,7 @@ def main():
     rs = 96
 
     for on in ['o2', 'o4']:
+        onn = 'FD2' if on=='o2' else 'FD4'
         f, ax = style.newfig(0.5, 1.7)
         for label, method  in zip(labels, modes):
 
@@ -38,7 +39,7 @@ def main():
             var_path = os.path.join(method, on, 'res_96')
             sim_path = os.path.join(dpath, os.path.dirname(__file__), "data", var_path)
             d = np.genfromtxt(os.path.join(sim_path , 'res_96.ekin'))
-            ax.plot(d[:, 0], d[:, 3], label=label+ ' ' + on , lw=0.8)
+            ax.plot(d[:, 0], d[:, 3], label=label+ ' ' + onn , lw=0.8)
 
         ax.legend(ncol = 2, fontsize=8, loc='lower left', fancybox=True, shadow=True)
 

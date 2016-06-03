@@ -132,14 +132,14 @@ It can be noted that in this validation not alle errors are decreasing linear.
 The best results are given by the interpolation methods, with small differences in the overall error
 and convergence rate.
 
-\paragraph{Velocity error profiles}\mbox{}\\
+\paragraph{Velocity difference profiles}\mbox{}\\
 
 Beside the computation of the $l_2$-error the local difference between the theoretical and numerical velocity
 profile was computed, by substracting the vector fields from each other in the $(x, y)$ plane.
 The results for the FD2 schemes are presented in Fig. \ref{tcflow:results_vprofiles_o2}, the profiles
 for the FD4 schemes are shown in the Appendix in Fig. \ref{tcflow:results_vprofiles_o4}.
-
-
+From the profiles it can be noted that for all methods the difference between the numerical and
+theoretical solution are the largest at the boundarie $r_i$ of the  inner cylinder.
 
 \clearpage
 \begin{figure}[!bp]
@@ -166,8 +166,6 @@ for the FD4 schemes are shown in the Appendix in Fig. \ref{tcflow:results_vprofi
 \end{figure}
 \clearpage
 
-
-
 \begin{figure}[!bp]
   \includegraphics{gfx/immersed_boundary/tcflow/long/vz_profiles_o2.pdf}
   \caption{\label{tcflow:results_vprofiles_o2}
@@ -185,46 +183,82 @@ for the FD4 schemes are shown in the Appendix in Fig. \ref{tcflow:results_vprofi
   \begin{minipage}[c]{0.5\textwidth}
       \includegraphics{gfx/immersed_boundary/tcflow/long/ts_o4.pdf}
       \caption{\label{tcflow:results_long_ts_o4}
-            Averaged density for FD4 metdods with respect to the simulation time.
+            Averaged density for FD4 methods with respect to the simulation time.
       }
   \end{minipage}
 \end{figure}
 
 \clearpage
-\subsubsection{Velocity profiles}
-
--in figt blabla
--it can be seen that  comparsion maximum difference
 
 \subsubsection{Long-Term Simulations}
 
-The long-term simulations were performed to test the numerical-stability and the conservation of mass.
-For all methods, except the IP-DF4 method, these simulation were numerically stable.
-The density was averaged of the fluid domain by Eq.  \ref{vali:density_calc}
-
+For all methods, except the IP-DF4 method, the simulations were numerically stable.
+The density was averaged over the fluid domain by Eq.  \ref{vali:density_calc}.
+The results of the computation are shown in Fig. for the FD2  \ref{tcflow:results_long_ts_o2}
+and in Fig.  \ref{tcflow:results_long_ts_o4} for the FD4 methods.
+(DESRIPTION FOLLOWS SIMULATION RESULTS)
+(DESRIPTION FOLLOWS SIMULATION RESULTS)
+When comparing a FD2 method to its FD4 version it can be
 -the denisiy fluctuates for both DF2 and DF4.
-Furthermore for both cases oscillation can be observed.
+(DESRIPTION FOLLOWS SIMULATION RESULTS)
+(DESRIPTION FOLLOWS SIMULATION RESULTS)
 
-For all FD2 methods the averaged density is zero, which indicates that the total mass flux through the
-fluid domain boundaries is zero.
-
-The profile of the other DF4 methods of is shown in Appendix \ref{fig:hpflow_allgc_theo}.
-
-Finally in Fig. \ref{hpflow:results_long_example} the averaged density with respect to the simulation time is, shown for the
-FD4 methods.  For the VP and DF methods the density increases to above $5\cdot10^{-5}$.
-The VF methods have a decrease in the density, which is remains of the order $10^{-4}$.
-For all FD4 methods the change in the averaged density is followed by a saturation.
-\subsubsection{Velocity Profiles}
+Beside the change in the density for both cases FD2 and FD4 numerical oscillation can be
+observed which  are similar to the Hagen-Poiseuille flow test case.
+%OSZIS ? The profile of the other DF4 methods of is shown in Appendix \ref{fig:hpflow_allgc_theo}.
 
 \subsection{Discussion}
 
 -density div u ist nicht 0 deswegen auch fehler in o2
 
+-comparsion to hpflow
+
+-velocity profiles indicate that the error of the methos  comes from the inner border
+
+-ip diff zero o2
+
+\clearpage
 
 \section{Summary}
-hpflow:
-- die flow problems die wir hier haben sind nicht so komplex ndaher
-vllt die bessere konvergenz
+
+In the first part of the chapter an introduction to different immersed boundary methods was given.
+The volume-penalization method, adapted from  \citep{Lulff2011} uses a forcing term in form of a damping proportional to the velocities at the immersed boundary.
+In case of the Direct-Forcing method, adapted from \citep{Fadlun2000} the velocity is set directly to zero.
+Both methods then were extended by the Volume-Fraction method, adapted from \citep{Fadlun2000}, which computes the wall and fluid domain ratio inside a boundary
+cell and uses this value as a weighting coeffient for the forcing.
+Finally an interpolation method adapted from  \citep{ Gilmanov2003} was introduced. In the first step this method performs a bilinear interpolation on a  surface
+between four grid points, in the second step this value is linear interpolated on the boundary cell.
+
+In the second part of the chapter three different test cases were introduced as a validation for the immersed boundary methods.
+The laminar Poiseuille flow was used as a first validation test case for the DF and VP method with the use of FD2 and FD4.
+With rhe results it was possible to identify an error in the basic algorithm of the simulation.
+Furthermore it could be shown that the use of a 5-Point stencil leads to discretization errors at the immersed boundaries.
+
+
+In the second test case a  simulation of a Hagen-Poiseuille flow was performed.
+The results of this simulation pointed out possible numerical problems.
+One possible problem are numerical oscillations which are eventually caused
+by the decoupling of neighboor cells in the density.
+Furthermore this test case shows that the use of a 5-Point stencil creates a numerical error,
+which results in a large error for the IP-DF4 method.
+It can be noted that using the volume fraction method  the error of the DF and VP method can be improved.
+In summary all errors are approximately below the order  $10^2$ for $N>100$.
+The by far smallest error was obtained with the IP-DF2 method.
+
+
+-comparsion literaure
+
+In the last testcase
+tc flow:
+
+- fehler wächst
+- druck hat auch oszillation auch klelin
+- vermutlich sind die nicht so shclimm
+
+- the velocity profiles show that  die imb nicht gut für bewegte ränder sind
+- vllt auch wegen dem presuser solver ?
+
+outlook...
 - oscilllation abklären -> rhie chow -> outlook
 - interpolation fehler -> was soll man sagen
 - alle methoden except ip haben gleiche fehler ordnung
