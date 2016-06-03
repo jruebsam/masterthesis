@@ -19,8 +19,9 @@ plt.rc('axes', prop_cycle=(cycler('color', cmap)))
 
 def main():
     dpath = '/home/upgp/jruebsam/simulations/april16/week1/tcflow/gc/'
-    modes = ['ip', 'dffrac', 'vpfrac']
-    labels = ['Ip', 'DF', 'VP']
+    modes = ['ip', 'df', 'vp']
+    ons = ['o4', 'o2', 'o4']
+    labels = ['IP', 'DF', 'VP']
 
     ri, ro, omg  = 1., 2., 1.
 
@@ -35,8 +36,7 @@ def main():
 
     f, ax = style.newfig(0.5, 1.7)
 
-    for mode, label in zip(modes, labels):
-        on = 'o2'
+    for mode, label, on in zip(modes, labels, ons):
         order = 1
         l2rel, l2abs, res = [], [], []
         for rs in reversed(resf):
@@ -82,9 +82,9 @@ def main():
         yn = popt[0]*xn**popt[1]
         #if (mode=='ip') and (on =='o2'):
         #    ax.plot(xn, yn, 'k--', lw=0.5, label='Fit for IP. o2 $\propto N^b$' % popt[1])
+        onn = 'FD2' if on=='o2' else 'FD4'
 
-
-        lb = label+ r' ' + r'FD2' + (r':$\lambda=%.2f\pm%.2e$'  % (popt[1], perr[1]))
+        lb = label+ r' ' + onn + (r':$\lambda=%.2f\pm%.2e$'  % (popt[1], perr[1]))
         ax.plot(res, l2rel, 'o-', ms=3, lw=0.8, mew = 0, label = lb)
 
     plt.subplots_adjust(top=0.7, bottom =0.15, left=0.2)
@@ -94,7 +94,7 @@ def main():
 
     ax.set_yscale('log')
     ax.set_xscale('log')
-    ax.set_ylim(1e-3, 3*1e-0)
+    ax.set_ylim(1e-3, 3*1e-1)
     ax.set_xlim(15, 550)
     ax.set_xlabel(r'grid points N')
     ax.set_ylabel(r'rel. $l_2$-error $\epsilon$')

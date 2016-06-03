@@ -100,36 +100,34 @@ The main parameters of the long-term simulations are  given by
 
 The results of the grid convergence study are shown from Fig. \ref{vali:hp_flow_gc_vp} to Fig. \ref{vali:hp_flow_gc_all}.
 For a better overview the results are distributed into four plots.
-For all methods (except IP+DF-FD4) an approximately linear decrease in the double logarithmic space can be observed.
 
 In Fig. \ref{vali:tc_flow_gc_vp} the relative $l_2$-error is shown for different VP-methods.
-For the default VP-method with FD2 and FD4 the error converges rate is about $\lambda=1.17$,
-the FD4 has a slightly smaller error than the FD2 method..
-The optional use of the VF-method improves the error converges to about $\lambda=1.65$,
-here the FD2 method has a slightly smaller error.
-It can be noted that the overall error is smaller ($\approx 10^{-2}$ for $N=100$)
-when using the VP-VF-method in comparison to the VP-method ($\approx2\cdot 10^{-2}$ for $N=100$)
+For the VP-FD2 method the error convergence rate is about $\lambda=1.07$,
+for the VP-FD4 method about $\lambda=1.16$. However it can be seen that the convergence rate decreases above $N\approx100$,
+for the VP-FD4 method the error remains approximately constant.
+The optional use of the VF-method decreases the overall error, however the converges rate is about $\lambda=1.3$
+for both, the FD2 and the FD4 method.
 
 In Fig. \ref{vali:tc_flow_gc_df} the relative $l_2$-error is shown for different DF-methods.
-For the default DF-method with FD2 and FD4 the error convergence rate is about $\lambda=1.2$,
-again FD4 has a smaller error than FD2.
-The optional use of the VF-method improves the error convergence to about $\lambda=1.4$,
-which is worse in comparison to the VP-method. The FD2 method has a smaller error then FD4 method when using VF.
-The overall error is smaller ($\approx 1.5 \cdot 10^{-2}$ for $N=100$) for the DF-VF-method,
-in comparsion to the DF-method ($\approx2\cdot 10^{-2}$ for $N=100$)
+For alle methods the error convergence rate is about first order, except the DF-FD4 method which is about $\lambda=0.9$.
+The smallest error is given by the DF-FD2 method which is about $\approx 2 \cdot 10^{-2}$ for $N=100$.
+
 
 In Fig. \ref{vali:tc_flow_gc_ip} the relative $l_2$-error is shown for different IP-methods.
-For the IP-FD4 method the decay rate is about $1.4$.
-For the IP-FD2 and IP+DF-FD2 method the errors are identical, the decay rate is about $2.4$
+For the IP-FD4 method the decay rate is about $1.47$.
+For the IP-FD2 and IP+DF-FD2 method the errors are nearly  identical, the decay rate is about $1.09$
 The IP+DF-FD4 method is numerically not stable and therefore not shown.
-From the interpolation methods the IP-o2 method gives the smallest error  ($\approx 5 \cdot 10^{-5}$ for $N=100$).
+From the interpolation methods the IP-o4 method gives the smallest error for $N>100$ which is of order $10 \cdot 10^{-3}$.
 
 Finally Fig. \ref{vali:tc_flow_gc_all} shows the methods  with the best convergence
 rates from the different DF, VP and IP methods in one plot.
+
+
+In this validation not alle errors are decreasing linear. The
+For all methods, except IP+DF-FD4) an approximately linear decrease in the double logarithmic space can be observed.
 In summary it can be said that the overall convergence rate of the IP-FD2-method is of one order better
 than the VP-VF and DF-VF methods. The relative error of the interpolation method ranges
 between one and two order of magnitudes below all other methods, depending on the resolution.
-
 
 \clearpage
 \begin{figure}[!bp]
