@@ -234,29 +234,26 @@ The laminar Poiseuille flow was used as a first validation test case for the DF 
 With rhe results it was possible to identify an error in the basic algorithm of the simulation.
 Furthermore it could be shown that the use of a 5-Point stencil leads to discretization errors at the immersed boundaries.
 
-
-In the second test case a  simulation of a Hagen-Poiseuille flow was performed.
+In the second test case a simulation of a Hagen-Poiseuille flow was performed.
 The results of this simulation pointed out possible numerical problems.
 One possible problem are numerical oscillations which are eventually caused
 by the decoupling of neighboor cells in the density.
 Furthermore this test case shows that the use of a 5-Point stencil creates a numerical error,
 which results in a large error for the IP-DF4 method.
 It can be noted that using the volume fraction method  the error of the DF and VP method can be improved.
-In summary all errors are approximately below the order  $10^2$ for $N>100$.
-The by far smallest error was obtained with the IP-DF2 method.
+In summary all errors are approximately below the order  $10^2$ for $N>100$,
+by far the smallest error was obtained with the IP-DF2 method.
+All convergence rates are at least as good in a comparsion
+to the results from validation test cases from literature.
 
-
--comparsion literaure
-
-In the last testcase
-tc flow:
-
-- fehler wächst
-- druck hat auch oszillation auch klelin
-- vermutlich sind die nicht so shclimm
-
-- the velocity profiles show that  die imb nicht gut für bewegte ränder sind
-- vllt auch wegen dem presuser solver ?
+The last test case was given by a Taylor-Couette system.
+In comparsion to the Hagen-Poiseuille flow the  computed numerical error is larger,
+up to an order for the VF methods, which perform inferior in this testcase.
+In this simulation for both the FD2 and FD4 methods small pressure oscillations can be observed.
+Again the assumption is that this is a result of the decoupling.
+Finally the velocity profiles show that the error is the largest to the inner domai boundary $r_i$.
+This could be an indicator that the immersed boundary methods in combination with the used basic implementation
+are not a good choice for moving boundaries.
 
 outlook...
 - oscilllation abklären -> rhie chow -> outlook
