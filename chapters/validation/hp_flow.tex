@@ -233,27 +233,41 @@ Therefore no difference between the IP-FD2 and the IP+DF-FD2 method can be obser
 An additional attempt was made to interpolate the density at the border according to \citep{PAPER}
 the results are not presented in this thesis, since it turns out the the copmutation is also numerical unstable.
 
-The second problem concerning this numerical implementation is are the resulting density oscillations
+The second problem concerning this numerical implementation are the density oscillations
 which occur for the FD4 methods.
 One possible explanation for this behaviour might be the odd-even decoupling of the density.
-For a further explanation consider the change of density, for a single grid point, which is proportional to
+The numercial change in the density is  proportional to
 
 \begin{align}
-    \rho^{j+1} \propto v^j_{i+1} - v_{i-1} \propto \rho^{j-1}_{i+2} - 2 \rho^{j-1}_{i}  + \rho^{j-1}_{i-2} + \text{rem. terms.}
+    \frac{\rho^{j+1}_{i} -  \rho^{j}_i}{\Delta t}  \propto \frac{ v^j_{i+1} - v^j_{i-1}}{\Delta x} + \text{o.t.}
+     \propto \frac{\rho^{j-1}_{i+2} - 2 \rho^{j-1}_{i}  + \rho^{j-1}_{i-2}}{\Delta x^2} + \text{o. t.}
 \end{align}
 
-for the one-dimenisonial case and an FD2 method. The density is implicit coupled over the
-velocity to itself but neighboring grid points are independent of each other.
-
-The oscillation could be a result of an wrong computation in the density
-for the points where the 5-Point stencil reaches over the domain bounday.
-Due to the odd-even decoupling the computed error is different in the grids .
-Overall the oscillation are small and therefore not yet a concern
-
+for the one-dimenisonial case and a FD2 method.\footnote{o.t. = other terms}
+This means that the density field is implicit coupled over the velocity to itself,
+but neighbor points are independent of each other.\footnote{This example also holds for the FD4 method}
+For the three dimensional space six decoupled pressure fields would be possible.
+From the theory it is known that $\partial_t \rho  = \nabla \vec{v} =  0$, which is true for the FD2 case.
+The oscillation could be a result of the  wrong computation due to the use of a 5-Point stencil at the boundaries.
+Due to the decoupling the computed error evolves different on decoupled pressure fields.
+%One one pressure field i.e. more errors are computed due to the overlap with the boundarie
+%than for another field.
+%for the points where the 5-Point stencil reaches over the domain bounday.
+%Due to the odd-even decoupling the computed error is different in the grids .
+%Overall the oscillation are small and therefore not yet a concern
 
 last but not least error discussion
 - volume penalization anywhere ?
 - ansonsten diplomarbeit no validation. ..
+
+In \citep{FADLUN} the Direct forcing method was tested and compared to
+a linear interpolation method similar to ours.
+Yy  computing the formation of a vortex ring created by an
+
+comparison
+
+A test of the interpolation method can be found in \citep{}, \citep{}.
+
 - description from fadlun
 - direct forcing method  bla bla
 - direct forcing with volume fraction
