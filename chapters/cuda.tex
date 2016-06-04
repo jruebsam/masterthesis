@@ -132,7 +132,7 @@ memory layout
         }
        \caption{Segmentation of the $y, z$ plane of the simulation domain into a grid of Blocks.
                  Eeach block contains a grid with 8x8 threads.}
-       \label{cuda:grid_example}
+       \label{cuda:stencil}
 \end{figure}
 
 \begin{figure}[!bp]
@@ -155,58 +155,69 @@ It is presumed that all variables are allocated on the global memory of the gpu,
 
 The simulation domain is then divided into a grid of  $N/8 \times N/8$ blocks, like in Fig. \ref{cuda:grid_example}.
 Each block contains a total number of 8x8x4 threads.
-The threadIdx.z defines which variable will be used for the computation, i.e. threadIdx.z=0 corresponds to $\rho$, threadIdx.z=1 to $v_x$.
+The ID threadIdx.z defines, which variable will be used for the computation, for example threadIdx.z=0 corresponds to $\rho$ and threadIdx.z=1 to $v_x$.
+
+For the temporal integration the Willamson-RK3 schemes is used.
+-3 tsep hier nur der erste die anderen werdne genauso ausgeführt nur mit andaren coeffcienten.
 
 
+For a computation of the finite difference schemes the simulation uses a 5-Point stencil as shown in Fig. \ref{cuda:stencil}.
+The inner points of the stencil are enumerated with 1, the outer with 2., for example in $x$ direction the points are denoted as West2,
+West, East2, East in $x$ direction, or in short (W2, W1, E1, E2. For second order finite difference schemes,
+only the inner points are used, we refer to a 3-Point stencil in this case.
 
-\clearpage
 
-During execution time each cuda core is executed as a thread, in an SIMD\footnote{Single Instruction Multiple Device}-like behaviour.
-This means every cuda core on one SM executes the same instruction set simultaneously. To differentiate between different cuda cores,
-each get assigned to a different \textbf{ThreadId}.
-With the declaration of a block dimension, we define how many threads are executed in parallel.
-The block dimension can be up to 3-dimensions. In this case each cuda core will be assigned to a ThreadId in x, y and z direction.
-A collection of threads with this grid structure is called a block.
-Since the
+\subsection{Timestep}
 
-The grid dimension describes the
-NEUSCHREIBEN
+loop mit ix
+one step in the loop can divited in three step
+The computation of the actual timestep can be split into three parts.
 
-%\begin{figure}[!tbp]
-%  \centering
-%  \includegraphics[width=0.8\textwidth]{gfx/cuda/gpu.png}\label{fig:gpu_grid}
-%  \caption{Block and grid layout for a two dimensional array.}
-%\end{figure}
+first time:
+-load 8x8xlayer in the memory
+-each thread loads east east2 west west2 ant the center point
+-points on the side also
+-exp computation of north  bla bla
 
-To illustrate the usage of grid and block dimensions, let us consider a two-dimensional array of shape 16x16, as shown in figure ().
--copy to gpu
--1dimensional structure
+-the memroy layout in the shared memory shows in figr
+-ghost points on side
 
-\section{Implementation}
 
-\subsection{Main Simulation Loop}
-- the discretized equations are ..
-- with this in mind we need at least a 4 point stencil
-- we could use threadid.z for 3d but instead
-- picture stencil in action
-- for loop
+ix = so undo so
 
-\subsection{Post processing}
-- measurements / output
-- zusammenfassung flow diagramm
-- erläuterung threads
+this is the start array now the for loop start
+
+-with the data now we can perfrom the computation of the discretizdet blab lba
+
+-each veariabl is defined by theardizd
+
+beispiele hier
+
+last part:
+ix wird aufadiert points are shiftet  and the next layer is loaded (img nachtragene)
+the procuder is fertig wenn simulation domain  durchgearbetit ist .
 
 
 \subsection{BOUNDARY CONDITIONS}
 important!!
 
-\section{Python API}
+\clearpage{Remarks}
 
-\section{Validierung}
-- beispiel rayleigh benard system
-- masa
-- vgl o2 vs o4 masa cube
-- bifurcation
+-performance blabla
+-tilgner bsp
+-threads
 
-\newpage
+- measurements / output
+- zusammenfassung flow diagramm
+- erläuterung threads
+- python api
+
+%During execution time each cuda core is executed as a thread, in an SIMD\footnote{Single Instruction Multiple Device}-like behaviour.
+%This means every cuda core on one SM executes the same instruction set simultaneously. To differentiate between different cuda cores,
+%each get assigned to a different \textbf{ThreadId}.
+%With the declaration of a block dimension, we define how many threads are executed in parallel.
+%The block dimension can be up to 3-dimensions. In this case each cuda core will be assigned to a ThreadId in x, y and z direction.
+%A collection of threads with this grid structure is called a block.
+%Since the
+
 
