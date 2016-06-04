@@ -789,7 +789,7 @@
          id="tspan3221-2"
          x="-617.15283"
          y="278.62265"
-         style="font-weight:bold;-inkscape-font-specification:Sans Bold">threadIdx.z</tspan></text>
+         style="font-weight:bold;-inkscape-font-specification:Sans Bold">threadIdx.y</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.66023344px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow2Lend)"
        d="m 376.17846,642.63381 25.08887,0"
