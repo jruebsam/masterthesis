@@ -4,18 +4,18 @@
 The objective of this chapter is to give an overview of the basic implemenation of an algorithm using finite difference schemes.
 The source code used for the computations is based on an existing and validated version from A. Tilgner.
 It was furthermore extended by the immersed boundary methods, which will be explained in more detail in chapter \ref{CHAPTER:IBM}.
-Especially in this context we will introduce some aspects of GPGPU\footnote{General Purpose Computation on Graphics Processing Uni}-Computing
-with the CUDA \footnote{Computing Uniform Device Architecture} architecture.
-For the computations the  in this thesis Tesla C1060 and Tesla K20m GPUs by NVIDIA were used.%, the complete system configurations can be looked up at (AX.X).
-
+In this context an introduction to the aspects of GPGPU\footnote{General Purpose Computation on Graphics Processing Uni}-Computing
+with the CUDA \footnote{Computing Uniform Device Architecture} architecture will be given.
+For the computations in this thesis Tesla C1060 and Tesla K20m GPUs by NVIDIA were used.%, the complete system configurations can be looked up at (AX.X).
 In this chapter, all informations related to GPGPU-Computing and CUDA are adapted from the CUDA Programming Guide and the CUDA Best Practices Guide from NVIDIA
-\citep{CUDAPG}, \citep{CUDABP}. (Algorithm pc tilner and testing)
+\citep{CUDAPG}, \citep{CUDABP}. All details about the implementation of the algorithm were obtained by studying the source code
+and from private communication with A.Tilgner.
 
 \section{GPGPU-Computing with CUDA}
 
-CUDA is an architecture developed by NVIDIA to enable an easy approach to the Implementation of GPGPU-based algorithms.
+CUDA is an architecture developed by NVIDIA to enable an easy approach to the implementation of GPGPU-based algorithms.
 The underlying idea is to hide the complexity of the hardware under a more high oriented and generalized software abstraction layer.
-This is done by introducing some additional programming language extensions i.e. in C/C++\footnote{WIR BENUTZEN C/C++ /PYTHON ETC},
+This is done by introducing some additional programming language extensions for example in C/C++,
 furthermore it is necessary to use a CUDA suited compiler like NVCC.
 
 \subsection{Hardware and Memory Architecture}
@@ -23,21 +23,21 @@ furthermore it is necessary to use a CUDA suited compiler like NVCC.
 A cuda device contains an array of so called streaming multiprocessors (SM).
 Each of these SMs contains a group of small execution units, which are called cuda cores.
 For the exchange of data between different SMs, cuda cores and the CPU side of the computer, there exists different
-types of memory, as shown  in figure (X).
+types of memory, as shown  in Fig.  \ref{fig:gpu_memory_layout}.
 \newpage
 
 \begin{figure}[!tbp]
       \centering
         \includegraphics[width=0.9\textwidth]{gfx/cuda/gpu.pdf}
           \caption{Memory layout of a Nvidia-GPU}
-    \label{fig:gpu_grid}
+    \label{fig:gpu_memory_layout}
 \end{figure}
 
 \begin{description}
     \item[Global Memory] The global memory is the largest memory on the gpu and can be accessed by all cuda cores.
                          It is  used to exchange data with the RAM and distribute it between different SMs.
-                         Writing and reading from the global memory is slow. A part of global memory can furthermore be used a constant memory, in this case
-                         multiple memory accesses on the same location are temporary cached.
+                         Writing and reading from the global memory is slow. A part of the global memory can furthermore be used as a constant memory.
+                         In this case multiple memory accesses on the same location are temporary cached.
                          In addition the use of the global memory as a texture memory is possible. The memory access is then spatially cached.
 
 
@@ -67,41 +67,72 @@ The CUDA API therefore  introcuces the notion of a thread and a block.
                  There  is no direct hardware equivalent to a block.
                  A block is identified by a maximum of two IDs, \textbf{blockIdx.x} and \textbf{blockIdx.y}
 
-    \item[Blocksize] The blocksize is defined at the beginning of a cuda programm. It determines how
-                    many threads run inside a block. In Fig. \ref{cuda:grid_example} the blocksize is set to (8, 8).
+    \item[Blocksize] The blocksize is defined before running a function on the gpu. It determines how
+                    many threads run inside a block. In Fig. \ref{cuda:grid_example} the blocksize is set to (8, 8) and
                     each thread has a threadIdx.x and threadIdx.y.
 
     \item[Gridsize] The gridsize defines the total number of blocks, i.e. (2, 2) in the example.
 \end{description}
 
-These abstractions are necessary to enable a high workload on the gpu.
-For the distribution of data the grid of blocks is used, each block can be dynamically assigned to a different SM.
+The concept of a grid containing blocks of threads is a little bit confusing at first.
+However these abstractions are necessary to enable a high workload on the gpu,
+since each block can be dynamically assigned to a different SM.
+
 
 \begin{figure}[!bp]
       \centering
         \resizebox{0.5 \textwidth}{!}{
        \import{gfx/cuda//}{grid.pdf_tex}
         }
-       \caption{Segmentation of the $y, z$ plane of the simulation domain into a grid of Blocks.
+       \caption{Segmentation of the $y, z$ plane of a simulation domain into a grid of Blocks.
                  Eeach block contains a grid with 8x8 threads.}
        \label{cuda:grid_example}
 \end{figure}
 
 \subsection{Performance Considerations}
 
-As a conlusion the algorithm should fulfill the following prerequisites.
-The global memory should be used for data transfer and distribution, with as little as possible global reads.
-Immediatly after the data is transfered to the shared memory there should be as many as possible computations before transfering
-it back. Furthermore all memory accesses should be optimized, see chapter (X.X).
+In order to obtain a high performant algorithm
+For the opti
+For a cuda devices different optimization strategies are recommended,
 
-\subsection{Pre Processing}
+\begin{description}
+    \item[Coalesced Readings]
+    \item[Sparse global memory acces]{
+        The global memory should be used for data transfer and distribution, with as little as possible global reads.
+        Immediatly after the data is transfered to the shared memory there should be as many as possible computations before transfering
+        it back. Furthermore all memory accesses should be optimized, see chapter (X.X).}
+    \end{description}
+
+
+\subsection{Simulation and  Memory Layout}
+
+All simulations in this thesis are performed on a three-dimensional cartesian grid
+with a constant grid size  in each dimension.
+The simulation domain is given by a cube with with lengths $l_x, l_y, l_z$
+and the number of grid points is set by $N_x$, $N_y$ and $N_z$ in each direction.
+For the imlempentation of the boundarie conditions  two additional layer of grid points
+are added on each side of the simulation domain.
+The additonal points, which are referred to as ghostpoints \citep{ctie},
+are computed after each timestep in order to fulfill the boundarie conditions.
+
+For each variable three different memory allocations are necessary
+For the imlempentation of the boundarie conditions  two additional layer of grid points
+are added on each side of the simulation domain.
+
+
+
+
+-dimensions etc
+-ghost points etc
+
+\subsubsection{Boundaries}
+
 
 \label{cuda:prepro}
-Before integrating the equations of motion we need to define the initial state of our system, as stated in section (X)
-This includes the flow variables but also a set of parameters.
-For one flow variable we need three different memory allocations.
+
+
 The first allocation will be one the system RAM.
--hdf5 python
+
 The second and third allocation reside on the global memory of the gpu.
 This is due to the fact that the runge kutta method uses two storage registers, during the timestep execution.
 The fields for all variables are summarized in table (1).
@@ -190,64 +221,150 @@ Each thread in the block is then assigned to the grid point $C = P(ix, iy, iz)$.
 The position of the center $C$ can be seen in Fig. ().
 
 In the next step each thread has to load the neighboor points W2, W1, E1 and E2,
-with the position given by an offset with a multiple of $(N+2)^2$, the number of grid points in one layer.
-Beside these points, additional ghost points have to been loaded on the side of the block.
+with the position given by an offset with a multiple of $(N+4)^2$, the number of grid points in one layer.
+Beside these points, additional points for $ix=2$ have to been loaded on the side of the block.
 
 After this initialization a whole stack of 8x8x5 is loaded into the shared memory for each variable.
 Fig (), shows the position in the simulation domain, the 5-Point stencil is exemplariliy shown for one center point,
-furthermore the ghost points on the side are shown.
+furthermore the (ghost?) points on the sides are shown.
 
-The initialization is now finished in the next step is to compute the pde,
-the computation is given by
+The initialization is now finished. In the first step of the for-loop the spatial derivatives arecomputed.
+Here with the  use of fourth order finite difference schemes and the upwinding method of third order.
+The following abreviations are defined:
 
-\begin{verbatim}
-#define LAPLACE(v) (  inv_12dx_quad*(-v[East2]  +16*v[East]  -30*v[Point] +16*v[West]  -v[West2]  )\
-                     +inv_12dy_quad*(-v[North2] +16*v[North] -30*v[Point] +16*v[South] -v[South2] )\
-                     +inv_12dz_quad*(-v[Up2]    +16*v[Up]    -30*v[Point] +16*v[Down]  -v[Down2]  ))
-// fourth order
-#define DERIV_X(v) (inv_12dx*( -v[East2]  +8*v[East]  -8*v[West]  +v[West2] ))
-#define DERIV_Y(v) (inv_12dy*( -v[North2] +8*v[North] -8*v[South] +v[South2]))
-#define DERIV_Z(v) (inv_12dz*( -v[Up2]    +8*v[Up]    -8*v[Down]  +v[Down2] ))
+\begin{align}
+    LP (L, R, \Phi, \Delta)  &:=  \frac{1}{12\Delta x^2} \left(-\Phi_{R2} + 16\Phi_{R1} - 30\Phi_C +16\Phi_{L1} - \Phi_{L2} \right)\\
+    DP (L, R, \Phi, \Delta)  &:=  \frac{1}{12\Delta x}   \left(-\Phi_{R2} + 8\Phi_{R1}  -8\Phi_{L1} + \Phi_{L2} \right)\\
+    V_-(L, R, \Phi, \Delta)  &:=  \frac{1}{6\Delta x}  \left( 2\Phi_{R1} + 3\Phi_C  - 6\Phi_{L1} + \Phi_{L2}  \right)\\
+    V_+(L, R, \Phi, \Delta)  &:=  \frac{1}{6\Delta x}  \left( -\Phi_{R2} + 6\Phi_{R1}  - 3\Phi_{C} + \Phi_{L1}  \right)
+\end{align}
 
-// third order upwinding
-#define ADVECT(v)  {                                               \
-                   if (vx_s[Point] >= 0)                           \
-                      rhs=-vx_s[Point]*inv_6dx*(2*v[East]+3*v[Point]-6*v[West]+v[West2]);    \
-                   else                                                           \
-                      rhs=-vx_s[Point]*inv_6dx*(-2*v[West]-3*v[Point]+6*v[East]-v[East2]);   \
-                   if (vy_s[Point] >= 0)                           \
-                      rhs=rhs-vy_s[Point]*inv_6dy*(2*v[North]+3*v[Point]-6*v[South]+v[South2]);    \
-                   else                                                           \
-                      rhs=rhs-vy_s[Point]*inv_6dy*(-2*v[South]-3*v[Point]+6*v[North]-v[North2]);   \
-                   if (vz_s[Point] >= 0)                           \
-                      rhs=rhs-vz_s[Point]*inv_6dz*(2*v[Up]+3*v[Point]-6*v[Down]+v[Down2]);    \
-                   else                                                           \
-                      rhs=rhs-vz_s[Point]*inv_6dz*(-2*v[Down]-3*v[Point]+6*v[Up]-v[Up2]);   \
-                   }
-\end{verbatim}
+L and R are two oppositle directions of the 5-Point stencil and $\Phi$ a variable of the fluid.
 
 \clearpage
+
+Since the variable itself is defined by threadIdx.z the computation with the discretized operatior is given by
+
+\begin{verbatim}
+      if (threadIdx.z == 0) //rho
+      {
+         rhs=-DERIV_X(vx_s)-DERIV_Y(vy_s)-DERIV_Z(vz_s);
+      }
+      if (threadIdx.z == 1)//vx
+      {
+         ADVECT(vx_s)
+         rhs=rhs-c2*DERIV_X(rho_s)
+   +(1.0/Ra)*LAPLACE(vx_s);
+
+      if (threadIdx.z == 2) //vy
+      {
+         ADVECT(vy_s)
+         rhs=rhs-c2*DERIV_Y(rho_s) +(1.0/Ra)*LAPLACE(vy_s);
+
+      if (threadIdx.z == 3) //vz
+      {
+         ADVECT(vz_s)
+         rhs=rhs-c2*DERIV_Z(rho_s)+Pr*LAPLACE(vz_s)+Pr*Ra*temp_s[Point];
+      }
+\end{verbatim}
+
+stored in new register
+
+\subsection{Boundary Conditions}
+
+For the imlempentation of the boundarie conditions from Sec. () two additional layer of grid points
+are added on each side of the simulation domain.
+The total number of grid points is ${(N_x + 4)\cdot(N_y + 4)\cdot(N_z + 4)}$.
+The additonal points, which are referred to as ghostpoints \citep{ctie},
+are computed after each timestep in order to fulfill the boundarie conditions.
+For the purpose of explanation we will here consider the one-dimensional case,
+for finite differences of fourth order. (The methods were given by atilgner.)
+
+v?
+
+\paragraph{No-Slip Boundaries}\mbox{}\\
+
+The left boundarie is set to the point $b=2$,
+the ghost points arg given by $g_2=0$ and $g_1=1$, the inner points close
+to the boundarie are $l_1=3$ and $l_2=4$.
+In order to obtain No-Slip boundaries the velocity profile is mirrored and inverted
+at $b$. Thus, $v(g_2) = -v(l_2)$ and  $v(g_1) = -v(l_1)$
+
+
+
+\paragraph{No-Flux and Free-Slip Boundaries}\mbox{}\\
+
+The left boundarie is set to the point $b=2$,
+the ghost points arg given by $g_2=0$ and $g_1=1$, the inner points close
+to the boundarie are $l_1=3$ and $l_2=4$.
+In order to obtain No-Slip boundaries the velocity profile is mirrored and inverted
+at $b$. Thus, $v(g_2) = -v(l_2)$ and  $v(g_1) = -v(l_1)$
+
+
+\paragraph{Periodic Boundaries}\mbox{}\\
+
+The left boundarie is set to the point $b=2$,
+the ghost points arg given by $g_2=0$ and $g_1=1$, the inner points close
+to the boundarie are $l_1=3$ and $l_2=4$.
+In order to obtain No-Slip boundaries the velocity profile is mirrored and inverted
+at $b$. Thus, $v(g_2) = -v(l_2)$ and  $v(g_1) = -v(l_1)$
+
+\subsection{Remarks}
+
+-performance blabla
+-tilgner bsp
+-threads
 
 The position of the points in the shared memory is defined by an offset
 The offset of these points to the current one can be computed by
 
 -store date in register
 
-
-beispiele hier
-
-last part:
 ix wird aufadiert points are shiftet  and the next layer is loaded (img nachtragene)
 the procuder is fertig wenn simulation domain  durchgearbetit ist .
 
-
-
 \clearpage
 
-\subsection{BOUNDARY CONDITIONS}
-important!!
+\subsection{Boundary Conditions}
 
-\clearpage{Remarks}
+For the imlempentation of the boundarie conditions from Sec. () two additional layer of grid points
+are added on each side of the simulation domain.
+The total number of grid points is ${(N_x + 4)\cdot(N_y + 4)\cdot(N_z + 4)}$.
+The additonal points, which are referred to as ghostpoints \citep{ctie},
+are computed after each timestep in order to fulfill the boundarie conditions.
+For the purpose of explanation we will here consider the one-dimensional case,
+for finite differences of fourth order. (The methods were given by atilgner.)
+
+v?
+
+\paragraph{No-Slip Boundaries}\mbox{}\\
+
+The left boundarie is set to the point $b=2$,
+the ghost points arg given by $g_2=0$ and $g_1=1$, the inner points close
+to the boundarie are $l_1=3$ and $l_2=4$.
+In order to obtain No-Slip boundaries the velocity profile is mirrored and inverted
+at $b$. Thus, $v(g_2) = -v(l_2)$ and  $v(g_1) = -v(l_1)$
+
+
+
+\paragraph{No-Flux and Free-Slip Boundaries}\mbox{}\\
+
+The left boundarie is set to the point $b=2$,
+the ghost points arg given by $g_2=0$ and $g_1=1$, the inner points close
+to the boundarie are $l_1=3$ and $l_2=4$.
+In order to obtain No-Slip boundaries the velocity profile is mirrored and inverted
+at $b$. Thus, $v(g_2) = -v(l_2)$ and  $v(g_1) = -v(l_1)$
+
+
+\paragraph{Periodic Boundaries}\mbox{}\\
+
+The left boundarie is set to the point $b=2$,
+the ghost points arg given by $g_2=0$ and $g_1=1$, the inner points close
+to the boundarie are $l_1=3$ and $l_2=4$.
+In order to obtain No-Slip boundaries the velocity profile is mirrored and inverted
+at $b$. Thus, $v(g_2) = -v(l_2)$ and  $v(g_1) = -v(l_1)$
+
+\subsection{Remarks}
 
 -performance blabla
 -tilgner bsp

@@ -51,25 +51,25 @@
   \begin{picture}(1,0.59475576)%
     \put(0,0){\includegraphics[width=\unitlength]{gpu.pdf}}%
     \put(0.60987773,0.5323601){\color[rgb]{1,1,1}\makebox(0,0)[lb]{\smash{GPU}}}%
-    \put(0.70348376,0.4394901){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Cuda Core }}}%
-    \put(0.63439452,0.40238657){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Local Memory}}}%
-    \put(0.78486091,0.40238657){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Register}}}%
-    \put(0.70348376,0.34499753){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Cuda Core }}}%
-    \put(0.63439452,0.307894){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Local Memory}}}%
-    \put(0.78486091,0.307894){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Register}}}%
+    \put(0.70348377,0.4394901){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Cuda Core }}}%
+    \put(0.63439453,0.40238657){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Local Memory}}}%
+    \put(0.78486092,0.40238657){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Register}}}%
+    \put(0.70348377,0.34499753){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Cuda Core }}}%
+    \put(0.63439453,0.307894){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Local Memory}}}%
+    \put(0.78486092,0.307894){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Register}}}%
     \put(0.93479698,0.31741822){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{Shared Memory}}}}%
     \put(0.63882087,0.48263916){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Streaming Multiprocessor}}}%
-    \put(0.70348376,0.1930307){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Cuda Core 1}}}%
-    \put(0.63439452,0.15592717){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Local Memory}}}%
-    \put(0.78486091,0.15592717){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Register}}}%
-    \put(0.70348376,0.09853813){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Cuda Core}}}%
-    \put(0.63439452,0.0614346){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Local Memory}}}%
-    \put(0.78486091,0.0614346){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Register}}}%
+    \put(0.70348377,0.1930307){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Cuda Core 1}}}%
+    \put(0.63439453,0.15592717){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Local Memory}}}%
+    \put(0.78486092,0.15592717){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Register}}}%
+    \put(0.70348377,0.09853813){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Cuda Core}}}%
+    \put(0.63439453,0.0614346){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Local Memory}}}%
+    \put(0.78486092,0.0614346){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Register}}}%
     \put(0.93479698,0.07095882){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{Shared Memory}}}}%
-    \put(0.63882087,0.23617979){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Streaming Multiprocessor}}}%
+    \put(0.63882088,0.23617979){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Streaming Multiprocessor}}}%
     \put(0.42092988,0.14506427){\color[rgb]{1,1,1}\rotatebox{90}{\makebox(0,0)[lb]{\smash{Global Memory}}}}%
     \put(0.48954067,0.12319579){\color[rgb]{1,1,1}\rotatebox{90}{\makebox(0,0)[lb]{\smash{Constant Memory}}}}%
-    \put(0.56701389,0.13813056){\color[rgb]{1,1,1}\rotatebox{90}{\makebox(0,0)[lb]{\smash{Texture Memory}}}}%
+    \put(0.56111433,0.13813056){\color[rgb]{1,1,1}\rotatebox{90}{\makebox(0,0)[lb]{\smash{Texture Memory}}}}%
     \put(0.07747317,0.12693669){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{CPU}}}%
     \put(0.07283969,0.41500855){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{RAM}}}%
   \end{picture}%
