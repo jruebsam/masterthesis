@@ -150,46 +150,89 @@ memory layout
 \section{Time Step Algorithm}
 
 In this section an overview of the computation of a single time step will be given.
-The simulation domain for this example is a cube of length $l$ and the resolution $N$ in three dimensions.
+The simulation domain is a cube of length $l$ and the resolution $N$ in three dimensions.
+For this example the Navier-Stokes equation given by Eq. () will be used.
 It is presumed that all variables are allocated on the global memory of the gpu, see Sec. \ref{cuda:prepro}.
-
 The simulation domain is then divided into a grid of  $N/8 \times N/8$ blocks, like in Fig. \ref{cuda:grid_example}.
 Each block contains a total number of 8x8x4 threads.
 The ID threadIdx.z defines, which variable will be used for the computation, for example threadIdx.z=0 corresponds to $\rho$ and threadIdx.z=1 to $v_x$.
 
-For the temporal integration the Willamson-RK3 schemes is used.
--3 tsep hier nur der erste die anderen werdne genauso ausgeführt nur mit andaren coeffcienten.
+exemplary one block
 
+For the temporal integration the Willamson-RK3 scheme from Sec. () is used.
+This schemes consist of total  six sub steps here only the first two will be considered thus
+
+\begin{align}
+    \begin{split}
+    Q_1 = \Delta t \mathcal{L}^*\left(\Phi^n\right)\qquad &\Rightarrow \qquad \Phi^{1} = \Phi^n + \frac{1}{3}Q_1
+    \end{split}
+\end{align}
+the remaining computations are identical except the use of different coefficients.
 
 For a computation of the finite difference schemes the simulation uses a 5-Point stencil as shown in Fig. \ref{cuda:stencil}.
 The inner points of the stencil are enumerated with 1, the outer with 2., for example in $x$ direction the points are denoted as West2,
-West, East2, East in $x$ direction, or in short (W2, W1, E1, E2. For second order finite difference schemes,
-only the inner points are used, we refer to a 3-Point stencil in this case.
+West, East2, East in $x$ direction or in short (W2, W1, E1, E2).
+
+\footnote{For second order finite difference schemes, only the inner points are used, we refer to a 3-Point stencil in this case.}
 
 
-\subsection{Timestep}
+The computation of one timestep can be seperated into an initialzation part and a for-loop which iterates over the simulation domain.
+As a first step the position, indexed with $ix, iy, iz$ is set to
 
-loop mit ix
-one step in the loop can divited in three step
-The computation of the actual timestep can be split into three parts.
+\begin{verbatim}
+   ix=2;
+   iy=blockIdx.x*BLOCKSIZE+threadIdx.y+2;
+   iz=blockIdx.y*BLOCKSIZE+threadIdx.x+2;
+\end{verbatim}
 
-first time:
--load 8x8xlayer in the memory
--each thread loads east east2 west west2 ant the center point
--points on the side also
--exp computation of north  bla bla
+The offset 2 is a result  of the boundarie layers, more on this in Sect. ()
+Each thread in the block is then assigned to the grid point $C = P(ix, iy, iz)$.
+The position of the center $C$ can be seen in Fig. ().
 
--the memroy layout in the shared memory shows in figr
--ghost points on side
+In the next step each thread has to load the neighboor points W2, W1, E1 and E2,
+with the position given by an offset with a multiple of $(N+2)^2$, the number of grid points in one layer.
+Beside these points, additional ghost points have to been loaded on the side of the block.
 
+After this initialization a whole stack of 8x8x5 is loaded into the shared memory for each variable.
+Fig (), shows the position in the simulation domain, the 5-Point stencil is exemplariliy shown for one center point,
+furthermore the ghost points on the side are shown.
 
-ix = so undo so
+The initialization is now finished in the next step is to compute the pde,
+the computation is given by
 
-this is the start array now the for loop start
+\begin{verbatim}
+#define LAPLACE(v) (  inv_12dx_quad*(-v[East2]  +16*v[East]  -30*v[Point] +16*v[West]  -v[West2]  )\
+                     +inv_12dy_quad*(-v[North2] +16*v[North] -30*v[Point] +16*v[South] -v[South2] )\
+                     +inv_12dz_quad*(-v[Up2]    +16*v[Up]    -30*v[Point] +16*v[Down]  -v[Down2]  ))
+// fourth order
+#define DERIV_X(v) (inv_12dx*( -v[East2]  +8*v[East]  -8*v[West]  +v[West2] ))
+#define DERIV_Y(v) (inv_12dy*( -v[North2] +8*v[North] -8*v[South] +v[South2]))
+#define DERIV_Z(v) (inv_12dz*( -v[Up2]    +8*v[Up]    -8*v[Down]  +v[Down2] ))
 
--with the data now we can perfrom the computation of the discretizdet blab lba
+// third order upwinding
+#define ADVECT(v)  {                                               \
+                   if (vx_s[Point] >= 0)                           \
+                      rhs=-vx_s[Point]*inv_6dx*(2*v[East]+3*v[Point]-6*v[West]+v[West2]);    \
+                   else                                                           \
+                      rhs=-vx_s[Point]*inv_6dx*(-2*v[West]-3*v[Point]+6*v[East]-v[East2]);   \
+                   if (vy_s[Point] >= 0)                           \
+                      rhs=rhs-vy_s[Point]*inv_6dy*(2*v[North]+3*v[Point]-6*v[South]+v[South2]);    \
+                   else                                                           \
+                      rhs=rhs-vy_s[Point]*inv_6dy*(-2*v[South]-3*v[Point]+6*v[North]-v[North2]);   \
+                   if (vz_s[Point] >= 0)                           \
+                      rhs=rhs-vz_s[Point]*inv_6dz*(2*v[Up]+3*v[Point]-6*v[Down]+v[Down2]);    \
+                   else                                                           \
+                      rhs=rhs-vz_s[Point]*inv_6dz*(-2*v[Down]-3*v[Point]+6*v[Up]-v[Up2]);   \
+                   }
+\end{verbatim}
 
--each veariabl is defined by theardizd
+\clearpage
+
+The position of the points in the shared memory is defined by an offset
+The offset of these points to the current one can be computed by
+
+-store date in register
+
 
 beispiele hier
 
@@ -197,6 +240,9 @@ last part:
 ix wird aufadiert points are shiftet  and the next layer is loaded (img nachtragene)
 the procuder is fertig wenn simulation domain  durchgearbetit ist .
 
+
+
+\clearpage
 
 \subsection{BOUNDARY CONDITIONS}
 important!!
