@@ -124,6 +124,29 @@ memory layout
 
 \clearpage
 
+
+\begin{figure}[!bp]
+      \centering
+        \resizebox{0.6\textwidth}{!}{
+       \import{gfx/cuda//}{stencil.pdf_tex}
+        }
+       \caption{Segmentation of the $y, z$ plane of the simulation domain into a grid of Blocks.
+                 Eeach block contains a grid with 8x8 threads.}
+       \label{cuda:grid_example}
+\end{figure}
+
+\begin{figure}[!bp]
+      \centering
+        \resizebox{0.6\textwidth}{!}{
+       \import{gfx/cuda//}{timestep.pdf_tex}
+        }
+       \caption{
+           Memory location during a time step in the $y, z$ plane.
+           }
+       \label{cuda:timestep_algo_img}
+\end{figure}
+
+\clearpage
 \section{Time Step Algorithm}
 
 In this section an overview of the computation of a single time step will be given.
@@ -133,13 +156,6 @@ It is presumed that all variables are allocated on the global memory of the gpu,
 The simulation domain is then divided into a grid of  $N/8 \times N/8$ blocks, like in Fig. \ref{cuda:grid_example}.
 Each block contains a total number of 8x8x4 threads.
 The threadIdx.z defines which variable will be used for the computation, i.e. threadIdx.z=0 corresponds to $\rho$, threadIdx.z=1 to $v_x$.
-
-
-
-
-
-
-
 
 
 
