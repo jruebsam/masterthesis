@@ -1,19 +1,21 @@
 \chapter[ GPGPU-Based Implementation of a finite difference algorithm]{GPGPU-Based Implementation of \\ a finite difference algorithm}
 
 
-Now that we have given an introduction to the theoretical and numerical aspects of the thesis,
-the object of this section is to give an overview of the implemenation of an algorithm using finite difference schemes.
-The source code used for the computations is based on an existing version from [A.Tilgner].
-It was furthermore optimized  and extended by the immersed boundary methods, which will be explained in more detail in chapter (5.).
-Especially in this context we will introduce some aspects of GPGPU\footnote{General Purpose Computation on Graphics Processing Unit - Allg.  Bezeichung für Allzweck-Berechnungen auf Grafikprozessoren}-Computing
+The objective of this chapter is to give an overview of the basic implemenation of an algorithm using finite difference schemes.
+The source code used for the computations is based on an existing and validated version from A. Tilgner.
+It was furthermore extended by the immersed boundary methods, which will be explained in more detail in chapter \ref{CHAPTER:IBM}.
+Especially in this context we will introduce some aspects of GPGPU\footnote{General Purpose Computation on Graphics Processing Uni}-Computing
 with the CUDA \footnote{Computing Uniform Device Architecture} architecture.
-For the computations the  Tesla C1060 and Tesla K20m GPUs by NVIDIA were used, the complete system configurations can be looked up at (AX.X).
+For the computations the  in this thesis Tesla C1060 and Tesla K20m GPUs by NVIDIA were used.%, the complete system configurations can be looked up at (AX.X).
+
+In this chapter, all informations related to GPGPU-Computing and CUDA are adapted from the CUDA Programming Guide and the CUDA Best Practices Guide from NVIDIA
+\citep{CUDAPG}, \citep{CUDABP}. (Algorithm pc tilner and testing)
 
 \section{GPGPU-Computing with CUDA}
 
 CUDA is an architecture developed by NVIDIA to enable an easy approach to the Implementation of GPGPU-based algorithms.
 The underlying idea is to hide the complexity of the hardware under a more high oriented and generalized software abstraction layer.
-This is done by introducing some additional programming language extensions i.e. in c/c++\footnote{WIR BENUTZEN C/C++ /PYTHON ETC},
+This is done by introducing some additional programming language extensions i.e. in C/C++\footnote{WIR BENUTZEN C/C++ /PYTHON ETC},
 furthermore it is necessary to use a CUDA suited compiler like NVCC.
 
 \subsection{Hardware and Memory Architecture}
@@ -25,32 +27,83 @@ types of memory, as shown  in figure (X).
 \newpage
 
 \begin{figure}[!tbp]
-  \centering
-  \includegraphics[width=0.8\textwidth]{gfx/cuda/gpu.png}\label{fig:gpu_arch}
-  \caption{Memory layout of a Nvidia-GPU}
+      \centering
+        \includegraphics[width=0.9\textwidth]{gfx/cuda/gpu.pdf}
+          \caption{Memory layout of a Nvidia-GPU}
+    \label{fig:gpu_grid}
 \end{figure}
 
 \begin{description}
     \item[Global Memory] The global memory is the largest memory on the gpu and can be accessed by all cuda cores.
                          It is  used to exchange data with the RAM and distribute it between different SMs.
-                         Reading from the global memory can be quite slow, therefore different optimization approaches exists,
-                         for example the creation of a cached texture- or constant-memory.
+                         Writing and reading from the global memory is slow. A part of global memory can furthermore be used a constant memory, in this case
+                         multiple memory accesses on the same location are temporary cached.
+                         In addition the use of the global memory as a texture memory is possible. The memory access is then spatially cached.
+
 
     \item[Shared Memory] Each SM contains a shared memory, much smaller than the global memory \footnote{Around 16kb on c1060 and 64kb on k20m}. It is accessible
                          by all cuda cores of the SM.
-                         This memory type is much faster (x100) than the global memory and is really usefull when multiple operations
+                         This memory type is much faster (x100) than the global memory and is usefull when multiple operations
                          by different cuda cores are carried out on the same data.
 
     \item[Register / Local Memory] Each cuda core posseses an own set of registers and local memory.
-                                   The register access is even slightly faster as on the shared memory. The local memory access is very slow since
+                                   The register access is slightly faster than the access  on the shared memory.
+                                   Local memory access is very slow since
                                    it is created on the global memory, when the cuda core runs out of resources.
 \end{description}
 
-As a conlusion the algorithm should fulfil the following prerequisites.
+\clearpage
+
+\subsection{Thread Management}
+
+In order to distribute the workload between different SMs and cuda cores an additional syntax is necessary.
+The CUDA API therefore  introcuces the notion of a thread and a block.
+
+\begin{description}
+    \item[Thread] A Thread is the software abstraction of a single cuda core. It can be identified with
+                   a maximum of three IDs, \textbf{threadIdx.x}, \textbf{threadIdx.y} and\textbf{threadIdx.z}.
+
+    \item[Block] A block is defined as a group of threads, i.e. in Fig. \ref{cuda:grid_example} a Block contains of 64 threads.
+                 There  is no direct hardware equivalent to a block.
+                 A block is identified by a maximum of two IDs, \textbf{blockIdx.x} and \textbf{blockIdx.y}
+
+    \item[Blocksize] The blocksize is defined at the beginning of a cuda programm. It determines how
+                    many threads run inside a block. In Fig. \ref{cuda:grid_example} the blocksize is set to (8, 8).
+                    each thread has a threadIdx.x and threadIdx.y.
+
+    \item[Gridsize] The gridsize defines the total number of blocks, i.e. (2, 2) in the example.
+\end{description}
+
+These abstractions are necessary to enable a high workload on the gpu.
+For the distribution of data the grid of blocks is used, each block can be dynamically assigned to a different SM.
+
+\begin{figure}[!bp]
+      \centering
+        \resizebox{0.5 \textwidth}{!}{
+       \import{gfx/cuda//}{grid.pdf_tex}
+        }
+       \caption{Segmentation of the $y, z$ plane of the simulation domain into a grid of Blocks.
+                 Eeach block contains a grid with 8x8 threads.}
+       \label{cuda:grid_example}
+\end{figure}
+
+\subsection{Performance Considerations}
+
+As a conlusion the algorithm should fulfill the following prerequisites.
 The global memory should be used for data transfer and distribution, with as little as possible global reads.
 Immediatly after the data is transfered to the shared memory there should be as many as possible computations before transfering
 it back. Furthermore all memory accesses should be optimized, see chapter (X.X).
 
+\clearpage
+
+\section{Timestep Algorithm}
+
+With the
+
+
+
+
+\clearpage
 \subsection{CUDA C/C++ API}
 
 The CUDA C/C++ API is an extension of the C programming language.
@@ -91,11 +144,11 @@ Since the
 The grid dimension describes the
 NEUSCHREIBEN
 
-\begin{figure}[!tbp]
-  \centering
-  \includegraphics[width=0.8\textwidth]{gfx/cuda/gpu.png}\label{fig:gpu_grid}
-  \caption{Block and grid layout for a two dimensional array.}
-\end{figure}
+%\begin{figure}[!tbp]
+%  \centering
+%  \includegraphics[width=0.8\textwidth]{gfx/cuda/gpu.png}\label{fig:gpu_grid}
+%  \caption{Block and grid layout for a two dimensional array.}
+%\end{figure}
 
 To illustrate the usage of grid and block dimensions, let us consider a two-dimensional array of shape 16x16, as shown in figure ().
 -copy to gpu
@@ -144,7 +197,6 @@ For one flow variable we need three different memory allocations.
 The first allocation will be one the system RAM.
 -hdf5 python
 
-
 -loading with python api
 - from here one copy to gpu memcpytodevice
 The second and third allocation reside on the global memory of the gpu.
@@ -183,18 +235,13 @@ or simple flags for setting the boundary conditions. A list of all possible para
 \subsection{Main Simulation Loop}
 - the discretized equations are ..
 - with this in mind we need at least a 4 point stencil
-
 - we could use threadid.z for 3d but instead
-
 - picture stencil in action
-
 - for loop
 
 \subsection{Post processing}
 - measurements / output
-
 - zusammenfassung flow diagramm
-
 - erläuterung threads
 
 

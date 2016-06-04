@@ -137,6 +137,7 @@ rulecolor=\color{black}
     %\usepackage{achicago}
     %\usepackage[authoryear,square]{natbib}
     \usepackage{hyperref}
+    \usepackage{url}
     \hypersetup{colorlinks=true, citecolor=black, filecolor=black, linkcolor=black, urlcolor=black}
     \onehalfspacing
     \usepackage{mathpazo}
@@ -158,6 +159,7 @@ rulecolor=\color{black}
     ]{biblatex}
 
     \addbibresource{../bibliography/MasterThesis.bib}
+    \addbibresource{../bibliography/nvidia.bib}
 
     \usepackage[]{hyperref}
     \hypersetup{
@@ -234,8 +236,9 @@ rulecolor=\color{black}
     %\usepackage{tgpagella}
     \usepackage{fourier}
 
-\includeonly{chapters/validation/pflow, chapters/validation/hp_flow, chapters/validation/tc_flow, chapters/appendix}
+%\includeonly{chapters/validation/pflow, chapters/validation/hp_flow, chapters/validation/tc_flow, chapters/appendix}
 %\includeonly{chapters/validation/hp_flow, chapters/appendix}
+\includeonly{chapters/cuda}
 \begin{document}
 
 
