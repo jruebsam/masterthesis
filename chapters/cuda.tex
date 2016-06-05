@@ -34,7 +34,7 @@ types of memory, as shown  in Fig.  \ref{fig:gpu_memory_layout}.
 \end{figure}
 
 \begin{description}
-    \item[Global Memory] The global memory is the largest memory on the gpu and can be accessed by all cuda cores.
+    \item[Global Memory] The global memory is the largest memory on the GPU and can be accessed by all cuda cores.
                          It is  used to exchange data with the RAM and distribute it between different SMs.
                          Writing and reading from the global memory is slow. A part of the global memory can furthermore be used as a constant memory.
                          In this case multiple memory accesses on the same location are temporary cached.
@@ -67,7 +67,7 @@ The CUDA API therefore  introcuces the notion of a thread and a block.
                  There  is no direct hardware equivalent to a block.
                  A block is identified by a maximum of two IDs, \textbf{blockIdx.x} and \textbf{blockIdx.y}
 
-    \item[Blocksize] The blocksize is defined before running a function on the gpu. It determines how
+    \item[Blocksize] The blocksize is defined before running a function on the GPU. It determines how
                     many threads run inside a block. In Fig. \ref{cuda:grid_example} the blocksize is set to (8, 8) and
                     each thread has a threadIdx.x and threadIdx.y.
 
@@ -75,7 +75,7 @@ The CUDA API therefore  introcuces the notion of a thread and a block.
 \end{description}
 
 The concept of a grid containing blocks of threads is a little bit confusing at first.
-However these abstractions are necessary to enable a high workload on the gpu,
+However these abstractions are necessary to enable a high workload on the GPU,
 since each block can be dynamically assigned to a different SM.
 
 
@@ -133,7 +133,7 @@ are added on each side of the simulation domain.
 
 The first allocation will be one the system RAM.
 
-The second and third allocation reside on the global memory of the gpu.
+The second and third allocation reside on the global memory of the GPU.
 This is due to the fact that the runge kutta method uses two storage registers, during the timestep execution.
 The fields for all variables are summarized in table (1).
 
@@ -183,7 +183,7 @@ memory layout
 In this section an overview of the computation of a single time step will be given.
 The simulation domain is a cube of length $l$ and the resolution $N$ in three dimensions.
 For this example the Navier-Stokes equation given by Eq. () will be used.
-It is presumed that all variables are allocated on the global memory of the gpu, see Sec. \ref{cuda:prepro}.
+It is presumed that all variables are allocated on the global memory of the GPU, see Sec. \ref{cuda:prepro}.
 The simulation domain is then divided into a grid of  $N/8 \times N/8$ blocks, like in Fig. \ref{cuda:grid_example}.
 Each block contains a total number of 8x8x4 threads.
 The ID threadIdx.z defines, which variable will be used for the computation, for example threadIdx.z=0 corresponds to $\rho$ and threadIdx.z=1 to $v_x$.

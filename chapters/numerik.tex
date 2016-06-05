@@ -5,27 +5,28 @@
 This chapter focuses on the methods that are used for the numerical computations in this thesis.
 In order to compute the temporal evolvement of a fluid system from its initial state, it is necessary to discretize
 the equations of motion by using different numerical schemes.\\
-For this purpose various discretization approaches, for example finite-element and finite-volume methods, exists.
-Here we will introduce the method of finite-difference stencils for the spatial and a third order Runge-Kutta method for the discretization in time.
+For this purpose various discretization approaches, for example finite element and finite volume methods, exist.
+Here the method of finite differences will be introduced for the spatial discretization and a third order Runge-Kutta method for the temporal discretization in time.
 Furthermore we will introduce the method of artificial compressibility, which can be used to avoid the numerical expensive solution of a poisson equation.
-The choice of these methods in combination with the usage of cartesian grids is in particular time saving when performing computations on the gpu, as we
+The choice of these methods in combination with the usage of cartesian grids is in particular time saving when performing computations on the GPU, as we
 will see in chapter \ref{chapter:cuda}.
 
 \section{Finite Differencing Schemes}
 
 We start with a brief introduction of finite difference methods.
-The interested reader is referred to \citep{ferziger99} for a more general overview, from where this section is adapted.
-The partial differential equations we want to solve in this thesis are of the form,
+The interested reader is referred to \citep{ferziger99} for a more general overview, which this section is based on.
+The partial differential equations we want to solve in this thesis are of the generalized form
 
 \begin{align}
     \label{numerik:pde_allg}
-    \pdn[\Phi]{t} = \left(\sum_{x_i=x,y,z}\left( A_i \pdn[]{x_i}  + B_i \pdn[^2]{x_i^2}\right) + C +  \vec{u}\vec{\nabla} \right) \Phi = \mathcal{L} \Phi
+    \pdn[\Phi]{t} = \left(\sum_{i=1,2,3}\left( A_i \pdn[]{x_i}  + B_i \pdn[^2]{x_i^2}\right) + C +  \vec{u}\vec{\nabla} \right) \Phi =: \mathcal{L} \Phi
 \end{align}
     %\pdn[\Phi]{t} = A \pdn[^2\Phi]{x^2}  + B \pdn[^2\Phi]{x^2}     + C(\vec{r}, \vec{u}, t) +  \vec{u}\left(\pdn[^2\Phi]{x^2} +  \pdn[^2\Phi]{x^2} + \pdn[\Phi]{x}\right) = \mathcal{L}
 
 where $\Phi(\vec{r}, t)\in\mathbb{R}$ and $\mathcal{L}$ is a differential operator, containing spatial derivatives up to second order.
-The numerical integration can be divided into two steps, the calculation of $\mathcal{L}$, which we want to discuss in this
+The numerical integration can be divided into two steps: the calculation of $\mathcal{L}$, which we want to discuss in this
 section and secondly the integration in time.
+
 The exact calculation of the spatial derivatives in $\mathcal{L}$ is numerically not possible.\\
 Due to the limited storage capacity and computation time of computers,
 it is necessary to discretize the domain, on which the PDE should be solved and find a adequate approximation of these operators.
