@@ -222,7 +222,13 @@ Thus these methods should be preferred for  CFD-simulations, since they tend to 
 \subsection{Finite difference schemes}
 
 The numerical stability of the finite difference schemes can be estimated by a Von-Neumann error analysis.
-In this section the stability criterion will be computed for a diffusion equation, discretized by
+In this section the stability criterion will be exeplarily computed for a one-dimensional diffusion equation of the form
+\begin{align}
+    \label{num:vne_diffusion_theo}
+    \pdn[v]{t} = \alpha \Delta v
+\end{align}
+
+where $\alpha$ is the diffusion coefficient. Eq.  \ref{num:vne_diffusion_theo} is discretized by
 the second order central-difference scheme, given by Eq. \ref{numerik:eq_2dfo2}.
 All methods and steps in this example are adopted from \citep{janderson}.
 In order to test if a method is stable, it is valid to assume that the numerical error can be expressed in form of a fourier-mode.
@@ -235,7 +241,6 @@ where $a$ the growth rate of the error, the wavenumber is given by $k_m=\nicefra
 The index $m$ is restricted by the domain size and the distance $\Delta x$ between two grid points, i.e. the smallest wave number
 is resulting from the wavelength $\lambda=L$ and the largest from $\lambda=2\Delta x$.
 Due to the linearity of the laplace operator it is sufficient to consider the stability of a single fourier mode $\epsilon_m$.
-
 With the use of Eq.  \ref{numerik:eq_2dfo2}, the discretized version of the diffusion equations reads.
 \begin{align}
     \label{num:neumann_diffusion_eq}
@@ -273,41 +278,64 @@ the stability is given by
 
 From this equation it can be seen that with an increase in the resolution, the timestep has to been scaled by the square of the resolution, in order to
 maintain stability. The same approach introduced for the diffusion equation can be repeated for a first-order wave equation (see \citep{janderson}) and
-and for an advection-diffusion equation (see \citep{ferziger99}). Given by
+and for an advection-diffusion equation (see \citep{ferziger99}).
+%Given by
+%\begin{align}
+%    \pdn[\Phi]{t} + c \pdn[\Phi]{x} = 0 \qquad &; \qquad  \pdn[\Phi]{t} + v \pdn[\Phi]{x}  - \frac{A}{B}\pdn[^\phi]{x^2}
+%\end{align}
+%where $c$ is velocitiy ect.
+%By inserting the error
+
+As a result two additional stability criterions are given.
+The first one is
+\begin{align}
+   \frac{c \Delta t}{\Delta x} \leq 1
+\end{align}
+where $c$ denotes the maximal velocity of the system, i.e. this could be the sound speed for a compressible system.
+The second criterion is given by
 
 \begin{align}
-    \pdn[\Phi]{t} + c \pdn[\Phi]{x} = 0 \qquad &; \qquad  \pdn[\Phi]{t} + v \pdn[\Phi]{x}  - \frac{A}{B}\pdn[^\phi]{x^2}
+    \Pe  < 2
 \end{align}
 
-where $c$ is velocitiy ect.
+where $ Pe := \nicefrac{u \Delta x}{\alpha}$ is defined as the Peclet number.
+The Peclet number can be interpreted as the ratio between the advection and diffusion of a fluid system.
 
-By inserting the error
+\paragraph{Third Order Upwinding Scheme}\mbox{}\\
 
-the left side of equation () is also known as courant number blabla.
+For large Peclet numbers it is a common problem that numerical oscillations emerge in the numerical solution.
+Additional to the central differences, the upwinding scheme is used in this thesis which tends to reduce
+numerical oscillations. Consider the one-dimensional advection equation
 \begin{align}
-    C := \frac{c \Delta t}{\Delta x} \leq \frac{1}{2}
+    \pdn[\Phi]{t} + v\pdn[\Phi]{x} = 0
 \end{align}
 
-until know single differential operators, however when evaluating equations of the form, where an advection term occurs with an diffusion term
-we cet the condition
-
-\begin{align}
-    Pe := \frac{u \Delta x}{\alpha} < 2
-\end{align}
-
-The leftside term is also denoted as Peclet number  and
-when diffusive fluxes to small oscillations blabla
-The Upwinding Scheme first and third  order
-
-\paragraph{Upwindin Scheme}\mbox{}\\
+The discretization for the advection term at the position $x$ given by ( \citep{udtriaend })
 
 \begin{align}
-    v_x^- &= \frac{2v_{i+1} + 3v_i     - 6v_{i-1} + v_{i-2}}{6\Delta x}\\
-    v_x^+ &= \frac{-v_{i+2} + 6v_{i+1} - 3v_{i-1} - 2v_{i-1}}{6\Delta x}
+    v\pdn[\Phi]{x} &\approx  v_i \cdot \left(\frac{2v_{i+1} + 3v_i     - 6v_{i-1} + v_{i-2}}{6\Delta x}\right)\\
 \end{align}
-
+for v(x) > 0 and
+\begin{align}
+    v\pdn[\Phi]{x} &\approx  v_i \cdot \left( \frac{-v_{i+2} + 6v_{i+1} - 3v_{i-1} - 2v_{i-1}}{6\Delta x}\right)
+\end{align}
+for v(x) < 0. (CITE) and motivation.
 
 \newpage
+
+\section{Numerical Viscosity}
+
+In this thesis the finite difference schemes Eq. () and Eq. () are
+used for the approximation of the iffusion, see Eq. \label{num:vne_diffusion_theo}
+
+ physical visocity, see Eq. ().
+
+However due to the not exact approximation the numerical viscosicty of the system is not
+
+\begin{align}
+ \label{NUMERIC:NUMVIS}
+\end{align}
+
 
 \section{Method of Artificial Compressibility}
 
@@ -342,9 +370,3 @@ where $c$ and so on
 -stiff problem
 -implizit methods
 -problem not suited for gpus
-\section{Numerical Viscosity}
-
-\begin{align}
- \label{NUMERIC:NUMVIS}
-\end{align}
-
