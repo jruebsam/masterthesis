@@ -290,6 +290,7 @@ and for an advection-diffusion equation (see \citep{ferziger99}).
 As a result two additional stability criterions are given.
 The first one is (see \citep{janderson})
 \begin{align}
+    \label{num:stab_soundspeed}
    \frac{c \Delta t}{\Delta x} \leq 1
 \end{align}
 where $c$ denotes the maximal velocity of the system, i.e. this could be the sound speed for a compressible system.
@@ -368,8 +369,8 @@ The same approach for the fourth order scheme gives
 
 \section{Method of Artificial Compressibility}
 
-For now the fact was ignored that the equations of motion i.e. Eq.  \ref{theorie:eqns} cannot directly be solved for the pressure.
-An equation for $p$ can be obtained by taking the divergence of Eq.  \ref{theorie:eqns} and apply the continuity equation.
+For now the fact was ignored that the Navier-Stokes Eq. \ref{theorie:eqns} cannot directly be solved for the pressure.
+An equation for $p$ can be obtained by taking the divergence of Eq. \ref{theorie:eqns} and apply the continuity equation.
 The resulting equation is \citep{QUOTE}
 
 \begin{align}
@@ -405,21 +406,25 @@ The concept of this method is to introduce the artificial equations of state
 
 where $\rho$ is the artifical density, $\delta$ the artificial compressibility and $c$ the artificial speed of sound.
 Eq.  \ref{num:arti_cont}  is a motified version of the continuity equation and Eq. \ref{num:arti_pressure} introduces
-an artificial equation for the pressure. A substitution of Eq. \ref{num:arti_pressure} into the Navier-Stokes Eq. \ref{BLA} gives
+an artificial equation for the pressure. A substitution of Eq. \ref{num:arti_pressure} into Eq. \ref{theorie:eqns} gives
 
 \begin{align}
     \label{numerik:nsac}
     \pdn[u]{t} + \left(\vec{u} \vec{\nabla}\right) \vec{u} &= -c^2\nabla\rho + \Rey \Delta \vec{u}+\sum \vec{F}_{\text{ext.}}
 \end{align}
 
-The system has an artificial compressibility. The idea of this method is to use a large number for $c$ such that
-the mach number
+
+The system now has an artificial compressibility. The motivation behind this approach is to set the artifical speed of sound
+to a high value such that the mach number given by
+
 \begin{align}
-    M = \frac{1}{c}\max\left(\sum_i |\vec{u_i}]^2\right)^{1/2}
+    M = \frac{v}{c} =  \frac{1}{c}\max\left(\sum_i |\vec{u_i}]^2\right)^{1/2}
 \end{align}
+is small, a good estimation is $Ma<0.1$ \citep{HM}.
+In this case the fluid can be considered as incompressible.
+One major drawback of this method is a stiff numerical problem. Due to the stability criterion (Eq. \ref{num:stab_soundspeed})
+a small timestep is needed for $v=c^2$.
 
-is sma
 
--stiff problem
--implizit methods
--problem not suited for gpus
+
+
