@@ -326,11 +326,48 @@ for v(x) < 0. (CITE) and motivation.
 \section{Numerical Viscosity}
 
 In this thesis the finite difference schemes Eq. () and Eq. () are
-used for the approximation of the iffusion, see Eq. \label{num:vne_diffusion_theo}
+used for the approximation of the viscous stress in the Navier-Stokes Equation.
+However due to the approximation, the numerical viscosicty $D_N$ of the approximation may differ from the physical viscosity $D_P$.
 
- physical visocity, see Eq. ().
+An estimation for the ratio $D_N/D_P$ can be given by the following estimation. \footnote{Private communication with A.Tilgner}
+Consider the  equation
+\begin{align}
+    \pdn[v]{t} = D\pdn[^2v]{x^2}
+\end{align}
+where $D$ is the viscosity.
+A solution is given by
+\begin{align}
+    v = V(t)e^{ikx}
+\end{align}
+where $k$ in a wave number
+By inserting
 
-However due to the not exact approximation the numerical viscosicty of the system is not
+The solution is given b
+\begin{align}
+    V(t) = V_0 \exp^{-Dk^2t}
+\end{align}
+the physical decay
+
+For the second order the approximation of the right side of Eq. is given by
+\begin{align}
+    D \Delta v_i  \approx \frac{D}{\Delta x^2}\left(v_{i+\Delta i} - 2v_i + v_{i-\Delta x} \right)
+\end{align}
+by inserting the solution at $x=i$ we obtain
+D
+
+\begin{align}
+    V(t) = V_0 \exp^{-Dk^2t}
+\end{align}
+
+
+
+Again the
+
+with the
+
+
+
+
 
 \begin{align}
  \label{NUMERIC:NUMVIS}
