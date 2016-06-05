@@ -13,37 +13,37 @@ Furthermore the physical properties of these systems will be discussed.
 \section{The Equations of Motion}\label{theorie:eqm1}
 
 At any time we examine a viscous, newtonian and incompressible fluid. The equations of motion for such a fluid can be derived by considering the conversation of
-mass and momentum inside a fixed control volume $\Omega \subset \mathbb{R}^3$.
-Within the fluid the momentum at the position $\vec{r} = (x, y, z)^T$  is  characterized by the velocity $\vec{u}(\vec{r}, t) = (u, v, w)^T \in \mathbb{R}^3$,
+mass and momentum inside a fixed control volume $V \subset \mathbb{R}^3$.
+Within the fluid the momentum at the position $\vec{r} = (x, y, z)^T$  is  characterized by the velocity $\vec{v}(\vec{r}, t) = (v_x, v_y, v_z)^T \in \mathbb{R}^3$,
 meanwhile the mass distribution is given by the density distribution$\rho(\vec{r}) \in \mathbb{R}$.
 
 \subsection{Mass Conservation}
 
-Let $\partial V$ be the enclosing surface and $\vec{n}$ the normal vector to the control volume $\Omega$.
-We know consider a control mass (CM), traversing the control volume (CV), such that for a fixed point in time it holds that $\Omega_M = \Omega$.
-For any intensive property $\phi$ the reynolds transport theorem that
+Let $\partial V$ be the enclosing surface and $\vec{n}$ the normal vector to the control volume.
+We know consider a control mass with the volume $V_M$, traversing the control volume, such that for a fixed point in time it holds that $V_M = V$.
+For any intensive property $\phi$ the reynolds transport theorem states that
 
 \begin{align}
     \label{theorie:reynolds}
-    \pdn[]{t} \int_{\Omega_M} \rho \phi \dif \Omega = \pdn[]{t}\int_{\Omega} \rho \phi \dif \Omega + \int_{\partial\Omega} \rho \phi \vec{v} \vec{n} \dif S
+    \frac{\dif}{\dif t} \int_{\Omega_M} \rho \phi \dif \Omega = \frac{\dif}{\dif t}\int_{\Omega} \rho \phi \dif \Omega + \int_{\partial\Omega} \rho \phi \vec{v} \vec{n} \dif S
 \end{align}
 
 The assumption of a conservation law requires that the left side of equation \ref{theorie:reynolds} has to be zero.
 By setting $\phi = 1$ one obtains the integral form of mass conversation.
 
 \begin{align}
-    \frac{\dif}{\dif t} \int_{\Omega_M}\dif V \rho(t) =  \int_{\Omega}\dif V \frac{\dif \rho}{\dif t}  &= \underbrace{-\int_{\partial \Omega}
-     \rho \vec{u}\vec{n}\dif S}_{\text{Massflux} \atop \text{through \ } \partial \Omega} \stackrel{\text{Gauss} \atop \text{ Law}}{=}
-      -\int_\Omega \dif V \vec{\nabla}\left(\rho \vec{u}\right)
+    \frac{\dif}{\dif t} \int_{V_M}\dif V \rho(t) =  \int_{V}\dif V \frac{\dif \rho}{\dif t}  &=-\int_{\partial V}\dif S
+     \rho \vec{v}\vec{n} \stackrel{\text{Gauss} \atop \text{ Law}}{=}
+      -\int_V \dif V \vec{\nabla}\left(\rho \vec{u}\right)
 \end{align}
 
 The differential form of the equation is obtained by applying gauss law and considering an infinitesimal small control volume.
 \begin{align}
-     \frac{\partial \rho}{\partial t}  + \nabla \left(\rho \vec{u}\right) &= 0
+     \frac{\partial \rho}{\partial t}  + \nabla \left(\rho \vec{v}\right) &= 0
 \end{align}
 As we investigate an incompressible fluid, which means $\rho = \text{const.}$, we get the incompressible continuity equation
 \begin{align}
-     \nabla \cdot \vec{u} &= 0
+     \nabla \cdot \vec{v} &= 0
 \end{align}
 
 \subsection{Momentum Conservation}
@@ -52,7 +52,7 @@ Using the same approach, but with setting $\phi = \vec{v}$, results in the integ
 
 \begin{align}
     \label{theorie:intimpulse}
-    \pdn[]{t} \int_\Omega \rho \vec{u}\dif V + \int_{\partial\Omega} \rho\vec{u}\vec{u}\cdot \vec{n} \dif S =  \sum \vec{F}_{\text{ext.}} + \sum \vec{F}_{\text{int.}}
+    \frac{\dif}{\dif t} \int_V \div V \rho \vec{v} + \int_{\partial V} \div S \rho\vec{v}\vec{v}\cdot \vec{n}  =  \sum \vec{F}_{\text{ext.}} + \sum \vec{F}_{\text{int.}}
 \end{align}
 
 In addition to the left hand side, the equation is extended by additional internal and external forces, which may act on the fluid inside the control volume.
@@ -61,8 +61,8 @@ are given by the pressure and the normal and shear stresses acting on a fluid el
 For a newtonian fluid the internal forces can be described by the stress tensor $\bm{T}$
 
 \begin{align}
-    \sum \vec{F}_{int.} = \int_{\partial \Omega} \bm{T}\vec{n} \dif S = \int_{\Omega} \dif V \nabla \bm{T} =
-     \int_{\Omega} \dif V \nabla \left(- \left(p + \frac{2}{3}\mu\nabla\vec{u} \right) + 2\mu \bm{D} \right)
+    \sum \vec{F}_{int.} = \int_{\partial V}\dif S \bm{T}\vec{n}  = \int_{V} \dif V \nabla \bm{T} =
+     \int_{V} \dif V \nabla \left(- \left(p + \frac{2}{3}\mu\nabla\vec{u} \right) + 2\mu \bm{D} \right)
 \end{align}
 with the static pressure $p$, the dynamic viscosity $\mu$ and the deformation tensor $\bm{D}$.
 Again we apply gauss law to equation \ref{theorie:intimpulse} and consider an infinitesimal volume.
@@ -71,7 +71,7 @@ The differential form of the impulse equation, also known as Navier-Stokes equat
 just the impulse equation here we use the latter convention.}
 \begin{align}
     \label{theorie:eqns}
-    \pdn[u]{t} + \underbrace{\left(\vec{u} \vec{\nabla}\right) \vec{u}}_{\text{I}} &= \underbrace{- \frac{1}{\rho} \nabla p + \nu \Delta \vec{u}}_{\text{II}} +\sum \vec{F}_{\text{ext.}}
+    \pdn[v]{t} + \underbrace{\left(\vec{v} \vec{\nabla}\right) \vec{v}}_{\text{I}} &= \underbrace{- \frac{1}{\rho} \nabla p + \nu \Delta \vec{v}}_{\text{II}} +\sum \vec{F}_{\text{ext.}}
 \end{align}
 where we introduce the kinematic viscosity by the definition $\nu = \mu/\rho$.
 For an incompressible fluid the force term generated by $\bm{T}$ reduces to (II).\\
@@ -92,16 +92,16 @@ Thus it might be advisable to not choose a trivial solution like a zero velocity
 of the system one wants to achieve. Many times it is useful to add pseudorandom noise.\\
 \\
 Since the fluid domain is spatial restricted it is as well necessary to define the physical behavior at its boundaries.
-For a fluid domain $\Omega$ with the boundary $\partial \Omega$, the following boundarys are considered, as defined in \citep{Griebel1998} and \citep{ferziger99}.
+For a fluid domain $V$ with the boundary $\partial V$, the following boundarys are considered, as defined in \citep{Griebel1998} and \citep{ferziger99}.
 
 \begin{description}
-    \item[No-Slip Boundaries] All velocities components are set to zero $\vec{v}|_{\partial \Omega} = 0$. The fluid is at rest on $\partial \Omega$ and no flux through
+    \item[No-Slip Boundaries] All velocities components are set to zero $\vec{v}|_{\partial V} = 0$. The fluid is at rest on $\partial V$ and no flux through
                               the boundary occurs.
-                              In a more general case, this kind of condition is  also referred to as Dirichlet-Condition where $\Phi|_{\partial \Omega} = c\in\mathbb{R} $,
+                              In a more general case, this kind of condition is  also referred to as Dirichlet-Condition where $\Phi|_{\partial V} = c\in\mathbb{R} $,
                               for any variable $\Phi$.
 
     \item[Free-Slip Boundaries] The velocity component in normal direction to the wall is set to zero, hence $\vec{n} \nabla \vec{v} = 0$ and $\vec{n}\vec{v}=0$ is required.
-                                No flux through $\partial \Omega$ occurs and no friction is impossed on the fluid.
+                                No flux through $\partial V$ occurs and no friction is impossed on the fluid.
 
     \item[No-Flux Boundaries] For a scalar $\Phi$, the flux through the boundary is zero, hence $\vec{n}\nabla \Phi = 0$.
                               Here the general case is referred to as Neumann boundary condition, where $\vec{n}\nabla \Phi = c\in \mathbb{R}$.
@@ -120,7 +120,7 @@ Therefore it is easier to compare numerical simulations and experimental setups 
 We can choose the following scales for the variables of time, position, velocity and pressure (see \cite{Kundu2012}), the nondimensional variables are denoted by an asterisk.
 
 \begin{align}
-    \text{Length:}\qquad &  \vec{x}^* = \frac{\vec{x}}{L}  & \qquad \text{Velocity:}\qquad& \vec{x}^* = \frac{\vec{v}}{V}\\
+    \text{Length:}\qquad &  \vec{r}^* = \frac{\vec{r}}{L}  & \qquad \text{Velocity:}\qquad& \vec{v}^* = \frac{\vec{v}}{V}\\
     \text{Time:}  \qquad & t^* = t \cdot \frac{V}{L}      & \qquad  \text{Pressure:}\qquad & p^* = \frac{p - p_\infty}{\rho V^2}
 \end{align}
 
@@ -130,7 +130,7 @@ With the above defined scales the nondimensionalized Navier-Stokes equation is g
 From now on we ignore the * for all dimensionless variables }:
 
 \begin{align}
-    \pdn[u]{t} + \vec{u} \cdot \vec{\nabla} \vec{u} &= -\nabla p + \frac{1}{Re} \Delta \vec{u} + \vec{F}_{ext.}
+    \pdn[v]{t} + \vec{v} \cdot \vec{\nabla} \vec{v} &= -\nabla p + \frac{1}{Re} \Delta \vec{v} + \vec{F}_{ext.}
 \end{align}
 
 The dynamic of the system is reduced to the dimensionless quantity $\Rey$, also referred to as the Reynolds number,
@@ -146,17 +146,19 @@ defined by (\citep{Kundu2012}):
 From equation \ref{theorie:renumber}, it can be seen that the Reynolds number gives the ratio between the inertial forces $\propto VL$
 to the viscous forces $\propto \nu$, of the fluid system.
 This means that for a small $\Rey$ the viscous forces dominate, whereas for a large $\Rey$ we can expect advection driven, maybe even turbulent flow.\\
-To illustrate the behaviour, figure \ref{theorie:re_example} exemplarly shows the airflow around a cylinder at different reynolds numbers.
-TODO:\\
-- bild\\
-- comparison\\
 
-\begin{figure}[!pb]
-    \label{theorie:re_example}
-  \centering
-    \missingfigure[figwidth=\textwidth]{Flow over a cylinder for different Reynolds numbers}
-\end{figure}
-\newpage
+%To illustrate the behaviour, figure \ref{theorie:re_example} exemplarly shows the airflow around a cylinder at different reynolds numbers.
+%TODO:\\
+%- bild\\
+%- comparison\\
+%
+%\begin{figure}[!pb]
+%    \label{theorie:re_example}
+%  \centering
+%    \missingfigure[figwidth=\textwidth]{Flow over a cylinder for different Reynolds numbers}
+%\end{figure}
+%\newpage
+\clearpage
 
 \section{Rotational Fluid Dynamics}
 
@@ -166,7 +168,7 @@ Due to the continous acceleration acting on the fluid, these systems exhibit som
 One important case we want to discuss, is the propagation of inertial waves inside a stratisfied rotating fluid.\\
 
 \subsection{Equations of Motion}
-\label{THEORIE:ROT}.
+\label{THEORIE:ROT}
 
 We initially consider the motion of fluid in a coordinate system (\textbf{R}), rotating relative to the intertial system (\textbf{I}) around the axis $\vec{\Omega}$.
 The relation of the time derivate between the two frames of motion is given by the relation
@@ -179,7 +181,7 @@ and by furthermore assuming a constant rotation rate, thus $\partial_t\vec{\Omeg
 
 \begin{align}
     \label{theorie:rottrafo}
-    \left.\pdn[\vec{u}]{t}\right|_{\bm{I}} = \left(\left.\pdn[\vec{u}]{t}  + \underbrace{2\vec{\Omega} \times \vec{u}|_R}_{\text{I}}
+    \left.\pdn[\vec{v}]{t}\right|_{\bm{I}} = \left(\left.\pdn[\vec{v}]{t}  + \underbrace{2\vec{\Omega} \times \vec{v}|_R}_{\text{I}}
     - \underbrace{\vec{\Omega} \times (\vec{\Omega} \times \vec{r|_R}}_{\text{II}})\right)\right|_{\bm{R}}
 \end{align}
 
@@ -197,7 +199,7 @@ which can be substituted into the pressure gradient by defining $p^* = p - \Phi$
 Last but not least we choose the following scales to obtain a nondimensional equation
 
 \begin{align}
-    \text{Length:}\qquad &  \vec{x}^* = \frac{\vec{x}}{L}  &
+    \text{Length:}\qquad &  \vec{r}^* = \frac{\vec{r}}{L}  &
     \qquad \text{Velocity:}\qquad& \vec{u}^* =  \frac{\vec{u}}{|\vec{\Omega}|L}\\
     \text{Time:}  \qquad & t^* = t \cdot |\vec{\Omega}| &
     \qquad  \text{Pressure:}\qquad & p^* = \frac{p - p_\infty}{\rho L^2{|\vec{\Omega}|}^2}
@@ -207,7 +209,7 @@ The final nondimensionalized form of the Navier-Stokes equation for the rotating
 
 \begin{align}
     \label{theorie:rotns}
-    \pdn[u]{t}+ \left(\vec{u}  \vec{\nabla}\right) \vec{u} + 2\Omega \times \vec{u}  &= -  \nabla p + \Ekman \Delta \vec{u} + \vec{F}_{\text{ext.}}
+    \pdn[v]{t}+ \left(\vec{v}  \vec{\nabla}\right) \vec{v} + 2\Omega \times \vec{v}  &= -  \nabla p + \Ekman \Delta \vec{v} + \vec{F}_{\text{ext.}}
 \end{align}
 
 with the the dimensionless quantity $\Ekman$ the Ekman-Number, which is defined by
@@ -220,6 +222,7 @@ The Ekman number describes the ratio between viscous and coriolis forces.
 
 \subsection{Inertial Waves}
 
+One solution of Eq. \ref{theorie:rotns} are inertial waves, which will be described here.
 We begin this section by briefly recapture some of the fundamental properties of mechanical waves, as quoted by \cite[p.194]{Kundu2012}.
 
 \begin{quote}
@@ -233,7 +236,7 @@ state, and of some kind of “inertia” that causes the system to overshoot aft
 system has returned to the undisturbed state.
 \end{quote}
 
-Hence we have to consider, that the propagation of inertial waves requires a medium which contains a state of equilibrium and
+The propagation of inertial waves requires a medium which contains a state of equilibrium and
 a restoring force pointing back to this state in response to a disturbance.
 In the context of geophysical fluid mechanics an equilibrium state can be given by a stratification.\\
 Let us consider the example of a fluid with a continous stratisfied density.
@@ -254,31 +257,29 @@ an imbalance of the preserved angular momentum and the pressure.
 Due to the restoring force, given by the coriolis force, an oscillation develops.
 Waves of this type are denoted as inertial waves \cite{Clausen2011}.
 
-\paragraph{Plane Inertial Waves}\mbox{}\\
+\subsubsection{Plane Inertial Waves}
 
-We know want to examine the properties of plane inertial waves.
-For this reason we neglect the non-linear advection operator and the viscous stress,
-which means $\Ekman=0$, in equation \ref{theorie:rotns}. The results we present in this section
-are adopted from \citep[p.185]{Greenspan1990}.\\
+Here a short introduction of the porperties of plane inertial waves shall be given.
+All results presented in this section are adopted from \citep{Greenspan1990}.%[p.185]
+The non-linear advection operator and the viscous stress in Eq. \ref{theorie:rotns} are neglected, $\Ekman =0$.
 In case of the a linear inviscid fluid, the equations of motion are fullfiled by plane wave solutions of the form
 
 \begin{align}
-    \vec{u} = \vec{U} e^{i(\vec{k}\vec{r}  - \omega t )}, \qquad
+    \vec{v} = \vec{V} e^{i(\vec{k}\vec{r}  - \omega t )}, \qquad
     p = P e^{i(\vec{k}\vec{r}  - \omega t )}
 \end{align}
 
-The wave is transverse, since an insertion into the continuity equation yields $\vec{U}\vec{k} = 0$.
-From the momentum equation we obtain the dispersion relation
+The wave is transverse, since an insertion into the continuity equation yields $\vec{V}\vec{k} = 0$.
+From the momentum equation the dispersion relation is given by
 
 \begin{align}
     \label{theorie:eq_rot_dispersion}
-    \omega = \pm \frac{ 2\vec{\Omega}\vec{K}}{|\vec{K}|} = \pm 2|\vec{\Omega}|\cos(\Theta)
+    \omega = \pm \frac{ 2\vec{\Omega}\vec{K}}{|\vec{K}|} = \pm 2|\vec{\Omega}|\cos(\theta)
 \end{align}
 
-where $\Theta$ is the polar angle with respect to the rotation axis,
-such that $\vec{K}\vec{\Omega} = |\vec{K}||\vec{\Omega}|\cos{\Theta}$
+where $\theta$ is the polar angle with respect to the rotation axis,
+such that $\vec{K}\vec{\Omega} = |\vec{K}||\vec{\Omega}|\cos{\theta}$.
 This means that an inertial wave can only exist for a wave frequency smaller than twice of the rotation rate $\vec{\Omega}$.
-Even more important it is to say that an inertial wave propagates with a fixed angle $\Theta$.
 The phase velocity $\vec{c}_p$ and the group velocity $\vec{c}_g$ are given by
 
 \begin{align}
@@ -286,13 +287,19 @@ The phase velocity $\vec{c}_p$ and the group velocity $\vec{c}_g$ are given by
     \vec{c}_g = \frac{2 \vec{K} \times (\vec{\Omega} \times \vec{K})}{|\vec{K}|^3}
 \end{align}
 
-It can be noted that the group velocity and therefore the energy transport is perpendicular to the phase velocity of the wave.
+\clearpage
 
-\paragraph{Reflection of Inertial Waves}\mbox{}\\
+
+It can be noted that the group velocity and therefore the energy transport is perpendicular to the phase velocity of the wave.
+The direction of propagation on an inertial wave is given by the angle $\theta$ with respect to the axis of rotation $\vec{\Omega}$,
+see Fig. \ref{theorie:reflection_img}(a).
+
+
+\subsubsection{Reflection of Inertial Waves}
 \label{theorie:sec:iwreflec}
 
-The reflection of an inertial wave contradict's snells law, since the propagation angle $\Theta$ is preverved upon a reflection.
-Furthermore it can be shown that the following relations hold (see \cite{Beardsley1970}),
+The reflection of an inertial wave contradict's snells law, since the propagation angle $\theta$ is preserved upon a reflection.
+It can be shown that the following relations holds (see \cite{Beardsley1970}),
 
 \begin{align}
 \label{theorie:reflections}
@@ -300,21 +307,48 @@ Furthermore it can be shown that the following relations hold (see \cite{Beardsl
 \end{align}
 
 where $\dagger$ denotes wave number upon reflection and $\hat{n}$ corresponds to the the normal vector of the wall.
-As a result inertial waves exhibit a fundamental different behavior, which we want to discuss here.
+As a result inertial waves exhibit a fundamental different behavior, which shall be summarized.
+Fig. \ref{theorie:reflection_img} exemplarily shows the reflection of an inertial wave with propagation angle $\theta$,
+on a wall with the slope $\alpha$ to the rotation axis. Three scenarios exist \citep{Clausen2011}:
 
--bild mit verschiedenen fällen
--inertial waves modes attractors
--closed basin
-\subsubsection{Modes in a Cylinder}
+\begin{description}
+    \item[$\theta < \alpha$] See Fig. \ref{theorie:reflection_img}(b). A downward propagating wave is reflecting upwards,
+                             this is also referred to as subcritical reflection.
+                             The distance between to parallel waves is decreased upon a reflection which is denoted as focusing.
+    \item[$\theta > \alpha$] See Fig. \ref{theorie:reflection_img}(c). A downward propagating wave is reflecting downwards.
+                             this is also referred to as supercritical reflection.
+                             The distance between to parallel waves is decreased upon a reflection which is denoted as defocusing.
+    \item[$\theta = \alpha$] All waves are reflected parallel to the slope and infinitely focussed.
+\end{description}
+
+\begin{figure}[!bp]
+      \centering
+        \includegraphics[width=0.7\textwidth]{gfx/theorie/reflection.pdf}
+       \caption{Reflection of inertial waves, apapted from \citep{Clausen2011}.
+        (a) Propagation of inertial waves with the propagation angle $\theta$.
+        (b) Subcritical reflection of a downward traveling wave.
+        (c) Supercritical reflection of a downward traveling wave.
+       }
+       \label{theorie:reflection_img}
+\end{figure}
+
+\clearpage
+
+
+\subsubsection{Inertial Modes in a Cylinder}
 \label{theorie:rotating:cyl_modes}
 
+In a closed geometry the possible number of solutions of Eq. \ref{theorie:rotns} can be finite \citep{Clausen2011}.
+For the scenario of a rotating cylinder the solutions are given by a discrete spectrum of  inertial modes.
 A theoretical solution can be found in \citep{Greenspan1990}, and shall be summarized here.
-For the inviscid case $\nu~=~0$, the problem can be reduced to a Poincar\'{e} equation for the pressure,
+
+For the linear inviscid case with $\Ekman~=~0$ and without the advection term, the problem can be reduced to a Poincar\'{e} equation for the pressure,
 which is solved in cylindrical coordinates by
 
 \begin{align}
     p_{nmk}(r, \theta, z, t) = J_{|k|}\left(\frac{\xi_{nmk}r}{a} \right)\cos(n\pi)e^{ik\theta}e^{i\lambda t}
 \end{align}
+
 where $a=\nicefrac{r}{H}$ is the aspect ration of the cylinder,
 $n\in\mathbb{N}$ is the vertical and $k\in\mathbb{Z}$ the azimuthal wave number.
 $m\in\mathbb{N}$ is equal to the number of nodes in radial direcion.
@@ -328,14 +362,15 @@ Finally the eigenvalue is determined by
     \lambda_{nmk} = 2\sqrt{1 \; + \;\frac{ \xi_{nmk}^2}{n^2\pi^2a^2}}
 \end{align}
 
-\subsection{Ekman schicht}
-
-\subsection{Properties of the Ekman number}
-liste mit eigentschaften
-breite ekmanschicht breite
-spinup
-dämpungsrate welle evtl
-
+%
+%\subsection{Ekman schicht}
+%
+%\subsection{Properties of the Ekman number}
+%liste mit eigentschaften
+%breite ekmanschicht breite
+%spinup
+%dämpungsrate welle evtl
+%
 
 
 
