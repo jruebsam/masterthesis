@@ -278,7 +278,7 @@ the stability is given by
 \end{align}
 
 From this equation it can be seen that with an increase in the resolution, the timestep has to been scaled by the square of the resolution, in order to
-maintain stability. The same approach introduced for the diffusion equation can be repeated for a first-order wave equation (see \citep{janderson}) and
+maintain stability. The same approach introduced for the diffusion equation can be repeated for a first-order wave equation (see \citep{janderson})
 and for an advection-diffusion equation (see \citep{ferziger99}).
 %Given by
 %\begin{align}
@@ -288,39 +288,40 @@ and for an advection-diffusion equation (see \citep{ferziger99}).
 %By inserting the error
 
 As a result two additional stability criterions are given.
-The first one is
+The first one is (see \citep{janderson})
 \begin{align}
    \frac{c \Delta t}{\Delta x} \leq 1
 \end{align}
 where $c$ denotes the maximal velocity of the system, i.e. this could be the sound speed for a compressible system.
-The second criterion is given by
+The second criterion is given by (see \citep{ferziger99}
 
 \begin{align}
     \Pe  < 2
 \end{align}
 
-where $ Pe := \nicefrac{u \Delta x}{\alpha}$ is defined as the Peclet number.
+where $ Pe := \nicefrac{u \Delta x}{\alpha}$ is defined as the Peclet number \citep{ferziger99}.
 The Peclet number can be interpreted as the ratio between the advection and diffusion of a fluid system.
 
 \paragraph{Third Order Upwinding Scheme}\mbox{}\\
 
 For large Peclet numbers it is a common problem that numerical oscillations emerge in the numerical solution.
-Additional to the central differences, the upwinding scheme is used in this thesis which tends to reduce
-numerical oscillations. Consider the one-dimensional advection equation
+Additional to the central differences, the upwinding scheme, which tends to reduce
+numerical oscillations, is used in this thesis. Consider the one-dimensional advection equation
+
 \begin{align}
     \pdn[\Phi]{t} + v\pdn[\Phi]{x} = 0
 \end{align}
 
-The discretization for the advection term at the position $x$ given by ( \citep{udtriaend })
+The discretization for the advection term at the position $x=i$ is given by (see \citep{FINDQUOTE})
 
 \begin{align}
-    v\pdn[\Phi]{x} &\approx  v_i \cdot \left(\frac{2v_{i+1} + 3v_i     - 6v_{i-1} + v_{i-2}}{6\Delta x}\right)\\
+    v\pdn[\Phi]{x} &\approx  v_i \cdot \left(\frac{2\Phi_{i+1} + 3\Phi_i     - 6\Phi_{i-1} + \Phi_{i-2}}{6\Delta x}\right)\\
 \end{align}
 for v(x) > 0 and
 \begin{align}
-    v\pdn[\Phi]{x} &\approx  v_i \cdot \left( \frac{-v_{i+2} + 6v_{i+1} - 3v_{i-1} - 2v_{i-1}}{6\Delta x}\right)
+    v\pdn[\Phi]{x} &\approx  v_i \cdot \left( \frac{-\Phi_{i+2} + 6\Phi_{i+1} - 3\Phi_{i-1} - 2\Phi_{i-1}}{6\Delta x}\right)
 \end{align}
-for v(x) < 0. (CITE) and motivation.
+for v(x) < 0.
 
 \newpage
 
@@ -329,75 +330,82 @@ for v(x) < 0. (CITE) and motivation.
 In this thesis the finite difference schemes Eq.  \ref{num:fd_o4_methods} and Eq.  \ref{numerik:eq_2dfo2}
 are used for the approximation of the viscous stress in the Navier-Stokes Equation.
 However due to the approximation, the numerical viscosicty $D_N$ of the approximation may differ from the physical viscosity $D_P$.
-
 An estimation for the ratio $D_N/D_P$ can be given by the following estimation. \footnote{Private communication with A.Tilgner}
 Consider the  equation
-\begin{align}
-    \pdn[v]{t} = D\pdn[^2v]{x^2}
-\end{align}
-where $D$ is the viscosity.
-A solution is given by
-\begin{align}
-    v = V(t)e^{ikx}
-\end{align}
-where $k$ in a wave number
-By inserting
-
-The solution is given b
-\begin{align}
-    V(t) = V_0 \exp^{-Dk^2t}
-\end{align}
-the physical decay
-
-For the second order the approximation of the right side of Eq. is given by
-\begin{align}
-    D \Delta v_i  \approx \frac{D}{\Delta x^2}\left(v_{i+\Delta i} - 2v_i + v_{i-\Delta x} \right)
-\end{align}
-by inserting the solution at $x=i$ we obtain
-D
 
 \begin{align}
-    V(t) = V_0 \exp^{-Dk^2t}
+    \label{num:nvis_eqdiff}
+    \pdn[v]{t} = D_P\pdn[^2v]{x^2}
 \end{align}
 
+A solution is given by $v = V(t)e^{ikx}$. Inserting this solution in Eq. \ref{num:nvis_eqdiff} one obtains
+\begin{align}
+    V(t) = V_0 \exp^{-D_Pk^2t}
+\end{align}
 
+By inserting this expression into the second order approximation Eq. () it
+follows that
 
-Again the
+\begin{align}
+                      D_P \Delta v  &\approx \frac{D_P}{\Delta x^2} \left(v_{x+\Delta x} - 2 v_x + v_{x - \Delta x}\right) \\
+    \Leftrightarrow   -D_P k^2        &\approx \frac{D_P}{\Delta x^2} \left(\exp^{ik\Delta x} - 2 + \exp^{-ik\Delta x}\right) =   \frac{D_P}{\Delta x^2} \left(2\cos(k\Delta x) - 2\right)\\
+    \Rightarrow   D_P      &\approx - \frac{D_P}{k^2 \Delta x^2} \left(2\cos(k\Delta x) - 2\right)
+\end{align}
 
-with the
-
-
-
-
-
+From Eq. it can be seen that the numerical viscosity is given by
 \begin{align}
  \label{NUMERIC:NUMVIS}
+    D_N = \frac{D}{k^2 \Delta x^2} \left(2\cos(k\Delta x) - 2\right)
 \end{align}
+The same approach for the fourth order scheme gives
+\begin{align}
+ \label{NUMERIC:NUMVIS2}
+    D_N = \frac{D}{k^2 \Delta x^2} \left(32\cos(k\Delta ) - 2\cos(k\Delta x) - 30\right)
+\end{align}
+\clearpage
+
 
 
 \section{Method of Artificial Compressibility}
 
-Until now we have ignored the fact that the equations of motion i.e. Eq.  \ref{theorie:eqns}
-cannot directly be solved for the pressure.
+For now the fact was ignored that the equations of motion i.e. Eq.  \ref{theorie:eqns} cannot directly be solved for the pressure.
 An equation for $p$ can be obtained by taking the divergence of Eq.  \ref{theorie:eqns} and apply the continuity equation.
-The resulting equation for the pressure reads
+The resulting equation is \citep{QUOTE}
 
 \begin{align}
     \Delta p =  -\nabla \left( \sum \vec{F}_{\text{ext.}} - (\vec{u} \vec{\nabla}) \vec{u}\right)
 \end{align}
 
-In order to determine the pressure it would be necessary to solve this poisson equation.
-The solution is however very time consuming and difficult to implement on a GPU \citep{TILGNER}.
+In order to determine the pressure it would be necessary to solve a poisson equation.
+The numerical solution  however, can be very time consuming is  furthermore difficult to implement on a GPU \citep{TILGNER}.
 Instead here the method of artificial compressibility, developed by \citep{Chorin1997}, will be introduced.
 The concept of this method is to introduce the artificial equations of state
 
-\begin{align}
-    \underbrace{\pdn[\rho]{t} +  \nabla \vec{v} = 0}_{\label{bla}} \qquad , \qquad p =\rho/\delta \qquad, \qquad c=\frac{1}{\delta^{1/2}}
-\end{align}
+
+   \noindent\begin{minipage}{0.4\textwidth}
+        \begin{align}
+            \label{num:arti_cont}
+            \pdn[\rho]{t} +  \nabla \vec{v} = 0
+        \end{align}
+    \end{minipage}%
+    \begin{minipage}{0.2\textwidth}\centering
+        \begin{align}
+            \label{num:arti_pressure}
+              p =\rho/\delta
+        \end{align}
+    \end{minipage}%
+    \begin{minipage}{0.2\textwidth}\centering
+        \begin{align}
+                c=\frac{1}{\delta^{1/2}}
+        \end{align}
+    \end{minipage}\vskip1em
+
+
+
 
 where $\rho$ is the artifical density, $\delta$ the artificial compressibility and $c$ the artificial speed of sound.
-Eq. is a motified version of the continuity equation Eq. ().
-With this modification the Navier-Stokes equation Eq. () is given by
+Eq.  \ref{num:arti_cont}  is a motified version of the continuity equation and Eq. \ref{num:arti_pressure} introduces
+an artificial equation for the pressure. A substitution of Eq. \ref{num:arti_pressure} into the Navier-Stokes Eq. \ref{BLA} gives
 
 \begin{align}
     \label{numerik:nsac}
