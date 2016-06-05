@@ -93,6 +93,7 @@ the  CDS-scheme gives better results.\\
 For the computation of the second derivative, one approach is to evaluate equation \ref{num:taylor} halfway between two points at the positions $x_{i\pm\frac{1}{2}}$
 
 \begin{align}
+    \label{numerik:eq_2dfo2}
     \left.\left(\pdn[^2\Phi]{x^2}\right)\right|_{x_i} =
      \frac{\left.\left(\pdn[\Phi]{x}\right)\right|_{i+\frac{1}{2}}-
      \left.\left(\pdn[\Phi]{x}\right)\right|_{i-\frac{1}{2}}}
@@ -218,37 +219,69 @@ It can be noted that the stability region $\Omega_s$ increases with the uses of 
 The substantial detail is that for method of third and fourth order, the imaginary axis lies within $\Omega_s$.
 Thus these methods should be preferred for  CFD-simulations, since they tend to stabilize numerical oscillations \citep{DIPLOM}.
 
-\subsection{Von-Neumann Error Analysis}
+\subsection{Finite difference schemes}
 
--idee fourier mode
--nur eine warum
+The numerical stability of the finite difference schemes can be estimated by a Von-Neumann error analysis.
+In this section the stability criterion will be computed for a diffusion equation, discretized by
+the second order central-difference scheme, given by Eq. \ref{numerik:eq_2dfo2}.
+All methods and steps in this example are adopted from \citep{janderson}.
+In order to test if a method is stable, it is valid to assume that the numerical error can be expressed in form of a fourier-mode.
 
 \begin{align}
-    \epsilon = \sum e^{at}e^{i k_m x}
+    \epsilon(x, t) = \sum_{m=1}^{N/2} \epsilon_m(x, t) \qquad &\text{and} \qquad  \epsilon_m(x, t) = e^{at}e^{i k_m x}
 \end{align}
 
-    single mode of the form $e^{at} e^{i k_m x}$
+where $a$ the growth rate of the error, the wavenumber is given by $k_m=\nicefrac{2\pi m}{L}$ and $L$ is the size of the simulation domain.
+The index $m$ is restricted by the domain size and the distance $\Delta x$ between two grid points, i.e. the smallest wave number
+is resulting from the wavelength $\lambda=L$ and the largest from $\lambda=2\Delta x$.
+Due to the linearity of the laplace operator it is sufficient to consider the stability of a single fourier mode $\epsilon_m$.
 
-
-diffusion equation $\partial_t \Phi = \alpha \Delta \Phi$
-we get
-
+With the use of Eq.  \ref{numerik:eq_2dfo2}, the discretized version of the diffusion equations reads.
 \begin{align}
+    \label{num:neumann_diffusion_eq}
     \frac{\Phi^{n+1} - \Phi^n}{\Delta t} = \frac{\alpha}{\Delta x^2}\left(\Phi_{i+1}^n - 2\Phi_{i}^n + \Phi_{i-1}^n\right)
 \end{align}
 
-resulting in
+where $\alpha$ is the diffusion coefficient. The timestep in this example is discretized by a simple euler timestep.
+Inserting $\epsilon_m$ in Eq. \ref{num:neumann_diffusion_eq} for $\Phi$ and using some trigonometric identities  gives
 
 \begin{align}
-    e^{\alpha \Delta t} = 1 - \frac{\alpha}{\Delta x^2} \sin^2\left(\frac{k_m \Delta x}{2}\right)
+    e^{a \Delta t} = 1 -  \frac{4\alpha \Delta t}{\Delta x^2} \sin^2\left(\frac{k_m \Delta x}{2}\right)
 \end{align}
 
-the amplification $G := \epsilon_j^{n+1} / \epsilon_j^n  = e^{\alpha \Delta t }$
-stable for $|G|<1$ results in .
+Furthermore it holds that
 
 \begin{align}
-    C := \frac{\alpha \Delta t}{\Delta x^2} \leq \frac{1}{2}
+    \left|\frac{\epsilon_i^{n+1}}{\epsilon_i^n}\right| =
+    \left|\frac{e^{a(t + \Delta t)}e^{ik_mx}}{ e^{at}e^{ik_m x}}\right| = \left|e^{a\Delta t}\right|
 \end{align}
+
+The stability of the finite differenc scheme is given when the numerical error does not grow over time. This is fullfilled when the inequality
+
+\begin{align}
+    \label{num:stab_ineq}
+    \left|\frac{\epsilon_i^{n+1}}{\epsilon_i^n}\right| =
+    \underbrace{\left|1 -  \frac{4\alpha \Delta t}{\Delta x^2} \sin^2\left(\frac{k_m \Delta x}{2}\right)\right|}_{=:G} \leq 1
+\end{align}
+
+holds, where $G$ is denoted as the amplification factor. From the inequality from Eq. \ref{num:stab_ineq}
+the stability is given by
+
+\begin{align}
+   \frac{\alpha \Delta t}{\Delta x^2} \leq \frac{1}{2}
+\end{align}
+
+From this equation it can be seen that with an increase in the resolution, the timestep has to been scaled by the square of the resolution, in order to
+maintain stability. The same approach introduced for the diffusion equation can be repeated for a first-order wave equation (see \citep{janderson}) and
+and for an advection-diffusion equation (see \citep{ferziger99}). Given by
+
+\begin{align}
+    \pdn[\Phi]{t} + c \pdn[\Phi]{x} = 0 \qquad &; \qquad  \pdn[\Phi]{t} + v \pdn[\Phi]{x}  - \frac{A}{B}\pdn[^\phi]{x^2}
+\end{align}
+
+where $c$ is velocitiy ect.
+
+By inserting the error
 
 the left side of equation () is also known as courant number blabla.
 \begin{align}
@@ -266,13 +299,17 @@ The leftside term is also denoted as Peclet number  and
 when diffusive fluxes to small oscillations blabla
 The Upwinding Scheme first and third  order
 
+\paragraph{Upwindin Scheme}\mbox{}\\
 
-
+\begin{align}
+    v_x^- &= \frac{2v_{i+1} + 3v_i     - 6v_{i-1} + v_{i-2}}{6\Delta x}\\
+    v_x^+ &= \frac{-v_{i+2} + 6v_{i+1} - 3v_{i-1} - 2v_{i-1}}{6\Delta x}
+\end{align}
 
 
 \newpage
 
-\section{Method of Artificial Kompressibility}
+\section{Method of Artificial Compressibility}
 
 Until now we have ignored the fact that the equations of motion (), cannot directly be solved for the pressure.
 To obtain an equation for $p$, we can take the divergence of equation (), and apply the continuity equation.
