@@ -2,46 +2,45 @@
 
 \section{Introduction}
 
-Prior to the development of a numerical model, it is necessary to give an exact theoretical description of the
+Prior to the development of a numerical model it is necessary to give an exact theoretical description of the
 fluid systems, which are investigated in the context of this thesis.
 Hence this section contains a brief overview of the derivation and the properties of the fundamental equations of motions.
 For a more detailed description, the interested reader is referred to \citep{ferziger99} on which section \ref{theorie:eqm1} is based.\\
-In the second part of this chapter, the equations will be extended for new types of fluid systems.
-This includes the motion of fluid in a rotating frame of reference and the Rayleigh-B\'{e}nard system.
-Furthermore the physical properties of these systems will be discussed.
+In the second part of this chapter, the equations will be extended to rotating fluid systems.
+The physical solution, known as intertial waves, of this system will be discussed.
 
 \section{The Equations of Motion}\label{theorie:eqm1}
 
-At any time we examine a viscous, newtonian and incompressible fluid. The equations of motion for such a fluid can be derived by considering the conversation of
+At any time a viscous, newtonian and incompressible fluid is considered. The equations of motion for such a fluid can be derived by considering the conversation of
 mass and momentum inside a fixed control volume $V \subset \mathbb{R}^3$.
 Within the fluid the momentum at the position $\vec{r} = (x, y, z)^T$  is  characterized by the velocity $\vec{v}(\vec{r}, t) = (v_x, v_y, v_z)^T \in \mathbb{R}^3$,
-meanwhile the mass distribution is given by the density distribution$\rho(\vec{r}) \in \mathbb{R}$.
+meanwhile the mass distribution is given by the density distribution $\rho(\vec{r}) \in \mathbb{R}$.
 
 \subsection{Mass Conservation}
 
 Let $\partial V$ be the enclosing surface and $\vec{n}$ the normal vector to the control volume.
 We know consider a control mass with the volume $V_M$, traversing the control volume, such that for a fixed point in time it holds that $V_M = V$.
-For any intensive property $\phi$ the reynolds transport theorem states that
+For any intensive property $\phi$ the Reynolds transport theorem states that
 
 \begin{align}
     \label{theorie:reynolds}
-    \frac{\dif}{\dif t} \int_{\Omega_M} \rho \phi \dif \Omega = \frac{\dif}{\dif t}\int_{\Omega} \rho \phi \dif \Omega + \int_{\partial\Omega} \rho \phi \vec{v} \vec{n} \dif S
+    \frac{\dif}{\dif t} \int_{V_M}\dif V \rho \phi  = \frac{\dif}{\dif t}\int_{V} \dif V \rho \phi + \int_{\partial V}\dif S \rho \phi \vec{v} \vec{n}
 \end{align}
 
 The assumption of a conservation law requires that the left side of equation \ref{theorie:reynolds} has to be zero.
 By setting $\phi = 1$ one obtains the integral form of mass conversation.
 
 \begin{align}
-    \frac{\dif}{\dif t} \int_{V_M}\dif V \rho(t) =  \int_{V}\dif V \frac{\dif \rho}{\dif t}  &=-\int_{\partial V}\dif S
-     \rho \vec{v}\vec{n} \stackrel{\text{Gauss} \atop \text{ Law}}{=}
-      -\int_V \dif V \vec{\nabla}\left(\rho \vec{u}\right)
+    \frac{\dif}{\dif t} \int_V \dif V \rho(t) + \int_{\partial V}\dif S \rho \vec{v}\vec{n}
+     \stackrel{\text{Gauss} \atop \text{ Law}}{=}
+    \int_V \dif V \left( \frac{\dif}{\dif t} \rho(t) + \vec{\nabla}\left(\rho \vec{u}\right)\right)
 \end{align}
 
 The differential form of the equation is obtained by applying gauss law and considering an infinitesimal small control volume.
 \begin{align}
      \frac{\partial \rho}{\partial t}  + \nabla \left(\rho \vec{v}\right) &= 0
 \end{align}
-As we investigate an incompressible fluid, which means $\rho = \text{const.}$, we get the incompressible continuity equation
+As an incompressible fluid is investigated, that is $\rho = \text{const.}$, the incompressible continuity equation reduces to
 \begin{align}
      \nabla \cdot \vec{v} &= 0
 \end{align}
@@ -56,7 +55,7 @@ Using the same approach, but with setting $\phi = \vec{v}$, results in the integ
 \end{align}
 
 In addition to the left hand side, the equation is extended by additional internal and external forces, which may act on the fluid inside the control volume.
-The external forces depend on the specific system  we examine, for example the buyont or the coriolis force, whereas the internal forces
+The external forces depend on the specific physical system, for example the buyont or the coriolis force, whereas the internal forces
 are given by the pressure and the normal and shear stresses acting on a fluid element.\\
 For a newtonian fluid the internal forces can be described by the stress tensor $\bm{T}$
 
@@ -65,17 +64,17 @@ For a newtonian fluid the internal forces can be described by the stress tensor 
      \int_{V} \dif V \nabla \left(- \left(p + \frac{2}{3}\mu\nabla\vec{u} \right) + 2\mu \bm{D} \right)
 \end{align}
 with the static pressure $p$, the dynamic viscosity $\mu$ and the deformation tensor $\bm{D}$.
-Again we apply gauss law to equation \ref{theorie:intimpulse} and consider an infinitesimal volume.
-The differential form of the impulse equation, also known as Navier-Stokes equation is than given by
+By applying gauss law to equation \ref{theorie:intimpulse} and consider an infinitesimal volume,
+the differential form of the impulse equation, also known as Navier-Stokes equation is than given by
 \footnote{The term Navier-Stokes equation is generally referred to as the complete set of equations of motion or
 just the impulse equation here we use the latter convention.}
 \begin{align}
     \label{theorie:eqns}
     \pdn[v]{t} + \underbrace{\left(\vec{v} \vec{\nabla}\right) \vec{v}}_{\text{I}} &= \underbrace{- \frac{1}{\rho} \nabla p + \nu \Delta \vec{v}}_{\text{II}} +\sum \vec{F}_{\text{ext.}}
 \end{align}
-where we introduce the kinematic viscosity by the definition $\nu = \mu/\rho$.
+where  the kinematic viscosity is given by the definition $\nu = \mu/\rho$.
 For an incompressible fluid the force term generated by $\bm{T}$ reduces to (II).\\
-Alltogether the internal force is now given by the pressure gradient and an diffusive impulse transport proportional to $\nu$.
+Altogether the internal force is now given by the pressure gradient and an diffusive impulse transport proportional to $\nu$.
 The non-linearity of the fluid originates through term (I), which is also denoted as the advection operator.
 It basically describes the change of impulse of a fluid element when moving through the velocity field.
 \footnote{For example the velocity of a fluid element will change when no forces but a velocity field is present.}
@@ -101,22 +100,22 @@ For a fluid domain $V$ with the boundary $\partial V$, the following boundarys a
                               for any variable $\Phi$.
 
     \item[Free-Slip Boundaries] The velocity component in normal direction to the wall is set to zero, hence $\vec{n} \nabla \vec{v} = 0$ and $\vec{n}\vec{v}=0$ is required.
-                                No flux through $\partial V$ occurs and no friction is impossed on the fluid.
+                                No flux through $\partial V$ occurs and no friction is imposed on the fluid.
 
     \item[No-Flux Boundaries] For a scalar $\Phi$, the flux through the boundary is zero, hence $\vec{n}\nabla \Phi = 0$.
                               Here the general case is referred to as Neumann boundary condition, where $\vec{n}\nabla \Phi = c\in \mathbb{R}$.
                               This boundary conditions is used i.e. to avoid energy flux through the domain boundary.
 
-    \item[Periodic boundaries] Periodic boundaries can be applied in all directions of a system. For example if the system is periodic in x-Direction with a period $L$,
+    \item[Periodic boundaries] Periodic boundaries can be applied in all directions of a system. For example if the system is periodic in x-Direction with a period of length $L$,
                                 one has to ensure that all variables match on the boundaries, that is $\Phi(x) = \Phi(x + L)$, for any variable $\Phi$.
 \end{description}
 
 \subsection{Nondimensionalization}
 
-For many fluid systems nondimensionalization is used to further symplify the equations of motion and reduce the number of free parameters.
+For many fluid systems nondimensionalization is used to further simplify the equations of motion and reduce the number of free parameters.
 The approach behind this scheme is to define variable substitutions, such that the overall systems is free from any physical units.\\
-After the nondimensionalization the system is described by one or more dimensionless quantity, which characterize the overall physical behaviour.
-Therefore it is easier to compare numerical simulations and experimental setups to one another.
+After the nondimensionalization the system is described by one or more dimensionless quantity, which characterize the overall physical behavior.
+As a result it is easier to compare numerical simulations and experimental setups to one another.
 We can choose the following scales for the variables of time, position, velocity and pressure (see \cite{Kundu2012}), the nondimensional variables are denoted by an asterisk.
 
 \begin{align}
@@ -124,7 +123,7 @@ We can choose the following scales for the variables of time, position, velocity
     \text{Time:}  \qquad & t^* = t \cdot \frac{V}{L}      & \qquad  \text{Pressure:}\qquad & p^* = \frac{p - p_\infty}{\rho V^2}
 \end{align}
 
-Here we choose $L$ as a length and $V$ for the velocity, as typical scales from the fluid system, we consider.
+where  $L$ is a length and $V$  a velocity, given by characteristic scales from the fluid system, which is examined.
 The pressure scale is set as a difference with respect to a characteristic pressure $p_\infty$.
 With the above defined scales the nondimensionalized Navier-Stokes equation is given by \footnote{
 From now on we ignore the * for all dimensionless variables }:
@@ -145,7 +144,8 @@ defined by (\citep{Kundu2012}):
 
 From equation \ref{theorie:renumber}, it can be seen that the Reynolds number gives the ratio between the inertial forces $\propto VL$
 to the viscous forces $\propto \nu$, of the fluid system.
-This means that for a small $\Rey$ the viscous forces dominate, whereas for a large $\Rey$ we can expect advection driven, maybe even turbulent flow.\\
+This means that for a small Reynolds numbers the viscosity determines the flow, a laminar flow can be expected.
+For a large Reynolds number an  advection driven, maybe even turbulent flow, dominates.\\
 
 %To illustrate the behaviour, figure \ref{theorie:re_example} exemplarly shows the airflow around a cylinder at different reynolds numbers.
 %TODO:\\
@@ -162,10 +162,10 @@ This means that for a small $\Rey$ the viscous forces dominate, whereas for a la
 
 \section{Rotational Fluid Dynamics}
 
-In this section we want to extend the Navier-Stokes equations to govern the physical attributes of rotating systems,
+In this section the Navier-Stokes equations are extended to govern the physical attributes of rotating systems,
 which play an important role in the context of geophysical fluid dynamics.\\
-Due to the continous acceleration acting on the fluid, these systems exhibit some fundamental different behavior, than one would expect.
-One important case we want to discuss, is the propagation of inertial waves inside a stratisfied rotating fluid.\\
+Due to the continuous acceleration acting on the fluid, these systems exhibit some fundamental different behavior, than one would expect.
+One important case which shall be discussed, is the propagation of inertial waves inside a stratified rotating fluid.\\
 
 \subsection{Equations of Motion}
 \label{THEORIE:ROT}
@@ -186,8 +186,8 @@ and by furthermore assuming a constant rotation rate, thus $\partial_t\vec{\Omeg
 \end{align}
 
 Hence, the transition into a rotating coordinate system introduces two additional translucent forces, the coriolis force (I)  and the centrifugal force (II).\\
-By substituting expression \ref{theorie:rottrafo} into the Navier-Stokes equation, we obtain the equations of motion for the rotating system.
-A further simplication can be obtained by considering that the centrifugal force is independent of the velocity field,
+A substitution of expression \ref{theorie:rottrafo} into the Navier-Stokes equation gives the equations of motion for the rotating system.
+A further simplification can be obtained by considering that the centrifugal force is independent of the velocity field,
 hence it can be written in terms of a potential $\Phi$
 
 \begin{align}
@@ -196,7 +196,7 @@ hence it can be written in terms of a potential $\Phi$
 
 which can be substituted into the pressure gradient by defining $p^* = p - \Phi$ \citep{tritton88}.
 \newpage
-Last but not least we choose the following scales to obtain a nondimensional equation
+Last but not least the following scales are introduced to obtain a nondimensional equation
 
 \begin{align}
     \text{Length:}\qquad &  \vec{r}^* = \frac{\vec{r}}{L}  &
@@ -212,7 +212,7 @@ The final nondimensionalized form of the Navier-Stokes equation for the rotating
     \pdn[v]{t}+ \left(\vec{v}  \vec{\nabla}\right) \vec{v} + 2\Omega \times \vec{v}  &= -  \nabla p + \Ekman \Delta \vec{v} + \vec{F}_{\text{ext.}}
 \end{align}
 
-with the the dimensionless quantity $\Ekman$ the Ekman-Number, which is defined by
+with the dimensionless quantity $\Ekman$ the Ekman-Number, which is defined by
 
 \begin{align}
     \Ekman := \frac{\nu}{|\vec{\Omega}| L^2} \hat{=} \frac{\text{viscous forces}}{\text{coriolis forces}}
@@ -239,18 +239,18 @@ system has returned to the undisturbed state.
 The propagation of inertial waves requires a medium which contains a state of equilibrium and
 a restoring force pointing back to this state in response to a disturbance.
 In the context of geophysical fluid mechanics an equilibrium state can be given by a stratification.\\
-Let us consider the example of a fluid with a continous stratisfied density.
+Consider for example a fluid with a continuous stratified density.
 This means that in the equilibrium, the density of the fluid has to decrease
-continous with the height of the system. The displacement of a fluid element
- from its resting position results in a restoring force, given by the
+continuous with the height of the system. The displacement of a fluid element
+ from its resting position results in a restoring force, which is  given by the
 gravitation or the buoyant force.
 \footnote{This depends on the direction of the displacement}
-It can be seen therefore, that a disturbance of the equillibrium state can result in the
+It can be seen therefore, that a disturbance of the equilibrium state can result in the
 propagation of so-called  gravity waves \cite{Clausen2011}.
 \footnote{One import case we know from everyday life are surface waves, which emerge
-from the discontinous densitiy stratisfaction between two fluids, i.e. water and air \cite{Clausen2011}.}\\
+from the discontinuous density stratification between two fluids, i.e. water and air \cite{Clausen2011}.}\\
 We know consider a uniform rotating fluid without the presence of external forces.
-At some point in time a steady state is reached, as a result of the dynamic equillibrium between
+At some point in time a steady state is reached, as a result of the dynamic equilibrium between
 a radial stratification of the angular momentum and the pressure.
 The displacement of a fluid element in radial direction now results in
 an imbalance of the preserved angular momentum and the pressure.
@@ -307,7 +307,7 @@ It can be shown that the following relations holds (see \cite{Beardsley1970}),
 \end{align}
 
 where $\dagger$ denotes wave number upon reflection and $\hat{n}$ corresponds to the the normal vector of the wall.
-As a result inertial waves exhibit a fundamental different behavior, which shall be summarized.
+As a result inertial waves exhibit a fundamental different reflection behavior, which shall be summarized here.
 Fig. \ref{theorie:reflection_img} exemplarily shows the reflection of an inertial wave with propagation angle $\theta$,
 on a wall with the slope $\alpha$ to the rotation axis. Three scenarios exist \citep{Clausen2011}:
 
@@ -357,7 +357,7 @@ The radial wavenumber $\xi$  can be solved for any given $k$ by the transcendent
 \begin{align}
     \xi \frac{\dif}{\dif \xi}J_{|k|}(\xi) + k \sqrt{1 + \frac{\xi^2}{n^2\pi^2a^2}} \; J_{|k|}\left(\xi\right) = 0
 \end{align}
-Finally the eigenvalue is determined by
+Finally the eigenvalue of the solution is determined by
 \begin{align}
     \lambda_{nmk} = 2\sqrt{1 \; + \;\frac{ \xi_{nmk}^2}{n^2\pi^2a^2}}
 \end{align}
