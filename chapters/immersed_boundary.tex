@@ -1,9 +1,5 @@
 \chapter{Immersed Boundary Methods}
 \label{CHAPTER:IBM}.
-dieses kapitel macht
-ibm
-validation of ibm
-
 
 \section{Overview of Immersed Boundary Methods}
 
@@ -16,7 +12,7 @@ validation of ibm
 \end{figure}
 
 For many fluid problems it is mandatory to solve the equations of motion with respect to complex-shaped geometries \.
-The algorithm introduced in section () is not yet suitable for such a scenario.
+The algorithm introduced in chapter \ref{CHAPTER:CUDA} is not yet suitable for such a scenario.
 For instance the simulation inside a spheric geometry is impossible, since the boundaries
 do not coincide with the implemented cartesian grid. Nevertheless there exist different approaches to overcome this problem,
 which shall be introduced here. \\
@@ -178,21 +174,89 @@ For the number of samples in the intervall below $S=2\dot10^5$, we can observe a
 Above this intervall the overall decrease is of order $10^{-5}$ in the total error.
 The global error of $2\dot10^-5$ is at least two orders below the error the interpolation methods introduce into the finite difference scheme, as we will see
 in section (). Therefore we conlude that the volume fraction calculation should be accurate enough with $S=10^5$ samples.\\
-Finally we want to propose an enhancement to the volume fraction method. The idea behind the improvement can be stated as followed.
-Suppose we perform a simulation with a highly resolved numerical grid, in this case we can assume that the overall curvature of the boundary is negletable
-inside a single grid cell. This means that in the 2-dimensional case the boundary can be approximated by a straight line cutting the grid cell at a certain area.
-\begin{wrapfigure}{r}{0.5\textwidth}
-  \begin{center}
-    \includegraphics[width=0.3\textwidth]{gfx/immersed_boundary/methods/volfrac.pdf}
-  \end{center}
-  \caption{Example of surface cuts of grid cell}
-\end{wrapfigure}
-Now we examine the case where the calculated volume fraction is exactly $0.5$, this means that all possible surfaces have to cut the grid cell exactly in the middle.
-Therefore the grid point lies exacty on the surface and the overall velocity should be set to zero to fullfill the noslip condition.
-Our suggestion for the algorithm  is to multiply by a factor of two the volume fraction values and set all values above to the maximum value of one.
+%Finally we want to propose an enhancement to the volume fraction method. The idea behind the improvement can be stated as followed.
+%Suppose we perform a simulation with a highly resolved numerical grid, in this case we can assume that the overall curvature of the boundary is negletable
+%inside a single grid cell. This means that in the 2-dimensional case the boundary can be approximated by a straight line cutting the grid cell at a certain area.
+%\begin{wrapfigure}{r}{0.5\textwidth}
+%  \begin{center}
+%    \includegraphics[width=0.3\textwidth]{gfx/immersed_boundary/methods/volfrac.pdf}
+%  \end{center}
+%  \caption{Example of surface cuts of grid cell}
+%\end{wrapfigure}
+%Now we examine the case where the calculated volume fraction is exactly $0.5$, this means that all possible surfaces have to cut the grid cell exactly in the middle.
+%Therefore the grid point lies exacty on the surface and the overall velocity should be set to zero to fullfill the noslip condition.
+%Our suggestion for the algorithm  is to multiply by a factor of two the volume fraction values and set all values above to the maximum value of one.
 
 \clearpage
-\subsection{Interpolation}
+\subsection{Interpolation Method}
+
+The last immersed boundary method introduced in this thesis is a bilinear interpolation method, which was first introduced by \citep{Gilmanov2003}.
+One difference to the previous methods is an exact representation of the immersed boundary, instead of a pixelated one.
+A schematic representation of the interpolation procedure is shown in Fig. \ref{ibm:ip_method_algo}.
+
+The interpolation method is applied to all grid points which have a nearest neighbor outside of the fluid domain,
+In this setup this is true for the point $b$, which shall be interpolated.
+The point $a$ which lies on the immersed boundary is implicit defined by the normal $\vec{n}$, such that a line from a $a$
+with the orientation of $\vec{n}$ matches with $b$ at a distance $\Delta h = [AB]$.
+
+The point $b$ is than projected into direction of  the normal $\vec{n}$, onto the nearest grid plane defined by
+the grid points $\alpha$, $\beta$, $\gamma$ any $\delta$.  The intersection point $c$ has two coordinate components $(c_1, c_2)$
+with respect to $\beta$, which is the closest point on the plane to $b$.
+
+After the position calculation of the point $c$, the velocitiy at $c$ is obtained by a bilnear interpolation
+of the velocities at the points $\alpha$, $\beta$, $\gamma$ and $\delta$. This interpolation is given by \citep{BLA}
+
+\begin{align}
+    v(c) =  \frac{1}{\Delta x\Delta y} \left(v(\beta)(\Delta x -  c_1)(\Delta y -  c_2) +
+            v(\gamma)(\Delta x -  c_1)(c_2) +
+            v(\gamma)(  c_1)(\Delta y -  c_2) +
+            v(\gamma)( c_1)(c_2) \right)
+\end{align}
+
+
+\begin{figure}[!bp]
+      \centering
+        \resizebox{0.8\textwidth}{!}{
+       \import{gfx/immersed_boundary/methods///}{ip.pdf_tex}
+      }
+      \caption{Interpolation of the point $b$, with the projection point $c$, from the point $a$ into the direction $\vec{n}$,
+       onto the next grid plane defined by the grid points $\alpha$, $\beta$, $\gamma$ and $\delta$. The immersed boundary given by the masking function H(x,y,z)}
+       Explain rest.
+    \label{ibm:ip_method_algo}
+\end{figure}
+
+
+Finally with the velocity $v(c)$ and  the No-Slip boundarie condition $v(a) = 0$,
+the velocity at the point $b$ is given by the linear interpolation
+
+\begin{align}
+    v(b)  =  v(c)\frac{\Delta c}{\Delta h}
+\end{align}
+
+where $\Delta c = [ac]$.
+In order to simplify the interpolation for different geometries a routine was implemented which needs three predefined function for one geometry.
+The masking function given by Eq. (), for the cylinder.
+A function $d(x, y, z)$ which gives the distance for each point to the immersed boundary, in case of the cylinder
+
+\begin{align}
+    d(x, y, z) = \sqrt{\left(x - \frac{l_x}{2}\right)^2 + \left(y - \frac{l_y}{2}\right)^2  - r^2}
+\end{align}
+
+Finally a function $\vec{g}(x,y,z )$ which defines the gradient of the immersed boundary is necessary.
+
+\begin{align}
+    \vec{g}(x, y, z) = \left(-\left(x - \frac{l_x}{2}\right),  - \left(y - \frac{l_y}{2}\right), 0\right)^T
+\end{align}
+
+A normalization of this function is performed in the algorithm, hower it is important that the normals point into direction of the fluid domain.
+With these methods the algorithm does the following
+
+
+
+-implementierung
+
+
+
 interpolation
 \clearpage
 
