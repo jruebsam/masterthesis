@@ -23,21 +23,25 @@ the use of unstructured data makes this very difficult.
 Altough some attempts exists to solve these difficulties (see i.e. \citep{PAP}), it is still uncertain if the obtained performance loss would be acceptable.
 
 A set of alternative methods, to resolve the problems described above, are so called Immersed Boundary Methods.
-The term was first mentioned in \citep{peskin72}, for the simulation of blood flow through a heartvale, but has since then been used for a variety of
-methods \citep{Mittal2005}.  All of them have the idea in common to perform the simulations on a cartesian grid which does not conform to the domain boundary.
+The term was first mentioned in \citep{peskin72}, where the mettod was used for the simulation of blood flow through a heartvale,
+but has since then been used for a variety of methods \citep{Mittal2005}.
+
+All of them have the idea in common to perform the simulations on a cartesian grid which does not conform to the domain boundary.
 To satisfy the desired boundary conditions additional terms are introduced into the equations of motion.
 In general one can distinguish between contiuous forcing methods and direct forcing methods.
 Continious forcing methods try to mimic the boundary using a localized force which acts on the boundary,
-since the surface is tracked by lagrangian points this methods can be well suited for moving boundaries \citep{Mittal2005}.
+since the surface is often given by lagrangian points, this methods is well suited for moving boundaries \citep{Mittal2005}.
+One common problem is that from a continous forcing instabilities and numerical oscillations may arise in numericial stiff problems \citep{QUOTE}.
 
-One common problem is that continous forcing can arise to stability problem and numerical oscillations in numericial stiff problem (SOURCE).
-The direct forcing approach tries to satisfies the boundary condition, by imposing it directly to points near the fluid surface for example
-trough an interpolaltion procedure.
+Direct forcing approaches tries to satisfies the boundary condition by imposing it directly to points near the fluid boundaries for example
+trough an interpolation procedure.
 Some of the major drawbacks using the IBM is the loss in  spatial accuracy at the boundary, therefore it can be necessary to use a higher grid resolution
 compared to a body-fitted mesh.  Futhermore the non-conforming (?) boundaries are more difficult implement.
-The benefits of these methods is the use of a cartesian grid, which is much more suited for a gpu-based implementation (see section X).
-As a result the overall performance will probably be in the same order as the original algorithm.
-In the thesis the Implementation of different Immersed Boundary Methods is seperated into three chapters depending on the boundary condition and application.
+
+The benefits of these methods is the use of a cartesian grid, which is much more suited for a GPU-based implementation (see Sec. \ref{BLA}.
+As a result the overall performance of the methods introduced in this chatper,  will probably be in the same order as the original algorithm.
+
+ONLY NO SLIP
 This chapter beginns with Implementation of NoSlip-Walls which are the easisest to implement.
 The term Immersed Boundary Method is vaguely defined in literature, in this thesis we refer to it with all methods introduced in the following three chapters.
 
@@ -52,26 +56,25 @@ As an example of an immersed boundary, we will dicuss the embedding of a cylinde
     \left(x - \frac{l_x}{2}\right)^2 + \left(y - \frac{l_y}{2}\right)^2 = r^2
 \end{align}
 
-where $r=0.4$ is the radius and the center is given by $(l_x/2, l_y/2)$. The whole setup is schematically shown in figure (X).
+where $r=0.4$ is the radius and the center is given by $(l_x/2, l_y/2)$.
 The simulation domain is than seperated into the fluid domain $\Omega_f$ and the wall domain $\Omega_w$.
 The overall goal is to enforce the no-slip condition $\vec{v} = 0$ on the surface $\partial \Omega_f$, furthermore
 the consveration of mass should be fulfilled.
 
+\clearpage
+
 \subsection{Volume Penalization}
 
 \begin{figure}[!b]
-    \subfloat[Cylinder geometry of the immersed boundary embedd in the simulation domain]{{
-      \includegraphics[width=0.5\textwidth]{gfx/immersed_boundary/mask.png}\label{fig:mask_vp}
-        }}%
-    \subfloat[Masking function $H(x,y,z=const.) = x^2 + y^2 < c$ for a cylinder. ]{{
-      \includegraphics[width=0.5\textwidth]{gfx/immersed_boundary/mask.png}\label{fig:mask_vp}
-     }}%
-    \label{fig:example}%
+    \centering
+    \includegraphics{gfx/immersed_boundary/methods/mask_volpen.pdf}
+    \caption{Masking function $H(x,y,z=const.) = x^2 + y^2 < c$ for a cylinder. }
+    \label{fig:ibm_maskvolpen}
 \end{figure}
 
-The idea behind the volume penalization method is to introduce an additional forcing term into the Navier-Stokes equation, which acts on
+The  behind the volume penalization method is to introduce an additional forcing term into the Navier-Stokes equation, which acts on
 the grid points outside of the fluid domain to ensure the desired boundary conditions. The methods was sucessfully implemented and tested
-on pseudo-spectral methods, see for example (CITE).
+on pseudo-spectral methods, see for example \citep{Lulff2011}.
 For the implementation it is necessary to define a masking function $H(x, y, z)$ which seperates the simulation domain into $\Omega_f$ and $\Omega_w$.
 In case of the cylinder, we can use the surface equation (REF) and simply obtain.
 \begin{align}
@@ -307,3 +310,5 @@ The performance of this implementation in comparsion to
 
 \clearpage
 
+\section{Performance}
+PERFORMANCE stuff
