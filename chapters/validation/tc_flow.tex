@@ -175,15 +175,15 @@ theoretical solution are the largest at the boundarie $r_i$ of the  inner cylind
 
 \begin{figure}[!bp]
   \begin{minipage}[c]{0.5\textwidth}
-      \includegraphics{gfx/immersed_boundary/tcflow/long/ts_o2.pdf}
+      \includegraphics{gfx/immersed_boundary/tcflow/long/ts_all.pdf}
       \caption{\label{tcflow:results_long_ts_o2}
             Averaged density for FD2 metdods with respect to the simulation time.
           }
   \end{minipage}
   \begin{minipage}[c]{0.5\textwidth}
-      \includegraphics{gfx/immersed_boundary/tcflow/long/ts_o4.pdf}
-      \caption{\label{tcflow:results_long_ts_o4}
-            Averaged density for FD4 methods with respect to the simulation time.
+      \includegraphics{gfx/immersed_boundary/tcflow/long/example.pdf}
+      \caption{\label{tcflow:rho_example}
+        Density oscillations for the VP-VP FD2 method.
       }
   \end{minipage}
 \end{figure}
@@ -193,19 +193,18 @@ theoretical solution are the largest at the boundarie $r_i$ of the  inner cylind
 \subsubsection{Long-Term Simulations}
 
 For all methods, except the IP-DF4 method, the simulations were numerically stable.
-The density was averaged over the fluid domain by Eq.  \ref{vali:density_calc}.
-The results of the computation are shown in Fig. for the FD2  \ref{tcflow:results_long_ts_o2}
-and in Fig.  \ref{tcflow:results_long_ts_o4} for the FD4 methods.
-(DESRIPTION FOLLOWS SIMULATION RESULTS)
-(DESRIPTION FOLLOWS SIMULATION RESULTS)
-When comparing a FD2 method to its FD4 version it can be
--the denisiy fluctuates for both DF2 and DF4.
-(DESRIPTION FOLLOWS SIMULATION RESULTS)
-(DESRIPTION FOLLOWS SIMULATION RESULTS)
+The density was averaged over the fluid domain by Eq.  \ref{vali:density_calc},
+the results of the computation are shown in Fig. \ref{tcflow:results_long_ts_o2}.
+For the IP+DF FD2 method the density increase until a saturation is reached, about $1.6\cdot10^{-3}$ at $T\approx 1000$.
+The density of the  DF-VF FD4 decreases to about $-1.4\cdot10^{-3}$ with a saturation at $T\approx1400$.
+For all other methods the saturation of the density is reached faster, at $T\approx200$.
+Furthermore the averaged density is smaller, in the order $10^{-4}$.
 
-Beside the change in the density for both cases FD2 and FD4 numerical oscillation can be
-observed which  are similar to the Hagen-Poiseuille flow test case.
-%OSZIS ? The profile of the other DF4 methods of is shown in Appendix \ref{fig:hpflow_allgc_theo}.
+Beside the saturations in the density for both methods FD2 and FD4 numerical oscillation can be
+observed, which  are similar to the Hagen-Poiseuille flow test case.
+In Fig. \ref{tcflow:rho_example} these oscillations are exemplarily shown for the VP-VF FD2 method.
+Beside the oscillations of order $10^{-4}$ it can be seen that in side of the inner cylinder the
+density decreases to about $-6\cdot10^{-3}$, in comparison to $\approx10^{-3}$ in the fluid domain.
 
 \subsection{Discussion}
 

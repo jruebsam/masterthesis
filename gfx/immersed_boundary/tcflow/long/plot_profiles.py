@@ -40,7 +40,7 @@ def main():
 
     for label, method, ax  in zip(labels, modes, axes.flatten()):
 
-        on = 'o4'
+        on = 'o2'
         onn = 'FD2' if on =='o2' else 'FD4'
 
         #var_path = os.path.join(method, on)

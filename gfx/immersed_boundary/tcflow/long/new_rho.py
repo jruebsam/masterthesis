@@ -17,10 +17,11 @@ from cycler import cycler
 plt.rc('axes', prop_cycle=(cycler('color', cmap)))
 
 def main():
-    dpath = '/home/upgp/jruebsam/simulations/april16/week1/tcflow/gc/'
+    #dpath = '/home/upgp/jruebsam/simulations/april16/week1/tcflow/gc/'
+    dpath = '/home/upgp/jruebsam/simulations/june16/week1/tclong'
 
-    modes = ['df', 'dffrac',  'vp', 'vpfrac', 'ip']
-    labels = ['DF', 'DF-VF', 'VP', 'VP-VF', 'IP']
+    modes = ['df', 'dffrac',  'vp', 'vpfrac', 'ip', 'ipzero']
+    labels = ['DF', 'DF-VF', 'VP', 'VP-VF', 'IP', 'IP+DF']
 
     re = 100.
     pmax = 4./re
@@ -30,29 +31,37 @@ def main():
 
     rs = 96
 
+    f, ax = style.newfig(0.5, 1.8)
     for on in ['o2', 'o4']:
+        plt.gca().set_color_cycle(cmap)
         onn = 'FD2' if on=='o2' else 'FD4'
-        f, ax = style.newfig(0.5, 1.7)
         for label, method  in zip(labels, modes):
+            print method, on
+            if ((method=='ipzero') and (on=='o4')):
+                continue
 
             onn = 'FD2' if on=='o2' else 'FD4'
-            var_path = os.path.join(method, on, 'res_96')
+            var_path = os.path.join(method, on)
             sim_path = os.path.join(dpath, os.path.dirname(__file__), "data", var_path)
-            d = np.genfromtxt(os.path.join(sim_path , 'res_96.ekin'))
-            ax.plot(d[:, 0], d[:, 3], label=label+ ' ' + onn , lw=0.8)
+            d = np.genfromtxt(os.path.join(sim_path , '%s.ekin' % on))
+            if on == 'o2':
+                ax.plot(d[:, 0], d[:, 3], label=label+ ' ' + onn , lw=0.8)
+            else:
+                ax.plot(d[:, 0], d[:, 3], '--', label=label+ ' ' + onn , lw=0.8, dashes=(1, 2, 1, 2))
 
         ax.legend(ncol = 2, fontsize=8, loc='lower left', fancybox=True, shadow=True)
 
-        plt.subplots_adjust(top=0.7, bottom =0.15, left=0.2)
-        ax.legend(ncol = 2, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.5),
+        plt.subplots_adjust(top=0.65, bottom =0.15, left=0.2)
+        ax.legend(ncol = 2, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.6), labelspacing=0.2,
                fancybox=True, shadow=True)
 
         ax.set_xlabel('Total time')
         ax.set_ylabel(r'$\rho$')
         plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
         plt.subplots_adjust(bottom =0.15)
+    ax.set_xlim(0, 1200)
 
-        plt.savefig('ts_%s.pdf' % on)
+    plt.savefig('ts_all.pdf')#%s.pdf' % on)
 
 
 if __name__=='__main__':

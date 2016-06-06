@@ -19,7 +19,8 @@ from cycler import cycler
 plt.rc('axes', prop_cycle=(cycler('color', cmap)))
 
 def main():
-    dpath = '/home/upgp/jruebsam/simulations/april16/week1/tcflow/long/old'
+    #dpath = '/home/upgp/jruebsam/simulations/april16/week1/tcflow/long/old'
+    dpath = '/home/upgp/jruebsam/simulations/june16/week1/tclong/data'
     fs = style.figsize(0.9)#, 0.5)
     f, axes = plt.subplots(2, 3, figsize=fs)
 
@@ -40,7 +41,7 @@ def main():
 
     for label, method, ax  in zip(labels, modes, axes.flatten()):
 
-        on = 'o4'
+        on = 'o2'
         onn = 'FD2' if on=='o2' else 'FD4'
 
         var_path = os.path.join(method, on)
