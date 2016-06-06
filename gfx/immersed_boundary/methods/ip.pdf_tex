@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{356.05bp}%
+    \setlength{\unitlength}{372.83381348bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,18 +48,27 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.60465634)%
+  \begin{picture}(1,0.58560468)%
     \put(0,0){\includegraphics[width=\unitlength]{ip.pdf}}%
-    \put(0.65615472,0.13616351){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$a$}}}%
-    \put(0.55344039,0.2075821){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$b$}}}%
-    \put(0.08320152,0.29745712){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$c$}}}%
-    \put(0.01836722,0.38949542){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\delta$}}}%
-    \put(0.20344052,0.56838114){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\gamma$}}}%
-    \put(0.03207917,0.01003815){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\alpha$}}}%
-    \put(0.21138447,0.20296156){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\beta$}}}%
-    \put(0.82251693,0.26079804){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{H=1}}}%
-    \put(0.15567637,0.12357815){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$c_1$}}}%
-    \put(0.20623106,0.33221658){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$c_2$}}}%
-    \put(0.65520494,0.16650953){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\vec{n}$}}}%
+    \put(0.71528829,0.12569882){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$a$}}}%
+    \put(0.57384756,0.19823743){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$b$}}}%
+    \put(0.10960476,0.26347521){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$c$}}}%
+    \put(0.0628617,0.37196159){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\delta$}}}%
+    \put(0.23960358,0.54279443){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\gamma$}}}%
+    \put(0.07595639,0.00958629){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\alpha$}}}%
+    \put(0.24718992,0.1938249){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\beta$}}}%
+    \put(0.83081111,0.24905775){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$H=1$}}}%
+    \put(0.19398962,0.11801508){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$c_1$}}}%
+    \put(0.24226851,0.31726125){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$c_2$}}}%
+    \put(0.64393706,0.13625484){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\vec{n}$}}}%
+    \put(-0.00955305,0.19410634){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\Delta y$}}}%
+    \put(0.10969316,0.50424614){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{
+}}}%
+    \put(0.0936002,0.51114311){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\Delta x$}}}%
+    \put(0.37690039,0.14919221){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\Delta z$}}}%
+    \put(0.25901777,0.01083754){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x$}}}%
+    \put(0.34029951,0.02980334){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$y$}}}%
+    \put(0.28936294,0.10458251){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$z$}}}%
+    \put(0.65567258,0.29857489){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$H=0$}}}%
   \end{picture}%
 \endgroup%

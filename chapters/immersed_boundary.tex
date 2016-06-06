@@ -82,6 +82,7 @@ on pseudo-spectral methods, see for example (CITE).
 For the implementation it is necessary to define a masking function $H(x, y, z)$ which seperates the simulation domain into $\Omega_f$ and $\Omega_w$.
 In case of the cylinder, we can use the surface equation (REF) and simply obtain.
 \begin{align}
+    \label{ibm:masking_function}
 H(x, y, z) = \begin{cases}
                     0, &  \left(x - \frac{l_x}{2}\right)^2 + \left(y - \frac{l_y}{2}\right)^2 <r^2\\
                     1, & \text{else}
@@ -190,103 +191,126 @@ in section (). Therefore we conlude that the volume fraction calculation should 
 \clearpage
 \subsection{Interpolation Method}
 
-The last immersed boundary method introduced in this thesis is a bilinear interpolation method, which was first introduced by \citep{Gilmanov2003}.
+The last immersed boundary method introduced in this thesis is a bilinear interpolation method, which was first presented by \citep{Gilmanov2003}.
 One difference to the previous methods is an exact representation of the immersed boundary, instead of a pixelated one.
 A schematic representation of the interpolation procedure is shown in Fig. \ref{ibm:ip_method_algo}.
-
-The interpolation method is applied to all grid points which have a nearest neighbor outside of the fluid domain,
-In this setup this is true for the point $b$, which shall be interpolated.
-The point $a$ which lies on the immersed boundary is implicit defined by the normal $\vec{n}$, such that a line from a $a$
-with the orientation of $\vec{n}$ matches with $b$ at a distance $\Delta h = [AB]$.
-
-The point $b$ is than projected into direction of  the normal $\vec{n}$, onto the nearest grid plane defined by
-the grid points $\alpha$, $\beta$, $\gamma$ any $\delta$.  The intersection point $c$ has two coordinate components $(c_1, c_2)$
-with respect to $\beta$, which is the closest point on the plane to $b$.
-
-After the position calculation of the point $c$, the velocitiy at $c$ is obtained by a bilnear interpolation
-of the velocities at the points $\alpha$, $\beta$, $\gamma$ and $\delta$. This interpolation is given by \citep{BLA}
-
-\begin{align}
-    v(c) =  \frac{1}{\Delta x\Delta y} \left(v(\beta)(\Delta x -  c_1)(\Delta y -  c_2) +
-            v(\gamma)(\Delta x -  c_1)(c_2) +
-            v(\gamma)(  c_1)(\Delta y -  c_2) +
-            v(\gamma)( c_1)(c_2) \right)
-\end{align}
-
 
 \begin{figure}[!bp]
       \centering
         \resizebox{0.8\textwidth}{!}{
        \import{gfx/immersed_boundary/methods///}{ip.pdf_tex}
       }
-      \caption{Interpolation of the point $b$, with the projection point $c$, from the point $a$ into the direction $\vec{n}$,
-       onto the next grid plane defined by the grid points $\alpha$, $\beta$, $\gamma$ and $\delta$. The immersed boundary given by the masking function H(x,y,z)}
-       Explain rest.
+      \caption{Interpolation of the velocity of the point $b$. The point $c$ is a projection from the point $a$ into the direction of the normal $\vec{n}$,
+       onto the plane defined by the grid points $\alpha$, $\beta$, $\gamma$ and $\delta$. The immersed boundary is given by the masking function H(x,y,z).
+       For the bilinear interpolation the coefficient $c_1$ and $c_2$ are used.
+      }
     \label{ibm:ip_method_algo}
 \end{figure}
 
-
-With the velocity $v(c)$ and  the No-Slip boundarie condition $v(a) = 0$,
-the velocity at the point $b$ is given by the linear interpolation
+The interpolation method is applied to all grid points which posess a nearest neighbor outside of the fluid domain.
+In this setup this is true for the point $b$, for which the velocity $\vec{v}$, shall be interpolated.
+The idea of this method is to linear interpolate $b$ into the direction of the normal $\vec{n}$, of the immersed boundary.
+The intersection of the interpolation direction with the boundary is given by the point $a$, with the distance $\Delta h =[ab]$.
+The point $b$ is  projected into the direction of the normal $\vec{n}$, onto the plane defined by
+the nearest grid points $\alpha$, $\beta$, $\gamma$ and $\delta$.
+After the position calculation of the point $c$, the velocitiy $\vec{v}(c)$ is obtained by a bilinear interpolation
+of the velocities at the points $\alpha$, $\beta$, $\gamma$ and $\delta$, given by (\citep{numrecipes})
 
 \begin{align}
-    v(b)  =  v(c)\frac{\Delta c}{\Delta h}
+    \vec{v}(c) =  \frac{1}{\Delta x\Delta y} \left(\vec{v}(\beta)(\Delta x -  c_1)(\Delta y -  c_2) +
+            \vec{v}(\gamma)(\Delta x -  c_1)(c_2) +
+            \vec{v}(\alpha)(  c_1)(\Delta y -  c_2) +
+            \vec{v}(\delta)( c_1)(c_2) \right)
 \end{align}
 
+where $(c_1, c_2)$ is the offset from $c$ to $\beta$, or in general the offset to the point of the plane, which is closest to $b$.
+
+With the obtained velocity $v(c)$ and  the No-Slip boundarie condition $v(a) = 0$,
+the interpolated velocity is given by
+\begin{align}
+    \vec{v}(b)  =  \vec{v}(c)\frac{\Delta c}{\Delta h}
+\end{align}
 where $\Delta c = [ac]$.
-In order to simplify the interpolation for different geometries a routine was implemented which needs three predefined function for one geometry.
-For the cylinder these function are given my:
-A masking function H(x, y, z)  given by Eq. ()..
-A function $d(x, y, z)$ which gives the distance for each point to the immersed boundary, in case of the cylinder
+
+For a simplification of the interpolation procedure for different geometries, a preprocessing routine was implemented.
+In order to interpolate a certain geometry three functions have to defined.
+A masking function $H(x, y, z)$, a function which gives the distance to the boundary $d(x, y, z)$
+and a function $\vec{g}(x, y, z)$ with determines the normal direction  of the boundary.
+For the cylinder the masking function $H(x, y, z)$ is given by Eq. \ref{ibm:masking_function}.
+The distance is
 
 \begin{align}
     d(x, y, z) = \sqrt{\left(x - \frac{l_x}{2}\right)^2 + \left(y - \frac{l_y}{2}\right)^2  - r^2}
 \end{align}
 
-A function $\vec{g}(x,y,z )$ which defines the gradient of the immersed boundary is necessary.
-
+and the normal direction
 \begin{align}
     \vec{g}(x, y, z) = \left(-\left(x - \frac{l_x}{2}\right),  - \left(y - \frac{l_y}{2}\right), 0\right)^T
 \end{align}
 
-A normalization of $\vec{g}(x, y, z)$ is performed in the algorithm, however it has to be satisfied that the vectors point $\vec{g}(x, y, z)$ point into direction of the fluid domain.
-
-
+A normalization of $\vec{g}(x, y, z)$ is performed in the algorithm,
+however it is required that the normal  vectors point into the direction of the fluid domain.
 Before the execution of a simulation the following steps are precomputed
 
 \begin{enumerate}
     \item The closest point to $b$, in the example  $\beta$ is determined by the direction where $\vec{n}$ is the largest, in this example
           the $z$-direction with $n_0 := \max(\vec{n}) = n_z$.
 
-    \item The points $\alpha$,$\gamma$, $\delta$ are determined by the remaining components ${n_y, n_z}$, which are used as directions to
+    \item The points $\alpha$, $\gamma$, $\delta$ are determined by the remaining components ${n_y, n_z}$, which are used as directions to
             compute the offset from $\beta$.
 
-    \item The offset $p00$, $p01$, $p10$ and $p11$  of  $\beta$, $\alpha$, $\gamma$, $\delta$ to the point $b$ are computed
+    \item The offset $p00$, $p01$, $p10$, $p11$ of the points $\beta$, $\alpha$, $\gamma$, $\delta$ to the point $b$ are computed
 
-    \item $\vec{n}$ is normalized such that it points onto the plane $\vec{n}^* = \frac{\vec{n}}{|n_0|}\cdot \Delta z$.
+    \item $\vec{n}$ is normalized by $\vec{n}^* = \frac{\vec{n}}{|n_0|}\cdot \Delta z$.
+            \footnote{For $n_0=n_z$ this is $\Delta x$ and for $n_0=n_y$ it is $\Delta y$}
 
     \item The point $c$ is given by $c = a + \vec{n}^*$ and the coefficient $c_1$ and $c_2$ are computed and normalized to the values
            $c01 := \frac{c_1}{\Delta x}$ and $\c10 := \frac{c_1}{\Delta y}$.
-    \item The ratio $W=\frac{\Delta c}{\Delta h} = \frac{d(x, y, z)}{d(x, y, z) + |\vec{n}| + }$ is computed
+    \item The ratio $W=\frac{\Delta c}{\Delta h} = \frac{d(x, y, z)}{d(x, y, z) + |\vec{n}| }$ is computed
 \end{enumerate}
 
-
 The values obtained from this precomputation are the offsets  $p00$, $p01$, $p10$, $p11$, the coefficients $c01$, $c10$ and
-the ratio $W$. Each values is stored into an array of shape $N_x\cdot \N_y \cdot \N_z$, which is loaded during the simulation.
-Here an example for the $v_x$ interpolation is shown
+the ratio $W$. Each values is stored into an array of shape $N_x \cdot N_y \cdot N_z$, which is loaded during the simulation.
+All values in the coefficient arrays which are not close to the immersed boundarie are set to zero.
+During the interpolation procedure the ratio $W$ is checked and if larger than zero an interpolation for the grid point is computed.
+An example of the interpolation procedure is given by
 
-\begin{verbatim}
-    //distance = W
-    f00 = vx_d[p00];
-    f01 = vx_d[p01];
-    f10 = vx_d[p10];
-     f11 = vx_d[p11];
-    f = distance*(f00*(1 - c10)*(1 - c01) + f10*c10*(1 - c01) + f01*c01*(1 - c10) + f11*c01*c10);
-    vx_d[global_Point] = f;
-\end{verbatim}
+\begin{Verbatim} [fontsize=\footnotesize]
+    if ((distance != 0 )){
+      //load points of the plane (alpha, beta, gamma, delta)
+      p00 = p00_d[global_Point] + global_Point;
+      p01 = p01_d[global_Point] + global_Point;
+      p10 = p10_d[global_Point] + global_Point;
+      p11 = p11_d[global_Point] + global_Point;
+      //load coefficients
+      c01 = c01_d[global_Point];
+      c10 = c10_d[global_Point];
 
--speed etc
--was noch ?
+      if (threadIdx.z == 1){
+        //load velocities
+        f00 = vx_d[p00]; f01 = vx_d[p01]; f10 = vx_d[p10]; f11 = vx_d[p11];
+        //bilinear and linear interpolation
+        f = W*(f00*(1 - c10)*(1 - c01) + f10*c10*(1 - c01)
+                             + f01*c01*(1 - c10) + f11*c01*c10);
+        //set the interpolated value
+        vx_d[global_Point] = f;
+      }
+      if (threadIdx.z == 2){
+        f00 = vy_d[p00]; f01 = vy_d[p01]; f10 = vy_d[p10]; f11 = vy_d[p11];
+        f = W*(f00*(1 - c10)*(1 - c01) + f10*c10*(1 - c01)
+                                + f01*c01*(1 - c10) + f11*c01*c10);
+        vy_d[global_Point] = f;
+      }
+      if (threadIdx.z == 3){
+        f00 = vz_d[p00]; f01 = vz_d[p01]; f10 = vz_d[p10]; f11 = vz_d[p11];
+        f = W*(f00*(1 - c10)*(1 - c01) + f10*c10*(1 - c01)
+                             + f01*c01*(1 - c10) + f11*c01*c10);
+        vz_d[global_Point] = f;
+      }
+\end{Verbatim}
+
+where \texttt{global\_Point} is the position of the interpolated point.
+The performance of this implementation in comparsion to
 
 \clearpage
 
