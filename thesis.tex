@@ -15,6 +15,7 @@
 \usepackage[ngerman, english]{babel}
 \usepackage{siunitx}
 \usepackage{color}
+\usepackage{ragged2e}
 
 \usepackage{import}
 \usepackage{fancyvrb}
@@ -336,8 +337,10 @@ rulecolor=\color{black}
 \include{chapters/appendix}
 \include{chapters/python_api}
 \end{appendices}
-
+\begingroup
+\sloppy
 \printbibliography
+\endgroup
 \include{chapters/danksagung}
 \include{chapters/declaration}
 \end{document}

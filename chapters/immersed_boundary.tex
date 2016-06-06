@@ -1,40 +1,35 @@
 \chapter{Immersed Boundary Methods}
 \label{CHAPTER:IBM}.
 
-\section{Overview of Immersed Boundary Methods}
+\section{Introduction}
 
-\begin{figure}[!bp]
-  \centering
-  \subfloat[cartesian grid]{\includegraphics[width=0.4\textwidth]{gfx/immersed_boundary/general_partition_triangle.jpg}\label{fig:grid_f0}}
-  \hfil
-  \subfloat[unstructured body-fitted grid]{\includegraphics[width=0.4\textwidth]{gfx/immersed_boundary/general_partition_triangle.jpg}\label{fig:grid_f2}}
-  \caption{Different types of numerical grids}
-\end{figure}
-
-For many fluid problems it is mandatory to solve the equations of motion with respect to complex-shaped geometries \.
-The algorithm introduced in chapter \ref{CHAPTER:CUDA} is not yet suitable for such a scenario.
+For many fluid problems it is mandatory to solve the equations of motion with respect to complex-shaped geometries.
+The cuda algorithm introduced in chapter \ref{CHAPTER:CUDA} is not yet suitable for such a scenario.
 For instance the simulation inside a spheric geometry is impossible, since the boundaries
 do not coincide with the implemented cartesian grid. Nevertheless there exist different approaches to overcome this problem,
 which shall be introduced here. \\
-The common approach to extend the algorithm would be to use a body-fitted mesh (see figure \ref{fig:grid_f1}),
+The common approach to extend the algorithm would be to use a body-fitted mesh ,
 different advantages and disadvantages arise with this kind of implementation (see \citep{Mittal2005}).
 One benefit is a much simpler deployment of the desired boundary condition, due to the overlap of the grid with domain border.
 Furthermore a higher accuracy can be achieved \citep{Gornak2013}.
 However, using an unstructered grid generates plenty of computational overhead, during and before the execution of a simulation.
-The generation of the grid is very complicated in contrast to using a cartesian grid, this can be even more complicated when
+The generation of the grid is very complicated in contrast to using a cartesian grid. This can be even more complicated when
 considering moving boundaries.
 Also solving the finite differenc schemes on a curvilinear coordinate system, leads to more calculations on a single grid point.
-The last important aspect is the implementation on the gpu.
-Like discussed in section () it is more efficient to use homogenous storage and calculation pattern on a CUDA-device,
+
+The last important aspect is the implementation on the GPU.
+Like discussed in section \ref{CUDAGPU}, it is more efficient to use homogenous storage and calculation pattern on a CUDA-device,
 the use of unstructured data makes this very difficult.
-Altough some attempts exists to solve these difficulties (see i.e. PAP), it is still uncertain if the obtained performance loss would be acceptable.\\
+Altough some attempts exists to solve these difficulties (see i.e. \citep{PAP}), it is still uncertain if the obtained performance loss would be acceptable.
+
 A set of alternative methods, to resolve the problems described above, are so called Immersed Boundary Methods.
-The term was first mentioned in (PESKIN 1972), for the simulation of blood flow through a heartvale, but has since then been used for a variety of
-methods (MITTAL).  All of them have the idea in common to perform the simulations on a cartesian grid which does not conform to the domain boundary.
+The term was first mentioned in \citep{peskin72}, for the simulation of blood flow through a heartvale, but has since then been used for a variety of
+methods \citep{Mittal2005}.  All of them have the idea in common to perform the simulations on a cartesian grid which does not conform to the domain boundary.
 To satisfy the desired boundary conditions additional terms are introduced into the equations of motion.
 In general one can distinguish between contiuous forcing methods and direct forcing methods.
 Continious forcing methods try to mimic the boundary using a localized force which acts on the boundary,
-since the surface is tracked by lagrangian points this methods can be well suited for moving boundaries (MITTAL).
+since the surface is tracked by lagrangian points this methods can be well suited for moving boundaries \citep{Mittal2005}.
+
 One common problem is that continous forcing can arise to stability problem and numerical oscillations in numericial stiff problem (SOURCE).
 The direct forcing approach tries to satisfies the boundary condition, by imposing it directly to points near the fluid surface for example
 trough an interpolaltion procedure.
@@ -46,9 +41,7 @@ In the thesis the Implementation of different Immersed Boundary Methods is seper
 This chapter beginns with Implementation of NoSlip-Walls which are the easisest to implement.
 The term Immersed Boundary Method is vaguely defined in literature, in this thesis we refer to it with all methods introduced in the following three chapters.
 
-\newpage
-
-\section{Implemented Methods}
+\section{Immersed Bonudary Methods}
 
 For the purpose of discussion, the different methods introduced here, will be applied to a default geometry.
 The fluid domain without any immersed boundaries is set to a cube of the size $l_i= 1$ with  $i = \{x, y, z\}$.
