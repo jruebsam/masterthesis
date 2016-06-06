@@ -226,7 +226,7 @@ of the velocities at the points $\alpha$, $\beta$, $\gamma$ and $\delta$. This i
 \end{figure}
 
 
-Finally with the velocity $v(c)$ and  the No-Slip boundarie condition $v(a) = 0$,
+With the velocity $v(c)$ and  the No-Slip boundarie condition $v(a) = 0$,
 the velocity at the point $b$ is given by the linear interpolation
 
 \begin{align}
@@ -235,28 +235,58 @@ the velocity at the point $b$ is given by the linear interpolation
 
 where $\Delta c = [ac]$.
 In order to simplify the interpolation for different geometries a routine was implemented which needs three predefined function for one geometry.
-The masking function given by Eq. (), for the cylinder.
+For the cylinder these function are given my:
+A masking function H(x, y, z)  given by Eq. ()..
 A function $d(x, y, z)$ which gives the distance for each point to the immersed boundary, in case of the cylinder
 
 \begin{align}
     d(x, y, z) = \sqrt{\left(x - \frac{l_x}{2}\right)^2 + \left(y - \frac{l_y}{2}\right)^2  - r^2}
 \end{align}
 
-Finally a function $\vec{g}(x,y,z )$ which defines the gradient of the immersed boundary is necessary.
+A function $\vec{g}(x,y,z )$ which defines the gradient of the immersed boundary is necessary.
 
 \begin{align}
     \vec{g}(x, y, z) = \left(-\left(x - \frac{l_x}{2}\right),  - \left(y - \frac{l_y}{2}\right), 0\right)^T
 \end{align}
 
-A normalization of this function is performed in the algorithm, hower it is important that the normals point into direction of the fluid domain.
-With these methods the algorithm does the following
+A normalization of $\vec{g}(x, y, z)$ is performed in the algorithm, however it has to be satisfied that the vectors point $\vec{g}(x, y, z)$ point into direction of the fluid domain.
 
 
+Before the execution of a simulation the following steps are precomputed
 
--implementierung
+\begin{enumerate}
+    \item The closest point to $b$, in the example  $\beta$ is determined by the direction where $\vec{n}$ is the largest, in this example
+          the $z$-direction with $n_0 := \max(\vec{n}) = n_z$.
+
+    \item The points $\alpha$,$\gamma$, $\delta$ are determined by the remaining components ${n_y, n_z}$, which are used as directions to
+            compute the offset from $\beta$.
+
+    \item The offset $p00$, $p01$, $p10$ and $p11$  of  $\beta$, $\alpha$, $\gamma$, $\delta$ to the point $b$ are computed
+
+    \item $\vec{n}$ is normalized such that it points onto the plane $\vec{n}^* = \frac{\vec{n}}{|n_0|}\cdot \Delta z$.
+
+    \item The point $c$ is given by $c = a + \vec{n}^*$ and the coefficient $c_1$ and $c_2$ are computed and normalized to the values
+           $c01 := \frac{c_1}{\Delta x}$ and $\c10 := \frac{c_1}{\Delta y}$.
+    \item The ratio $W=\frac{\Delta c}{\Delta h} = \frac{d(x, y, z)}{d(x, y, z) + |\vec{n}| + }$ is computed
+\end{enumerate}
 
 
+The values obtained from this precomputation are the offsets  $p00$, $p01$, $p10$, $p11$, the coefficients $c01$, $c10$ and
+the ratio $W$. Each values is stored into an array of shape $N_x\cdot \N_y \cdot \N_z$, which is loaded during the simulation.
+Here an example for the $v_x$ interpolation is shown
 
-interpolation
+\begin{verbatim}
+    //distance = W
+    f00 = vx_d[p00];
+    f01 = vx_d[p01];
+    f10 = vx_d[p10];
+     f11 = vx_d[p11];
+    f = distance*(f00*(1 - c10)*(1 - c01) + f10*c10*(1 - c01) + f01*c01*(1 - c10) + f11*c01*c10);
+    vx_d[global_Point] = f;
+\end{verbatim}
+
+-speed etc
+-was noch ?
+
 \clearpage
 
