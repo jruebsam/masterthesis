@@ -208,14 +208,50 @@ density decreases to about $-6\cdot10^{-3}$, in comparison to $\approx10^{-3}$ i
 
 \subsection{Discussion}
 
+In comparison the Hagen-Poiseuille flow test case, in this simulation the density also changes
+for the FD2 methods.
+The saturation values of order $10^{-4}$ are similar  with exception of th IP+DF FD2 and DF-VF FD4 method ($10^-3$).
+
+
+
+- divergence of v
+The saturation of the density is
+One assumption is that the divergence of $\vec{v}$ is not zero in th
+The change in the density is proportional to the divergence of the velocity.
+
+
+Hower from
+
+
+One assumption was that the change in the density, which is proportional to the
+diveregnce of v is
+
+
+
+
+-zeitliche beschreibung der dichte
+
+
 -density div u ist nicht 0 deswegen auch fehler in o2
 
 -comparsion to hpflow
 
 -velocity profiles indicate that the error of the methos  comes from the inner border
 
--ip diff zero o2
+-ip diff zero o2 -> bild
 
+
+\begin{figure}[!bp]
+  \begin{minipage}[c]{0.4\textwidth}
+      \centering
+      \includegraphics{gfx/immersed_boundary/tcflow/discussion/vzdiff.pdf}
+  \end{minipage}
+  \begin{minipage}[c]{0.6\textwidth}
+      \caption{Absolute value of the velocity difference between the IP-FD2 and IP+DF-FD2 in the (y, z)-plane.
+      \label{valid:hpflow_velodiff_discussion}
+      }
+  \end{minipage}
+\end{figure}
 \clearpage
 
 \section{Summary}

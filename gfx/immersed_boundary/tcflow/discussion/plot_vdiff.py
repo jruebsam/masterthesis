@@ -17,7 +17,7 @@ from cycler import cycler
 plt.rc('axes', prop_cycle=(cycler('color', cmap)))
 
 def main():
-    path = '/home/upgp/jruebsam/simulations/april16/week1/hpflow/gc/data'
+    path = '/home/upgp/jruebsam/simulations/april16/week1/tcflow/gc/data'
     modes = ['dffrac', 'vpfrac', 'ip', 'ip']
     labels = ['DF-Vol.Frac', 'VP-Vol.Frac', 'IP' , 'IP']
     orders = [1, 1, 1, 0]
@@ -32,13 +32,21 @@ def main():
 
     f, ax = style.newfig(0.4, 1.)
 
-    d = tb.open_file(path + '/ip/o4/res_128/gfx/00000020.h5')
-    d2 = tb.open_file(path  + '/ipzero/o2/res_128/gfx/00000020.h5')
+    d = tb.open_file(path + '/ip/o2/res_128/simulation.h5')
+    vx = d.root.simdata.vx[-1, :, :, 4]
+    vy = d.root.simdata.vy[-1, :, :, 4]
+    h = d.root.icdata.H[:,:, 1]
+    v1 = np.sqrt(vx**2 + vy**2)*(1 - h)
+    d.close()
 
-    vz1 = d.root.xy.vz[:]
-    vz2 = d2.root.xy.vz[:]
+    d = tb.open_file(path  + '/ipzero/o2/res_128/simulation.h5')
+    vx = d.root.simdata.vx[-1, :, :, 4]
+    vy = d.root.simdata.vy[-1, :, :, 4]
+    h = d.root.icdata.H[:,:, 1]
+    v2 = np.sqrt(vx**2 + vy**2)*(1 - h)
+    d.close()
 
-    im = ax.imshow(np.abs(vz1-vz2), origin='lower', interpolation='nearest', extent=[0, 1, 0, 1])
+    im = ax.imshow(np.abs(v1-v2), origin='lower', interpolation='nearest', extent=[0, 1, 0, 1])
     c = plt.colorbar(im)
     c.formatter.set_powerlimits((0, 0))
     c.update_ticks()
@@ -52,8 +60,6 @@ def main():
     #plt.subplots_adjust(top=0.7, bottom =0.15, left=0.2)
 
     plt.savefig('vzdiff.pdf')
-    d.close()
-    d2.close()
 
 if __name__=='__main__':
     main()
