@@ -140,6 +140,7 @@ The results for the FD2 schemes are presented in Fig. \ref{tcflow:results_vprofi
 for the FD4 schemes are shown in the Appendix in Fig. \ref{tcflow:results_vprofiles_o4}.
 From the profiles it can be noted that for all methods the difference between the numerical and
 theoretical solution are the largest at the boundarie $r_i$ of the  inner cylinder.
+(ORDERS ETC COMPARE)
 
 \clearpage
 \begin{figure}[!bp]
@@ -208,38 +209,22 @@ density decreases to about $-6\cdot10^{-3}$, in comparison to $\approx10^{-3}$ i
 
 \subsection{Discussion}
 
-In comparison the Hagen-Poiseuille flow test case, in this simulation the density also changes
-for the FD2 methods.
-The saturation values of order $10^{-4}$ are similar  with exception of th IP+DF FD2 and DF-VF FD4 method ($10^-3$).
+In comparison to the Hagen-Poiseuille flow, in this simulation
+the density  changes as well for the FD2 methods.
+The saturation values of the density, which are of order $10^{-4}$,
+are similar to the previous test case with exception of th IP+DF FD2 and DF-VF FD4 method ($10^-3$).
 
+The decrease of the density in the inner cylinder is physical correct.
+The rotation, given by the angular velocity $\Omega_i$, creates a centripetal?? force in the inner cylinder.
+As a result the density is larger at the walls cylinder walls than in the center.
+The negative value is not a concern since the density undetermined by a constant value $\rho_0$.
 
+The oscillations in the density can be observed for the FD2 and FD4 methods.
+It can be assumed that just like the previous testcase an odd-even decoupling occurs.
 
-- divergence of v
-The saturation of the density is
-One assumption is that the divergence of $\vec{v}$ is not zero in th
-The change in the density is proportional to the divergence of the velocity.
-
-
-Hower from
-
-
-One assumption was that the change in the density, which is proportional to the
-diveregnce of v is
-
-
-
-
--zeitliche beschreibung der dichte
-
-
--density div u ist nicht 0 deswegen auch fehler in o2
-
--comparsion to hpflow
-
--velocity profiles indicate that the error of the methos  comes from the inner border
-
--ip diff zero o2 -> bild
-
+For the FD2 method the densitiy is no longer zero, as a result this phenomen can also be observed for this method.
+%-curved geometry
+%-oscillations as soon as pressure is not zero
 
 \begin{figure}[!bp]
   \begin{minipage}[c]{0.4\textwidth}
@@ -252,6 +237,34 @@ diveregnce of v is
       }
   \end{minipage}
 \end{figure}
+
+The overall errors are larger in comparsion to the Hagen-Poiseuille flow testcase.
+For the DF and VP methods the error and convergence rates are similar, but the
+use of the VF method leads to an increase of the overall error, which is contrary to the Hagen-Poiseuill flow results.
+
+The error in the IP methods is increased about an order.
+It can be noted that the results of the IP FD2 and the IP+DF FD2 method are not equal.
+This speaks against the previous assumption (see Sec. ) that the velocity fields of
+the fluid domain and the boundaries are decoupled for FD2 methods.
+Fig.\ref{valid:hpflow_velodiff_discussion} shows the substracted velocity profiles for the IP FD2 and IP+DF FD2 method in the $(y, z)$-plane.
+It can be seen that the differences between these profiles is the larges at the boundarie of the inner cylinder, about $10^{-2}$.
+
+
+It can be noted that the velocity differences inside of the fluid domain is small, but large in the wall region.
+Especially close to the immersed boundary the difference  is of order $10^{-2}$.
+Thi
+
+Furthermore the comparsion of the velocitie profiles indicates that the error is the largest at
+Finally be considering the velocitie profiles
+
+comparsion is much larger in compariso
+
+- overaall larger error and non linear decrease
+- vfrac
+- assumption inner border
+-comparison errors to the previous
+-velocity profiles indicate that the error of the methos  comes from the inner border
+
 \clearpage
 
 \section{Summary}
