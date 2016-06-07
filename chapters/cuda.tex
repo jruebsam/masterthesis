@@ -245,6 +245,10 @@ The intermediate step $Q_{\Phi}$ is than computed with the conditionals
 \IF {(threadIdx.z==1)}
       \STATE ${Q_{v_x} = -(\vec{v} \nabla) v_x - c^2\partial_x\rho + \frac{1}{\Rey}\partial^2_xv_x + \vec{f}_{\text{ext.}}}$
 \ENDIF
+\end{algorithmic}
+\clearpage
+
+\begin{algorithmic}
 \IF {(threadIdx.z==2)}
       \STATE ${Q_{v_y} = -(\vec{v} \nabla) v_y - c^2\partial_y\rho + \frac{1}{\Rey}\partial^2_yv_y + \vec{f}_{\text{ext.}}}$
 \ENDIF
@@ -253,83 +257,41 @@ The intermediate step $Q_{\Phi}$ is than computed with the conditionals
 \ENDIF
 \end{algorithmic}
 
+where the advection term $(\vec{v}\nabla)\vec{v}$ is discretized by the third-order upwinding scheme from Sec. (),
+and all remaining derivatives with the 4th order finitie difference schemes from Eq. \ref{num:fd_o4_methods}.
+An alternative low order implemenation uses second order finite difference methods and the upwinding scheme is replaced by Eq. ().
+After this step the computation for the center points (C) is finished.
+With the next loop the index $i$ is incremented and the algorithm loads the next layer (NL) as indicated in Fig. ().
+All layers except the left one in Fig. (), can be used for the next computation.
+Therefore, at the end of one loop, all layers are shifted by one position.
+With this appoach each layer only gets loaded once in the shared memory.
 
-stored in new register
-The for-loop iterates over the domain by incrementing the $k$ index
+After the for-loop iterated over the simulation domain the first part of the computation of the timestep is finished.
+The remaining computation is
+\begin{align}
+     \Phi^{1} = \Phi^n + \frac{1}{3}Q_1
+\end{align}
 
-\subsection{Boundary Conditions}
-
-For the imlempentation of the boundarie conditions from Sec. () two additional layer of grid points
-are added on each side of the simulation domain.
-The total number of grid points is ${(N_x + 4)\cdot(N_y + 4)\cdot(N_z + 4)}$.
-The additonal points, which are referred to as ghostpoints \citep{ctie},
-are computed after each timestep in order to fulfill the boundarie conditions.
-For the purpose of explanation we will here consider the one-dimensional case,
-for finite differences of fourth order. (The methods were given by atilgner.)
-
-v?
-
-\paragraph{No-Slip Boundaries}\mbox{}\\
-
-The left boundarie is set to the point $b=2$,
-the ghost points arg given by $g_2=0$ and $g_1=1$, the inner points close
-to the boundarie are $l_1=3$ and $l_2=4$.
-In order to obtain No-Slip boundaries the velocity profile is mirrored and inverted
-at $b$. Thus, $v(g_2) = -v(l_2)$ and  $v(g_1) = -v(l_1)$
-
-
-
-\paragraph{No-Flux and Free-Slip Boundaries}\mbox{}\\
-
-The left boundarie is set to the point $b=2$,
-the ghost points arg given by $g_2=0$ and $g_1=1$, the inner points close
-to the boundarie are $l_1=3$ and $l_2=4$.
-In order to obtain No-Slip boundaries the velocity profile is mirrored and inverted
-at $b$. Thus, $v(g_2) = -v(l_2)$ and  $v(g_1) = -v(l_1)$
-
-
-\paragraph{Periodic Boundaries}\mbox{}\\
-
-The left boundarie is set to the point $b=2$,
-the ghost points arg given by $g_2=0$ and $g_1=1$, the inner points close
-to the boundarie are $l_1=3$ and $l_2=4$.
-In order to obtain No-Slip boundaries the velocity profile is mirrored and inverted
-at $b$. Thus, $v(g_2) = -v(l_2)$ and  $v(g_1) = -v(l_1)$
-
-\subsection{Remarks}
-
--performance blabla
--tilgner bsp
--threads
-
-The position of the points in the shared memory is defined by an offset
-The offset of these points to the current one can be computed by
-
--store date in register
-
-ix wird aufadiert points are shiftet  and the next layer is loaded (img nachtragene)
-the procuder is fertig wenn simulation domain  durchgearbetit ist .
+which is performed similar, exceptis not necessary to compute any approximations.
+Therefore the border points (B) do not need to be loaded.
 
 \subsection{Boundary Conditions}
 
-For the imlempentation of the boundarie conditions from Sec. () two additional layer of grid points
+For the imlempentation of the boundarie conditions two additional layer of grid points
 are added on each side of the simulation domain.
-The total number of grid points is ${(N_x + 4)\cdot(N_y + 4)\cdot(N_z + 4)}$.
-The additonal points, which are referred to as ghostpoints \citep{ctie},
-are computed after each timestep in order to fulfill the boundarie conditions.
-For the purpose of explanation we will here consider the one-dimensional case,
-for finite differences of fourth order. (The methods were given by atilgner.)
 
-v?
+The boundarie conditions are fulfilled by setting these points to specific values.
+In this section an  implementation is presented for the one-dimensional case in $x$-direction.
+The other boundaries are implemented identically.
 
 \paragraph{No-Slip Boundaries}\mbox{}\\
 
-The left boundarie is set to the point $b=2$,
-the ghost points arg given by $g_2=0$ and $g_1=1$, the inner points close
-to the boundarie are $l_1=3$ and $l_2=4$.
-In order to obtain No-Slip boundaries the velocity profile is mirrored and inverted
-at $b$. Thus, $v(g_2) = -v(l_2)$ and  $v(g_1) = -v(l_1)$
+Consider the left side of the fluid domain. The ghost point are given by the indices $gl2=(0, k, j)$,
+$gl1=(1, k, j)$, the boundarie is set to the point $b=(2, k, j)$ and the next inner points are
+$i1=(3, k, j)$ and $i2=(4, k, j)$
 
+In order to obtain No-Slip boundaries the velocity profile is mirrored and inverted
+at $m$. Thus, $v(g_2) = -v(l_2)$ and  $v(g_1) = -v(l_1)$
 
 
 \paragraph{No-Flux and Free-Slip Boundaries}\mbox{}\\
@@ -359,6 +321,16 @@ at $b$. Thus, $v(g_2) = -v(l_2)$ and  $v(g_1) = -v(l_1)$
 - zusammenfassung flow diagramm
 - erläuterung threads
 - python api
+
+-performance blabla
+-tilgner bsp
+-threads
+- measurements / output
+- zusammenfassung flow diagramm
+- erläuterung threads
+- python api
+
+
 
 %During execution time each cuda core is executed as a thread, in an SIMD\footnote{Single Instruction Multiple Device}-like behaviour.
 %This means every cuda core on one SM executes the same instruction set simultaneously. To differentiate between different cuda cores,
