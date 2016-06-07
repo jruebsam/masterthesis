@@ -11,71 +11,75 @@ Furthermore we will introduce the method of artificial compressibility, which ca
 The choice of these methods in combination with the usage of cartesian grids is in particular time saving when performing computations on the GPU, as we
 will see in chapter \ref{chapter:cuda}.
 
-\section{Finite Differencing Schemes}
+\section{Finite Difference Schemes}
 
-We start with a brief introduction of finite difference methods.
+In this section a  brief introduction to the method of finite differences will be gilen.
 The interested reader is referred to \citep{ferziger99} for a more general overview, which this section is based on.
-The partial differential equations we want to solve in this thesis are of the generalized form
+The partial differential equations which are numerically solved in this thesis are of the generalized form
 
 \begin{align}
     \label{numerik:pde_allg}
-    \pdn[\Phi]{t} = \left(\sum_{i=1,2,3}\left( A_i \pdn[]{x_i}  + B_i \pdn[^2]{x_i^2}\right) + C +  \vec{u}\vec{\nabla} \right) \Phi =: \mathcal{L} \Phi
+    \pdn[\Phi]{t} = \left(\sum_{\alpha=x,y,z}\left( A_\alpha \pdn[]{\alpha}  + B_\alpha \pdn[^2]{\alpha^2}\right) + C_\alpha +  \vec{v}\vec{\nabla} \right) \Phi =: \mathcal{L} \Phi
 \end{align}
     %\pdn[\Phi]{t} = A \pdn[^2\Phi]{x^2}  + B \pdn[^2\Phi]{x^2}     + C(\vec{r}, \vec{u}, t) +  \vec{u}\left(\pdn[^2\Phi]{x^2} +  \pdn[^2\Phi]{x^2} + \pdn[\Phi]{x}\right) = \mathcal{L}
 
-where $\Phi(\vec{r}, t)\in\mathbb{R}$ and $\mathcal{L}$ is a differential operator, containing spatial derivatives up to second order.
+where $\Phi(\vec{r}, t)\in\mathbb{R}$ and $\mathcal{L}$ is a differential operator, containing spatial derivatives up to second order and non-linear advection term.
 The numerical integration can be divided into two steps: the calculation of $\mathcal{L}$, which we want to discuss in this
 section and secondly the integration in time.
+In this section the numerical approximation of $\mathcal{L}$ with finite differences shall be discussed for the one-dimensional case,
+the implementation for three dimensions will be discussed in chapter \ref{chapter:cuda}.
 
-The exact calculation of the spatial derivatives in $\mathcal{L}$ is numerically not possible.\\
-Due to the limited storage capacity and computation time of computers,
-it is necessary to discretize the domain, on which the PDE should be solved and find a adequate approximation of these operators.
-Here we will fall back to the  one-dimensional case, the implementation for three dimensions will be discussed in chapter \ref{chapter:cuda}.\\
-
-Let $\Omega = \{x \in \mathbb{R} \;|\; 0 \leq x \leq L\}$ be the domain on which we want to solve equations of the type \ref{numerik:pde_allg}.
-For the discretization we divide $\Omega$ into $N$ equidistant points $x_i = \sum_i \Delta x_i$, with the position index ${i\in\{[0, N-1]|i\in\mathbb{N}\}}$
-and $\Delta x_i = x_{i+1} - x_i = L/(N-1)$.
-\footnote{EVTL?}
-We assume that $\Phi$ is a  continuous differentiable function.
-Local to a grid point $x_i$ and $\Phi$ can than be expressed with a Taylor series [CITE].
+Let $I = \{x \in \mathbb{R} \;|\; 0 \leq x \leq L\}$ be the domain on which Eq. \ref{numerik:pde_allg} shall be solved.
+For the discretization $I$ is divided into $N$ equidistant points $x_i = \sum_i \Delta x_i$, with the index ${i\in\{[0, N-1]|i\in\mathbb{N}\}}$
+and ${\Delta x_i = x_{i+1} - x_i = L/(N-1)}$.
+Furthermore it is assumed that $\Phi$ is a  continuous differentiable function.
+In the vicinity of a grid point $x_i$, $\Phi$ can than be expressed by a Taylor series.
 
 \begin{align}
     \label{num:taylor}
     \Phi(x) = \sum_{n=0}^{\infty} \pdn[^n\Phi(x_i)]{x^n} \frac{(x - x_i)^n}{n!}
 \end{align}
 
-By evaluating the Taylor expansion at different points, we obtain expressions for the first derivative. For example
-a combined evaluation at the points $x_{i+1}$, $x_{i-1}$ leads to the expression
+By evaluating the Taylor expansion at different points, different expressions for the first derivative can be obtained.
+For example the evaluation at $x_{i+1}$ gives\footnote{From here on the abbreviation $\Phi_i=\Phi(x_i)$ is used.}
+\begin{align}
+    \Phi_{i+1}  = \Phi_i + (x_{i+1} - x_i)\left(\pdn[\Phi]{x}\right)_i &+ \frac{(x_{i+1} -x_i)^2}{2}\left(\pdn[^2\Phi]{x^2}\right)_i + \mathcal{O}(\Delta x^3)\\
+            \Rightarrow \left(\pdn[\Phi]{x}\right)_i &\approx \frac{\Phi_{i+1} - \Phi_{i}}{x_{i+1} - x_i}
+\end{align}
+This approximation is denoted as a forward difference scheme (FDS). The same evaluation at $x_{i-1}$ leads to the backward difference scheme (BDs), see table \ref{num:df_table}.
+Furthermore it can be shown that the combined evaluation at the points $x_{i+1}$, $x_{i-1}$ leads to the expression
 
 \begin{align}
     \label{num:cds}
-    \left.\left(\pdn[\Phi]{x}\right)\right|_{i} = \frac{\Phi_{i+1} - \Phi_{i-1}}{x_{i+1} - x_{i-1}}
+    \left(\pdn[\Phi]{x}\right)_{i} = \frac{\Phi_{i+1} - \Phi_{i-1}}{x_{i+1} - x_{i-1}}
      - \frac{(x_{i+1} - x_i)^2 - (x_i - x_{i-1})^2}{2 (x_{i+1} - x_{i-1})}\left(\pdn[^2\Phi]{x^2}\right)_i + \mathcal{O}(\Delta x^3)
 \end{align}
 
 For a constant grid size, that is $\Delta x := \Delta x_i = \text{const.}$, the second order term in equation \ref{num:cds} vanishes.
-By neglecting all terms of higher order, we obtain a approximation for $\partial_x \Phi$ of second order.
-This is the so-called central-difference (CDS) scheme. A single point evaluation of \ref{num:taylor} at $x_{i+1}$ and $x_{i-1}$, results in the forward- (FDS) and
-backward- (BDS) scheme of first order. A comparison of the FD-schemes is given in table \ref{num:df_table}
+By neglecting all terms of higher order, the approximation for $\partial_x \Phi$ is of second order.
+This is the so-called central-difference (CDS) scheme. A comparison of the FD-schemes is given in table \ref{num:df_table}
+The numerical error which is made by neglecting the higher order terms, is in general referred to as the truncation error of a finite difference scheme.
 
 
 \bgroup\large
-\begin{table}[!tbp]
+\begin{table}[!bp]
 \centering
-\def\arraystretch{2.2}%
+\def\arraystretch{1.5}%
 \begin{tabular}{c c c c c}\toprule
 Scheme-Name & Stencil & Truncation Error & Evaluation at\\[0.5ex]
 \midrule
-Forward  (FDS) & $\left(\pdn[\Phi]{x}\right)_i =  \frac{f_{i+1} - f{i}}   {\Delta x}$ & $\mathcal{O}(\Delta x)$  &$x_{i+1}$\\
-Backward (BDS) & $\left(\pdn[\Phi]{x}\right)_i = \frac{f_{i}    - f_{i-1}}{\Delta x}$  &$ \mathcal{O}(\Delta x)$ & $x_{i-1}$\\\
-Central  (CDS) & $\left(\pdn[\Phi]{x}\right)_i = \frac{f_{i+1}  - f_{i-1}}{2\Delta x}$ &$ \mathcal{O}(\Delta x^3)$& $x_{i+1}$ \& $x_{i-1}$\\
+Forward  (FDS) & $\left(\pdn[\Phi]{x}\right)_i =  \frac{\Phi_{i+1} - \Phi{i}}   {\Delta x}$ & $\mathcal{O}(\Delta x^2)$  &$x_{i+1}$\\
+Backward (BDS) & $\left(\pdn[\Phi]{x}\right)_i = \frac{\Phi_{i}    - \Phi_{i-1}}{\Delta x}$  &$ \mathcal{O}(\Delta x^2)$ & $x_{i-1}$\\\
+Central  (CDS) & $\left(\pdn[\Phi]{x}\right)_i = \frac{\Phi_{i+1}  - f\Phi{i-1}}{2\Delta x}$ &$ \mathcal{O}(\Delta x^3)$& $x_{i+1}$ \& $x_{i-1}$\\
 \\
 \bottomrule
-\label{num:df_table}
 \end{tabular}
-\caption{Different FD-Schemes}
+\caption{Different finite difference chemes}
+\label{num:df_table}
 \end{table}
 \egroup
+
+\clearpage
 
 \begin{figure}[!btp]
   \centering
@@ -86,11 +90,7 @@ Central  (CDS) & $\left(\pdn[\Phi]{x}\right)_i = \frac{f_{i+1}  - f_{i-1}}{2\Del
   \label{num:fd_image}
 \end{figure}
 
-The numerical error which is made by neglecting the higher order terms, is in general referred to as the truncation error of a FD-scheme.
-It should be noted that the number of grid points used for the approximation, does significantly affect the resulting error.\\
-Finally figure \ref{num:fd_image} shows a visual comparison for the three different stencils.
-This example once again illustrates that when approximating a function, which contains higher order terms i.e. at a local maximum,
-the  CDS-scheme gives better results.\\
+Finally Fig. \ref{num:fd_image} shows a visual comparison for the three different finite difference schemes.
 For the computation of the second derivative, one approach is to evaluate equation \ref{num:taylor} halfway between two points at the positions $x_{i\pm\frac{1}{2}}$
 
 \begin{align}
@@ -112,8 +112,8 @@ So far we introduced methods up to an accuracy of second order. The fourth order
     \label{num:fd_o4_methods}
 \end{align}
 
-The derivation of these equations can be performed in analogy to the second order schemes, but by using a five-point
-stencil. The interested reader is referred to \citep{Fornberg1988}.
+The derivation of these equations can be performed in analogy to the second order schemes, but by using a more points for the
+approximation. The interested reader is referred to \citep{Fornberg1988}.
 
 \newpage
 
@@ -121,28 +121,32 @@ stencil. The interested reader is referred to \citep{Fornberg1988}.
 \label{numerik:rk_williamson_sec}
 
 With the finite difference approximation $\mathcal{L^*}$ of the differential operator $\mathcal{L}$,
-we are able to solve equation \ref{numerik:pde_allg} by separation of variables.
+it is possible to solve Eq.~\ref{numerik:pde_allg} by separation of variables.
 
 \begin{align}
-    \Phi(t) = \Phi(0) + \int_{t_0}^{t} \mathcal{L^*} (t, \Phi(t)) \dif t
+    \Phi(t) = \Phi(t_0) + \int_{t_0}^{t} \mathcal{L^*} (t, \Phi(t)) \dif t
 \end{align}
 
-For a numerical computation, the integration interval $[t_0, t]$  is splitted into sub-intervals $[t^n, t^{n+1}]$ of length $\Delta t$ and integrated piecewiese.
-In order to approximate the integration on a sub-intervall, we know want to introduce the use of Runge-Kutta methods based on \citep{Sarbach2012}
-The idea behind this method is to iteratively evaluate $\mathcal{L^*}$ at $s$ different times $\tau_i=c_i \Delta t$ with $c_i \in \{\mathbb{R} | c_i<1  \}$,
-that is
+For a numerical computation, the integration interval $[t_0, t]$  is splitted into sub-intervals  of length $\Delta t$ and integrated piecewiese.
+In order to approximate the integration on a sub-interval a Runge-Kutta method is used, an introdcution based \citep{Sarbach2012} shall be given.
+The idea behind this method is to iteratively evaluate $\mathcal{L^*}$ at $s$ different times $\tau_i$ within one sub-interval $\Delta t$,
+where $\tau_i=c_i \Delta t$, $c_i \in \mathbb{R}$ and  $(2\leq i \leq s)$, that is
+
 \begin{align}
- k_i = \mathcal{L^*} \left(\tau_i, \Phi(t_n) + \Delta t \left(a_{21} k_{s-1} + \dots + a_{s, s-1} k_{s-1} \right)\right)
+ k_i = \mathcal{L^*} \left(\tau_i, \Phi(t_n) + \Delta t \left(a_{i1} k_{1} + \dots + a_{i, i-1} k_{i-1} \right)\right)
 \end{align}
 
-By using a coefficient weighted average of the $k_i$, we obtain
+with  $a_{ij} \in \mathbb{R}$ and $(2\leq i \leq j -1 )$.
+Using a  weighted average of the $k_i$  gives
 
 \begin{align}
     \Phi(t^{n+1}) = \Phi(t) + \Delta t \left( \sum_{i=1}^s b_i k_i \right)
 \end{align}
 
+with $b_i\in\mathbb{R}$ and $(1\leq i \leq s)$.
+
 The accuracy of an s-stage runge-kutta method depends of the right choice of coefficients.
-In this thesis we use a third-order accurate scheme.
+In this thesis a third-order accurate scheme is used.
 The coefficients are given by the butcher tableau \citep{QUELLE}
 \footnote{oder quelle}
 
@@ -150,7 +154,7 @@ The coefficients are given by the butcher tableau \citep{QUELLE}
     \label{num:butcher}
     \def\arraystretch{1.5}%
     \begin{array}{c|c}
-        \mathbf{c} & A\\
+        \mathbf{c} & \mathbf{A}\\
         \hline     & \mathbf{b^T} \\
     \end{array}
     \qquad &= \qquad
@@ -163,11 +167,14 @@ The coefficients are given by the butcher tableau \citep{QUELLE}
     \end{array}
 \end{align}
 
-For the implementation of this method, we have to concern, that we have to deal with a large number of variables.
-In a three dimensional fluid domain the number of grid points scales with a power of three, with an increase in the resolution.
-Therefore we want to introduce a low-storage scheme of method \ref{num:butcher},  first introduced by \citep{Williamson1980}.
-By keeping the information from previous computation steps, the scheme can than be translated into an iterative algorithm,
-where the required amount of storage can be reduced to two registers $\Phi$ and $Q$.
+where the components of $\mathbf{c}$, $\mathbf{b}$ and $\mathbf{A}$ are $a_{ij}$, $b_i$ and $c_j$.
+
+For the implementation of this method, it has to be concerned that in the simulations a large number of variables is used
+and the number of grid points scales with a power of three, with an increase in the resolution.
+Hence, the required amount of storage should be as small as possible.
+A low-storage scheme first introduced by \citep{Williamson1980}, is used in this thesis.
+The  RK-method \ref{num:butcher} is translated into an iterative algorithm, by keeping informations from previous computation steps.
+The required amount of storage is reduced to two registers, one for $\Phi$ and one for the intermediate step $Q$.
 
 \begin{align}
     \begin{split}
@@ -181,18 +188,18 @@ where the required amount of storage can be reduced to two registers $\Phi$ and 
 \section{Numerical Stability}
 
 It is important to consider the stability of a numerical method. In general it is said that a method is numerical stable if the error
-introduced by approximations and roundoff errors does not grow over time \citep{ferziger99}.\\
+introduced by truncation and roundoff errors does not grow over time \citep{ferziger99}.\\
 
 \subsection{Runge-Kutta Scheme}
 
-Suppose we have stationary solution for equation \ref{numerik:pde_allg}.
-The system should remain unaffected by a further integration, even with the introduction of small numerical errors.
-In order to obtain a stability condition it is sufficient enough to perform a linear stability analysis.
-The most common approach is to study the one-dimensional linearized and diagonalized test problem (\citep{BLABLA})
+Suppose we have a stationary solution for equation \ref{numerik:pde_allg}.
+The system should remain unaffected by further integration, even with the introduction of small numerical errors.
+In order to obtain a stability criterion it is sufficient enough to perform a linear stability analysis.
+The most common approach is to study the one-dimensional linearized and diagonalized test case (\citep{BLABLA})
 
 \begin{align}
 \label{num:rk_stab}
-\frac{\dif y}{\dif t} = \lambda \Phi
+\frac{\dif \Phi}{\dif t} = \lambda \Phi
 \end{align}
 
 with the eigenvalue $\lambda \in \mathbb{C}$ of a linearized operator.
@@ -200,7 +207,7 @@ It can be shown that the discretization of equation \ref{num:rk_stab}, using a R
 results in  the mapping (\citep{BLABLA})
 
 \begin{align}
-    y_{i+1}  = \left(\sum_{p=1}^s \frac{(\Delta t \lambda)^p}{p!}  + 1 \right) y_i = f(\Delta t\lambda)y_i
+    \Phi_{i+1}  = \left(\sum_{p=1}^s \frac{(\Delta t \lambda)^p}{p!}  + 1 \right) \Phi_i =: f(\Delta t\lambda)\Phi_i
 \end{align}
 
 \begin{figure}[!tp]
@@ -214,17 +221,17 @@ results in  the mapping (\citep{BLABLA})
 \end{figure}
 
 The discretized system contains a stable fixed point when the condition $|f|\leq 1$ is satisfied.
-Figure \ref{fig:num_rkstab} shows the different stability regions for Runge-Kutta schemes up to fourth order.
-The calculation can be found in (APPENDIX)
-For an $s$ order scheme the region of absolute stability is independent of the used implementation \citep{canuto2007}.
-\footnote{For an $s$-th order RK-scheme different coeffiicent $a_ij$, $b_j$ and $c_i$ can be used.}
-It can be noted that the stability region $\Omega_s$ increases with the uses of higher order schemes.
-The substantial detail is that for method of third and fourth order, the imaginary axis lies within $\Omega_s$.
-Thus these methods should be preferred for  CFD-simulations, since they tend to stabilize numerical oscillations \citep{DIPLOM}.
+Fig.~\ref{fig:num_rkstab} shows the different stability regions for Runge-Kutta schemes up to fourth order.
+The calculation can be found in the Appendix~\ref{lst:appendix_rkstab}.
+For a $s$ order scheme the region of stability is independent of the used implementation \citep{canuto2007}.
+\footnote{For an $s$-th order RK-scheme different coeffiicent $a_{ij}$, $b_j$ and $c_i$ can be used.}
+It can be noted that the stability region $\Omega_s$ increases with the use of higher order schemes.
+The substantial detail is that for the  methods of third and fourth order, the imaginary axis lies within $\Omega_s$.
+These methods are often preferred for  CFD-simulations, since they tend to stabilize numerical oscillations \citep{Lulff2011}.
 
 \subsection{Finite difference schemes}
 
-The numerical stability of the finite difference schemes can be estimated by a Von-Neumann error analysis.
+The numerical stability of the finite difference schemes can be estimated with a Von-Neumann stability analysis.
 In this section the stability criterion will be exeplarily computed for a one-dimensional diffusion equation of the form
 \begin{align}
     \label{num:vne_diffusion_theo}
