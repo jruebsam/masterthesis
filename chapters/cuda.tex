@@ -90,71 +90,62 @@ since each block can be dynamically assigned to a different SM.
        \label{cuda:grid_example}
 \end{figure}
 
+
 \subsection{Performance Considerations}
 
-In order to obtain a high performant algorithm
-For the opti
-For a cuda devices different optimization strategies are recommended,
+For the programming of a CUDA device a vast number of optimization techniques exist (see \citep{CUDABP}),
+to explain all of these methods would go beyond the scope of this thesis.
+Here a short description of the two most import ones is given
 
 \begin{description}
-    \item[Coalesced Readings]
+    \item[Memory Coalescing]{
+        During the runtime a SM executes a number of 32 threads in parallel, this thread group is denoted as a warp.
+        In order to enable a fast memory access on the global memory, all threads in a warp should access
+        The global memory should be used for data transfer and distribution, with as little as possible global reads.
+        Immediatly after the data is transfered to the shared memory there should be as many as possible computations before transfering
+        it back. Furthermore all memory accesses should be optimized}
     \item[Sparse global memory acces]{
         The global memory should be used for data transfer and distribution, with as little as possible global reads.
         Immediatly after the data is transfered to the shared memory there should be as many as possible computations before transfering
-        it back. Furthermore all memory accesses should be optimized, see chapter (X.X).}
-    \end{description}
+        it back. Furthermore all memory accesses should be optimized}
+\end{description}
 
 
-\subsection{Simulation and  Memory Layout}
+\subsection{Simulation Domain and  Memory Layout}
 
-All simulations in this thesis are performed on a three-dimensional cartesian grid
-with a constant grid size  in each dimension.
-The simulation domain is given by a cube with with lengths $l_x, l_y, l_z$
-and the number of grid points is set by $N_x$, $N_y$ and $N_z$ in each direction.
-For the imlempentation of the boundarie conditions  two additional layer of grid points
-are added on each side of the simulation domain.
-The additonal points, which are referred to as ghostpoints \citep{ctie},
-are computed after each timestep in order to fulfill the boundarie conditions.
+The three-dimensional simulation domain is given by a cuboid, that is discretized by a
+collocated cartesian grid with a constant step size in each direction.
+From here on the following conventions will be used.
 
-For each variable three different memory allocations are necessary
-For the imlempentation of the boundarie conditions  two additional layer of grid points
-are added on each side of the simulation domain.
+\begin{description}
+    \item[$l_i$] The length of the cube in $x$, $y$ or $z$ direction, $i\in{x, y, z}$
+    \item[$N_i$] The number of grid points in $x$, $y$ or $z$ direction, $i\in{x, y, z}$
+    \item[$\Delta i$] The stepsize between to grid points in $x$, $y$ or $z$ direction, $i\in{x, y, z}$
+\end{description}
 
+A single grid point is determined by the set of indices $i,j,k$ where ${0\leq i < N_x}$,
+${0\leq j < N_y}$ and ${0\leq k < N_z}$. The position vector is given by ${\vec{r} = (i\cdot\Delta x, j\cdot \Delta y, k\cdot \Delta z)^T}$.
+Each grid point lies in the center of a grid cell of size $\Delta x \cdot \Delta y \cdot \Delta z$,
+since a collogated grid is used all variables are located in the cell center.
+\footnote{For example on a staggered grid, the velocity components are stored on the cell faces.}
+For the computation of a variable $\Phi\in\{v_x, v_y, v_z, \rho\}$ is stored into three registers
+\begin{description}
+    \item[$C_\Phi$] Located on the RAM. Used mainly for data transfer and analysis
+    \item[$R_\Phi$] Located on the global memory on GPU. Here all variables are located after the computation of a time step.
+    \item[$B_\Phi$] Located on the global memory on GPU. This is the buffer register for the Williamson RK scheme, see Sec. ().
+\end{description}
 
+The size of a storage register is given by $(N_x+4)(N_y+4)(N_z+4)$.
+An additional offset $+4$ is given, since two additional layers of ghost points are attached to each side of the simulation domain.
+This points are used for a computation of the boundarie conditions, see Sec. ().
+All registers contain a one dimensional memory layout.
+Hence, the register position of a grid point has to be calculated by
 
+\begin{align}
+    P(i, j, k) = i(N_y+4)(N_z+4)+j(N_z+4)+k
+\end{align}
 
--dimensions etc
--ghost points etc
-
-\subsubsection{Boundaries}
-
-
-\label{cuda:prepro}
-
-
-The first allocation will be one the system RAM.
-
-The second and third allocation reside on the global memory of the GPU.
-This is due to the fact that the runge kutta method uses two storage registers, during the timestep execution.
-The fields for all variables are summarized in table (1).
-
-\begin{center}
-    \begin{tabular}{ | l | l | l | l |}
-    \hline
-    Variable & Field on RAM & GPU Field & 2nd GPU Field \\
-    \hline
-    Velocity in x-direction $v_x$  & \texttt{vx}   &  \texttt{vx\_d}   & \texttt{vx2\_d}   \\
-    Velocity in y-direction $v_y$  & \texttt{vy}   &  \texttt{vy\_d}   & \texttt{vy2\_d}   \\
-    Velocity in z-direction $v_z$  & \texttt{vz}   &  \texttt{vz\_d}   & \texttt{vz2\_d}   \\
-    Density  $\rho$  & \texttt{rho}  &  \texttt{rho\_d}  & \texttt{rho2\_d}  \\
-    \hline
-    \end{tabular}
-\end{center}
-The parameter set defines different attributes of the system.
-This can be physical attributes like the rayleigh- or prandtl-number, numerical parameters like the grid resolution
-memory layout
-
-\clearpage
+which is a row-major access pattern.
 
 
 \begin{figure}[!bp]
@@ -165,9 +156,6 @@ memory layout
        \caption{Segmentation of the $y, z$ plane of the simulation domain into a grid of Blocks.
                  Eeach block contains a grid with 8x8 threads.}
        \label{cuda:stencil}
-\end{figure}
-
-\begin{figure}[!bp]
       \centering
         \resizebox{0.6\textwidth}{!}{
        \import{gfx/cuda//}{timestep.pdf_tex}
@@ -179,11 +167,16 @@ memory layout
 \end{figure}
 
 \clearpage
+
 \section{Time Step Algorithm}
 
 In this section an overview of the computation of a single time step will be given.
-The simulation domain is a cube of length $l$ and the resolution $N$ in three dimensions.
+
 For this example the Navier-Stokes equation given by Eq. () will be used.
+
+
+
+
 It is presumed that all variables are allocated on the global memory of the GPU, see Sec. \ref{cuda:prepro}.
 The simulation domain is then divided into a grid of  $N/8 \times N/8$ blocks, like in Fig. \ref{cuda:grid_example}.
 Each block contains a total number of 8x8x4 threads.
@@ -323,8 +316,6 @@ The offset of these points to the current one can be computed by
 
 ix wird aufadiert points are shiftet  and the next layer is loaded (img nachtragene)
 the procuder is fertig wenn simulation domain  durchgearbetit ist .
-
-\clearpage
 
 \subsection{Boundary Conditions}
 
