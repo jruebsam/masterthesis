@@ -279,32 +279,40 @@ Therefore the border points (B) do not need to be loaded.
 
 For the imlempentation of the boundarie conditions two additional layer of grid points
 are added on each side of the simulation domain.
-
-The boundarie conditions are fulfilled by setting these points to specific values.
-In this section an  implementation is presented for the one-dimensional case in $x$-direction.
-The other boundaries are implemented identically.
+In this section the implementation of boundarie conditions is presented for the one-dimensional case in $x$-direction.
+All other directions are implemented the same.
 
 \paragraph{No-Slip Boundaries}\mbox{}\\
 
-Consider the left side of the fluid domain. The ghost point are given by the indices $gl2=(0, k, j)$,
-$gl1=(1, k, j)$, the boundarie is set to the point $b=(2, k, j)$ and the next inner points are
-$i1=(3, k, j)$ and $i2=(4, k, j)$
-
+Consider the left side of the simulation domain.
+The ghost point are given by the points ${g_{l2}=(0, j, k)}$, ${g_{l1}=(1, j, k)}$,
+the boundarie is set to  ${b=(2, j, k)}$ and the next inner points are
+$i_{r1}=(3, j, k)$ and $i_{r2}=(4, j, k)$.
 In order to obtain No-Slip boundaries the velocity profile is mirrored and inverted
-at $m$. Thus, $v(g_2) = -v(l_2)$ and  $v(g_1) = -v(l_1)$
+at $m$. Thus, $v_x(g_{ll} = -v_(i_{r2})$ and  $v_(g_{l2}) = -v_(i_{r1})$, the same
+procedure is performed for $v_y$ and $v_z$.
 
+\paragraph{No-Flux Boundaries}\mbox{}\\
 
-\paragraph{No-Flux and Free-Slip Boundaries}\mbox{}\\
+Consider the left side of the simulation domain.
+The ghost point are given by the points ${g_{l2}=(0, j, k)}$, ${g_{l1}=(1, j, k)}$,
+the boundarie is set to  ${b=(2, j, k)}$ and the next inner points are
+$i_{r1}=(3, j, k)$ and $i_{r2}=(4, j, k)$.
 
-The left boundarie is set to the point $b=2$,
-the ghost points arg given by $g_2=0$ and $g_1=1$, the inner points close
-to the boundarie are $l_1=3$ and $l_2=4$.
-In order to obtain No-Slip boundaries the velocity profile is mirrored and inverted
-at $b$. Thus, $v(g_2) = -v(l_2)$ and  $v(g_1) = -v(l_1)$
+For No-Flux boundaries for is it necessary that $\partial_x\Phi = 0$ for any variable $\Phi$ (see  Sec. ()).
+By setting  $\Phi(g_{ll} = -\Phi(i_{r2})$ and  $\Phi(g_{l2}) = -\Phi(i_{r1})$, it follows that
 
+\begin{align}
+    \pdn[\phi]{x} = \frac{1}{12\Delta x}{-\Phi(g_{l2})+8\Phi(g_{l1} -8\Phi(i_{r1}) + \Phi(i_{r2})} = 0
+\end{align}
+
+whith the discretization of bla.
+
+\paragraph{Free-Slip Boundaries}\mbox{}\\
+The Free-Slip boundaries are implemenented as
 
 \paragraph{Periodic Boundaries}\mbox{}\\
-
+For this implementatation consider
 The left boundarie is set to the point $b=2$,
 the ghost points arg given by $g_2=0$ and $g_1=1$, the inner points close
 to the boundarie are $l_1=3$ and $l_2=4$.
