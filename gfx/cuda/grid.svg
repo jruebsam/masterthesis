@@ -12,9 +12,9 @@
    inkscape:version="0.48.3.1 r9886"
    version="1.1"
    id="svg2"
-   viewBox="0 0 280.29407 274.02803"
-   height="274.02802"
-   width="280.29407"
+   viewBox="0 0 241.43547 244.8626"
+   height="244.86258"
+   width="241.43547"
    sodipodi:docname="grid.svg">
   <sodipodi:namedview
      inkscape:window-maximized="0"
@@ -25,8 +25,8 @@
      showgrid="false"
      inkscape:current-layer="layer3"
      inkscape:document-units="px"
-     inkscape:cy="107.50175"
-     inkscape:cx="213.39921"
+     inkscape:cy="136.63887"
+     inkscape:cx="220.40977"
      inkscape:zoom="2.0000001"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
@@ -41,9 +41,9 @@
      inkscape:snap-others="true"
      inkscape:snap-grids="true"
      showguides="false"
-     fit-margin-top="0"
+     fit-margin-top="10"
      fit-margin-left="0"
-     fit-margin-right="0"
+     fit-margin-right="10"
      fit-margin-bottom="0">
     <inkscape:grid
        type="xygrid"
@@ -53,8 +53,8 @@
        visible="true"
        enabled="true"
        snapvisiblegridlinesonly="true"
-       originx="-272.8687px"
-       originy="-406.58877px" />
+       originx="-272.85702px"
+       originy="-406.59519px" />
   </sodipodi:namedview>
   <defs
      id="defs4">
@@ -225,7 +225,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -234,19 +234,19 @@
      inkscape:groupmode="layer"
      id="layer1"
      style="display:inline"
-     transform="translate(-272.86871,-371.74541)" />
+     transform="translate(-272.85703,-400.90443)" />
   <g
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="grid"
      style="display:inline"
-     transform="translate(-272.86871,-371.74541)" />
+     transform="translate(-272.85703,-400.90443)" />
   <g
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="text"
      style="display:inline"
-     transform="translate(-272.86871,-371.74541)">
+     transform="translate(-272.85703,-400.90443)">
     <g
        id="g19890"
        transform="matrix(0.5,0,0,1,270,2.472441e-5)"
@@ -274,7 +274,7 @@
          sodipodi:role="line"
          id="tspan4932"
          x="301.5"
-         y="690.36218"></tspan></text>
+         y="690.36218" /></text>
     <text
        xml:space="preserve"
        style="font-size:8px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
@@ -286,7 +286,7 @@
          sodipodi:role="line"
          id="tspan4936"
          x="300.25"
-         y="691.86218"></tspan></text>
+         y="691.86218" /></text>
     <path
        inkscape:connector-curvature="0"
        id="path18041"
@@ -307,38 +307,6 @@
        id="path18041-7-6"
        d="m 397.81799,517.37896 105.63735,0 0,-105.63735 -105.63735,0 z"
        style="fill:#3ee86c;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.32046688;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;display:inline" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:1.32046688;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Lend);display:inline"
-       d="m 292.18065,411.74161 0,-33.01167"
-       id="path18301"
-       inkscape:connector-curvature="0" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:1.32046688;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#marker18867);display:inline"
-       d="m 503.45534,623.0163 33.01167,0"
-       id="path18865"
-       inkscape:connector-curvature="0" />
-    <text
-       xml:space="preserve"
-       style="font-size:6.62185526px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:sans-serif"
-       x="541.36438"
-       y="632.38422"
-       id="text19147"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan19149"
-         x="541.36438"
-         y="632.38422">$y$</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:7.87388992px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:sans-serif"
-       x="283.27789"
-       y="377.72772"
-       id="text19151"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan19153"
-         x="283.27789"
-         y="377.72772">$z$</tspan></text>
     <g
        style="display:inline"
        id="g5095"

@@ -8,7 +8,7 @@ It was furthermore extended by the immersed boundary methods, which will be expl
 In this context an introduction to the aspects of GPGPU\footnote{General Purpose Computation on Graphics Processing Uni}-Computing
 with the CUDA \footnote{Computing Uniform Device Architecture} architecture will be given.
 For the computations in this thesis Tesla C1060 and Tesla K20m GPUs by NVIDIA were used.%, the complete system configurations can be looked up at (AX.X).
-In this chapter, all informations related to GPGPU-Computing and CUDA are adapted from the CUDA Programming Guide and the CUDA Best Practices Guide from NVIDIA
+In this chapter all informations related to GPGPU-Computing and CUDA are adapted from the CUDA Programming Guide and the CUDA Best Practices Guide from NVIDIA
 \citep{CUDAPG}, \citep{CUDABP}. All details about the implementation of the algorithm were obtained by studying the source code
 and from private communication with A.Tilgner.
 
@@ -65,7 +65,7 @@ The CUDA API therefore  introcuces the notion of a thread and a block.
     \item[Thread] A Thread is the software abstraction of a single cuda core. It can be identified with
                    a maximum of three IDs, \textbf{threadIdx.x}, \textbf{threadIdx.y} and\textbf{threadIdx.z}.
 
-    \item[Block] A block is defined as a group of threads, i.e. in Fig. \ref{cuda:grid_example} a Block contains of 64 threads.
+    \item[Block] A block is defined as a group of threads, i.e. in Fig. \ref{cuda:grid_example} a block contains 64 threads.
                  There  is no direct hardware equivalent to a block.
                  A block is identified by a maximum of two IDs, \textbf{blockIdx.x} and \textbf{blockIdx.y}
 
@@ -86,8 +86,8 @@ since each block can be dynamically assigned to a different SM.
         \resizebox{0.5 \textwidth}{!}{
        \import{gfx/cuda//}{grid.pdf_tex}
         }
-       \caption{Segmentation of the $y, z$ plane of a simulation domain into a grid of Blocks.
-                 Eeach block contains a grid with 8x8 threads.}
+       \caption{Thread management of the CUDA API, exeplarily shown for a
+        grid of blocks.  Eeach block contains a subgrid with 8x8 threads.}
        \label{cuda:grid_example}
 \end{figure}
 
@@ -99,16 +99,18 @@ to explain all of these methods would go beyond the scope of this thesis.
 Here a short description of the two most import ones is given
 
 \begin{description}
-    \item[Memory Coalescing]{
+    \item[Memory Coalescing]
         During the runtime a SM executes a number of 32 threads in parallel, this thread group is denoted as a warp.
-        In order to enable a fast memory access on the global memory, all threads in a warp should access
-        The global memory should be used for data transfer and distribution, with as little as possible global reads.
-        Immediatly after the data is transfered to the shared memory there should be as many as possible computations before transfering
-        it back. Furthermore all memory accesses should be optimized}
-    \item[Sparse global memory acces]{
-        The global memory should be used for data transfer and distribution, with as little as possible global reads.
-        Immediatly after the data is transfered to the shared memory there should be as many as possible computations before transfering
-        it back. Furthermore all memory accesses should be optimized}
+        In order to enable a fast memory access on the global memory, threads which are adjacent in a warp should read from adjacent memory cells
+        This access pattern is denoted as coalesced memory access. Inhomogenous access pattern on the global memory can lead to so called bank
+        conflicts as a result the performance of a cuda programm can decrease.
+
+    \item[Sparse global memory access]
+        The global memory should be used for data transfer and distribution, with as little as possible global reads and writes,
+        due to the slow access time.
+
+    \item[Branche Divergence]All threads in a single branch should do the same thing. Conditional statetemts like \texttt{if..then..else}
+                              are executed serial and slow down the performance.
 \end{description}
 
 
@@ -119,7 +121,7 @@ collocated cartesian grid with a constant step size in each direction.
 From here on the following conventions will be used.
 
 \begin{description}
-    \item[$l_i$] The length of the cube in $x$, $y$ or $z$ direction, $i\in{x, y, z}$
+    \item[$l_i$] The length of the cuboid in $x$, $y$ or $z$ direction, $i\in{x, y, z}$
     \item[$N_i$] The number of grid points in $x$, $y$ or $z$ direction, $i\in{x, y, z}$
     \item[$\Delta i$] The stepsize between to grid points in $x$, $y$ or $z$ direction, $i\in{x, y, z}$
 \end{description}
@@ -129,10 +131,11 @@ ${0\leq j < N_y}$ and ${0\leq k < N_z}$. The position vector is given by ${\vec{
 Each grid point lies in the center of a grid cell of size $\Delta x \cdot \Delta y \cdot \Delta z$,
 since a collogated grid is used all variables are located in the cell center.
 \footnote{For example on a staggered grid, the velocity components are stored on the cell faces.}
-For the computation of a variable $\Phi\in\{v_x, v_y, v_z, \rho\}$ is stored into three registers
+For the computation a variable $\Phi\in\{v_x, v_y, v_z, \rho\}$, is stored into three registers
+
 \begin{description}
     \item[$C_\Phi$] Located on the RAM. Used mainly for data transfer and analysis
-    \item[$R_\Phi$] Located on the global memory on GPU. Here all variables are located after the computation of a time step.
+    \item[$R_\Phi$] Located on the global memory on GPU. All variables are located on it after the computation of a time step.
     \item[$B_\Phi$] Located on the global memory on GPU. This is the buffer register for the Williamson RK scheme, see Sec. ().
 \end{description}
 
@@ -169,7 +172,7 @@ will be considered.  The computation of the remaining steps is similar.
 The simulation domain is divided into a grid of  $N_y/8 \times N_z/8$ blocks, on each of these the integration is performed separately.
 This segmentation is similar to the example introduced in Sec. \ref{cuda:sec_threadmanage} (see Fig. \ref{cuda:grid_example}), except an
 additional index threadIdx.z is used.
-This index seperates the variables during the integration, i.e. for $v_x$ it is threadIdx.z = 0, for $v_y$  it is 1 and so forth.
+This index seperates the variables during the integration, i.e. for $\rho$ it is threadIdx.z = 0, for $v_x$  it is threadIdx.z=1 and so forth.
 With this convention each block contains a total number of 8x8x4 threads.
 
 For a computation of the finite difference schemes  a 5-Point stencil is used, as shown in Fig. \ref{cuda:stencil}.

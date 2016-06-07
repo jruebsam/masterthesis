@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{224.23525391bp}%
+    \setlength{\unitlength}{193.14837646bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,30 +48,28 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.97764472)%
+  \begin{picture}(1,1.01419472)%
     \put(0,0){\includegraphics[width=\unitlength]{grid.pdf}}%
-    \put(0.95790704,0.04776849){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$y$}}}%
-    \put(0.03713667,0.95630174){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$z$}}}%
-    \put(0.05745197,0.10246614){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{0}}}}%
-    \put(0.05746117,0.14881317){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{1}}}}%
-    \put(0.05758539,0.19574905){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{2}}}}%
-    \put(0.05745197,0.24205004){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{3}}}}%
-    \put(0.05746117,0.28859947){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{4}}}}%
-    \put(0.05732776,0.33514436){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{5}}}}%
-    \put(0.05745197,0.38150045){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{6}}}}%
-    \put(0.05746117,0.42811443){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{7}}}}%
-    \put(0.53305245,0.6354176){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Block (1, 1)}}}%
-    \put(0.15617211,0.6354176){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Block (1, 0)}}}%
-    \put(0.53305245,0.25853737){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Block (0, 1)}}}%
-    \put(0.07478754,0.00531234){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{threadIdx.x}}}%
-    \put(0.02052825,0.10210921){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{threadIdx.z}}}}%
-    \put(0.08774284,0.04217682){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{0}}}%
-    \put(0.13408988,0.04216761){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{1}}}%
-    \put(0.18102576,0.0420434){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{2}}}%
-    \put(0.22732675,0.04217682){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{3}}}%
-    \put(0.27387617,0.04216761){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
-    \put(0.32042107,0.04230103){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{5}}}%
-    \put(0.3667772,0.04217682){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{6}}}%
-    \put(0.41339111,0.04216761){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{7}}}%
+    \put(0.06674716,0.11893132){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{0}}}}%
+    \put(0.06675784,0.17273783){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{1}}}}%
+    \put(0.06690205,0.22722794){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{2}}}}%
+    \put(0.06674716,0.28098099){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{3}}}}%
+    \put(0.06675784,0.33502246){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{4}}}}%
+    \put(0.06660295,0.38905867){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{5}}}}%
+    \put(0.06674716,0.44287569){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{6}}}}%
+    \put(0.06675784,0.4969921){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{7}}}}%
+    \put(0.61889464,0.73766033){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Block (1, 1)}}}%
+    \put(0.18135612,0.73766033){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Block (1, 0)}}}%
+    \put(0.61889464,0.30012192){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Block (0, 1)}}}%
+    \put(0.08687284,0.0061408){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{threadIdx.x}}}%
+    \put(0.02388063,0.11851695){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{threadIdx.y}}}}%
+    \put(0.10191329,0.04893855){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{0}}}%
+    \put(0.15571979,0.04892786){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{1}}}%
+    \put(0.21020991,0.04878366){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{2}}}%
+    \put(0.26396296,0.04893855){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{3}}}%
+    \put(0.31800443,0.04892786){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{4}}}%
+    \put(0.37204064,0.04908275){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{5}}}%
+    \put(0.4258577,0.04893855){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{6}}}%
+    \put(0.47997403,0.04892786){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{7}}}%
   \end{picture}%
 \endgroup%
