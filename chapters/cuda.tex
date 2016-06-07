@@ -204,9 +204,11 @@ The computation of one timestep can be seperated into an initialzation part and 
 As a first step each thread is assigned to a grid point $(i, j, k)$.
 
 \begin{align}
+    \begin{split}
     i &= 2\\
     j &= \text{blockIdx.x}\cdot 8 + \text{threadIdx.y} + 2\\
     k &= \text{blockIdx.y}\cdot 8 + \text{threadIdx.x} + 2
+    \end{split}
 \end{align}
 
 %The offset 2 is a again result of the ghost points, more on this in Sect. ()
@@ -217,54 +219,43 @@ Furthermore on the sides of the Block two additional points are necessary for th
 in the directions U, D, N and S.
 
 With the calculated positions the variables are now loaded into the shared memory of the gpu.
-Fig. () shows how this memory stucture is locatted in the numerical domain, exemplarily for $i>2$.
+Fig. \ref{cuda:timestep_algo_img} shows how this memory stucture is locatted in the numerical domain, exemplarily for $i>2$.
 %Fig (), shows the position in the simulation domain, the 5-Point stencil is exemplariliy shown for one center point,
 %furthermore the (ghost?) points on the sides are shown.
 The initialization procedure is finished.
+
 In the first step of the for-loop the spatial derivatives are computed.
-Since this terms are quite large, here this will be exemplarily shown for the viscous force
--here exemplarily for the finite diff fourth order ..
--discretization in x yz direction
--for the $v_x$ component
+Since this terms are quite large, here this will be exemplarily shown for the laplace operator
+with a central difference scheme of fourth order, given by Eq. \ref{num:fd_o4_methods}, for the $v_x$ component.
 
 \begin{align}
-    \Delta \vec{v_x}   \approx &  \frac{1}{12\Delta x^2} \left(-v_x(i+2, j, k) + 16v_x(i+1, j, k) - 30v_x(i, j, k) + 16v_x(i-1, j, k)-v_x(i-2, j, k)\right)\\
+    \begin{split}
+    \Delta v_x   \approx &  \frac{1}{12\Delta x^2} \left(-v_x(i+2, j, k) + 16v_x(i+1, j, k) - 30v_x(i, j, k) + 16v_x(i-1, j, k)-v_x(i-2, j, k)\right)\\
                               +&  \frac{1}{12\Delta y^2} \left(-v_x(i, j+2, k) + 16v_x(i, j+1, k) - 30v_x(i, j, k) + 16v_x(i, j-1, k)-v_x(i, j-2, k)\right)\\
                               +&  \frac{1}{12\Delta z^2} \left(-v_x(i, j, k+2) + 16v_x(i, j, k+1) - 30v_x(i, j, k) + 16v_x(i, j, k-1)-v_x(i, j, k-2\right))
+    \end{split}
 \end{align}
 
-The for-loop iterates over the domain by incrementing the $k$ index
+The intermediate step $Q_{\Phi}$ is than computed with the conditionals
 
-\clearpage
+\begin{algorithmic}
+\IF {(threadIdx.z==0)}
+      \STATE ${Q_{\rho} = -\nabla \vec{v}}$
+\ENDIF
+\IF {(threadIdx.z==1)}
+      \STATE ${Q_{v_x} = -(\vec{v} \nabla) v_x - c^2\partial_x\rho + \frac{1}{\Rey}\partial^2_xv_x + \vec{f}_{\text{ext.}}}$
+\ENDIF
+\IF {(threadIdx.z==2)}
+      \STATE ${Q_{v_y} = -(\vec{v} \nabla) v_y - c^2\partial_y\rho + \frac{1}{\Rey}\partial^2_yv_y + \vec{f}_{\text{ext.}}}$
+\ENDIF
+\IF {(threadIdx.z==3)}
+      \STATE ${Q_{v_z} = -(\vec{v} \nabla) v_z - c^2\partial_z\rho + \frac{1}{\Rey}\partial^2_zv_z + \vec{f}_{\text{ext.}}}$
+\ENDIF
+\end{algorithmic}
 
--computations
-
-Since the variable itself is defined by threadIdx.z the computation with the discretized operatior is given by
-
-\begin{verbatim}
-      if (threadIdx.z == 0) //rho
-      {
-         rhs=-DERIV_X(vx_s)-DERIV_Y(vy_s)-DERIV_Z(vz_s);
-      }
-      if (threadIdx.z == 1)//vx
-      {
-         ADVECT(vx_s)
-         rhs=rhs-c2*DERIV_X(rho_s)
-   +(1.0/Ra)*LAPLACE(vx_s);
-
-      if (threadIdx.z == 2) //vy
-      {
-         ADVECT(vy_s)
-         rhs=rhs-c2*DERIV_Y(rho_s) +(1.0/Ra)*LAPLACE(vy_s);
-
-      if (threadIdx.z == 3) //vz
-      {
-         ADVECT(vz_s)
-         rhs=rhs-c2*DERIV_Z(rho_s)+Pr*LAPLACE(vz_s)+Pr*Ra*temp_s[Point];
-      }
-\end{verbatim}
 
 stored in new register
+The for-loop iterates over the domain by incrementing the $k$ index
 
 \subsection{Boundary Conditions}
 
