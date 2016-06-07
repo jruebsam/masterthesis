@@ -51,10 +51,18 @@
   \begin{picture}(1,0.96754888)%
     \put(0,0){\includegraphics[width=\unitlength]{timestep.pdf}}%
     \put(0.66401822,0.79382323){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Block (i, j +1)}}}%
-    \put(0.66401822,0.27460256){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Block (i, j )}}}%
-    \put(0.66401822,0.17724892){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Block (i, j - 1)}}}%
-    \put(0.72892065,0.53421294){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{ix++ }}}%
-    \put(0.85665819,0.05973286){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{x}}}%
-    \put(0.03888629,0.86127935){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{z}}}%
+    \put(0.66401822,0.27460257){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Block (i, j )}}}%
+    \put(0.66401822,0.17724893){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Block (i, j - 1)}}}%
+    \put(0.72892064,0.53421295){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{ix++ }}}%
+    \put(0.85665819,0.05973287){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{x}}}%
+    \put(0.03888629,0.86127936){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{z}}}%
+    \put(0.2980892,0.72039385){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$C$}}}%
+    \put(0.2980892,0.65553213){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$C$}}}%
+    \put(0.2980892,0.59067051){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$C$}}}%
+    \put(0.2980892,0.52580879){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$C$}}}%
+    \put(0.2980892,0.46094707){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$C$}}}%
+    \put(0.2980892,0.39608535){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$C$}}}%
+    \put(0.2980892,0.33122372){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$C$}}}%
+    \put(0.2980892,0.266362){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$C$}}}%
   \end{picture}%
 \endgroup%

@@ -56,6 +56,7 @@ types of memory, as shown  in Fig.  \ref{fig:gpu_memory_layout}.
 \clearpage
 
 \subsection{Thread Management}
+\label{cuda:sec_threadmanage}
 
 In order to distribute the workload between different SMs and cuda cores an additional syntax is necessary.
 The CUDA API therefore  introcuces the notion of a thread and a block.
@@ -147,6 +148,34 @@ Hence, the register position of a grid point has to be calculated by
 
 which is a row-major access pattern.
 
+\section{Time Step Algorithm}
+
+In this section an overview of the computation of a single time step will be given.
+For this example the Navier-Stokes equation given by Eq. \ref{theorie:eqns} will be used.
+Before the computation of the time step all initical conditions are saved to the
+registers $C_{\Phi}$ and  $R_{\Phi}$.
+The time integration is performed with the Willamson-RK3 scheme, see Sec. \ref{numerik:rk_williamson_sec}.
+This schemes consist of three sub time step, in this example only the first step given by
+
+\begin{align}
+    \begin{split}
+    Q_1 = \Delta t \mathcal{L}^*\left(\Phi^n\right)\qquad &\Rightarrow \qquad \Phi^{1} = \Phi^n + \frac{1}{3}Q_1
+    \end{split}
+\end{align}
+
+will be considered.  The computation of the remaining steps is similar.
+
+
+The simulation domain is divided into a grid of  $N_y/8 \times N_z/8$ blocks, on each of these the integration is performed separately.
+This segmentation is similar to the example introduced in Sec. \ref{cuda:sec_threadmanage} (see Fig. \ref{cuda:grid_example}), except the
+additional index threadIdx.z is used.
+This index seperates the different variables during the integration, i.e. for $v_x$ it is threadIdx.z = 0, for $v_y$  it is 1 and so on.
+With this convention each block contains a total number of 8x8x4 threads.
+
+For a computation of the finite difference schemes  a 5-Point stencil is used, as shown in Fig. \ref{cuda:stencil}.
+The inner points of the stencil are enumerated with 1, the outer with 2.. For example in $x$ direction the points are denoted as West2,
+West, East2, East in $x$ direction or with the abbreviations W2, W1, E1 and E2.
+\footnote{For second order finite difference schemes, only the inner points are used, we refer to a 3-Point stencil in this case.}
 
 \begin{figure}[!bp]
       \centering
@@ -165,41 +194,6 @@ which is a row-major access pattern.
            }
        \label{cuda:timestep_algo_img}
 \end{figure}
-
-\clearpage
-
-\section{Time Step Algorithm}
-
-In this section an overview of the computation of a single time step will be given.
-
-For this example the Navier-Stokes equation given by Eq. () will be used.
-
-
-
-
-It is presumed that all variables are allocated on the global memory of the GPU, see Sec. \ref{cuda:prepro}.
-The simulation domain is then divided into a grid of  $N/8 \times N/8$ blocks, like in Fig. \ref{cuda:grid_example}.
-Each block contains a total number of 8x8x4 threads.
-The ID threadIdx.z defines, which variable will be used for the computation, for example threadIdx.z=0 corresponds to $\rho$ and threadIdx.z=1 to $v_x$.
-
-exemplary one block
-
-For the temporal integration the Willamson-RK3 scheme from Sec. () is used.
-This schemes consist of total  six sub steps here only the first two will be considered thus
-
-\begin{align}
-    \begin{split}
-    Q_1 = \Delta t \mathcal{L}^*\left(\Phi^n\right)\qquad &\Rightarrow \qquad \Phi^{1} = \Phi^n + \frac{1}{3}Q_1
-    \end{split}
-\end{align}
-the remaining computations are identical except the use of different coefficients.
-
-For a computation of the finite difference schemes the simulation uses a 5-Point stencil as shown in Fig. \ref{cuda:stencil}.
-The inner points of the stencil are enumerated with 1, the outer with 2., for example in $x$ direction the points are denoted as West2,
-West, East2, East in $x$ direction or in short (W2, W1, E1, E2).
-
-\footnote{For second order finite difference schemes, only the inner points are used, we refer to a 3-Point stencil in this case.}
-
 
 The computation of one timestep can be seperated into an initialzation part and a for-loop which iterates over the simulation domain.
 As a first step the position, indexed with $ix, iy, iz$ is set to

@@ -51,7 +51,7 @@
   \begin{picture}(1,0.62547823)%
     \put(0,0){\includegraphics[width=\unitlength]{stencil.pdf}}%
     \put(0.4307456,0.03187941){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x$}}}%
-    \put(0.52206152,0.09405209){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$y$}}}%
+    \put(0.51602129,0.08559572){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$y$}}}%
     \put(0.46863208,0.18925353){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$z$}}}%
     \put(0.88132493,0.56561951){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{South}}}%
     \put(0.88273233,0.46973429){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{North}}}%

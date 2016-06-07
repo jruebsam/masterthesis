@@ -68,8 +68,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="208.50404"
-     inkscape:cy="76.722126"
+     inkscape:cx="209.21833"
+     inkscape:cy="48.150697"
      inkscape:document-units="px"
      inkscape:current-layer="layer2"
      showgrid="false"
@@ -102,7 +102,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -566,14 +566,14 @@
     <text
        xml:space="preserve"
        style="font-size:4.54891014px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="259.94211"
-       y="613.79236"
+       x="258.1564"
+       y="616.29236"
        id="text7179"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan7181"
-         x="259.94211"
-         y="613.79236">$y$</tspan></text>
+         x="258.1564"
+         y="616.29236">$y$</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:4.54891014px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"

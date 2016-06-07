@@ -19,15 +19,15 @@
   <sodipodi:namedview
      inkscape:window-maximized="0"
      inkscape:window-y="0"
-     inkscape:window-x="0"
+     inkscape:window-x="10"
      inkscape:window-height="1138"
-     inkscape:window-width="1914"
+     inkscape:window-width="1904"
      showgrid="true"
      inkscape:current-layer="layer3"
      inkscape:document-units="px"
-     inkscape:cy="179.00528"
-     inkscape:cx="-56.949285"
-     inkscape:zoom="1.4142136"
+     inkscape:cy="179.60504"
+     inkscape:cx="117.36892"
+     inkscape:zoom="4.0000001"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      borderopacity="1.0"
@@ -190,45 +190,6 @@
          transform="matrix(0.8,0,0,0.8,10,0)"
          inkscape:connector-curvature="0" />
     </marker>
-    <filter
-       inkscape:collect="always"
-       id="filter19757"
-       x="-0.0048000002"
-       width="1.0096"
-       y="-0.0048000002"
-       height="1.0096"
-       color-interpolation-filters="sRGB">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.08"
-         id="feGaussianBlur19759" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter19761"
-       x="-0.0048000002"
-       width="1.0096"
-       y="-0.0048000002"
-       height="1.0096"
-       color-interpolation-filters="sRGB">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.08"
-         id="feGaussianBlur19763" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter19765"
-       x="-0.0048000002"
-       width="1.0096"
-       y="-0.0048000002"
-       height="1.0096"
-       color-interpolation-filters="sRGB">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.08"
-         id="feGaussianBlur19767" />
-    </filter>
     <marker
        inkscape:stockid="Arrow2Lend"
        orient="auto"
@@ -879,5 +840,103 @@
          id="tspan6513"
          x="346.72073"
          y="359.36887">z</tspan></text>
-  </g>
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="429.5"
+       y="404.36218"
+       id="text3107"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3109"
+         x="429.5"
+         y="404.36218">$C$</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
+       x="429.5"
+       y="425.07648"
+       id="text3107-8"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3109-3"
+         x="429.5"
+         y="425.07648">$C$</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
+       x="429.5"
+       y="445.79074"
+       id="text3107-6"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3109-33"
+         x="429.5"
+         y="445.79074">$C$</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
+       x="429.5"
+       y="466.50504"
+       id="text3107-5"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3109-6"
+         x="429.5"
+         y="466.50504">$C$</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
+       x="429.5"
+       y="487.21933"
+       id="text3107-89"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3109-4"
+         x="429.5"
+         y="487.21933">$C$</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
+       x="429.5"
+       y="507.93362"
+       id="text3107-82"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3109-5"
+         x="429.5"
+         y="507.93362">$C$</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
+       x="429.5"
+       y="528.64789"
+       id="text3107-7"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3109-32"
+         x="429.5"
+         y="528.64789">$C$</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
+       x="429.5"
+       y="549.36218"
+       id="text3107-2"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3109-65"
+         x="429.5"
+         y="549.36218">$C$</tspan></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3384"
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Sans;font-style:normal;font-weight:normal;font-size:8px;line-height:125%;letter-spacing:0px;word-spacing:0px"><flowRegion
+         id="flowRegion3386"><rect
+           id="rect3388"
+           width="82.5"
+           height="190"
+           x="-106.5"
+           y="74.997231" /></flowRegion><flowPara
+         id="flowPara3390"></flowPara></flowRoot>  </g>
 </svg>
