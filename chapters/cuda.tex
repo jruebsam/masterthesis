@@ -167,69 +167,77 @@ will be considered.  The computation of the remaining steps is similar.
 
 
 The simulation domain is divided into a grid of  $N_y/8 \times N_z/8$ blocks, on each of these the integration is performed separately.
-This segmentation is similar to the example introduced in Sec. \ref{cuda:sec_threadmanage} (see Fig. \ref{cuda:grid_example}), except the
+This segmentation is similar to the example introduced in Sec. \ref{cuda:sec_threadmanage} (see Fig. \ref{cuda:grid_example}), except an
 additional index threadIdx.z is used.
-This index seperates the different variables during the integration, i.e. for $v_x$ it is threadIdx.z = 0, for $v_y$  it is 1 and so on.
+This index seperates the variables during the integration, i.e. for $v_x$ it is threadIdx.z = 0, for $v_y$  it is 1 and so forth.
 With this convention each block contains a total number of 8x8x4 threads.
 
 For a computation of the finite difference schemes  a 5-Point stencil is used, as shown in Fig. \ref{cuda:stencil}.
 The inner points of the stencil are enumerated with 1, the outer with 2.. For example in $x$ direction the points are denoted as West2,
 West, East2, East in $x$ direction or with the abbreviations W2, W1, E1 and E2.
-\footnote{For second order finite difference schemes, only the inner points are used, we refer to a 3-Point stencil in this case.}
+For second order finite difference schemes, only the inner points  are used, we refer to a 3-Point stencil in this case.
 
 \begin{figure}[!bp]
       \centering
         \resizebox{0.6\textwidth}{!}{
        \import{gfx/cuda//}{stencil.pdf_tex}
         }
-       \caption{Segmentation of the $y, z$ plane of the simulation domain into a grid of Blocks.
-                 Eeach block contains a grid with 8x8 threads.}
+        \caption{
+            5-Point stencil used for the discretization, with the directions North, West, South, East, Up and Down.
+        }
        \label{cuda:stencil}
+\end{figure}
+
+\begin{figure}[!bp]
       \centering
         \resizebox{0.6\textwidth}{!}{
        \import{gfx/cuda//}{timestep.pdf_tex}
         }
        \caption{
-           Memory location during a time step in the $y, z$ plane.
-           }
+           Shared memory block location in the simulation domain during a time step.
+       }
        \label{cuda:timestep_algo_img}
 \end{figure}
+\clearpage
 
-The computation of one timestep can be seperated into an initialzation part and a for-loop which iterates over the simulation domain.
-As a first step the position, indexed with $ix, iy, iz$ is set to
-
-\begin{verbatim}
-   ix=2;
-   iy=blockIdx.x*BLOCKSIZE+threadIdx.y+2;
-   iz=blockIdx.y*BLOCKSIZE+threadIdx.x+2;
-\end{verbatim}
-
-The offset 2 is a result  of the boundarie layers, more on this in Sect. ()
-Each thread in the block is then assigned to the grid point $C = P(ix, iy, iz)$.
-The position of the center $C$ can be seen in Fig. ().
-
-In the next step each thread has to load the neighboor points W2, W1, E1 and E2,
-with the position given by an offset with a multiple of $(N+4)^2$, the number of grid points in one layer.
-Beside these points, additional points for $ix=2$ have to been loaded on the side of the block.
-
-After this initialization a whole stack of 8x8x5 is loaded into the shared memory for each variable.
-Fig (), shows the position in the simulation domain, the 5-Point stencil is exemplariliy shown for one center point,
-furthermore the (ghost?) points on the sides are shown.
-
-The initialization is now finished. In the first step of the for-loop the spatial derivatives arecomputed.
-Here with the  use of fourth order finite difference schemes and the upwinding method of third order.
-The following abreviations are defined:
+The computation of one timestep can be seperated into an initialzation part and a for-loop which iterates by the index $i$, over the simulation domain.
+As a first step each thread is assigned to a grid point $(i, j, k)$.
 
 \begin{align}
-    LP (L, R, \Phi, \Delta)  &:=  \frac{1}{12\Delta x^2} \left(-\Phi_{R2} + 16\Phi_{R1} - 30\Phi_C +16\Phi_{L1} - \Phi_{L2} \right)\\
-    DP (L, R, \Phi, \Delta)  &:=  \frac{1}{12\Delta x}   \left(-\Phi_{R2} + 8\Phi_{R1}  -8\Phi_{L1} + \Phi_{L2} \right)\\
-    V_-(L, R, \Phi, \Delta)  &:=  \frac{1}{6\Delta x}  \left( 2\Phi_{R1} + 3\Phi_C  - 6\Phi_{L1} + \Phi_{L2}  \right)\\
-    V_+(L, R, \Phi, \Delta)  &:=  \frac{1}{6\Delta x}  \left( -\Phi_{R2} + 6\Phi_{R1}  - 3\Phi_{C} + \Phi_{L1}  \right)
+    i &= 2\\
+    j &= \text{blockIdx.x}\cdot 8 + \text{threadIdx.y} + 2\\
+    k &= \text{blockIdx.y}\cdot 8 + \text{threadIdx.x} + 2
 \end{align}
 
-L and R are two oppositle directions of the 5-Point stencil and $\Phi$ a variable of the fluid.
+%The offset 2 is a again result of the ghost points, more on this in Sect. ()
+The position of the center $C$ for each thread, is then given by $P(i, j, k)$.
+In the next step each thread has to load the neighboor points W2, W1, E1 and E2,
+the offset to $C$ is given my a multiple of $L=(N_y+4)(N_z+4)$, for example $W2= C - 2L$.
+Furthermore on the sides of the Block two additional points are necessary for the discretization
+in the directions U, D, N and S.
+
+With the calculated positions the variables are now loaded into the shared memory of the gpu.
+Fig. () shows how this memory stucture is locatted in the numerical domain, exemplarily for $i>2$.
+%Fig (), shows the position in the simulation domain, the 5-Point stencil is exemplariliy shown for one center point,
+%furthermore the (ghost?) points on the sides are shown.
+The initialization procedure is finished.
+In the first step of the for-loop the spatial derivatives are computed.
+Since this terms are quite large, here this will be exemplarily shown for the viscous force
+-here exemplarily for the finite diff fourth order ..
+-discretization in x yz direction
+-for the $v_x$ component
+
+\begin{align}
+    \Delta \vec{v_x}   \approx &  \frac{1}{12\Delta x^2} \left(-v_x(i+2, j, k) + 16v_x(i+1, j, k) - 30v_x(i, j, k) + 16v_x(i-1, j, k)-v_x(i-2, j, k)\right)\\
+                              +&  \frac{1}{12\Delta y^2} \left(-v_x(i, j+2, k) + 16v_x(i, j+1, k) - 30v_x(i, j, k) + 16v_x(i, j-1, k)-v_x(i, j-2, k)\right)\\
+                              +&  \frac{1}{12\Delta z^2} \left(-v_x(i, j, k+2) + 16v_x(i, j, k+1) - 30v_x(i, j, k) + 16v_x(i, j, k-1)-v_x(i, j, k-2\right))
+\end{align}
+
+The for-loop iterates over the domain by incrementing the $k$ index
 
 \clearpage
+
+-computations
 
 Since the variable itself is defined by threadIdx.z the computation with the discretized operatior is given by
 
