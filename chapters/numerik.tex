@@ -235,29 +235,29 @@ The numerical stability of the finite difference schemes can be estimated with a
 In this section the stability criterion will be exeplarily computed for a one-dimensional diffusion equation of the form
 \begin{align}
     \label{num:vne_diffusion_theo}
-    \pdn[v]{t} = \alpha \Delta v
+    \pdn[\Phi]{t} = \alpha \Delta \Phi
 \end{align}
 
-where $\alpha$ is the diffusion coefficient. Eq.  \ref{num:vne_diffusion_theo} is discretized by
-the second order central-difference scheme, given by Eq. \ref{numerik:eq_2dfo2}.
+for a scalar $\Phi$ and  the diffusion coefficient $\alpha$.
+%Eq.  \ref{num:vne_diffusion_theo} is discretized by the second order central-difference scheme, given by Eq. \ref{numerik:eq_2dfo2}.
 All methods and steps in this example are adopted from \citep{janderson}.
-In order to test if a method is stable, it is valid to assume that the numerical error can be expressed in form of a fourier-mode.
+In order to test if a method is stable, it is valid to assume that the numerical error can be expressed in form of a Fourier mode.
 
 \begin{align}
     \epsilon(x, t) = \sum_{m=1}^{N/2} \epsilon_m(x, t) \qquad &\text{and} \qquad  \epsilon_m(x, t) = e^{at}e^{i k_m x}
 \end{align}
 
-where $a$ the growth rate of the error, the wavenumber is given by $k_m=\nicefrac{2\pi m}{L}$ and $L$ is the size of the simulation domain.
+where $a$  he growth rate of the error, the wavenumber is given by $k_m=\nicefrac{2\pi m}{L}$ and $L$ is the size of the simulation domain.
 The index $m$ is restricted by the domain size and the distance $\Delta x$ between two grid points, i.e. the smallest wave number
 is resulting from the wavelength $\lambda=L$ and the largest from $\lambda=2\Delta x$.
-Due to the linearity of the laplace operator it is sufficient to consider the stability of a single fourier mode $\epsilon_m$.
+Due to the linearity of the Laplacian it is sufficient to consider the stability of a single fourier mode $\epsilon_m$.
 With the use of Eq.  \ref{numerik:eq_2dfo2}, the discretized version of the diffusion equations reads.
 \begin{align}
     \label{num:neumann_diffusion_eq}
     \frac{\Phi^{n+1} - \Phi^n}{\Delta t} = \frac{\alpha}{\Delta x^2}\left(\Phi_{i+1}^n - 2\Phi_{i}^n + \Phi_{i-1}^n\right)
 \end{align}
 
-where $\alpha$ is the diffusion coefficient. The timestep in this example is discretized by a simple euler timestep.
+In this example the time is discretized by the explizit euler method, which is equivalent to a Runge-Kutta method of first order.
 Inserting $\epsilon_m$ in Eq. \ref{num:neumann_diffusion_eq} for $\Phi$ and using some trigonometric identities  gives
 
 \begin{align}
@@ -313,6 +313,7 @@ where $ Pe := \nicefrac{u \Delta x}{\alpha}$ is defined as the Peclet number \ci
 The Peclet number can be interpreted as the ratio between the advection and diffusion of a fluid system.
 
 \paragraph{Third Order Upwinding Scheme}\mbox{}\\
+\label{num:sec_para:upwindingscheme}
 
 For large Peclet numbers it is a common problem that numerical oscillations emerge in the numerical solution.
 Additional to the central differences, the upwinding scheme, which tends to reduce
@@ -377,6 +378,7 @@ The same approach for the fourth order scheme gives
 
 
 \section{Method of Artificial Compressibility}
+\label{num:sec_articomp}
 
 For now the fact was ignored that the Navier-Stokes Eq. \ref{theorie:eqns} cannot directly be solved for the pressure.
 An equation for $p$ can be obtained by taking the divergence of Eq. \ref{theorie:eqns} and apply the continuity equation.

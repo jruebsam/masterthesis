@@ -4,18 +4,18 @@
 \section{Introduction}
 
 For many fluid problems it is mandatory to solve the equations of motion with respect to complex-shaped geometries.
-The cuda algorithm introduced in chapter \ref{CHAPTER:CUDA} is not yet suitable for such a scenario.
+The algorithm introduced in chapter \ref{CHAPTER:CUDA} is not yet suitable for such a scenario.
 For instance the simulation inside a spheric geometry is impossible, since the boundaries
 do not coincide with the implemented cartesian grid. Nevertheless there exist different approaches to overcome this problem,
 which shall be introduced here. \\
-The common approach to extend the algorithm would be to use a body-fitted mesh ,
-different advantages and disadvantages arise with this kind of implementation (see \citep{Mittal2005}).
-One benefit is a much simpler deployment of the desired boundary condition, due to the overlap of the grid with domain border.
+One common approach to extend the algorithm it the use a body-fitted mesh.
+Different advantages and disadvantages arise with this kind of implementation, see \citep{Mittal2005}.
+One benefit is a much simpler deployment of the desired boundary condition, due to the overlap of the numerical grid with domain borders.
 Furthermore a higher accuracy can be achieved \citep{Gornak2013}.
-However, using an unstructered grid generates plenty of computational overhead, during and before the execution of a simulation.
-The generation of the grid is very complicated in contrast to using a cartesian grid. This can be even more complicated when
-considering moving boundaries.
-Also solving the finite differenc schemes on a curvilinear coordinate system, leads to more calculations on a single grid point.
+However, using an unstructered grid generates  computational overhead, during and before the execution of a simulation.
+The grid generation algorithm can be complicated in contrast to using a cartesian grid. This can be even more difficult when
+moving boundaries are considered.
+Moreover, solving the finite differenc schemes on a curvilinear coordinate system, requires more calculations for a single grid point.
 
 The last important aspect is the implementation on the GPU.
 Like discussed in section \ref{CUDAGPU}, it is more efficient to use homogenous storage and calculation pattern on a CUDA-device,
@@ -23,15 +23,15 @@ the use of unstructured data makes this very difficult.
 Altough some attempts exists to solve these difficulties (see i.e. \citep{PAP}), it is still uncertain if the obtained performance loss would be acceptable.
 
 A set of alternative methods, to resolve the problems described above, are so called Immersed Boundary Methods.
-The term was first mentioned in \citep{peskin72}, where the mettod was used for the simulation of blood flow through a heartvale,
+The term was first mentioned in \citep{peskin72}, where the method was used for the simulation of blood flow through a heartvale,
 but has since then been used for a variety of methods \citep{Mittal2005}.
 
 All of them have the idea in common to perform the simulations on a cartesian grid which does not conform to the domain boundary.
 To satisfy the desired boundary conditions additional terms are introduced into the equations of motion.
-In general one can distinguish between contiuous forcing methods and direct forcing methods.
-Continious forcing methods try to mimic the boundary using a localized force which acts on the boundary,
-since the surface is often given by lagrangian points, this methods is well suited for moving boundaries \citep{Mittal2005}.
-One common problem is that from a continous forcing instabilities and numerical oscillations may arise in numericial stiff problems \citep{QUOTE}.
+In general one can distinguish between continuous forcing methods and direct forcing methods.
+Continuous forcing methods try to mimic the boundary using a localized force which acts on the boundary,
+since the surface is often given by lagrangian points, this methods are well suited for moving boundaries \citep{Mittal2005}.
+One common problem is that from a continuous forcing instabilities and numerical oscillations may arise in numericial stiff problems \citep{QUOTE}.
 
 Direct forcing approaches tries to satisfies the boundary condition by imposing it directly to points near the fluid boundaries for example
 trough an interpolation procedure.
@@ -41,42 +41,34 @@ compared to a body-fitted mesh.  Futhermore the non-conforming (?) boundaries ar
 The benefits of these methods is the use of a cartesian grid, which is much more suited for a GPU-based implementation (see Sec. \ref{BLA}.
 As a result the overall performance of the methods introduced in this chatper,  will probably be in the same order as the original algorithm.
 
-ONLY NO SLIP
-This chapter beginns with Implementation of NoSlip-Walls which are the easisest to implement.
-The term Immersed Boundary Method is vaguely defined in literature, in this thesis we refer to it with all methods introduced in the following three chapters.
+One objective of this thesis is the implementation of NoSlip boundaries, with the use of Immersed Boundary methods.
+The term Immersed Boundary Method is vaguely defined in literature, in this thesis we refer to it for all methods introduced in this chapter..
 
-\section{Immersed Bonudary Methods}
+\section{Immersed Boundary Methods}
 
-For the purpose of discussion, the different methods introduced here, will be applied to a default geometry.
+For the purpose of discussion the different methods introduced here will be applied to a default geometry.
 The fluid domain without any immersed boundaries is set to a cube of the size $l_i= 1$ with  $i = \{x, y, z\}$.
 For the discretization we choose $N_i = 32$ for the number of grid points.
-As an example of an immersed boundary, we will dicuss the embedding of a cylinder, given by the  surface equation
+As an example of an immersed boundary, we will discuss the embedding of a cylinder, given by the  surface equation
 
 \begin{align}
+    \label{ibm:eq_cylinder_intro}
     \left(x - \frac{l_x}{2}\right)^2 + \left(y - \frac{l_y}{2}\right)^2 = r^2
 \end{align}
 
 where $r=0.4$ is the radius and the center is given by $(l_x/2, l_y/2)$.
-The simulation domain is than seperated into the fluid domain $\Omega_f$ and the wall domain $\Omega_w$.
-The overall goal is to enforce the no-slip condition $\vec{v} = 0$ on the surface $\partial \Omega_f$, furthermore
-the consveration of mass should be fulfilled.
+The simulation domain is than separated into the fluid domain $\Omega_f$ and the wall domain $\Omega_w$.
+The overall goal is to enforce the No-Slip condition $\vec{v} = 0$ on the surface $\partial \Omega_f$, furthermore
+the conservation of mass should be fulfilled.
 
 \clearpage
 
 \subsection{Volume Penalization}
-
-\begin{figure}[!b]
-    \centering
-    \includegraphics{gfx/immersed_boundary/methods/mask_volpen.pdf}
-    \caption{Masking function $H(x,y,z=const.) = x^2 + y^2 < c$ for a cylinder. }
-    \label{fig:ibm_maskvolpen}
-\end{figure}
-
-The  behind the volume penalization method is to introduce an additional forcing term into the Navier-Stokes equation, which acts on
-the grid points outside of the fluid domain to ensure the desired boundary conditions. The methods was sucessfully implemented and tested
+The concept behind the volume penalization method is to introduce an additional forcing term into the Navier-Stokes equation, which acts on
+the grid points outside of the fluid domain to ensure the desired boundary conditions. The methods was successfully implemented and tested
 on pseudo-spectral methods, see for example \citep{Lulff2011}.
 For the implementation it is necessary to define a masking function $H(x, y, z)$ which seperates the simulation domain into $\Omega_f$ and $\Omega_w$.
-In case of the cylinder, we can use the surface equation (REF) and simply obtain.
+For a cylinder the surface equation \label{ibm:eq_cylinder_intro} can be modified to
 \begin{align}
     \label{ibm:masking_function}
 H(x, y, z) = \begin{cases}
@@ -84,25 +76,48 @@ H(x, y, z) = \begin{cases}
                     1, & \text{else}
              \end{cases}
 \end{align}
-Now we can introduce an additional forcing term into the impulse equation,
+
+With this function an additional forcing term can be added into the Navier-Stokes equation
+
 \begin{align}
+    \label{ibm:vp_navstok}
     \pdn[u]{t} + \vec{u} \cdot \vec{\nabla} \vec{u} &= -c^2 \nabla \rho + \frac{1}{Re} \Delta \vec{u} + \vec{F}_{ext}
-     +\underbrace{ \frac{H(x, y, z)}{\nu}(\vec{v} - \vec{v_0})}_{\text{damping force}}
+     +\underbrace{ \frac{H(x, y, z)}{\nu}(\vec{v} - \vec{v_0})}_{\text{Vol. Pen. Forcing}}
 \end{align}
 
-where $\vec{v}_0$ conforms the desired boundary condition, i.e. $\vec{v}_0 = 0 $ for no slip boundaries, and $\nu$ is a regulation parameter also denoted as damping rate of the forcing.
-The additional term acts as an exponential damping force on a single gridpoint inside of $\Omega_w$, by the product with since it vanishes in $\Omega_f$ by the definition of $H(x,y,z)$.
+where $\nu$ is a regulation parameter also denoted as damping rate of the forcing and $\vec{v}_0$ is the desired Dirichlet boundary condition.
+Hence, for No-Slip boundaries it is $\vec{v}_0 = 0 $.
+The additional term in Eq. \ref{ibm:vp_navstok} acts as an exponential damping force on a single grid point.
+The forcing acts inside of $\Omega_w$ as $H(x, y, z) = 1$ and vanishes in $\Omega_f$.
+The strength of the forcing is scaled by the damping rate $\nu$.
+For a small $\nu$ a stronger forcing is applied to the points in $\Omega_w$.
+It can be shown that for $\nu\rightarrow 0$ the velocity in $\Omega_w$ converges against zero
+and the No-Slip boundaries are fulfilled \citep{Lulff2011}.
+However, the additional term in Eq. \ref{ibm:vp_navstok}
+also introduces an additional stability criterion \citep{Lulff2011}, that is
 
+\begin{align}
+    \label{ibm:eq_vpcrit}
+    \Delta t < \Delta t_{VP} := \nu
+\end{align}
 
-Die Antwort des Kraftterms wird durch die Dämpfungrate $\nu$ reguliert. Je kleiner $\nu$ desto stärker ist die Dämpfungsrate, allerdings kann der Term
-nicht beliebig klein gesetzt werden da die Stabilität für $\nu < dt$ nicht mehr gewährleistet ist [source].
-Da für die Lösung der der Geschwindingskeitsfelder mit der Methode der künstliche Kompressibilität  bereits ein sehr kleiner Zeitschritt verwendet wird (s.Abb. X)
-kann im Vergleich zu anderen Verfahren wie z.B. (pseudo-spektrale) eine relativ starke Dämpfungsrate verwendet werden.
--konvergenz nu gegen 0 MPI\\
-- stiff probplem dt < dtpen = nu DIPLOM\\
-- dary type law MPI\\
-\newpage
+The time step is already severely restricted due to the method of artificial compressibility, see Sec. \ref{num:sec_articomp}
+Hence, the criterion given by Eq. \ref{ibm:eq_vpcrit} is not of concern.
+The implementation of the Volume-Penalization method is rather simple.
+The masking function is defined before runtime.
+During runtime for each grid point ${(i, j, k)}$ the value ${H(i\Delta x, j\Delta y, k \Delta z)}$,
+is stored into an additional array located on the global memory of the GPU.
+This value is than loaded during the computation of a time step.
+For the cylinder this masking array is show in Fig. \ref{fig:ibm_maskvolpen}.
+Tt can be noted that the major-drawback of this method is a pixelated border.
+The exact boundary can only be satisfied for $\Delta x\Delta y, \Delta z \rightarrow 0$.
 
+\begin{figure}[!t]
+    \centering
+    \includegraphics{gfx/immersed_boundary/methods/mask_volpen.pdf}
+    \caption{Masking array $H(i,j,k=const.) = x^2 + y^2 < c$ for a cylinder, in the (x,y) plane.}
+    \label{fig:ibm_maskvolpen}
+\end{figure}
 
 \subsection{Direct Forcing}
 Während die Volume Penalization Methode die Geschwindigkeit ausserhalb des Volumens nicht vollständig auf Null setzt,

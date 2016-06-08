@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{236.5081543bp}%
+    \setlength{\unitlength}{280.20344238bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,16 +48,23 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.62547823)%
+  \begin{picture}(1,0.52794034)%
     \put(0,0){\includegraphics[width=\unitlength]{stencil.pdf}}%
-    \put(0.4307456,0.03187941){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x$}}}%
-    \put(0.51602129,0.08559572){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$y$}}}%
-    \put(0.46863208,0.18925353){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$z$}}}%
-    \put(0.88132493,0.56561951){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{South}}}%
-    \put(0.88273233,0.46973429){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{North}}}%
-    \put(0.89651852,0.37441001){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{East}}}%
-    \put(0.89062311,0.18263915){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{West}}}%
-    \put(0.90848378,0.28206093){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Up}}}%
-    \put(0.87883333,0.08675393){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Down}}}%
+    \put(0.36357456,0.02690809){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x$}}}%
+    \put(0.42834213,0.06647964){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$y$}}}%
+    \put(0.39555298,0.15974109){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$z$}}}%
+    \put(0.92420273,0.39494835){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{South}}}%
+    \put(0.92523872,0.47731077){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{North}}}%
+    \put(0.93298895,0.23063669){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{East}}}%
+    \put(0.9298482,0.31299901){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{West}}}%
+    \put(0.72663391,0.39796453){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Down}}}%
+    \put(0.74606193,0.47772384){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Up}}}%
+    \put(0.71887061,0.31299903){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Center}}}%
+    \put(0.7313628,0.0766747){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$N$}}}%
+    \put(0.6741398,0.13792553){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$W$}}}%
+    \put(0.54847226,0.07403885){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$S$}}}%
+    \put(0.59482835,0.02777032){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$E$}}}%
+    \put(0.64075489,0.0168744){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$D$}}}%
+    \put(0.63689661,0.14611155){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$U$}}}%
   \end{picture}%
 \endgroup%

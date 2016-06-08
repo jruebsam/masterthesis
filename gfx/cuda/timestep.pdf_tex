@@ -50,10 +50,10 @@
   \makeatother%
   \begin{picture}(1,0.96754888)%
     \put(0,0){\includegraphics[width=\unitlength]{timestep.pdf}}%
-    \put(0.66401822,0.79382323){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Block (i, j +1)}}}%
-    \put(0.66401822,0.27460257){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Block (i, j )}}}%
-    \put(0.66401822,0.17724893){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Block (i, j - 1)}}}%
-    \put(0.72892064,0.53421295){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{ix++ }}}%
+    \put(0.66401822,0.79382323){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Block (m, n+1)}}}%
+    \put(0.66401822,0.27460257){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Block (m, n )}}}%
+    \put(0.66401822,0.17724893){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Block (m, n - 1)}}}%
+    \put(0.72892064,0.53421295){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{i++ }}}%
     \put(0.85665819,0.05973287){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{x}}}%
     \put(0.03888629,0.86127936){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{z}}}%
     \put(0.2980892,0.72039385){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$C$}}}%
@@ -64,5 +64,12 @@
     \put(0.2980892,0.39608535){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$C$}}}%
     \put(0.2980892,0.33122372){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$C$}}}%
     \put(0.2980892,0.266362){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$C$}}}%
+    \put(0.2980892,0.78458456){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$B$}}}%
+    \put(0.2980892,0.85151512){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$B$}}}%
+    \put(0.2980892,0.20217129){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$B$}}}%
+    \put(0.2980892,0.13484933){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$B$}}}%
+    \put(0.51183772,0.46383436){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{$NL$}}}}%
+    \put(0.38576566,0.14905751){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{$NL$}}}}%
+    \put(0.38297048,0.77255176){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{$NL$}}}}%
   \end{picture}%
 \endgroup%
