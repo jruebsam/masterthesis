@@ -139,9 +139,11 @@ profile was computed, by substracting the vector fields from each other in the $
 The results for the FD2 schemes are presented in Fig. \ref{tcflow:results_vprofiles_o2}, the profiles
 for the FD4 schemes are shown in the Appendix in Fig. \ref{tcflow:results_vprofiles_o4}.
 From the profiles it can be noted that for all methods the difference between the numerical and
-theoretical solution are the largest at the boundarie $r_i$ of the  inner cylinder.
-(ORDERS ETC COMPARE)
+theoretical solution are the largest at the boundarie $r_i$ of the  inner cylinder,
+of order $10^{-2}$ for all methods.
 
+It can be noted that the velocity differences inside of the fluid domain is small, but large in the wall region.
+Especially close to the immersed boundary the difference  is of order $10^{-2}$.
 \clearpage
 \begin{figure}[!bp]
   \begin{minipage}[c]{0.5\textwidth}
@@ -211,20 +213,21 @@ density decreases to about $-6\cdot10^{-3}$, in comparison to $\approx10^{-3}$ i
 
 In comparison to the Hagen-Poiseuille flow, in this simulation
 the density  changes as well for the FD2 methods.
-The saturation values of the density, which are of order $10^{-4}$,
-are similar to the previous test case with exception of th IP+DF FD2 and DF-VF FD4 method ($10^-3$).
-
+The saturation of the density of order $10^{-4}$,
+is similar to the previous test case with exception of th IP+DF FD2 and DF-VF FD4 method ($10^-3$).
 The decrease of the density in the inner cylinder is physical correct.
-The rotation, given by the angular velocity $\Omega_i$, creates a centripetal?? force in the inner cylinder.
-As a result the density is larger at the walls cylinder walls than in the center.
-The negative value is not a concern since the density undetermined by a constant value $\rho_0$.
+The rotation, given by the angular velocity $\Omega_i$, creates a centrifugal force in the inner cylinder.
+As a result the density is larger at the outer walls cylinder walls than in the center.
+The negative value is not a concern since the density is undetermined by a constant value $\rho_0$.
+On the other hand for the DF methods the density in the inner cylinder is zero, see Appendix ().
+This is due to the fact that the velocities are directly set to $\vec{\Omega}\times\vec{r}$ in the inner cylinder.
+As a result the fluid is perfecly incompressible thus $\partial_t\rho = \nabla \vec{v} = 0$.
 
 The oscillations in the density can be observed for the FD2 and FD4 methods.
 It can be assumed that just like the previous testcase an odd-even decoupling occurs.
-
-For the FD2 method the densitiy is no longer zero, as a result this phenomen can also be observed for this method.
-%-curved geometry
-%-oscillations as soon as pressure is not zero
+However, it can be assumed that this oscillations do not affect the numerical solutions.
+The change of velocity is proportional to $\partial \rho$, this expression is not computed on neighboring cells..
+The oscillations also occur in the FD2 methods since the density is no longer zero.%evtl rand fehler
 
 \begin{figure}[!bp]
   \begin{minipage}[c]{0.4\textwidth}
@@ -244,26 +247,27 @@ use of the VF method leads to an increase of the overall error, which is contrar
 
 The error in the IP methods is increased about an order.
 It can be noted that the results of the IP FD2 and the IP+DF FD2 method are not equal.
-This speaks against the previous assumption (see Sec. ) that the velocity fields of
-the fluid domain and the boundaries are decoupled for FD2 methods.
+This speaks against the previous assumption (see Sec.  \label{sec:hpflow_discussion})
+that the velocity fields of the fluid domain and the boundaries are decoupled for FD2 methods.
 Fig.\ref{valid:hpflow_velodiff_discussion} shows the substracted velocity profiles for the IP FD2 and IP+DF FD2 method in the $(y, z)$-plane.
-It can be seen that the differences between these profiles is the larges at the boundarie of the inner cylinder, about $10^{-2}$.
+The differences between these profiles is the largest at the boundarie of the inner cylinder, about $10^{-2}$.
+This indicates that both methods create different numerical errors at the boundarie.
+
+Finally, the velocity profiles for all methods indicate an error in the approximation of the inner boundary.
+The results show that the approximation of moving boundaries, with the cuda-algorithm and immersed boundary methods used in this thesis can
+lead to overall larger numerical errors.
+This is not unexpected for the VP and DF methods since a pixelated boundarie probably creates a larger error when moving.
+From the velocity profiles it can be seen that the error of the interpolation methods is smaller  at the inner boundaries.
+But still the error here is larger at the outer boundaries which indicates that moving boundaries are aslo difficult to interpolate with good results.
 
 
-It can be noted that the velocity differences inside of the fluid domain is small, but large in the wall region.
-Especially close to the immersed boundary the difference  is of order $10^{-2}$.
-Thi
-
-Furthermore the comparsion of the velocitie profiles indicates that the error is the largest at
-Finally be considering the velocitie profiles
-
-comparsion is much larger in compariso
-
-- overaall larger error and non linear decrease
-- vfrac
-- assumption inner border
--comparison errors to the previous
--velocity profiles indicate that the error of the methos  comes from the inner border
+%In summary
+%comparsion is much larger in compariso
+%- overaall larger error and non linear decrease
+%- vfrac
+%- assumption inner border
+%-comparison errors to the previous
+%-velocity profiles indicate that the error of the methos  comes from the inner border
 
 \clearpage
 
