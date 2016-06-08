@@ -109,95 +109,86 @@ During runtime for each grid point ${(i, j, k)}$ the value ${H(i\Delta x, j\Delt
 is stored into an additional array located on the global memory of the GPU.
 This value is than loaded during the computation of a time step.
 For the cylinder this masking array is show in Fig. \ref{fig:ibm_maskvolpen}.
-Tt can be noted that the major-drawback of this method is a pixelated border.
-The exact boundary can only be satisfied for $\Delta x\Delta y, \Delta z \rightarrow 0$.
+It can be noted that the major-drawback of this method is a pixelated border.
+The exact boundary can only be satisfied for $\Delta x$, $\Delta y$ and $\Delta z \rightarrow 0$.
 
 \begin{figure}[!t]
     \centering
     \includegraphics{gfx/immersed_boundary/methods/mask_volpen.pdf}
-    \caption{Masking array $H(i,j,k=const.) = x^2 + y^2 < c$ for a cylinder, in the (x,y) plane.}
+    \caption{Masking array $H(i,j,k=const.)$ for a cylinder, in the (x,y) plane.}
     \label{fig:ibm_maskvolpen}
 \end{figure}
 
 \subsection{Direct Forcing}
-Während die Volume Penalization Methode die Geschwindigkeit ausserhalb des Volumens nicht vollständig auf Null setzt,
- kann dies durch eine implizite Berechnung des Dämpfungsterm erreichtwerden. Es stellt sich heraus das dieser Ansatz equivalent
-  zu der Direct Forcing Methode ist, die erstmals von [] verwendet und in [] beschrieben wird.
-Betrachten wir zunächst den diskretisierten Zeitschritt
+
+One concern of the Volume-Penalization method is the remaining velocity in the wall domain close to the boundaries.
+The Direct-Forcing method bypasses this restriction by an implicit calculation of the forcing term.
+This method was first mentioned by \citep{mohdyusof:1997} and is discussed in detail in \citep{Fadlun2000}.
+With the use of the Euler method the discretization of the Navier-Stokes Equation can be written as
+
 \begin{align}
-    \frac{\vec{u}^{n+1} -\vec{u}^n}{\Delta t} = \mathscr{L} + \vec{f}\\
+    \label{ibm_df_method_lame}
+    \frac{\vec{u}^{n+1} -\vec{u}^n}{\Delta t} = \mathscr{L}^* + \vec{f}\\
 \end{align}
-wobei $\mathscr{L}$ den diskretiesierten Operatoren der PDE entspricht.
-Für einen Punkt auf dem Rand des Volumens soll nun die Randbedingung $\vec{u}^{n+1} = \vec{u}_0$ eingehalten werden.
-Mit Formel () folgt
+
+where $\mathscr{L^*}$ are the discretized advection and viscous terms and the density gradient and $\vec{f}$ is the forcing term.
+For a boundary point the condition $\vec{u}^{n+1} = \vec{u}_0$ should hold.
+By substituting this expression into Eq. \ref{ibm_df_method_lame} it follows that
 \begin{align}
     \frac{\vec{u}_0 -\vec{u}^n}{\Delta t} = \mathscr{L} + \vec{f} \Rightarrow \vec{f} = \frac{\vec{u}_0 -\vec{u}^n}{\Delta t\cdot \mathscr{L}}\\
 \end{align}
 
-Mit der Annahme dass der Rand mit dem numerischen Gitter übereinstimmt ist es nicht nötig den Kraftterm zur berechnen, stattdessen lässt sich der
-Schritt vereinfachen in dem der Randwert nach  jedem Zeitschritt direkt auf die gewünschte Randbedingung gesetzt wird. Durch die
-implizite Behandlung kommt es zu keiner weiter Stabilitätsbedingung.
-
-\newpage
+The implementation of this method is similar to the Volume-Penalization method.
+A masking array is computed before the execution of a simulation.
+The forcing term is than added into the register $Q_\Phi$ (see Sec. \ref{sec:cuda_timestep}) after the computation of $\mathscr{L}$.
+It can be noted that this procedure is equivalent to simply setting $\vec{v}=0$ after a time step.
+However this is not the possible when the boundaries are further improved for example with the Volume-Fraction method.
+For now the major-drawback of the Direct-Forcing method is a pixelated border.
+In contrast to the Volume-Penalization method no further stability criteria are introduced.
 
 \subsection{Volume Fraction Interpolation}
 
-The methods introduced up to here lack the ability of an exact impementation of the boundary conditions on $\Omega_f$.
-Instead the surface $\partial \Omega_f$ is described by the nearest grid points in $\Omega_w$, resulting in an
+The methods introduced so far lack the ability of an exact implementation of the boundary conditions on $\Omega_f$.
+Instead the surface $\partial \Omega_f$ is described by the nearest grid points in $\Omega_w$, resulting in a
 stepwise approximation.
-To overcome this problem a simple procedure is the use of an volume fraction interpolation scheme, introduced in [FADL].\\
+To overcome this problem a simple procedure is the use of an volume fraction interpolation scheme, introduced in \citep{Fadlun2000}.\\
 The advantage of this method is the simple implementation into the volume penalization and direct forcing method.
-Furthermore the overall computation time of the timestep stays constant, in  contrast to complex interpolation schemes.\\
-Initially the interpolation beginns by determine all grid cells\footnote{definition cell} which are cut by the surface $\partial \Omega_f$.
-For each of these boundary cells the total volume $V_w$ of the wall domain $\Omega_w$, inside each cell, is computed.
+Furthermore the overall computation time of the time step stays constant, in  contrast to complex interpolation schemes.\\
+Initially the interpolation begins by determine all grid cells which are cut by the surface $\partial \Omega_f$.
+For each of these boundary cells the total volume $V_w$ of the wall domain $\Omega_w$ inside each cell is computed.
+This method can be applied to the Volume-Penalization and the Direct-Forcing method.
 The force acting on the points inside the boundary cells is than weighted by a scaling factor, $\Phi = V_W/(\Delta x \Delta y \Delta z)$.
-For the volume penalization method the scaling is simply multplied with the forcing term in eq. ().
-Since the implementation of the direct forcing method is setting the velocity components directly to zero, it is necessary to
-fall back to equation () and introduce a forcing term
-
-\begin{align}
-    \vec{f} = \Phi \frac{\vec{u}_0 -\vec{u}^n}{\Delta t\cdot \mathscr{L}}\\
-\end{align}
 
 \begin{figure}[!bp]
     \centering
-    \subfloat[label 1]{{
+    \subfloat[Masking array H(i, j, k=const.) for the Volume-Fraction method]{{
       \includegraphics{gfx/immersed_boundary/methods/mask_volfrac.pdf}\label{fig:mask_volfrac}
+      \label{ibm_volfrac_masking_array}
         }}%
     \qquad
-    \subfloat[label 2]{{
+    \subfloat[Convergence of the relative $l_2$-error of the Monte Carlo integration]{{
       \includegraphics{gfx/immersed_boundary/methods/error_volfrac.pdf}\label{fig:error_volfrac}
         }}%
+      \label{ibm_volfrac_montecarlo}
     \label{fig:example}%
 \end{figure}
 
-Since the operator $\mathscr{L}$ is computed during the first part of the time step. This forcing term can added during the completion of the runge kutta step.\footnote{see section}\\
-For the implementation of an extended version of the masking array $H$ is used.
+For the implementation an improved version of the masking array $H$ is used.
 Like in the previous methods the masking array is precomputed and loaded at runtime. The algorithm is extended to compute the
 volume fractions of the cells lying next to the surface $\partial\Omega_f$.
-Since an exact computation is difficult to implement for abritary surfaces, the idea is to use a monte carlo integration method.
-For each cell $N$ random samples are generated, then the volume fraction is simply given by the ratio of samples lying in- and outside ot the domain.
-The implementation into a simulation class using the python API is explained in more detail in Appendix ().\\
-An example for the computed masking array with $N=2e5$, is shown in figure (). The symmetric distribution of the boundarie values indicates
-a good approximation, for a better evaluation a convergence study was performed were the number of samples $S$ was varied between 100 and $10^6$ points.
+Since an exact computation is difficult to implement for arbitrary surfaces one option is to use a Monte Carlo integration method.
+For each cell $N$ random samples are generated, then the volume fraction is simply given by the ratio of samples lying in- and outside outside the fluid domain.
+This is determined by using the masking function $H(x, y, z)$.
+
+An example for the generated masking array with $N=2e5$, is shown in Fig. \ref{ibm_volfrac_masking_array}.
+The symmetric distribution of the boundary values indicates
+a good approximation. For a better evaluation a convergence study was performed were the number of samples $S$ was varied between 100 and $10^6$ points.
 The $l_2$-error was determined by comparing the results to the computation with the highest number of samples.
-The results are shown in figure ().\\
-For the number of samples in the intervall below $S=2\dot10^5$, we can observe a fast decrease in the error to the order $2\dot10^{-4}$.
-Above this intervall the overall decrease is of order $10^{-5}$ in the total error.
-The global error of $2\dot10^-5$ is at least two orders below the error the interpolation methods introduce into the finite difference scheme, as we will see
-in section (). Therefore we conlude that the volume fraction calculation should be accurate enough with $S=10^5$ samples.\\
-%Finally we want to propose an enhancement to the volume fraction method. The idea behind the improvement can be stated as followed.
-%Suppose we perform a simulation with a highly resolved numerical grid, in this case we can assume that the overall curvature of the boundary is negletable
-%inside a single grid cell. This means that in the 2-dimensional case the boundary can be approximated by a straight line cutting the grid cell at a certain area.
-%\begin{wrapfigure}{r}{0.5\textwidth}
-%  \begin{center}
-%    \includegraphics[width=0.3\textwidth]{gfx/immersed_boundary/methods/volfrac.pdf}
-%  \end{center}
-%  \caption{Example of surface cuts of grid cell}
-%\end{wrapfigure}
-%Now we examine the case where the calculated volume fraction is exactly $0.5$, this means that all possible surfaces have to cut the grid cell exactly in the middle.
-%Therefore the grid point lies exacty on the surface and the overall velocity should be set to zero to fullfill the noslip condition.
-%Our suggestion for the algorithm  is to multiply by a factor of two the volume fraction values and set all values above to the maximum value of one.
+The results are shown in figure \label{ibm_volfrac_montecarlo}.
+
+For the number of samples in the interval below $S=2\dot10^5$  a fast decay in the error to the order $2\dot10^{-4}$ can be observed.
+Above this interval the error is of the order $10^{-4}$.
+It can be concluded that the integration should be accurate enough by using $S=10^5$ samples.
 
 \clearpage
 \subsection{Interpolation Method}
@@ -321,9 +312,4 @@ An example of the interpolation procedure is given by
 \end{Verbatim}
 
 where \texttt{global\_Point} is the position of the interpolated point.
-The performance of this implementation in comparsion to
 
-\clearpage
-
-\section{Performance}
-PERFORMANCE stuff

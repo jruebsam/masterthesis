@@ -16,12 +16,14 @@
 \usepackage{siunitx}
 \usepackage{color}
 \usepackage{ragged2e}
+\usepackage{breakcites}
 
 \usepackage{import}
 \usepackage{fancyvrb}
 \usepackage[toc,page]{appendix}
 
 \usepackage{algorithmic}
+
 
 %\setlength{\oddsidemargin}{+1mm}%
 %\setlength{\evensidemargin}{-1mm}%
@@ -344,10 +346,12 @@ rulecolor=\color{black}
 \include{chapters/appendix}
 \include{chapters/python_api}
 \end{appendices}
+
 \begingroup
 \sloppy
 \printbibliography
 \endgroup
+
 \include{chapters/danksagung}
 \include{chapters/declaration}
 \end{document}
