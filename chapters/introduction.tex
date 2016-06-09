@@ -1,5 +1,4 @@
 \chapter{Introduction}
-
 -introduction
 
 In geophysics the study of rotating flows is of particular importance.
@@ -33,47 +32,57 @@ An overview of these methods is given in \citep{Mittal2005}, \citep{Gornak2013}.
 The concept behind this methods is the embedding of the curved boundary into the cartesian grid
 by using additional forcing terms and intepolation methods at the boundaries.
 Certain Immersed Boundary methods use a continous forcing approach where the boundarie is approximated by lagrangian points,
-and the forcing term acts over multiple grid points \citep{Mittal2005}.
-Direct forcing approaches exist where the desired boundary conditions is obtained by interpolating
-the velocities directly at the nearest points to the boundary \citep{Fadlun2000}.
+and the forcing term acts over multiple grid points \citep{Mittal2005}, a
+similiar approach is given by the Volume-Penaliztaion method \citep{Lulff2011}.
+Direct forcing approaches exist where the boundary conditions is obtained by setting the
+velocities values directly at the nearest points to the boundary \citep{Fadlun2000}.
 A bilinear interpolated version of the Direct Forcing approach is used in \citep{Gornak2013},
 which was furthermore extended to work on a GPU \citep{DeLeon2012}.
 
-\clearpage
 
-The current implementation of the GPU algorithm of the research group uses a cartesian grid.
-Fluid flows can be simulated on cubic geometries but not curved ones.
+The current GPU implementation of the algorithm used in the research group is not suitable
+for simulations in curved geometries.
+The algorithm performs calculations on a cartesian grid and fluid flows can be simulated in a cuboid domain only.
 
 The goal of this master thesis is to extend the existing GPU algorithm with the use of Immersed Boundary methods
-to enable the simulation of flows in curved  geometries.
-The extended algorithm will be than be used for the simulation of a librating cone.
+in order to enable the simulation of flows in curved  geometries.
+The methods will be implemented and tested for diffent validation test cases.
+In the second part of the thesis the extended algorithm will be used for the simulation of a librating cone.
 In this system inertial waves are excited by a modulation of the rotation rate.
-An theoretical and experimntal studies are available for a comparison \citep{1}, \citep{1}, \citep{1}.
-The content of this  master thesis is conceptually structured into three different parts.
+An theoretical and experimantal studies are available for a comparison \citep{Sauret2012}, \citep{Beardsley1970}, \citep{Greenspan1969}.
 
+-idea reflection and turbulence evtl dynamo studies
+
+\bigbreak
+
+The content of this  master thesis is can be categorized into three  parts.
 The first part is given by the  chapters \RN{1} to \RN{3}
 In the first chapter an introduction to the theoretical concepts is given.
 This includes a description of the Navier-Stokes equations and the properties of fluid flows in rotating systems.
 The second chapter introduces the numerical methods, in particular the use of finite difference methods.
 Furthermore numerical stability criterions and the method of artifical incompressibility is introduced.
+In the last chapter of this part an overview over the default implemented GPU algorithm will be given.
 
 The second part is given by the chapters \RN{4} to \RN{5}
 This part introduces the Immersed Boundar Methods in chapter \RN{4}.
+For a validation of these methods different validaion test cases will be introduced in chapter \RN{5}.
+A laminar Poiseuille flow, Hagen-Poiseuille flow and the Taylor-Couette system.
 
-The third part given by chapter \RN{5}.
+The third part of this thesis is chapter \RN{5}.
+In this chapter
 -librating cylinder
 -librating cone and frustum
 
-The first obective can  be described as fallow
-- combine the use of gpu with ibm to enable simulation of curved geometries on a gpu
--  this thesis deals with the simulaiton of geophysical flows on  curved geometries using a gpu based algorithm (muss das an den anfang?)
-- in order to test this on a physicl system  librating cone
-- study the phyisical properties of this system inertial waves  and heliciy
-
--this thesis is build by three esction
--in the first part theorie etc
-- in the second part introduction of ibm and the validaion of ibm with stanrad test cases
-- in the third part a study of  librating cone with the use of immersed boundaryie methods will be performed
+%The first obective can  be described as fallow
+%- combine the use of gpu with ibm to enable simulation of curved geometries on a gpu
+%-  this thesis deals with the simulaiton of geophysical flows on  curved geometries using a gpu based algorithm (muss das an den anfang?)
+%- in order to test this on a physicl system  librating cone
+%- study the phyisical properties of this system inertial waves  and heliciy
+%
+%-this thesis is build by three esction
+%-in the first part theorie etc
+%- in the second part introduction of ibm and the validaion of ibm with stanrad test cases
+%- in the third part a study of  librating cone with the use of immersed boundaryie methods will be performed
 
 
 
