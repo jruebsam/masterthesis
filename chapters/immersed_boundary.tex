@@ -5,8 +5,8 @@
 
 For many fluid problems it is mandatory to solve the equations of motion with respect to complex-shaped geometries.
 The algorithm introduced in chapter \ref{CHAPTER:CUDA} is not yet suitable for such a scenario.
-For instance the simulation inside a spheric geometry is impossible, since the boundaries
-do not coincide with the implemented cartesian grid. Nevertheless there exist different approaches to overcome this problem,
+For instance the simulation inside a spheric geometry is not possible, since the boundaries
+do not coincide with the implemented cartesian grid. Nevertheless there exist different approaches to overcome this problem
 which shall be introduced here. \\
 One common approach to extend the algorithm it the use a body-fitted mesh.
 Different advantages and disadvantages arise with this kind of implementation, see \citep{Mittal2005}.
@@ -16,38 +16,29 @@ However, using an unstructered grid generates  computational overhead, during an
 The grid generation algorithm can be complicated in contrast to using a cartesian grid. This can be even more difficult when
 moving boundaries are considered.
 Moreover, solving the finite differenc schemes on a curvilinear coordinate system, requires more calculations for a single grid point.
-
 The last important aspect is the implementation on the GPU.
-Like discussed in section \ref{CUDAGPU}, it is more efficient to use homogenous storage and calculation pattern on a CUDA-device,
+Like discussed in section \ref{cuda:sec_performance} it is more efficient to use homogeneous storage and calculation pattern on a CUDA-device,
 the use of unstructured data makes this very difficult.
-Altough some attempts exists to solve these difficulties (see i.e. \citep{PAP}), it is still uncertain if the obtained performance loss would be acceptable.
 
 A set of alternative methods, to resolve the problems described above, are so called Immersed Boundary Methods.
-The term was first mentioned in \citep{peskin72}, where the method was used for the simulation of blood flow through a heartvale,
+The term was first mentioned in \citep{peskin72}, where the method was used for the simulation of blood flow through a heart valve,
 but has since then been used for a variety of methods \citep{Mittal2005}.
-
 All of them have the idea in common to perform the simulations on a cartesian grid which does not conform to the domain boundary.
 To satisfy the desired boundary conditions additional terms are introduced into the equations of motion.
 In general one can distinguish between continuous forcing methods and direct forcing methods.
-Continuous forcing methods try to mimic the boundary using a localized force which acts on the boundary,
-since the surface is often given by lagrangian points, this methods are well suited for moving boundaries \citep{Mittal2005}.
-One common problem is that from a continuous forcing instabilities and numerical oscillations may arise in numericial stiff problems \citep{QUOTE}.
-
-Direct forcing approaches tries to satisfies the boundary condition by imposing it directly to points near the fluid boundaries for example
-trough an interpolation procedure.
-Some of the major drawbacks using the IBM is the loss in  spatial accuracy at the boundary, therefore it can be necessary to use a higher grid resolution
-compared to a body-fitted mesh.  Futhermore the non-conforming (?) boundaries are more difficult implement.
-
-The benefits of these methods is the use of a cartesian grid, which is much more suited for a GPU-based implementation (see Sec. \ref{BLA}.
-As a result the overall performance of the methods introduced in this chatper,  will probably be in the same order as the original algorithm.
-
-One objective of this thesis is the implementation of NoSlip boundaries, with the use of Immersed Boundary methods.
-The term Immersed Boundary Method is vaguely defined in literature, in this thesis we refer to it for all methods introduced in this chapter..
+Continuous forcing methods try to mimic the boundary using a localized forcing term which acts on all points near to the boundary.
+Since the surface is often described by lagrangian points, these methods are well suited for moving boundaries \citep{Mittal2005}.
+Direct forcing approaches try to satisfies the boundary conditions by imposing them directly to points at the fluid boundaries for often with the use of an interpolation procedures.
+Some of the major drawbacks using Immersed Boundary methods is the loss in  spatial accuracy at the boundary due to interpolation or approximations. Therefore it can be necessary to use a higher grid resolution
+compared to a body-fitted mesh.
+The benefits of these methods is the use of a cartesian grid, which is much more suited for a GPU-based implementation, see Sec. \ref{cuda:sec_threadmanage}.
+One objective of this chapter is to introduce implementation of NoSlip boundaries for cartesian grids, with the use of Immersed Boundary methods.
+The term Immersed Boundary Method is vaguely defined in literature, in this thesis we refer with it to all methods introduced in this chapter..
 
 \section{Immersed Boundary Methods}
 
 For the purpose of discussion the different methods introduced here will be applied to a default geometry.
-The fluid domain without any immersed boundaries is set to a cube of the size $l_i= 1$ with  $i = \{x, y, z\}$.
+The fluid domain without any immersed boundaries is set to a cube of the size $l_i= 1$ with  $i \in \{x, y, z\}$.
 For the discretization we choose $N_i = 32$ for the number of grid points.
 As an example of an immersed boundary, we will discuss the embedding of a cylinder, given by the  surface equation
 
@@ -61,7 +52,6 @@ The simulation domain is than separated into the fluid domain $\Omega_f$ and the
 The overall goal is to enforce the No-Slip condition $\vec{v} = 0$ on the surface $\partial \Omega_f$, furthermore
 the conservation of mass should be fulfilled.
 
-\clearpage
 
 \subsection{Volume Penalization}
 The concept behind the volume penalization method is to introduce an additional forcing term into the Navier-Stokes equation, which acts on

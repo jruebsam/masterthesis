@@ -5,7 +5,7 @@
 The objective of this chapter is to give an overview of the basic implementation of an algorithm using finite difference schemes.
 The source code used for the computations is based on an existing and validated version from A. Tilgner.
 It was furthermore extended by the immersed boundary methods that will be explained in more detail in chapter \ref{CHAPTER:IBM}.
-In this context an introduction to the aspects of GPGPU\footnote{General Purpose Computation on Graphics Processing Uni}-Computing
+In this context an introduction to the aspects of GPGPU\footnote{General Purpose Computation on Graphics Processing Units}-Computing
 with the CUDA \footnote{Computing Uniform Device Architecture} architecture will be given.
 For the computations in this thesis Tesla C1060 and Tesla K20m GPUs by NVIDIA were used. %, the complete system configurations can be looked up at (AX.X).
 In this chapter all informations related to GPGPU-Computing and CUDA are adapted from the CUDA Programming Guide and the CUDA Best Practices Guide from NVIDIA
@@ -38,9 +38,10 @@ types of memory, as shown  in Fig.  \ref{fig:gpu_memory_layout}.
     \item[Global Memory] The global memory is the largest memory on the GPU and can be accessed by all cuda cores.
                          It is  used to exchange data with the RAM and distribute it between different SMs.
                          Writing and reading from the global memory is slow. A part of the global memory can furthermore be used as a constant memory.
-                         In this case multiple memory accesses on the same location are temporary cached.
-                         In addition the use of the global memory as a texture memory is possible. The memory access is then spatially cached.
-
+                         In this case multiple memory accesses  are temporary\footnote{Memory access is cached when multiple reads are performed on the same memory location.}
+                          cached.
+                         In addition the use of the global memory as a texture memory is possible. The memory access is then spatially
+                         \footnote{Memory access is cached when multiple reads are performed simultaneous on adjacent memory locations.} cached.
 
     \item[Shared Memory] Each SM contains a shared memory, much smaller than the global memory \footnote{Around 16kb on c1060 and 64kb on k20m}. It is accessible
                          by all cuda cores of the SM.
@@ -93,6 +94,7 @@ since each block can be dynamically assigned to a different SM.
 
 
 \subsection{Performance Considerations}
+\label{cuda:sec_performance}
 
 For the programming of a CUDA device a vast number of optimization techniques exist (see \citep{CUDABP}),
 to explain all of these methods would go beyond the scope of this thesis.
@@ -105,11 +107,11 @@ Here a short description of the most import ones is given
         This access pattern is denoted as coalesced memory access. Inhomogeneous access pattern on the global memory can lead to so called bank
         conflicts, as a result the performance of a cuda program can drastically decrease.
 
-    \item[Sparse global memory access]
+    \item[Sparse global Memory Access]
         The global memory should be used for data transfer and distribution with as little as possible global reads and writes.
         This reason for this approach is the slow global memory access ($\times 100$) in comparison to a fast shared memory access.
 
-    \item[Branch Divergence] All threads in a single branch should execute the same command.
+    \item[Avoidance of Branch Divergence] All threads in a single branch should execute the same command.
                               Conditional statements like \texttt{if..then..else} create divergent code.
                               The execution is performed serial and the performance decreases.
 \end{description}
@@ -124,7 +126,7 @@ From here on the following conventions will be used.
 \begin{description}
     \item[$l_i$] The length of the cuboid in $x$, $y$ or $z$ direction, $i\in{x, y, z}$
     \item[$N_i$] The number of grid points in $x$, $y$ or $z$ direction, $i\in{x, y, z}$
-    \item[$\Delta i$] The step size between to grid points in $x$, $y$ or $z$ direction, $i\in{x, y, z}$
+    \item[$\Delta i(l_i, N_i)$] The step size between to grid points in $x$, $y$ or $z$ direction, $i\in{x, y, z}$
 \end{description}
 
 A single grid point is determined by the set of indices $i,j,k$ where ${0\leq i < N_x}$,
@@ -136,7 +138,7 @@ For the computation a variable $\Phi\in\{v_x, v_y, v_z, \rho\}$, is stored into 
 
 \begin{description}
     \item[$C_\Phi$] Located on the RAM. Used mainly for data transfer and analysis
-    \item[$R_\Phi$] Located on the global memory on GPU. A variables is stored here after the computation of a time step.
+    \item[$R_\Phi$] Located on the global memory on GPU. A variable $\Phi$ is stored here after the computation of a time step.
     \item[$B_\Phi$] Located on the global memory on GPU. This is the buffer register for the Williamson RK scheme, see Sec. \ref{numerik:rk_williamson_sec}.
 \end{description}
 
@@ -175,14 +177,12 @@ The simulation domain is divided into a grid of  $N_y/8 \times N_z/8$ blocks. On
 This segmentation is similar to the example introduced in Sec. \ref{cuda:sec_threadmanage} (see Fig. \ref{cuda:grid_example}), except an
 additional index \textbf{threadIdx.z} is used.
 This index seperates the variables during the integration
-\footnote{For example, for $\rho$ it is threadIdx.z = 0, for $v_x$  it is threadIdx.z=1 and so forth.},
+For example, for $\rho$ it is threadIdx.z = 0, for $v_x$  it is threadIdx.z=1 and so respective.
 with this convention each block contains a total number of 8x8x4 threads.
-
 For a computation of the finite difference schemes  a 5-Point stencil is used, as shown in Fig. \ref{cuda:stencil}.
 Each cell in this Stencil corresponds to one grid cell in the numerical domain.
-The inner points of the stencil are enumerated with 1, the outer with 2. For example in $x$ direction the points are denoted as West2,
-West, Center, East and East2 in $x$ direction or with the abbreviations W2, W1, C, E1 and E2.
-For second order finite difference schemes, only the inner points  are used, we refer to a 3-Point stencil in this case.
+The inner points of the stencil are enumerated with 1, the outer with 2.
+
 
 \begin{figure}[!bp]
       \centering
@@ -190,7 +190,7 @@ For second order finite difference schemes, only the inner points  are used, we 
        \import{gfx/cuda//}{stencil.pdf_tex}
         }
         \caption{
-            5-Point stencil used for the discretization, with the directions North, West, South, East, Up, Down and th Center.
+            5-Point stencil used for the discretization, with the directions North, West, South, East, Up, Down and the Center.
         }
        \label{cuda:stencil}
 \end{figure}
@@ -208,6 +208,9 @@ For second order finite difference schemes, only the inner points  are used, we 
 \end{figure}
 \clearpage
 
+For example in $x$ direction the points are denoted as West2,
+West, Center, East and East2 in $x$ direction or with the abbreviations W2, W1, C, E1 and E2.
+For second order finite difference schemes, only the inner points  are used, we refer to a 3-Point stencil in this case.
 The computation of one time step can be separated into an initialization part and a for-loop which iterates by the index $i$, over the simulation domain.
 In the initialization part a block from the simulation domain is loaded into the shared memory of the GPU.
 As a first step each thread is assigned to a grid point $(i, j, k)$.
@@ -272,7 +275,6 @@ The intermediate step $Q_{\Phi}$ is than computed with the conditionals
 
 where $(f_x, f_y, f_z)^T = \vec{F}_{\text{ext.}}$. The advection term $(\vec{v}\nabla)\vec{v}$ is discretized by the third-order upwinding scheme from Sec. \ref{num:sec_para:upwindingscheme}
 and all remaining derivatives are approximated with the fourth order finite difference schemes from Eq. \ref{num:fd_o4_methods}.
-An alternative lower order implementation uses the second order finite difference methods.
 After this step the computation for the center points (C) is finished.
 The results are stored in the buffer registers $R_\Phi$.
 
@@ -284,7 +286,7 @@ The remaining computation is
      \Phi^{1} = \Phi^n + \frac{1}{3}Q_1
 \end{align}
 
-The algorithm for this computation performs identical except no derivatives need to be calculated, and
+The algorithm for this computation performs identical except no derivatives need to be calculated and
 the border points (B) are redundant.
 
 \subsection{Boundary Conditions}
@@ -297,7 +299,7 @@ In this section the implementation of boundary conditions is presented for the o
 
 Consider the left side of the simulation domain.
 The ghost points are given by the points ${g_{l2}=(0, j, k)}$, ${g_{l1}=(1, j, k)}$,
-the boundarie is at ${b=(2, j, k)}$ where $\vec{v}=0$ and the next inner points are
+the boundary is at ${b=(2, j, k)}$ where $\vec{v}=0$ and the next inner points are
 $i_{l1}=(3, j, k)$ and $i_{l2}=(4, j, k)$.
 For No-Slip boundaries the velocity profile is mirrored and inverted at $b$.
 \begin{align}
@@ -336,7 +338,7 @@ the $v_y$ and $v_z$ components and No-Slip boundaries for the $v_x$ component.
 
 Consider the ghost points $g_l2=(0, j, k)$, $g_l1=(1, j, k)$ and the inner points $i_{l1}=(2, j, k)$ and $i_{l2}=(3, j, k)$ on the left side of
 the simulation domain.
-On the right sides of the simulation domain the ghost points are $g_r2=(N_x+1, j, k)$, $g_r1=(N_x, j, k)$
+On the right sides of the simulation domain the ghost points are $g_{r2}=(N_x+1, j, k)$, $g_{r1}=(N_x, j, k)$
 and the inner points $i_{r1}=(N_x-1, j, k)$ and $i_{r2}=(N_x - 2, j, k)$.
 For periodic boundaries the regions on the left and right side of the simulation domain are simply exchanged by
 
