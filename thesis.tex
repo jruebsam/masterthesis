@@ -17,6 +17,7 @@
 \usepackage{color}
 \usepackage{ragged2e}
 \usepackage{breakcites}
+\usepackage{microtype}
 
 \usepackage{import}
 \usepackage{fancyvrb}
@@ -249,7 +250,8 @@ rulecolor=\color{black}
 
 %\includeonly{chapters/validation/pflow, chapters/validation/hp_flow, chapters/validation/tc_flow, chapters/appendix}
 %\includeonly{chapters/validation/tc_flow, chapters/appendix}
-\includeonly{chapters/immersed_boundary}
+%\includeonly{chapters/immersed_boundary}
+\includeonly{chapters/introduction}
 \begin{document}
 
 
@@ -279,7 +281,7 @@ rulecolor=\color{black}
        \begin{large}
        von\\[.5cm]
        Jonas Ruebsam\\
-       aus Hildesheim\\
+       aus Paderborn\\
        \vfill
        \begin{center}
         \begin{otherlanguage}{ngerman}
@@ -306,7 +308,7 @@ rulecolor=\color{black}
 \begin{tabbing}
   \hspace{3cm}\=\kill
    Erstgutachter: \quad  Prof. Dr. Andreas Tilgner - Universität Göttingen\\
-   Zweitgutachter: \quad  Prof. Dr. Parlitz - Universität Göttingen\\
+   Zweitgutachter: \quad  Apl. Prof. Dr. Parlitz - Universität Göttingen\\
 \end{tabbing}
 
 \newpage
@@ -326,6 +328,7 @@ rulecolor=\color{black}
 \setcounter{page}{1}
 \pagenumbering{arabic}
 
+\include{chapters/introduction}
 \include{chapters/theorie}
 \include{chapters/numerik}
 \include{chapters/cuda}

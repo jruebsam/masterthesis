@@ -1,0 +1,75 @@
+\chapter{Introduction}
+
+In geophysics the study of rotating flows is of particular importance.
+The flow in a rotating fluid exhibits fundamental different properties as a result of the coriolis force.
+In these systems physical solutions are of the form of inertial waves
+that are created by a perturbation of the stratisfied angular momentum of the fluid.
+A further extension of these fluids systems is given by a coupling to magnetic fields.
+The resulting equations are used for the study of dynamos, i.e. the magnetic field of the earth.
+In the fluid dynamic research group of the geophysical institute, these fluid flows are
+studied numerically by simulations using GPU optimized algorithms.
+
+The use of GPUs for scientific computing has become increasingly popular in the last years.
+A vast number of applications  can obtain a massive speed-up with the use of GPUs.
+High oriented frameworks like the NVIDIA CUDA API simplify the creation
+and maintance of parallelized algorithms.
+For example machine learning algorithms are easy to parallelize and to implement on a GPU.
+
+However, the parallelization of CFD algorithms can become a complex task.
+On a GPU a regular and homogenous memory access is required to enable a high memory bandwith.
+For curved geometries the numerical solution of CFD problems is often performed
+on unstructured  or structured but body conforming grids \citep{Mittal2005}.
+As a result the access to memory locations is heterogenous.
+Adjacent memory cells are not accessed successively.
+
+A common approach to perform such computations on cartesian grids are Immersed Boundary methods.
+The concept behind this methods is the embedding of the curved boundary into a cartesian grid.
+By using additional forcing terms and intepolation methods the desired boundary condition can be fulfilled.
+The current implementation of the GPU algorithm of the research group uses a cartesian grid.
+Fluid flows can be simulated on cubic geometries but not curved ones.
+
+The goal of this master thesis is to extend the existing GPU algorithm with the use of Immersed Boundary methods
+to enable the simulation of flows in curved  geometries.
+The extended algorithm will be than be used for the simulation of a librating cone.
+In this system inertial waves are excited by a modulation of the rotation rate.
+An theoretical and experimntal studies are available for a comparison \citep{1}, \citep{1}, \citep{1}.
+
+\clearpage
+
+The content of this  master thesis is conceptually structured into three different parts.
+
+The first part is given by the  chapters \RN{1} to \RN{3}
+In the first chapter an introduction to the theoretical concepts is given.
+This includes a description of the Navier-Stokes equations and the properties of fluid flows in rotating systems.
+The second chapter introduces the numerical methods, in particular the use of finite difference methods.
+Furthermore numerical stability criterions and the method of artifical incompressibility is introduced.
+
+The second part is given by the chapters \RN{4} to \RN{5}
+This part introduces the Immersed Boundar Methods in chapter \RN{4}.
+
+The third part given by chapter \RN{5}.
+-librating cylinder
+-librating cone and frustum
+
+The first obective can  be described as fallow
+- combine the use of gpu with ibm to enable simulation of curved geometries on a gpu
+-  this thesis deals with the simulaiton of geophysical flows on  curved geometries using a gpu based algorithm (muss das an den anfang?)
+- in order to test this on a physicl system  librating cone
+- study the phyisical properties of this system inertial waves  and heliciy
+
+-this thesis is build by three esction
+-in the first part theorie etc
+- in the second part introduction of ibm and the validaion of ibm with stanrad test cases
+- in the third part a study of  librating cone with the use of immersed boundaryie methods will be performed
+
+
+
+
+
+
+
+
+
+
+
+
