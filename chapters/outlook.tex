@@ -49,19 +49,22 @@ using the the mirroring method introduced in Sec. ().
 However a first test of this implemenation became numerically unstable which is not understood so far.
 It would be desirable to obtain a stable  Free-Slip implementation for future applications.
 
+There are some proposals regarding the basic implementation of the algorithm on the GPU.
+The numerical oscillations in the density could be a concern for future simulations.
+This problem seems to be quiet common for numerical computations involving first order derivates in CFD problems.
+A common approach to avoid this would be the use of a staggered grid, where the velocities
+are stored on the cell faces and the scalar fields at the cell centers.
+Alternatively, different methods exists for pressure-based solvers where the pressure is interpolated to the cell faces.
+One popular method in partical is the Rhie-Chow interpolaton \citep{uiae},
+different improvements of this method can be found in literature \citep{uiae} that could be used for a future implementation.
 
-There are some proposals regarding the basic implementation of algorithm on the GPU.
-The numerical oscillations in the density, which could be observed for different validation testcases
-could be a concern for future simulation.
-This problem seems to be quiet common when computing first order derivates in CFD problems.
+It could be of further interest to implement an unstuctured cartesian grid into the GPU algorithm.
+This is a really difficult task which would in return bring some drastically improvements
+The error of the Immersed Boundary methods could be decreased by using a higher resolved grid in the vicinity to the boundarie.
+This would furthermore the improve the resolution of boundary layers  and the oscillations
+resulting from high Peclet numbers.
 
-One common approach to avoid this would be the use of a staggered grid, where the velocities
-are stored on the cell faces and ...
-An alternative methods is the rhie chow interpoltaion
 
-ALGO:
--unstructured cartesian grid algorithm cudawith higher resolution at the wall
--poisson solver large timestep
 
 CONE:
 
