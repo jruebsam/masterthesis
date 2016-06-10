@@ -4,33 +4,70 @@ In the first part of this thesis different Immersed Boundary methods were
 implemented and successfully tested on a GPU based algorithm.
 The validation showed that these methods give good results for No-Slip boundaries,
 the use with velocities different from zero at the boundaries tends to be problematic.
-
 One concern of the validation is that only steady-state flows were used as test cases.
 This approach is justified since the local error created trough approximations of the boundaries
-has a larger influence on the global errror.
+has a larger influence on the global error .
 However, for further validations unsteady flows could be of interest.
-
 The validation results of the interpolation method showed by far the smallest numerical error.
-Unfortunately this method became numerically unstable for the simulations of the librating cone.
+Unfortunately this method became numerically unstable for the simulations of the librating cylinder and cone.
+For possible future applications it would be important to find the origin of this instability.
 
-It would be usefull to find the issue causing this numerical instabiltiy. blab lba
+The Immersed boundary methods introduced in this thesis were used to satisfy No-Slip boundaries.
+In many scenarios it is necessary to use No-Flux and Free-Slip boundaries.
+One example  is the Rayleigh-B\'{e}nard system.
+In this system a fluid in a cubic or cylindric container is heated from below and cooled from above.
+As a results the heat transport in this system is purely diffusive for small temperature gradients and
+becomes convective for large temperature gradients above a critical instability.
+For experiments and  numerical simulations of this system adiabatic side walls are often desired \citep{Lulff2011}.
+
+A simple extension of the Volume-Penalization method was performed in \citep{Lulff2011}.
+To enable No-Flux walls for the temperature, a inhomogenous thermal diffusivity $\kappa (x, y, z)$ was introduced.
+By setting $\kappa(x, y, z) \ll 1$ in the boundary domain a suitable approximation of No-Flux walls can be obtained \citep{Lulff2011}.
+Another improved version of the Volume-Penalization method for No-Flux walls can be found in \citep{Brown-Dymkoski2014}
+in this method the No-Flux boundary is obtained by the forcing term
+\begin{align}
+    \vec{f}  = -\frac{H}{\nu_c}\left( n_k\pdn[v]{x_k} - q(\vec{r}, t) \right)
+\end{align}
+where $\nu_c$ is a regulation parameter, and $\vec{n}$ the normal to the boundary and $\vec{q}$ is the desired flux .
+With this implementation the temperature flux is forced to zero in normal direction.
+Both of these methods were tested in an implementation and are numerically stable.
+However a proper validation need to be carried out in the future.
+An implementation of Immersed boundary methods for No-Flux walls would give the possibility
+to simulate this flow for example in a cylinder.
+
+The use of Free-Slip boundaries could be useful to reduce the numerical oscillations in the simulation of the librating cone.
+These oscillations are a results of the large Peclet number of the system and are generated
+near the boundarie where the velocity gradients are the largest.
+It could be observed that in simulation of precession driven dynamos in a cube with small Ekman numbers ($\propto 10^{-5}$),
+no oscillations occur when using Free-Slip boudaries \footnote{Private communication O.Goepfert}.
+
+A first implementation of Free-Slip boundaries was performed
+by inserting diagonal walls into the fluid domain which overlap with grid points.
+%The idea of this approach was to mirror the
+On these walls the Free-Slip condition can simply be applied just like in the basic GPU algorithm,
+using the the mirroring method introduced in Sec. ().
+However a first test of this implemenation became numerically unstable which is not understood so far.
+It would be desirable to obtain a stable  Free-Slip implementation for future applications.
 
 
--no flux boundaries rayleigh benard
+There are some proposals regarding the basic implementation of algorithm on the GPU.
+The numerical oscillations in the density, which could be observed for different validation testcases
+could be a concern for future simulation.
+This problem seems to be quiet common when computing first order derivates in CFD problems.
 
--free slip bonundaries no oszillations  example oli cube
--kleinerer grient an den seiten
--abeir schwieriger zu implementiern
-
--ip method testen no time in this thesis
-
+One common approach to avoid this would be the use of a staggered grid, where the velocities
+are stored on the cell faces and ...
+An alternative methods is the rhie chow interpoltaion
 
 ALGO:
--freeslip oder grid mit höhere auflösung am rand
--unstructured cartesian grid algorithm cuda
--poisson solver ..
--ibm methods
-
+-unstructured cartesian grid algorithm cudawith higher resolution at the wall
+-poisson solver large timestep
 
 CONE:
--experiment
+
+- results short blabla
+- possible experiment study
+- wie weit ist der aufbau
+- evtl piv etc
+- turblent decay
+- reprocduce the simulation s
