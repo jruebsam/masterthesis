@@ -1,7 +1,7 @@
 \chapter{Conclusions and Outlook}
 
 In the first part of this thesis different Immersed Boundary methods were
-implemented and successfully tested on a GPU based algorithm.
+implemented and successfully tested with a GPU based algorithm.
 The validation showed that these methods give good results for No-Slip boundaries,
 the use with velocities different from zero at the boundaries tends to be problematic.
 One concern of the validation is that only steady-state flows were used as test cases.
@@ -12,49 +12,53 @@ The validation results of the interpolation method showed by far the smallest nu
 Unfortunately this method became numerically unstable for the simulations of the librating cylinder and cone.
 For possible future applications it would be important to find the origin of this instability.
 
-The Immersed boundary methods introduced in this thesis were used to satisfy No-Slip boundaries.
-In many scenarios it is necessary to use No-Flux and Free-Slip boundaries.
-One example  is the Rayleigh-B\'{e}nard system.
-In this system a fluid in a cubic or cylindric container is heated from below and cooled from above.
-As a results the heat transport in this system is purely diffusive for small temperature gradients and
+The Immersed boundary methods introduced in this thesis were used to satisfy No-Slip boundaries, however,
+in many scenarios it is necessary to use No-Flux and Free-Slip boundaries, one example is the Rayleigh-B\'{e}nard system.
+In this system a fluid in a cubic or cylindric container is heated from below and cooled from above, the resulting
+heat transport is purely diffusive for small temperature gradients and
 becomes convective for large temperature gradients above a critical instability.
-For experiments and  numerical simulations of this system adiabatic side walls are often desired \citep{Lulff2011}.
+For experiments and numerical simulations of this system adiabatic side walls are used \citep{Lulff2011}.
 
 A simple extension of the Volume-Penalization method was performed in \citep{Lulff2011}.
 To enable No-Flux walls for the temperature, a inhomogenous thermal diffusivity $\kappa (x, y, z)$ was introduced.
-By setting $\kappa(x, y, z) \ll 1$ in the boundary domain a suitable approximation of No-Flux walls can be obtained \citep{Lulff2011}.
-Another improved version of the Volume-Penalization method for No-Flux walls can be found in \citep{Brown-Dymkoski2014}
-in this method the No-Flux boundary is obtained by the forcing term
+By setting $\kappa(x, y, z) \ll 1$ in the boundary domain gives a decent approximation of No-Flux walls \citep{Lulff2011}.
+An further improved version of the Volume-Penalization method for No-Flux walls can be found in \citep{Brown-Dymkoski2014}.
+Here, the No-Flux boundary are obtained by introducing a forcing term of the form
+
 \begin{align}
     \vec{f}  = -\frac{H}{\nu_c}\left( n_k\pdn[v]{x_k} - q(\vec{r}, t) \right)
 \end{align}
-where $\nu_c$ is a regulation parameter, and $\vec{n}$ the normal to the boundary and $\vec{q}$ is the desired flux .
+
+where $\nu_c$ is a regulation parameter, and $\vec{n}$ the normal and $\vec{q}$  the desired flux through the boundary.
 With this implementation the temperature flux is forced to zero in normal direction.
-Both of these methods were tested in an implementation and are numerically stable.
-However a proper validation need to be carried out in the future.
+
+%TODO
+Both of these methods were implemented and a first test simulation verfied the numerically stability.
+However, a proper validation need to be carried out in the future.
 An implementation of Immersed boundary methods for No-Flux walls would give the possibility
 to simulate this flow for example in a cylinder.
+%TODO
 
-The use of Free-Slip boundaries could be useful to reduce the numerical oscillations in the simulation of the librating cone.
+The use of Free-Slip boundaries could reduce the numerical oscillations in the simulations of the librating cone.
 These oscillations are a results of the large Peclet number of the system and are generated
-near the boundarie where the velocity gradients are the largest.
-It could be observed that in simulation of precession driven dynamos in a cube with small Ekman numbers ($\propto 10^{-5}$),
+close to the boundaries where the velocity gradients are the largest.
+
+In simulations of precession driven dynamos in a cube with small Ekman numbers ($\propto 10^{-5}$),
 no oscillations occur when using Free-Slip boudaries \footnote{Private communication O.Goepfert}.
 
 A first implementation of Free-Slip boundaries was performed
 by inserting diagonal walls into the fluid domain which overlap with grid points.
 %The idea of this approach was to mirror the
 On these walls the Free-Slip condition can simply be applied just like in the basic GPU algorithm,
-using the the mirroring method introduced in Sec. ().
+using the the mirroring method introduced in Sec. \ref{sec:cuda_boundaries}.
 However a first test of this implemenation became numerically unstable which is not understood so far.
-It would be desirable to obtain a stable  Free-Slip implementation for future applications.
-
+It would be desirable to obtain a stable Free-Slip implementation for future applications.
 
 There are some proposals regarding the basic implementation of the algorithm on the GPU.
-The numerical oscillations in the density could be a concern for future simulations.
+Numerical oscillations in the density could be a concern for future simulations.
 This problem seems to be quiet common for numerical computations involving first order derivates in CFD problems.
-A common approach to avoid this would be the use of a staggered grid, where the velocities
-are stored on the cell faces and the scalar fields
+A common approach to avoid this is the use of a staggered grid, where the velocities
+are stored on the cell faces and the scalar fields in the cell center.
 
 Alternatively, different methods exists for pressure-based solvers where the pressure is interpolated to the cell faces.
 One popular method in partical is the Rhie-Chow interpolaton \citep{uiae},
@@ -62,11 +66,10 @@ different improvements of this method can be found in literature \citep{uiae} th
 
 It could be of further interest to implement an unstuctured cartesian grid into the GPU algorithm.
 This is a really difficult task which would in return bring some drastically improvements.
-The error of the Immersed Boundary methods could be decreased by using a higher resolved grid in the vicinity to the boundarie.
+The error of the Immersed Boundary methods could be decreased by using a higher resolved grid in the vicinity to the boundary.
 This would furthermore  improve the resolution of boundary layers  and reduce the oscillations resulting from the use of high Peclet numbers.
 
-
-In the second part of this thesis the Immersed Boundary methods were applied to different setups of a librating cylinder, cone and a frustum.
+In the second part of this thesis Immersed Boundary methods were applied to different setups of a librating cylinder, cone and a frustum.
 The results of these simulations are in agremeent with theoretical
 predictions \citep{Greenspan1969} and experimental results \cite{Beardsley1970}.
 An experimental study of these systems is in discussion as a possible future research project.
@@ -75,9 +78,9 @@ It contains of a rotating table, which can be controlled over a serial interface
 A camera module is integrated into the rotating frame and could be used for the computation
 of the velocity files with a PIV\footnote{Particle Image Velocimetry  - see for example \citep{aie} }
 method.
-With this setup it would be possible to validate the numerical results.
-Futhermore different excitation mechanism of inertial waves could be studien.
-Of particular intest wuold be the study of turbulent decay in the apex of the cone.
+With this setup it would be possible to validate the numerical results of this thesis.
+Futhermore different excitation mechanism of inertial waves could be studied.
+Of particular intest wolud be the study of turbulent decay in the apex of the cone.
 A similar numerical study has been performed in \citep{} where a oscillating grid
 was used to induction of turblent flows.
 
