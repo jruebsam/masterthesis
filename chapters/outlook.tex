@@ -1,15 +1,36 @@
-\chapter{Outlook}
+\chapter{Conclusions and Outlook}
 
--introduction
--ibm methods
+In the first part of this thesis different Immersed Boundary methods were
+implemented and successfully tested on a GPU based algorithm.
+The validation showed that these methods give good results for No-Slip boundaries,
+the use with velocities different from zero at the boundaries tends to be problematic.
 
--ip method fix
+One concern of the validation is that only steady-state flows were used as test cases.
+This approach is justified since the local error created trough approximations of the boundaries
+has a larger influence on the global errror.
+However, for further validations unsteady flows could be of interest.
+
+The validation results of the interpolation method showed by far the smallest numerical error.
+Unfortunately this method became numerically unstable for the simulations of the librating cone.
+
+It would be usefull to find the issue causing this numerical instabiltiy. blab lba
 
 
--freeslip oder grid mit höhere auflösung am rand
+-no flux boundaries rayleigh benard
 
-This could be fixed with an improvement method, for example with the use of free slip boundaries
+-free slip bonundaries no oszillations  example oli cube
 -kleinerer grient an den seiten
 -abeir schwieriger zu implementiern
-As an alternative a higher resolution  could be used, which is computational expensive.
--freeslip besser
+
+-ip method testen no time in this thesis
+
+
+ALGO:
+-freeslip oder grid mit höhere auflösung am rand
+-unstructured cartesian grid algorithm cuda
+-poisson solver ..
+-ibm methods
+
+
+CONE:
+-experiment
