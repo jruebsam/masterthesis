@@ -8,14 +8,14 @@ The algorithm introduced in chapter \ref{CHAPTER:CUDA} is not yet suitable for s
 For instance the simulation inside a spheric geometry is not possible, since the boundaries
 do not coincide with the implemented cartesian grid. Nevertheless there exist different approaches to overcome this problem
 which shall be introduced here. \\
-One common approach to extend the algorithm it the use a body-fitted mesh.
-Different advantages and disadvantages arise with this kind of implementation, see \citep{Mittal2005}.
+One common approach to extend the algorithm it the use a body-fitted mesh,
+different advantages and disadvantages arise with this kind of implementation, see \citep{Mittal2005}.
 One benefit is a much simpler deployment of the desired boundary condition, due to the overlap of the numerical grid with domain borders.
 Furthermore a higher accuracy can be achieved \citep{Gornak2013}.
-However, using an unstructered grid generates  computational overhead, during and before the execution of a simulation.
-The grid generation algorithm can be complicated in contrast to using a cartesian grid. This can be even more difficult when
+However, using an unstructured grid generates  computational overhead, during and before the execution of a simulation.
+The grid generation algorithm is complicated in contrast to just a cartesian grid. This can be even more difficult when
 moving boundaries are considered.
-Moreover, solving the finite differenc schemes on a curvilinear coordinate system, requires more calculations for a single grid point.
+Moreover, solving the finite difference schemes on a curvilinear coordinate system requires more calculations for a single grid point.
 The last important aspect is the implementation on the GPU.
 Like discussed in section \ref{cuda:sec_performance} it is more efficient to use homogeneous storage and calculation pattern on a CUDA-device,
 the use of unstructured data makes this very difficult.
@@ -28,11 +28,11 @@ To satisfy the desired boundary conditions additional terms are introduced into 
 In general one can distinguish between continuous forcing methods and direct forcing methods.
 Continuous forcing methods try to mimic the boundary using a localized forcing term which acts on all points near to the boundary.
 Since the surface is often described by lagrangian points, these methods are well suited for moving boundaries \citep{Mittal2005}.
-Direct forcing approaches try to satisfies the boundary conditions by imposing them directly to points at the fluid boundaries for often with the use of an interpolation procedures.
+Direct forcing approaches try to satisfies the boundary conditions by imposing them directly to points at the fluid boundaries  often while using  an interpolation procedures.
 Some of the major drawbacks using Immersed Boundary methods is the loss in  spatial accuracy at the boundary due to interpolation or approximations. Therefore it can be necessary to use a higher grid resolution
 compared to a body-fitted mesh.
 The benefits of these methods is the use of a cartesian grid, which is much more suited for a GPU-based implementation, see Sec. \ref{cuda:sec_threadmanage}.
-One objective of this chapter is to introduce implementation of NoSlip boundaries for cartesian grids, with the use of Immersed Boundary methods.
+One objective of this chapter is to introduce implementation of No-Slip boundaries for cartesian grids, with the use of Immersed Boundary methods.
 The term Immersed Boundary Method is vaguely defined in literature, in this thesis we refer with it to all methods introduced in this chapter..
 
 \section{Immersed Boundary Methods}
@@ -58,7 +58,7 @@ the conservation of mass should be fulfilled.
 The concept behind the volume penalization method is to introduce an additional forcing term into the Navier-Stokes equation, which acts on
 the grid points outside of the fluid domain to ensure the desired boundary conditions. The methods was successfully implemented and tested
 on pseudo-spectral methods, see for example \citep{Lulff2011}.
-For the implementation it is necessary to define a masking function $H(x, y, z)$ which seperates the simulation domain into $\Omega_f$ and $\Omega_w$.
+For the implementation it is necessary to define a masking function $H(x, y, z)$ which separates the simulation domain into $\Omega_f$ and $\Omega_w$.
 For a cylinder the surface equation \label{ibm:eq_cylinder_intro} can be modified to
 \begin{align}
     \label{ibm:masking_function}
@@ -72,7 +72,7 @@ With this function an additional forcing term can be added into the Navier-Stoke
 
 \begin{align}
     \label{ibm:vp_navstok}
-    \pdn[u]{t} + \vec{u} \cdot \vec{\nabla} \vec{u} &= -c^2 \nabla \rho + \frac{1}{Re} \Delta \vec{u} + \vec{F}_{ext}
+    \pdn[v]{t} + \vec{v} \cdot \vec{\nabla} \vec{v} &= -c^2 \nabla \rho + \frac{1}{Re} \Delta \vec{v} + \vec{F}_{ext}
      +\underbrace{ \frac{H(x, y, z)}{\nu}(\vec{v} - \vec{v_0})}_{\text{Vol. Pen. Forcing}}
 \end{align}
 
@@ -120,21 +120,21 @@ With the use of the Euler method the discretization of the Navier-Stokes Equatio
 
 \begin{align}
     \label{ibm_df_method_lame}
-    \frac{\vec{u}^{n+1} -\vec{u}^n}{\Delta t} = \mathscr{L}^* + \vec{f}\\
+    \frac{\vec{v}^{n+1} -\vec{v}^n}{\Delta t} = \mathscr{L}^* + \vec{f}\\
 \end{align}
 
 where $\mathscr{L^*}$ are the discretized advection and viscous terms and the density gradient and $\vec{f}$ is the forcing term.
 For a boundary point the condition $\vec{u}^{n+1} = \vec{u}_0$ should hold.
 By substituting this expression into Eq. \ref{ibm_df_method_lame} it follows that
 \begin{align}
-    \frac{\vec{u}_0 -\vec{u}^n}{\Delta t} = \mathscr{L} + \vec{f} \Rightarrow \vec{f} = \frac{\vec{u}_0 -\vec{u}^n}{\Delta t\cdot \mathscr{L}}\\
+    \frac{\vec{v}_0 -\vec{v}^n}{\Delta t} = \mathscr{L} + \vec{f} \Rightarrow \vec{f} = \frac{\vec{v}_0 -\vec{v}^n}{\Delta t\cdot \mathscr{L}}\\
 \end{align}
 
 The implementation of this method is similar to the Volume-Penalization method.
 A masking array is computed before the execution of a simulation.
 The forcing term is than added into the register $Q_\Phi$ (see Sec. \ref{sec:cuda_timestep}) after the computation of $\mathscr{L}$.
 It can be noted that this procedure is equivalent to simply setting $\vec{v}=0$ after a time step.
-However this is not the possible when the boundaries are further improved for example with the Volume-Fraction method.
+However this is not the possible when the boundaries are further improved for example with the Volume-Fraction method discussed below.
 For now the major-drawback of the Direct-Forcing method is a pixelated border.
 In contrast to the Volume-Penalization method no further stability criteria are introduced.
 
@@ -172,22 +172,24 @@ Since an exact computation is difficult to implement for arbitrary surfaces one 
 For each cell $N$ random samples are generated, then the volume fraction is simply given by the ratio of samples lying in- and outside outside the fluid domain.
 This is determined by using the masking function $H(x, y, z)$.
 
-An example for the generated masking array with $N=2e5$, is shown in Fig. \ref{ibm_volfrac_masking_array}.
+An example for the generated masking array with $N=2\cdot10^{5}$, is shown in Fig. \ref{ibm_volfrac_masking_array}.
 The symmetric distribution of the boundary values indicates
 a good approximation. For a better evaluation a convergence study was performed were the number of samples $S$ was varied between 100 and $10^6$ points.
 The $l_2$-error was determined by comparing the results to the computation with the highest number of samples.
 The results are shown in figure \label{ibm_volfrac_montecarlo}.
 
-For the number of samples in the interval below $S=2\dot10^5$  a fast decay in the error to the order $2\dot10^{-4}$ can be observed.
+For the number of samples in the interval below $S=2\cdot10^5$  a fast decay in the error to the order $2\dot10^{-4}$ can be observed.
 Above this interval the error is of the order $10^{-4}$.
 It can be concluded that the integration should be accurate enough by using $S=10^5$ samples.
 
 \clearpage
 \subsection{Interpolation Method}
 
-The last immersed boundary method introduced in this thesis is a bilinear interpolation method, which was first presented by \citep{Gilmanov2003}.
+The last Immersed Boundary method introduced in this thesis is a bilinear interpolation method, which was first presented by \citep{Gilmanov2003}.
 One difference to the previous methods is an exact representation of the immersed boundary, instead of a pixelated one.
-A schematic representation of the interpolation procedure is shown in Fig. \ref{ibm:ip_method_algo}.
+The interpolation method is applied to all grid points which posses a nearest neighbor outside of the fluid domain.
+A schematic representation of the interpolation procedure is shown in Fig. \ref{ibm:ip_method_algo},
+for the point $b$, for which the velocity $\vec{v}$, shall be determined.
 
 \begin{figure}[!bp]
       \centering
@@ -201,13 +203,12 @@ A schematic representation of the interpolation procedure is shown in Fig. \ref{
     \label{ibm:ip_method_algo}
 \end{figure}
 
-The interpolation method is applied to all grid points which posess a nearest neighbor outside of the fluid domain.
-In this setup this is true for the point $b$, for which the velocity $\vec{v}$, shall be interpolated.
-The idea of this method is to linear interpolate $b$ into the direction of the normal $\vec{n}$, of the immersed boundary.
-The intersection of the interpolation direction with the boundary is given by the point $a$, with the distance $\Delta h =[ab]$.
+The idea of this method is to linearly interpolate $b$ into the direction of the normal $\vec{n}$, of the immersed boundary.
+$a$ is defined as the closest surface point, where the normal of the surface meets point $b$ at a distance $\Delta h =[ab]$.
+
 The point $b$ is  projected into the direction of the normal $\vec{n}$, onto the plane defined by
 the nearest grid points $\alpha$, $\beta$, $\gamma$ and $\delta$.
-After the position calculation of the point $c$, the velocitiy $\vec{v}(c)$ is obtained by a bilinear interpolation
+After the position calculation of the point $c$, the velocity $\vec{v}(c)$ is obtained by a bilinear interpolation
 of the velocities at the points $\alpha$, $\beta$, $\gamma$ and $\delta$, given by (\citep{numrecipes})
 
 \begin{align}
@@ -219,7 +220,7 @@ of the velocities at the points $\alpha$, $\beta$, $\gamma$ and $\delta$, given 
 
 where $(c_1, c_2)$ is the offset from $c$ to $\beta$, or in general the offset to the point of the plane, which is closest to $b$.
 
-With the obtained velocity $v(c)$ and  the No-Slip boundarie condition $v(a) = 0$,
+With the obtained velocity $v(c)$ and  the No-Slip boundary condition $v(a) = 0$,
 the interpolated velocity is given by
 \begin{align}
     \vec{v}(b)  =  \vec{v}(c)\frac{\Delta c}{\Delta h}
@@ -229,7 +230,7 @@ where $\Delta c = [ac]$.
 For a simplification of the interpolation procedure for different geometries, a preprocessing routine was implemented.
 In order to interpolate a certain geometry three functions have to defined.
 A masking function $H(x, y, z)$, a function which gives the distance to the boundary $d(x, y, z)$
-and a function $\vec{g}(x, y, z)$ with determines the normal direction  of the boundary.
+and a function $\vec{g}(x, y, z)$ with determines the normal  of the boundary.
 For the cylinder the masking function $H(x, y, z)$ is given by Eq. \ref{ibm:masking_function}.
 The distance is
 
@@ -247,7 +248,7 @@ however it is required that the normal  vectors point into the direction of the 
 Before the execution of a simulation the following steps are precomputed
 
 \begin{enumerate}
-    \item The closest point to $b$, in the example  $\beta$ is determined by the direction where $\vec{n}$ is the largest, in this example
+    \item The closest grid point to $b$, in the example  $\beta$ is determined by the largest component of $\vec{n}$, in this example
           the $z$-direction with $n_0 := \max(\vec{n}) = n_z$.
 
     \item The points $\alpha$, $\gamma$, $\delta$ are determined by the remaining components ${n_y, n_z}$, which are used as directions to
@@ -255,17 +256,17 @@ Before the execution of a simulation the following steps are precomputed
 
     \item The offset $p00$, $p01$, $p10$, $p11$ of the points $\beta$, $\alpha$, $\gamma$, $\delta$ to the point $b$ are computed
 
-    \item $\vec{n}$ is normalized by $\vec{n}^* = \frac{\vec{n}}{|n_0|}\cdot \Delta z$.
+    \item $\vec{n}$ is normalized by $\vec{n}^* = \frac{\vec{n}}{|n_0|}\cdot \Delta z$. The length of $\vec{n^*}$ is $[cb]$.
             \footnote{For $n_0=n_z$ this is $\Delta x$ and for $n_0=n_y$ it is $\Delta y$}
 
     \item The point $c$ is given by $c = a + \vec{n}^*$ and the coefficient $c_1$ and $c_2$ are computed and normalized to the values
-           $c01 := \frac{c_1}{\Delta x}$ and $\c10 := \frac{c_1}{\Delta y}$.
+           $c01 := \frac{c_1}{\Delta x}$ and $c10 := \frac{c_1}{\Delta y}$.
     \item The ratio $W=\frac{\Delta c}{\Delta h} = \frac{d(x, y, z)}{d(x, y, z) + |\vec{n}| }$ is computed
 \end{enumerate}
 
-The values obtained from this precomputation are the offsets  $p00$, $p01$, $p10$, $p11$, the coefficients $c01$, $c10$ and
+The values obtained from this pre-computation are the offsets  $p00$, $p01$, $p10$, $p11$, the coefficients $c01$, $c10$ and
 the ratio $W$. Each values is stored into an array of shape $N_x \cdot N_y \cdot N_z$, which is loaded during the simulation.
-All values in the coefficient arrays which are not close to the immersed boundarie are set to zero.
+All values in the coefficient arrays which are not close to the immersed boundary are set to zero.
 During the interpolation procedure the ratio $W$ is checked and if larger than zero an interpolation for the grid point is computed.
 An example of the interpolation procedure is given by
 
