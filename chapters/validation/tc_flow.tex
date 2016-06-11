@@ -275,22 +275,22 @@ lead to an overall larger numerical error.
 
 In the first part of the chapter an introduction to different Immersed Boundary methods was given.
 The volume-penalization method, adapted from  \citep{Lulff2011} uses a forcing term which is proportional to the velocities at the fluid boundaries.
-In case of the Direct-Forcing method, adapted from \citep{Fadlun2000} the velocities are set directly to zero.
-Both methods were extended by the Volume-Fraction method, adapted from \citep{Fadlun2000}, which computes the wall and fluid domain ratio inside a boundary
+In case of the Direct-Forcing method, adapted from \citep{Fadlun2000} the forcing term is calculated implicitly.
+Both methods were extended by the Volume-Fraction method, adapted from \citep{Fadlun2000}, which computes the fluid domain volume ratio inside a boundary
 cell and uses this value as a weighting coefficient for the forcing.
 Finally an interpolation method adapted from  \citep{ Gilmanov2003} was introduced. In the first step this method performs a bilinear interpolation on a surface
 next to the fluid boundary, in the second step this value is linear interpolated to a grid point close to the boundary.
 
 In the second part of the chapter three different test cases were introduced as a validation for the Immersed Boundary methods.
 The laminar Poiseuille flow was used as a first validation test case for the DF and VP methods.
-With the results it was possible to identify an error in the basic algorithm of the simulation.
+From the results it was possible to identify an error in the basic algorithm of the simulation.
 Furthermore it could be shown that the use of a 5-Point stencil leads to discretization errors at the fluid boundaries.
 
 In the second test case a simulation of a Hagen-Poiseuille flow was performed.
 The results of this simulation pointed out possible numerical issues.
-One possible problem are numerical oscillations which are eventually caused
-by the decoupling of neighbor cells in the density.
-Furthermore this test case shows that the use of a 5-Point stencil creates a numerical error,
+One possible problem are numerical oscillations which are assumed to be caused
+by a decoupling of density field.
+Furthermore this test case showed that the use of a 5-Point stencil creates a numerical error,
 which results in a large error for the IP-DF4 method.
 It can be noted that using the volume fraction method  the error of the DF and VP method can be improved.
 In summary all errors are approximately below the order  $10^2$ for $N>100$,
@@ -299,12 +299,12 @@ All convergence rates are at least as good in a comparison
 to the results from validation test cases from literature.
 
 The last test case was given by a Taylor-Couette system.
-In comparison to the Hagen-Poiseuille flow the  computed numerical error is larger,
+In comparison to the Hagen-Poiseuille flow the computed numerical error is larger,
 up to an order for the VF methods, which perform inferior in this test case.
 In this simulation for both the FD2 and FD4 methods small pressure oscillations can be observed which are again assumed to be
-caused by a density decoupling.
-Finally the velocity profiles show that the error is the largest to the inner domain boundary $r_i$.
-This could be an indicator that the immersed boundary methods in combination with the used basic implementation
+caused by a decoupling of the density field.
+The velocity profiles show that the error is the largest to the inner domain boundary $r_i$.
+This indicates that the Immersed Boundary methods in combination with implemented basic GPU algorithm
 are not a good choice for moving boundaries.
 
 
