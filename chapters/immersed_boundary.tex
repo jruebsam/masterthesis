@@ -54,6 +54,7 @@ the conservation of mass should be fulfilled.
 
 
 \subsection{Volume Penalization}
+\label{chap:ibm_volpen}
 The concept behind the volume penalization method is to introduce an additional forcing term into the Navier-Stokes equation, which acts on
 the grid points outside of the fluid domain to ensure the desired boundary conditions. The methods was successfully implemented and tested
 on pseudo-spectral methods, see for example \citep{Lulff2011}.
@@ -110,6 +111,7 @@ The exact boundary can only be satisfied for $\Delta x$, $\Delta y$ and $\Delta 
 \end{figure}
 
 \subsection{Direct Forcing}
+\label{chap:ibm_dirforce}
 
 One concern of the Volume-Penalization method is the remaining velocity in the wall domain close to the boundaries.
 The Direct-Forcing method bypasses this restriction by an implicit calculation of the forcing term.

@@ -13,13 +13,13 @@ In this thesis we will not consider MHD-equations.  \footnote{MHD - Magnetohydro
 However in general it is considered that the helicity of a fluid domain $V$, given by
 
 \begin{align}
-    \int_{V}\dif V  \vec{v} \left( \nabla \times \vec{v} \right)
+    \int_{V}\dif V  \vec{v} \cdot \left( \nabla \times \vec{v} \right)
 \end{align}
 
 is directly linked to dynamo action \citep{moffat1978}.
 It would be interesting to find a system which exhibits a large helicity,
 as a possible candidate for future researches of the geodynamo.
-Furthermore another interested is the propagation of inertial waves in different fluid domains.\\
+Furthermore another interest is the propagation of inertial waves in different fluid domains.\\
 The system we want to study in this thesis is given by a rotating cone, which is compared to
 a frustum, by inserting a bottom plate into the apex.
 Inertial waves are excited by a temporal modulation of the rotation frequency, which is denoted as libration.
@@ -56,7 +56,7 @@ In the remaining sections of this chapter we want to use the following conventio
     \item[$\epsilon$]{Amplitude of the libration, default is 1}%\footnote{Not important due to the linearization}}
     \item[$l_x, l_y, l_z$]{Size of the total simulation domain in x, y and z direction}
     \item[Cone] {The entire cone with apex, and a possible offset at the top, this setup is obtained by setting $r=0$}
-    \item[Frustum]{The cone but with a bottom plate at the bottom, hence $r>0$}
+    \item[Frustum]{The cone but with a bottom plate at the bottom with $r>0$}
     \item[Critical Frequency $\omega_c$]{This is the libration frequency where the propagation direction of an inertial wave is parallel to the slope ($\theta=\alpha$)}
 \end{description}
 \end{multicols}
@@ -306,15 +306,15 @@ Since the error of this calculation depends on the total simulation time, it was
 were carried out long enough.
 For the same simulation times, the error of one resonance is estimated in the range $\sigma_A \approx 5\% - 10\%$,
 When no resonances are present, the error is estimated to be of order $\sigma_A \approx 2.5\% - 5\%$.\\
-Another part of the analysis is the computation of the relative helicity of the system, given by \citep{PAPER}.
+Another part of the analysis is the computation of the relative helicity of the system
 
 \begin{align}
 H(t) = \frac{\int_V \dif V \vec{v} (\nabla \times \vec{v})}
-{\int_V \dif V |\vec{v}| \int_V \dif V |\nabla \times \vec{v}|}
+{\sqrt{\int_V \dif V \vec{v}^2 \int_V \dif V (\nabla \times \vec{v})^2}}
  = \frac{\sum_{i,j,k=0}^{N_x, N_y, N_z} \vec{v}_{i,j,k} (\nabla \times \vec{v}_{i, j, k})}
- {\left(\sum_{i,j,k=0}^{N_x, N_y, N_z}|\vec{v}_{i,j,k}|\right)
+ {\sqrt{\left(\sum_{i,j,k=0}^{N_x, N_y, N_z}\vec{v}_{i,j,k}^2\right)
  \left(\sum_{i,j,k=0}^{N_x, N_y, N_z}
- | \nabla \times \vec{v}_{i, j, k}|\right)}
+  (\nabla \times \vec{v}_{i, j, k})^2\right)}}
 \end{align}
 
 For the discretization of the rotation operator, a central difference scheme of 2nd order is used.
@@ -583,14 +583,14 @@ closer to the experiment is difficult to realize, due to the computational effor
 In the first part of the simulation a cone is simulated
 with the geometric parameters $\alpha =  60^{\circ}$, $H=1$ and $r=0$.
 This means that the critical libration frequency is $\omega_c=1$, where an inertial wave traverses parallel to the slope of the cone.
-The resulting offset on top is given by the constraint
+The resulting offset on top is given by
 
 \begin{align}
     O = H - h_c =  1 - \nicefrac{l_x}{2}\tan{\alpha} \approx 0.134.
 \end{align}
 
 In the second simulation the cone is replaced by a frustum, by setting a bottom plate to the height $0.25$.
-The total height reduces to $H=0.75$, the radius of the gap is $r\approx0.144$.
+The total height reduces to $H=0.75$, the radius of the plate is $r\approx0.144$.
 A series of simulations for the two setups were performed.
 The main simulation parameters are given by
 
@@ -857,7 +857,7 @@ The \textbf{O} peak can be associated with an M\RN{1}-mode for the cone.
 For further discussions the minimum $\omega_{\text{min}}$ to the left of M\RN{6} is shown.
 
 On the left side of the critical frequecy $\omega_c$, we can identify the M\RN{3}-peak
-at the same frequency and same order as for the frustum. To the left side of this point, the spectrum for
+at the same frequency and with the same amplitude as for the frustum. To the left side of this point, the spectrum for
 the cone and the frustum are similar.
 Furthermore at the position of peak M\RN{2} of the cone, we now see a slightly diminished peak M\RN{8}.
 The maximum has the same position for $h_+=0.5$, but diverges slightly with a decrease of the height $h_+$.
@@ -866,11 +866,11 @@ For all peaks  it can be noted, that a lowering of the offset height $h_+$ resul
 into a shift towards higher frequencies. %This can be best seen when looking at the peaks M\RN{1} and M\RN{2}.
 For a better overview, the changes in the amplitudes and shift in the frequencies are shown in
 Fig. \ref{fig:cone:finalampmax}. %for the peaks M\RN{1}, M\RN{2}, M\RN{3} and M\RN{8}.
-The amplitudes of the two peaks M\RN{1} and M\RN{2} have a maximum at $h_+= 0.25$. For the peak M\RN{3} and M\RN{8} the amplitude decreases almost linear.
+The amplitudes of the two peaks M\RN{1} and M\RN{2} have a maximum at $h_+= 0.25$. For the peak M\RN{3} and M\RN{8} the amplitude decreases almost linearly.
 From the second plot it can be noted, that with a decrease in the height $h_+$,
-all peaks shift approximately linear to lower frequencies.
+all peaks shift approximately linearly to lower frequencies.
 
-In order to give a better insight of the modal structures, the velocity profiles for the peaks M\RN{1}, M\RN{2} and M\RN{8}
+In order to give a better insight on the modal structures, the velocity profiles for the peaks M\RN{1}, M\RN{2} and M\RN{8}
 are presented in Fig. \ref{fig:cone:finalmodesexp}, for different geometries .
 For each setup the velocity profile is shown for two different timesteps. The offset $\Delta t^*$ is varied  for each geometry, in order to emphasize
 the important flow properties.
@@ -993,6 +993,7 @@ followed by a slow decay for $t>100$.
 The cone shows a faster decay in the interval $ t\leq 30$, followed by a slow decay for $t>30$.
 It can be noted that the energy in the cone decays faster until $t\approx100$, after this time
 both decay rates are  equal.  In contrast to the cone, the decay of the frustum  is superimposed by an oscillation.
+This oscillation is the resonance of the M\RN{1} mode which still is observable in the $v_z$ velocity component.
 
 Fig. \ref{fig:cone:finaldecayfit} shows the interpolated values of the decay rate for different
 heights $h_+$.  The time interval for the interpolation was set to $0 \leq t \leq 25$.
@@ -1013,7 +1014,7 @@ and the decay is homogeneous over the fluid domain.
     }
 \end{figure}
 
-\subsubsection{Comparison to a Higher Resolution}
+\subsubsection{Comparison with a Higher Resolution}
 
 A part of the simulations was repeated with a spatial discretization of $\Delta x= \nicefrac{1}{256}$.
 Since the computation time at this resolution is expensive, the frequency was limited
@@ -1050,7 +1051,7 @@ in the spectrum.
 The shift of the resonance peaks is a result from the change in the geometry.
 In analogy to the discussion in Sec. \label{cone:discussion_transition},
  we assume that with a change of the offset on top,
-a possible inertial mode can only exist in an distorted state.
+a possible inertial mode can only exist in a distorted state.
 Therefore the propagation angle $\theta$ has to change,
 which is equivalent to a shift in the frequency domain.\\
 We were not able to find a reasonable explanation for the change in the amplitudes.
@@ -1072,7 +1073,7 @@ can be observed.
       \caption{\label{fig:conediscuss:corners}
         Wave paths from the upper edges of the cone,
         for a wave ray with a frequency at the position $\omega_{\text{min}}$ (red) and
-        for a wave ray with the frequency at the position of peak (\RN{3}) (green),
+        for a wave ray with the frequency at the position of peak M\RN{3} (green),
             for different heigths $h_+$.
       }
   \end{minipage}
@@ -1097,7 +1098,6 @@ As a result the energy and therefore the amplitude increases,
 when the wave ray is passing the corner to the top.
 With this argumentation it is still not possible to explain the slight increase \textbf{O}.
 
-
 A similar idea can be applied to the left side of the peak \RN{3} (see Fig. \ref{fig:conediscuss:corners}).
 For $\omega<\omega(\text{M\RN{3}})$ the wave is reflected off the slope of the cone.
 for  $\omega>\omega(\text{M\RN{3}})$ the reflection moves to the bottom plate of the frustum,
@@ -1106,6 +1106,10 @@ This could explain why for   $\omega<\omega(\text{M\RN{3}})$  the spectra look i
 since the wave ray does not see the difference between the cone and the frustum.
 This argumentation is furthermore consistent with the results from the first simulation
 (see discussion Sec. \ref{cone:discussion_experiment}).
+
+For both assumptions the computed wave rays shown in Fig. \ref{fig:conediscuss:corners} do not match exactly and are slightly shifted from the corners of the cone.
+This is probably a result of the stepsize $\Delta \omega = 0.05$, therefore the exact position of $\omega_\text{min}$ and M\RN{3} is not given.
+The shift could be resulting from the width of a wave ray $\propto \Ekman^{1/3}$.
 It has to be concerned that these are of course theoretical assumptions and a wave ray is not only emitted at the
 upper edges of the cone.\\ (EXPL. CHARACTERIST SURFACES)
 
