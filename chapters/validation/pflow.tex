@@ -150,7 +150,7 @@ has to be fullfilled as a necessary condition for the pressure gradient.
 The Poiseuille flow is used in particular as a first validation test case
 for the VP, DF method  and the basic implementation.
 
-\subsubsection{Test of the Basic Setup}
+\subsubsection{Test of the Basic Algorithm}
 
 The purpose of the first simulation is to test  the basic
 implementation of the algorithm which does not use immersed boundaries.
@@ -247,7 +247,7 @@ The simulations were performed for FD2 and FD4 methods.
 \clearpage
 
 \subsection{Results}
-\subsubsection{Test of the Basic Setup}
+\subsubsection{Test of the Basic Algorithm}
 
 The results of the grid convergence study are shown in Fig. \ref{fig:ema1}.
 The double logarithmic axis shows the dependency of the computed relative $l_2$-error norm
@@ -270,14 +270,14 @@ The value is approximately constant and does not depend on the grid resolution.
 
 
 \subsubsection{Test of the Volume Penalization Method}
-
-The first simulation was  a parameter study with variable Reynolds number and damping rate.
-A first impression of the influence of the damping rate $J$ is given by the velocity profiles of the numerical solution.
+,
+The first simulation was  a parameter study with variable Reynolds number and damping.
+A first impression of the influence of the damping coefficient $J$ is given by the velocity profiles of the numerical solution.
 This is exemplarily shown in Fig. \ref{fig:vp_flow}, for varying $J$ and $Re=500$ .
 It can be noted that with an decrease of $J$, the numerical solution converges against the theoretical one.
 Furthermore it can be seen that the quadratic part of the velocity profile,
 inside of the fluid domain ($0.5\leq z \leq 1.5$), is independent of the damping constant $J$.
-Merely a slight offset at the boundaries creates a constant shift of the velocity profile.
+Merely a slight offset at the boundaries creates a constant shift upwards of the velocity profile.
 In the masked area of the volume a decrease in velocity is visible which could  eventually be described by an
 exponential law.
 
@@ -287,8 +287,8 @@ exponential law.
     Velocity profile of the numerical solution with variable $J$ and $\Rey = 500$.}
 \end{figure}
 
-For an error estimation, the relative $l_2$-error was computed, the results are shown in Fig. \ref{fig:vp_error}.
-On the left side of the plot the relative error is plotted against the damping rate and the reynolds number is
+For an error estimation the relative $l_2$-error was computed, the results are shown in Fig. \ref{fig:vp_error}.
+On the left side of the plot the relative error is plotted against the damping coefficient and the Reynolds number is
 varied over a color scale. On the right side both variables ($J$ and $\Rey$) are switched.
 
 \begin{figure}[!b]
@@ -297,22 +297,22 @@ varied over a color scale. On the right side both variables ($J$ and $\Rey$) are
     Relative $l_2$-error for variable damping rate $\nu$ and Reynolds number $Re$.}
   \centering
   \includegraphics{gfx/immersed_boundary/poiseuille_flow/2_vp/vp_convergence.pdf}
-  \caption{\label{fig:vp_conv}
-      Relative $l_2$ error for variable damping rate $J$, for VP-FD2 (blue) and VP-FD4 (red) methods.}
+  \caption{Relative $l_2$ error for variable damping rate $J$, for VP-FD2 (blue) and VP-FD4 (red) methods.}
+    \label{fig:pflowvali_vp_conv}
 \end{figure}
 
 
-A decrease in the damping rate $J$ results in an decrease of the error about four orders, from $10^{-1}$ to $10^{-5}$.
+A decrease in the damping coefficient $J$ results in a decrease of the error of about four orders, from $10^{-1}$ to $10^{-5}$.
 With a change of the Reynolds number from $500$ to $100$ the error decreases about one order.
-It can be noticed that with an decrease of $\Rey$ or $J$ the error decreases linear in the log-log space.
+It can be noticed that with a decrease of $\Rey$ or $J$ the error decreases linearly in the log-log space.
 For a small damping ($J>10^{-3}$) a breakdown of the linear relation can be observed.
 This is an error resulting from the numerical setup.
 The damping in the masking area is so weak that the flow reaches the  boundaries of the numerical domain.
-This is not the case for $J<1e-3$ since the velocity profile is zero before it reaches the boundaries.
+This is not the case for $J<10^{-3}$ since the velocity profile is zero before it reaches the boundaries.
 A linear fit in the log-log space gives a  decay rate of about $1.106$ for  $J$ and about $-1.223$ for $\Rey$.
 
 The second part of the test was a grid convergence study with a constant Reynolds number, variable $J$ and grid resolution $N$.
-The results are shown in Fig. \ref{fig:ema1}.
+The results are shown in Fig. \ref{fig:pflowvali_vp_conv}.
 It can be noticed that a decrease in $J$ creates a shift in the error profile to overall smaller values.
 However it is also noticable that the error of the FD2 method increases together with the resolution.
 
@@ -320,7 +320,7 @@ Even less understandable is the error function for the FD4 method.
 With increasing resolution  a decrease into a minimum, followed by an increase can be observed.
 The position of minimum is shifted to the right with an decrease of $J$.
 For a constant $J>10^{-4}$ it is visible that the error for both methods converges against a
-constant error  with an increase in the resolution.
+the same error  with an increase in the resolution.
 
 \clearpage
 
@@ -331,35 +331,36 @@ are similar to the results of the basic implementation, except the DF-FD4 method
 A plot of the relative $l_2$-error can be found in the Appendix in Fig.\ref{fig:vali_pflow_3gc}.
 The FD4 method has a linear decreasing error in the log-log space.
 For the smallest resolution $N=8$ the error is of order $10^{-2}$,
-in contrast to the highest resolution $N=256$, with an error of order $10^{-4}$
-The convergence rate is about $\lambda\approx1.267$.
+in contrast to the highest resolution $N=256$, with an error of order $10^{-4}$.
+The convergence rate is about $\lambda\approx1.267$
 Hence, it can be said that the accuracy of the method is above first order for this test case.
 The error of the second order finite difference scheme is of the order $10^{-8}$.
 The value is approximately constant and not depend of the grid resolution.
 
 \subsection{Discussion}
-\subsubsection{Test of the Basic Setup}
+\subsubsection{Test of the Basic Algorithm}
 
-The constant error of the FD2 can be explained by the lack of complexity of the test case.
-As the theoretical solution, given by Eq. \ref{vali:pflow_navstok} is a polynom of 2nd order,
+The constant error of the FD2 method can be explained by the lack of complexity of the test case.
+As the theoretical solution, given by Eq. \ref{vali:pflow_navstok} is a polynom of second order,
 no higher order terms will occur in the numerical solution.
 Hence, the FD2 method is capable of a perfect approximation, independent of the
-grid resolution. The remaining error terms, wich are of the order $10e^{-8}$,
+grid resolution. The remaining error terms, wich are of the order $10^{-8}$
 occur due to the round-off error of the single precision floating-point format.
 
-The convergence of the fourth order scheme, which is above 2nd order
+The convergence of the fourth order scheme, which is above second order
 reveals that an error exists in the basic implementation of the No-Slip boundaries.
 An explanation can be given with a comparison to the theoretical solution.
-The 2nd derivative is given by
+The second derivative of Eq. \ref{vali:pflow_navstok}  is given by
 
 \begin{align}
-    \pdn[^2 v_x]{x^2} = \frac{1}{\Rey}\pdn[p]{x} := C\in\mathbb{R}
+    \pdn[^2 v_x]{x^2} = \frac{1}{\Rey}\pdn[p]{x} := C_f\in\mathbb{R}
 \end{align}
 
-The basic algorithm uses a mirroring method on the boundaries of the fluid domain (see Sec. \ref{XXX}), for the No-Slip boundaries.
-Let $C_b$ be the derivative in the immersed boundary, it follows that $C_b = - C$, as a result of the mirroring.
-Therefore a discontinuity of the 2nd derivative is created at the boundaries.
-When using the 2nd order method the 3-Point stencil of the FD2 method evaluates to the correct value.
+where $C_f$ is the constant curvature of the theoretical solution in the fluid domain.
+The basic algorithm uses a mirroring method at the boundaries of the fluid domain to fulfill the No-Slip condition (see Sec. \ref{sec:cuda_boundaries}).
+Let $C_b$ be the curvature of the velocity profile in the immersed boundary, it follows that $C_b = - C_f$, as a result of the mirroring method.
+Therefore a discontinuity of the second derivative is created at the boundaries.
+When using FD2 method the 3-Point stencil evaluates to the correct value.
 The 5-Point stencil of the FD4 method evaluates to a false value, since it uses one point behind the boundary.
 As a result the discontinuity creates an error in this approximation.
 
@@ -367,8 +368,8 @@ As a result the discontinuity creates an error in this approximation.
 
 \subsubsection{Test of the Volume Penalization Method}
 
-The offset on the boundaries arises since the VP method cannot fullfill the exact boundarie conditions.
-For the steady state a force equillibrium at the boundaries is given by the pressure gradient, the laplace operator and the damping force.
+The offset on the boundaries arises since the VP method cannot fulfill the exact boundary conditions.
+For the steady state a force equilibrium at the boundaries is given by the pressure gradient, the viscous force and the damping force.
 
 \begin{align}
 \label{valid:steady_state_pflow}
@@ -381,8 +382,8 @@ error at the boundaries.
 However it is counterintuitive that the $l_2$-error decreases with an increase of the Reynolds number.
 An explanation for this is, that the viscous force and the pressure gradient are proportional to $\nicefrac{1}{\Rey}$
 (see Eq. \ref{vali:pflow_pcondi}).
-With an increase of the Reynolds number the left side of Eq. \ref{valid:steady_state_pflow} becomes smaller.
-The damping force becomes larger in comparison and the  offset $C=v_x(h_1)=v_x(h_2)$ decreases.
+With an increase of the Reynolds number the left side of Eq. \ref{valid:steady_state_pflow} becomes smaller,
+the damping force becomes larger in comparison and the  offset $C=v_x(h_1)=v_x(h_2)$ decreases.
 
 \begin{figure}[!bp]%
     \centering
@@ -397,26 +398,26 @@ The damping force becomes larger in comparison and the  offset $C=v_x(h_1)=v_x(h
         }}%
 \end{figure}
 
-The grid convergency study with a constant Reynolds number and variable damping rate, generates an error
-which increases simulatenous with the grid resolution.
+The grid convergence study with a constant Reynolds number and variable damping coefficient, generates an error
+which increases simultaneously with the grid resolution.
 An explanation for this behavior can by given by revising the theoretical solution
 and the finite difference stencils at the immersed boundary.
 
-The error for both method does not converge towards zero, which means there has to be some discrepancy to the theoretical solution given by
+The error for both methods does not converge towards zero, which means there has to be some discrepancy to the theoretical solution given by
 Eq. \ref{vali:pflow_theosol}.
 For a constant $J$ there is an offset $C$ to the theoretical solution,
 which is given by the equillibrium accord to Eq.  \ref{valid:steady_state_pflow}.
 This means that the theoretical solution which was assumed in the first place, is wrong for the VP method.
-An additional offset in the flow, which is dependent of the damping rate $J$ has to be considered.
-For a low resolution, the profile of the FD2  method is closer to the assumed theoretical, which results in a smaller
+An additional offset in the flow, which is dependent on the damping coefficient $J$ has to be considered.
+For a low resolution, the profile of the FD2  method is closer to the assumed theoretical one, which results in a smaller
 error. With an increase to a higher resolution the error with respect to the real solution decreases.
 
-An explanation for the convergence of the FD4 method can be given by furthermore considering the descrization error at the immersed boundaries.
-Fig. \ref{fig:example_a} shows exemplary the velocity profile near to the immersed boundary, for the Volume-Penalization method of FD2 and FD4 order
+An explanation for the convergence of the FD4 method can be given by furthermore considering the discretization error at the immersed boundaries.
+Fig. \ref{fig:example_a} shows exemplarily the velocity profile near to the immersed boundary, for the Volume-Penalization method of FD2 and FD4 order
 at a resolution of $N=100$.
-It can be seen that the velocity profile for the FD4  method  is slighty negative.
+It can be seen that the velocity profile for the FD4  method  is slightly negative.
 The reason for this is the use of a 5-Point stencil for the discretization.
-The stencil reaches over the immersed boundary which results in a wrong computation of the laplace operator.
+The stencil reaches over the immersed boundary which results in a wrong computation of the Laplacian
 
 The  error convergence is a result from  the velocity profiles for different resolutions,
 as shown schematically in Fig. \ref{fig:example_b}.
@@ -425,8 +426,8 @@ The velocity profiles for three different resolutions are considered for a const
 the minimum of the error shall be defined as $N_{min}$.
 Due to the negative velocity at the boundary the first profile $N<N_{min}$ lies below the theoretical solution,
 given by Eq. \ref{vali:pflow_theosol}
-The second profile is at $N=N_{min}$. The error at the boundary is smaller due to the increase of the resolution,
-the velocity profile overlaps best with the theoretical solution resulting in an minimal error.
+The second profile is at $N=N_{min}$. The error at the boundary is smaller due to the increase of the resolution.
+The velocity profile overlaps best with the theoretical solution resulting in a minimal error.
 With a further increase of the resolution  $N>N_{min}$ the velocity profile drifts away from the theoretical solution,
 the error increases.  Finally the method converges towards the same solution as the 2nd order scheme.
 
@@ -435,10 +436,10 @@ the error increases.  Finally the method converges towards the same solution as 
 
 The constant error of the FD2 can again be explained by the lack of complexity of the test case.
 The FD2 method is capable of a perfect approximation and
-the remaining error terms of the order $10e^{-8}$
+the remaining error terms of the order $10^{-8}$
 occur due to the round-off error of the single precision floating-point format.
 
 The convergence of the FD4 is above first order, in comparsion to the basic algorithm which was above second order.
 Once more this error is a result of the used 5-Point stencil.  All values behind the immersed boundary are set
-to zero. The 5-Point stencil uses $v_{i+1} = 0$ which results in a wrong computation.
+to zero. The 5-Point stencil uses one grid point behind the boundary which results in a incorrect computation.
 
