@@ -84,7 +84,7 @@ def main():
         #    ax.plot(xn, yn, 'k--', lw=0.5, label='Fit for IP. o2 $\propto N^b$' % popt[1])
         onn = 'FD2' if on=='o2' else 'FD4'
 
-        lb = label+ r' ' + onn + (r':$\lambda=%.2f\pm%.2e$'  % (popt[1], perr[1]))
+        lb = label+ r' ' + onn + (r':$\lambda=%.2f\pm%.2f$'  % (popt[1], perr[1]))
         ax.plot(res, l2rel, 'o-', ms=3, lw=0.8, mew = 0, label = lb)
 
     plt.subplots_adjust(top=0.7, bottom =0.15, left=0.2)

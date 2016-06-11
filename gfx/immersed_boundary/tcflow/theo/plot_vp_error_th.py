@@ -87,7 +87,7 @@ def main():
 
 
             onn = 'FD2' if order else 'FD4'
-            lb = label+ ' ' + onn + (':$\lambda=%.2f\pm%.2e$'  % (popt[1], perr[1]))
+            lb = label+ ' ' + onn + (':$\lambda=%.2f\pm%.2f$'  % (popt[1], perr[1]))
             ax.plot(res, l2rel, 'o-', ms=3, lw=0.8, mew = 0, label = lb)
 
     plt.subplots_adjust(top=0.7, bottom =0.15, left=0.2)
