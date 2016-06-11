@@ -1,5 +1,5 @@
 \chapter{Immersed Boundary Methods}
-\label{CHAPTER:IBM}.
+\label{CHAPTER:IBM}
 
 \section{Introduction}
 
@@ -8,7 +8,7 @@ The algorithm introduced in chapter \ref{CHAPTER:CUDA} is not yet suitable for s
 For instance the simulation inside a spheric geometry is not possible, since the boundaries
 do not coincide with the implemented cartesian grid. Nevertheless there exist different approaches to overcome this problem
 which shall be introduced here. \\
-One common approach to extend the algorithm it the use a body-fitted mesh,
+One common approach to extend the algorithm is the use a body-fitted mesh,
 different advantages and disadvantages arise with this kind of implementation, see \citep{Mittal2005}.
 One benefit is a much simpler deployment of the desired boundary condition, due to the overlap of the numerical grid with domain borders.
 Furthermore a higher accuracy can be achieved \citep{Gornak2013}.
@@ -245,7 +245,9 @@ and the normal direction
 
 A normalization of $\vec{g}(x, y, z)$ is performed in the algorithm,
 however it is required that the normal  vectors point into the direction of the fluid domain.
-Before the execution of a simulation the following steps are precomputed
+Before the execution of a simulation the following steps are precomputed:
+\footnote{This computation is exemplarily shown for the case where $\vec{n}$ is the largest in $z$ direction, like in  Fig.\ref{ibm:ip_method_algo}.}
+
 
 \begin{enumerate}
     \item The closest grid point to $b$, in the example  $\beta$ is determined by the largest component of $\vec{n}$, in this example
