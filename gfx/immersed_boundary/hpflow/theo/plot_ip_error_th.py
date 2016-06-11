@@ -73,7 +73,7 @@ def main():
                 #if (mode=='ip') and (on =='o2'):
                 #    ax.plot(xn, yn, 'k--', lw=0.5, label='Fit for IP o2 $\propto N^b$' % popt[1])
             onn = 'FD2' if order else 'FD4'
-            lb = label+ ' ' + onn + (':$\lambda=%.2f\pm%.2e$'  % (popt[1], perr[1]))
+            lb = label+ ' ' + onn + (':$\lambda=%.2f\pm%.2f$'  % (popt[1], perr[1]))
             if mode=='ipzero' and (on=='o4'):
                 pass
 

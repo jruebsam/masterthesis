@@ -2,13 +2,13 @@
 
 In the previous test case the channel walls were aligned parallel to the simulation grid. Hence, no further interpolation procedures
 are necessary to mimic the exact boundaries.
-In order to test the accuracy of the VF and the IP method a test case with a curved geometry is necessary.
+In order to test the accuracy of the VF and the IP method, a test case with a curved geometry is necessary.
 Furthermore it is possible to investigate the discretization error of the non-interpolating VP and DF method, with respect to curved geometries.
 
 A simple adaption of the planar Poiseuille flow, is the laminar flow through a pipe, also referred to as Hagen-Poiseuille flow \citep{tritton88}.
 The setup of the fluid domain is schematically shown in Fig. \ref{validation:setup_hpflow}.
 It consist of a circular pipe with the radius $r_0$, which extends infinitely parallel to the $x$ axis.
-This is similar to Sec. \ref{vali:sec_lpflow_setup} realized by using periodic boundaries in $x$-direction
+This is realized similar to Sec. \ref{vali:sec_lpflow_setup} by using periodic boundaries in $x$-direction
 and immersed boundaries for the channel wall.
 The center of the pipe is set to the center of the simulation domain ${(y_0, z_0) = (\nicefrac{l_y}{2}, \nicefrac{l_z}{2})}$.
 In analogy to the Poiseuille flow, the velocity profile is a result from a predefined pressure gradient $\nicefrac{\partial p}{\partial x}$ in x-direction,
@@ -19,7 +19,7 @@ which  is added into the Navier-Stokes equation as an additional forcing term.
         \resizebox{0.75 \textwidth}{!}{
        \import{gfx/immersed_boundary/hpflow///}{setup.pdf_tex}
       }
-      \caption{Setup for the Hagen-Poiseuille flow, given be a pipe of radius $r_0$ with the center at  ${(\nicefrac{l_y}{2}, \nicefrac{l_z}{2})}$ and of infinitesimal length.}
+      \caption{Setup for the Hagen-Poiseuille flow, consisting of a pipe of radius $r_0$ with the center at  ${(\nicefrac{l_y}{2}, \nicefrac{l_z}{2})}$ and of infinitesimal length.}
     \label{validation:setup_hpflow}
 \end{figure}
 
@@ -41,11 +41,12 @@ The integration of Eq. \ref{vali:hpflow:navstok} gives
 \end{align}
 
 It holds that $v_x(0)= V_{\text{M}}$ this condition can only be fullfilled if $A=0$.
-With the use of the boundary conditions $u(r_0) = 0$ the velocity profile is given by
+With the use of the boundary conditions $v(r_0) = 0$ the velocity profile is given by
 \begin{align}
     v_x(r) &= \frac{r^2 - r_0^2}{4}\frac{\partial p}{\partial x}Re
 \end{align}
-Since $V_{M} \stackrel{!}{=} 1$ by definition, the pressure condition for the domain needs to be set to
+Since $V_{M} \stackrel{!}{=} 1$ by definition (see Sec. \ref{vali:sec_lpflow_setup}),
+ the pressure condition for the domain needs to be set to
 \begin{align}
     \frac{\partial p}{\partial x} = -\frac{4 r_o^2}{Re}
 \end{align}
@@ -53,22 +54,22 @@ Since $V_{M} \stackrel{!}{=} 1$ by definition, the pressure condition for the do
 \subsection{Simulations}
 \label{vali:hpflow_simsetups}
 
-\subsubsection{Grid Convergence Study with comparsion to the Theoretical Solution}
+\subsubsection{Grid Convergence Study}
 
 For an error evaluation a grid convergence study was performed with the Reynolds number set to $Re=100$.
-The number of grid points was varied in the intervall $N\in[32, 256]$ furthermore a
+The number of grid points was varied in the intervall $N\in[32, 256]$. Furthermore a
 simulation with a resolution of $N=512$ was carried out.
-Since the maximum velocity of the channel is given by $V_{M}=1$, due to the choice of non-dimensionalization,
+Since the maximum velocity of the channel is $V_{M}=1$,
 the sound speed was set to $c^2 = 100$ to fullfill the incompressibilty condition $Ma = v/c < 0.1$.
-The resulting timestep for the highest resolution is $\Delta t = 1e-4$.
+The resulting timestep for the highest resolution is $\Delta t = 10^{-4}$.
 The main parameters of the simulation are  given by
 
 \begin{center}
 \vspace*{0.7ex}
 \begin{tabular}{c|c|c|c|c|c|c|c }
- $ N  $                   & $\Delta t$ & $\Delta z$            & $\Rey$  & $c^2$   & $l_y, l_z$ & $r_0$ & $T_{end}$\\
+ $ N  $                   & $\Delta t$ & $\Delta z$            & $\Rey$  & $c^2$   & $l_y, l_z, l_x$ & $r_0$ & $T_{end}$\\
 \hline
- $512, [16, 256], \Delta N = 16 $& $10^{-4}$ & $\nicefrac{1}{N}$ & 500     & $500$   & (2.5, 2.5) & 1     & 20\\
+ $512; [16, 256], \Delta N = 16 $& $10^{-4}$ & $\nicefrac{1}{N}$ & 100     & $100$   & 2.5, 2.5, $8\Delta y$ & 1     & 20\\
 \end{tabular}
 \vspace*{0.7ex}
 \end{center}
@@ -79,13 +80,13 @@ immersed boundary and set to zero outside of fluid domain.
 For the VP method the non-dimensionalized damping was set to $J=10^{-4}$.
 It would be possible to choose a larger time step for the lower resolution cases, which means that in general
 one would apply a larger $J$ in a case of an applicaton, due to the stability criterion $J>\Delta t$.
-As a results the damping force on the boundaries $\propto \nicefrac{1}{J}$ would be smaller.
+As a result the damping force on the boundaries $\propto \nicefrac{1}{J}$ would be smaller.
 To remain consistent in the error convergence, here $\Delta t$ and
 therefore $J$ are not altered.
 
 \subsubsection{Long-Term Simulations}
 
-In Order to test the  numerical stability and conservation of mass, a long-term simulation was performed.
+In order to test the  numerical stability and conservation of mass, a long-term simulation was performed.
 A Reynolds number of $Re=100$ was chosen. The resolution is set to $N=96$ grid points and
 the ending time was set to $T_{\text{end}}=1600$.
 The main parameters of the simulation are  given by
@@ -93,9 +94,9 @@ The main parameters of the simulation are  given by
 \begin{center}
 \vspace*{0.7ex}
 \begin{tabular}{c|c|c|c|c|c|c|c }
- $ N  $                   & $\Delta t$ & $\Delta x$            & $\Rey$  & $c^2$   & $l_y, l_z$ &$r_0$ & $T_{end}$\\
+ $ N  $                   & $\Delta t$ & $\Delta x$            & $\Rey$  & $c^2$   & $l_y, l_z, l_x $ &$r_0$ & $T_{end}$\\
 \hline
- $96 $& $10^{-4}$ & $\nicefrac{1}{N}$ & 500     & $500$   & (2.5, 2.5)  & 1     & 10\\
+ $96 $& $10^{-4}$ & $\nicefrac{1}{N}$ & 100     & $100$   & 2.5, 2.5, $8\Delta y $ & 1     & 1600\\
 \end{tabular}
 \vspace*{0.7ex}
 \end{center}
@@ -111,9 +112,9 @@ For a better overview the results are distributed into four plots.
 For all methods (except IP+DF-FD4) an approximately linear decrease in the double logarithmic space can be observed.
 
 In Fig. \ref{vali:hp_flow_gc_vp} the relative $l_2$-error is shown for different VP-methods.
-For the default VP-method with FD2 and FD4 the error converges rate is about $\lambda=1.17$,
-the FD4 has a slightly smaller error than the FD2 method..
-The optional use of the VF-method improves the error converges to about $\lambda=1.65$,
+For the default VP-method with FD2 and FD4 the error convergence rate is about $\lambda=1.17$,
+the FD4 has a slightly smaller error than the FD2 method.
+The optional use of the VF-method improves the error convergence is to about $\lambda=1.65$,
 here the FD2 method has a slightly smaller error.
 It can be noted that the overall error is smaller ($\approx 10^{-2}$ for $N=100$)
 when using the VP-VF-method in comparison to the VP-method ($\approx2\cdot 10^{-2}$ for $N=100$)
@@ -122,39 +123,41 @@ In Fig. \ref{vali:hp_flow_gc_df} the relative $l_2$-error is shown for different
 For the default DF-method with FD2 and FD4 the error convergence rate is about $\lambda=1.2$,
 again FD4 has a smaller error than FD2.
 The optional use of the VF-method improves the error convergence to about $\lambda=1.4$,
-which is worse in comparison to the VP-method. The FD2 method has a smaller error then FD4 method when using VF.
+which is worse in comparison to the VP-method. The FD2 method has a smaller error than the FD4 method when using VF.
 The overall error is smaller ($\approx 1.5 \cdot 10^{-2}$ for $N=100$) for the DF-VF-method,
 in comparsion to the DF-method ($\approx2\cdot 10^{-2}$ for $N=100$)
 
 In Fig. \ref{vali:hp_flow_gc_ip} the relative $l_2$-error is shown for different IP-methods.
-For the IP-FD4 method the decay rate is about $1.4$.
-For the IP-FD2 and IP+DF-FD2 method the errors are identical, the decay rate is about $2.4$
+For the IP-FD4 method the decay rate is about $\lambda=1.4$.
+For the IP-FD2 and IP+DF-FD2 method the errors are identical, the decay rate is about $\lambda=2.4$
 The IP+DF-FD4 method is numerically not stable and therefore not shown.
-From the interpolation methods the IP-o2 method gives the smallest error  ($\approx 5 \cdot 10^{-5}$ for $N=100$).
+From the interpolation methods the IP-FD2 method gives the smallest error  ($\approx 5 \cdot 10^{-5}$ for $N=100$).
 
 Finally Fig. \ref{vali:hp_flow_gc_all} shows the methods  with the best convergence
 rates from the different DF, VP and IP methods in one plot.
-In summary it can be said that the overall convergence rate of the IP-FD2-method is of one order better
+In summary, it can be said that the overall convergence rate of the IP-FD2-method is of one order better
 than the VP-VF and DF-VF methods. The relative error of the interpolation method ranges
 between one and two order of magnitudes below all other methods, depending on the resolution.
 
 \begin{figure}[!bp]
-  \begin{minipage}[c]{0.5\textwidth}
+  \begin{minipage}[c]{0.45\textwidth}
       \includegraphics{gfx/immersed_boundary/hpflow/theo/vp.pdf}
       \caption{\label{vali:hp_flow_gc_vp}
           Relative $l_2$-error for different Volume-Penalization methods.}
   \end{minipage}
-  \begin{minipage}[c]{0.5\textwidth}
+  \hfill
+  \begin{minipage}[c]{0.45\textwidth}
       \includegraphics{gfx/immersed_boundary/hpflow/theo/df.pdf}
       \caption{\label{vali:hp_flow_gc_df}
           Relative $l_2$-error for different Direct-Forcing methods.}
   \end{minipage}
-  \begin{minipage}[c]{0.5\textwidth}
+  \begin{minipage}[c]{0.45\textwidth}
       \includegraphics{gfx/immersed_boundary/hpflow/theo/ip.pdf}
       \caption{\label{vali:hp_flow_gc_ip}
           Relative $l_2$-error for different Interpolation methods.}
   \end{minipage}
-  \begin{minipage}[c]{0.5\textwidth}
+  \hfill
+  \begin{minipage}[c]{0.45\textwidth}
       \includegraphics{gfx/immersed_boundary/hpflow/theo/all.pdf}
       \caption{\label{vali:hp_flow_gc_all}
           Relative $l_2$-error for the methods with the smallest error in comparsion.}
@@ -163,39 +166,40 @@ between one and two order of magnitudes below all other methods, depending on th
 
 \subsubsection{Long-Term Simulations}
 
-The long-term simulations were performed in order to test the numerical-stability and the conservation of mass.
-For all methods, except the IP-DF4 method, these simulation were numerically stable.
-The density was averaged of the fluid domain by
+The long-term simulations were performed in order to test the numerical stability and the conservation of mass.
+For all methods, except the IP-DF4 method, these simulations were numerically stable.
+The density was averaged over the fluid domain by
 
 \begin{align}
     \label{vali:density_calc}
-    \left<\rho(t)\right> \frac{\int_V \dif V \rho(x,y,z)}{\int_V \dif V} =
-    \frac{1}{N}\left(\sum_{i,j,k}^{N_x, N_y, N_z} \rho_{i,j,k}\right)
+    \left<\rho(t)\right> = \frac{\int_V \dif V \rho(x,y,z)}{\int_V \dif V} =
+    \frac{1}{N}\left(\sum_{i,j,k}^{N_x, N_y, N_z} \rho_{i,j,k}\right).
 \end{align}
 
 
 For all FD2 methods the averaged density is zero, which indicates that the total mass flux through the
 fluid domain boundaries is zero.
 It can be seen that for all FD4 methods oscillations in the density emerge.
-This is exemplariliy shown in Fig.  \ref{hpflow:results_long_ts} for the DF-VF-FD4 method.
-The profile of the other DF4 methods of is shown in Appendix \ref{fig:hpflow_allgc_theo}.
+This is exemplarily shown in Fig.  \ref{hpflow:results_long_ts} for the VP-VF-FD4 method.
+The profiles of the other FD4 methods are shown in Appendix \ref{fig:hpflow_allgc_theo}.
 
-Finally in Fig. \ref{hpflow:results_long_example} the averaged density with respect to the simulation time is, shown for the
+Finally in Fig. \ref{hpflow:results_long_example} the averaged density with respect to the simulation time is shown for the
 FD4 methods.  For the VP and DF methods the density increases to above $5\cdot10^{-5}$.
-The VF methods have a decrease in the density, which is remains of the order $10^{-4}$.
+The VF methods have a decrease in the density, which remains within the order $10^{-4}$.
 For all FD4 methods the change in the averaged density is followed by a saturation.
 
 \begin{figure}[!bp]
-  \begin{minipage}[c]{0.5\textwidth}
+  \begin{minipage}[c]{0.45\textwidth}
       \includegraphics{gfx/immersed_boundary/hpflow/long/ts.pdf}
       \caption{\label{hpflow:results_long_ts}
-            Averaged density for FD4 metdods with respect to the simulation time.
+            Averaged density for FD4 methods with respect to the simulation time.
           }
   \end{minipage}
-  \begin{minipage}[c]{0.5\textwidth}
+  \hfill
+  \begin{minipage}[c]{0.45\textwidth}
       \includegraphics{gfx/immersed_boundary/hpflow/long/example.pdf}
       \caption{\label{hpflow:results_long_example}
-        Density in the (y, z) plane, at $T_{\text{end}}=1600$, for the DF-VP-FD2 method.
+        Density in the (y, z) plane, at $T_{\text{end}}=1600$, for the VP-VF-FD4 method.
       }
   \end{minipage}
 \end{figure}
@@ -220,48 +224,50 @@ For all FD4 methods the change in the averaged density is followed by a saturati
 
 The simulation of the Hagen-Poisseuille flow points out multiple numerical problems of the
 implementations.
-The first which shall be consider, is the error in the IP method.
+The first which shall be considered is the error in the IP method.
 
-The IP-FD4 methods contains an error which is about one to two orders larger in comparison to the  IP-FD2 method.
-Fig.\ref{valid:hpflow_velodiff_discussion} shows the substracted velocity profiles for the IP-FD4 and FD2 method in the $(y, z)$-plane.
-It can be noted that the velocity differences inside of the fluid domain is small, but large in the wall region.
+The IP-FD4 method contains an error which is about one to two orders larger in comparison to the  IP-FD2 method.
+Fig.\ref{valid:hpflow_velodiff_discussion} shows the subtracted velocity profiles for the IP-FD4 and FD2 method in the $(y, z)$-plane.
+It can be noted that the velocity differences inside of the fluid domain are small, but large in the wall region.
 Especially close to the immersed boundary the difference  is of order $10^{-2}$.
 
-One explanation for this results is the use of a different stencil for the FD4 scheme.
+One explanation for this result is the use of a different stencil for the FD4 scheme.
 The 5-Point stencil reaches over the domain boundaries an incorporates errors by a false approximation, similar to the Poiseuille flow.
 This is not a problem for the FD2 method due to the use of a 3-Point stencil.
-The motivation of the combination of IP and DF method, was to set the velocities in the wall region to zero,
-however the computation is numerical unstable.
-One assumption is that this instability is created by the density which still interpolates over the domain boundaries.
-The only case were the wall in fluid domain are decoupled are the FD2 methods.
+The motivation of the combination of IP and DF methods was to set the velocities in the wall region to zero,
+however the computation is numerically unstable.
+One assumption is that this instability is created by the density which is interpolated over the domain boundaries.
+The only case were the wall and the fluid domain are decoupled are the FD2 methods.
 Therefore no difference between the IP-FD2 and the IP+DF-FD2 method can be observed.
 An additional attempt was made to interpolate the density at the border according to \citep{Gilmanov2003}.
-The results are not presented in this thesis, since it turns out that the computation is numerical unstable.
+The results are not presented in this thesis, since it turns out that the computation is numerically unstable.
 
 The second problem concerning this numerical implementation, are the density oscillations
 which occur for the FD4 methods.
 One possible explanation for this behaviour might be the odd-even decoupling of the density.
-The numercial change in the density is  proportional to
+The numercial change in the density is  proportional to \footnote{o.t. = other terms}
+
 
 \begin{align}
     \frac{\rho^{j+1}_{i} -  \rho^{j}_i}{\Delta t}  \propto \frac{ v^j_{i+1} - v^j_{i-1}}{\Delta x} + \text{o.t.}
      \propto \frac{\rho^{j-1}_{i+2} - 2 \rho^{j-1}_{i}  + \rho^{j-1}_{i-2}}{\Delta x^2} + \text{o. t.}
 \end{align}
 
-for the one-dimenisonial case and a FD2 method.\footnote{o.t. = other terms}
-This means that the density field is implicit coupled over the velocity to itself,
+where $j$ is the time step and $i$ a grid point. Here the one-dimensional case is considered with an FD2 discretization and an explicit Euler step in time.
+This means that the density field is implicitly coupled over the velocity to itself,
 but neighbor points are independent of each other.\footnote{This example also holds for the FD4 method}
-For the three dimensional space six decoupled pressure fields would be possible.
-From the theory it is known that $\partial_t \rho  = \nabla \vec{v} =  0$, which is true for the FD2 case.
+For the three dimensional setup six decoupled pressure fields would be possible.
+From the artificial continuity equation (see Sec. \ref{num:sec_articomp})
+it is known that $\partial_t \rho  = \nabla \vec{v} =  0$, which is true for the FD2 case.
 The oscillation could be a result of the  wrong computation due to the use of a 5-Point stencil at the boundaries.
-Due to the decoupling the computed error evolves different on decoupled pressure fields.
+Due to the decoupling the computed error evolves differently on the decoupled pressure fields.
 %One one pressure field i.e. more errors are computed due to the overlap with the boundarie
 %than for another field.
 %for the points where the 5-Point stencil reaches over the domain bounday.
 %Due to the odd-even decoupling the computed error is different in the grids .
 %Overall the oscillation are small and therefore not yet a concern
 
-Finally a comparsion of the error shall be given.
+Finally a comparison of the error shall be given.
 In \citep{Fadlun2000} the DF method was tested with and without the VF method.
 Furthermore a linear interpolation method, similar to the IP method was used.
 As a test case the formation of a vortex ring behind a curvilinear noozle was tested.
@@ -269,14 +275,14 @@ The results show that for the DF method the error converges below first order, b
 improved with the VF method to about first order convergence.
 The interpolation method is about second order accurate.
 For all methods the error is of order $10^{-2}$ at $N=100$.
-This results for the IP-method are in argrement with this thesis, however here the DF-method has a better convergence rate of first order and
+This result for the IP-method is in argreement with this thesis, however here the DF-method has a better convergence rate of first order and
 the additional use of the VF method has a smaller influence.
 
 A validation of the IP method can be found in \citep{Gilmanov2003}, \citep{Gilmanov2005}.
 In \citep{Gilmanov2003} the IP method is tested by the steady flow in a lid-driven cavity containing a sphere, the error convergence of order $1.74$.
 In  \citep{Gilmanov2005} a flow caused by an oscillating sphere in a cavitiy is studied, with an error convergence of order $1.77$.
-In this thesis the IP-FD2 method has a convergence rate about $2.35$, above second order, which is slighty better in comparsion to these validations.
-One reason for this could the lack of complextiy in the Hagen-Poiseuille flow, as the theoretical solution is a polynom of second order.
+In this thesis the IP-FD2 method has a convergence rate about $2.35$, above second order, which is slightly better in comparison to these validations.
+One reason for this could be the lack of complexity in the Hagen-Poiseuille flow, as the theoretical solution is a polynom of second order.
 
 
 

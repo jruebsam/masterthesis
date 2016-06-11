@@ -38,6 +38,8 @@ def main():
     plt.ylim(-0.00002, 0.00002)
 
     plt.xlabel('Grid points')
+    plt.xticks([])
+    plt.yticks([])
     plt.ylabel(r'Velocity $ v_x$')
     plt.legend(loc=3, fontsize=7)
     #ax.xaxis.tick_top()

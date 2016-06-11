@@ -39,7 +39,7 @@ def main():
         sim_path = os.path.join(dpath, os.path.dirname(__file__), "data", var_path)
         d = np.genfromtxt(os.path.join(sim_path , on +'.ekin'))
 
-        ax.plot(d[:, 0], d[:, 3], label=label+ ' ' + on , lw=0.8)
+        ax.plot(d[:, 0], d[:, 3], label=label+ ' ' + 'FD4' , lw=0.8)
 
 
     ax.legend(ncol = 2, fontsize=8, loc='lower left', fancybox=True, shadow=True)
