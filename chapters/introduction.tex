@@ -35,42 +35,36 @@ since the boundaries of the fluid domain  do not coincide with the grid points.
 \bigbreak
 
 The first goal of this master thesis is to extend the existing GPU algorithm
-in order to enable the simulation of flows in complex-shaped geometries.
-It would be possible to use  unstructured or body conforming grids
-but the parallelization on a GPU is difficult.
-On a GPU a regular and homogenous memory access is required to enable a high memory bandwith \citep{CUDABP},
-which is difficult to realize for these grid types.
-Additional computational overhead is a result from the grid generation and
-further computations for a single grid point are necessary to obtain numerical approximations on curvilinear coordinates.
-Hence, the objective is to use a set of methods which retain the speed of the original GPU algorithm.
+in order to enable the simulation of fluid flows in complex-shaped geometries.
+The use of unstructured or body conforming grids is difficult to implement,
+since on a GPU a regular and homogenous memory access is required to enable a high memory bandwith \citep{CUDABP}.
+Hence, the objective is to use a set of methods which retain the speed of the original GPU algorithm and use a cartesion grid.
 
-This requirement is fulfilled by Immersed Boundary methods which are a common
-approach to perform simulations of complex-shaped geometries using cartesian grids.
+This requirement is fulfilled by Immersed Boundary methods.
 An overview of these methods is given in \citep{Mittal2005}, \citep{Gornak2013}.
 The concept behind these methods is the embedding of the curved boundary into the cartesian grid
 by using additional forcing terms and interpolation methods at the boundaries.
 Certain Immersed Boundary methods use a continous forcing approach where the boundarie is approximated by lagrangian points,
-and the forcing term acts over multiple grid points \citep{Mittal2005}, a
+and the forcing term acts over multiple grid points \citep{Mittal2005},
 similiar approach is given by the Volume-Penaliztaion method \citep{Lulff2011}.
 Direct forcing approaches exist where the boundary conditions are obtained by setting the
 velocity values directly at the nearest points to the boundary \citep{Fadlun2000}.
 A bilinear interpolated version of the Direct Forcing approach is used in \citep{Gornak2013},
 which was furthermore extended to work on a GPU \citep{DeLeon2012}.
-
-In this thesis different Immersed Boundary methods will be introduced and validated
-by different test cases to ensure a
-The methods will be implemented and tested for diffent validation test cases.
+In this thesis different Immersed Boundary methods will be introduced, implemented and
+validated by different test cases.
 
 \bigbreak
 
-The second goal of this master thesis is to perform a numerical study on a rotating system.
-The system is given by a librating cone
+The second goal of this master thesis is to perform a numerical study on a rotating system in order
+to test the implemented methods on a physical more releveant example.
 
-In the second part of the thesis the extended algorithm will be used for the simulation of a librating cone.
-In this system inertial waves are excited by a modulation of the rotation rate.
-An theoretical and experimantal studies are available for a comparison \citep{Sauret2012}, \citep{Beardsley1970}, \citep{Greenspan1969}.
+The system is given by a rotating cone whose rotation rate is modulated in order to excite inertial waves.
+An experimental study of this system shows that the apex of the cone acts as an attractor to inertial waves.
+By inserting a bottom plate into the cone  -> inertial modes
 
--idea reflection and turbulence evtl dynamo studies
+\citep{Beardsley1970}.
+
 
 \bigbreak
 
