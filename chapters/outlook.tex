@@ -14,16 +14,16 @@ For possible future applications it would be important to find and eliminate the
 
 The Immersed Boundary methods introduced in this thesis were used to satisfy No-Slip boundaries, however
 in many scenarios it is necessary to use No-Flux and Free-Slip boundaries.
-One example is the Rayleigh-B\'{e}nard system,
-in this system a fluid in a cubic or cylindric container is heated from below and cooled from above.
+One example is the Rayleigh-B\'{e}nard system.
+In this system a fluid in a cubic or cylindric container is heated from below and cooled from above.
 The resulting heat transport is purely diffusive for small temperature gradients and
 becomes convective for large temperature gradients above a critical instability.
 For experiments and numerical simulations of this system adiabatic side walls are used \citep{Lulff2011}.
 
 A simple extension of the Volume-Penalization method was performed in \citep{Lulff2011},
 to enable No-Flux walls for the temperature, a inhomogeneous thermal diffusivity $\kappa (x, y, z)$ was introduced.
-By setting $\kappa(x, y, z) \ll 1$ in the boundary domain  a decent approximation of No-Flux walls \citep{Lulff2011} is achieved.
-An further improved version of the Volume-Penalization method for No-Flux walls can be found in \citep{Brown-Dymkoski2014}.
+By setting $\kappa(x, y, z) \ll 1$ in the boundary domain  a decent approximation of No-Flux walls  is achieved \citep{Lulff2011}.
+A further improved version of the Volume-Penalization method for No-Flux walls can be found in \citep{Brown-Dymkoski2014}.
 Here, the No-Flux boundaries are obtained by introducing a forcing term of the form
 
 \begin{align}
@@ -60,7 +60,7 @@ A common approach to avoid this is the use of a staggered grid, where the veloci
 are stored on the cell faces and the scalar fields in the cell center.
 
 Alternatively, different methods exist for pressure-based solvers where the pressure is interpolated to the cell faces.
-One popular method in particular is the Rhie-Chow interpolation \citep{uiae},
+One popular method in particular is the Rhie-Chow interpolation \citep{Rhie1983},
 different improvements of this method can be found in literature that could be used for a future implementation.
 
 It could be of further interest to implement an unstructured cartesian grid into the GPU algorithm.
@@ -75,7 +75,7 @@ An experimental study of these systems is in discussion as a possible future res
 A possible experimental setup is already in development.
 It contains a rotating table, which can be controlled over a serial interface to enable different angular velocities and acceleration rates.
 A camera module is integrated into the rotating frame and could be used for the computation
-of the velocity files with a PIV\footnote{Particle Image Velocimetry  - see for example \citep{CTIE} }
+of the velocity files with a PIV\footnote{Particle Image Velocimetry}
 method.
 With this setup it would be possible to validate the numerical results of this thesis.
 Furthermore different excitation mechanism of inertial waves could be studied.
