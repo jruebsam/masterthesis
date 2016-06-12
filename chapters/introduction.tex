@@ -1,10 +1,14 @@
-\chapter{Introduction}
--introduction
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
 
-In geophysics the study of rotating flows is of particular importance.
-The flow in a rotating fluid exhibits characterics properties as a result of the coriolis force.
-In these systems physical solutions are of the form of inertial waves
-that are created by a perturbation of the stratisfied angular momentum of the fluid.
+Fluid flows play an important role in the study of geophysical systems.
+Of particlar interest are the flows on large scales in the oceans
+and the atmosphere.
+Rotating and convection driven flows in the core of the earth are a potential mechanism
+for magnetic field generation, which is subject to current research.
+
+The flow in a rotating fluids exhibits characterics properties resulting from the coriolis force,
+physical solutions are of the form of inertial waves.
 Numerical \citep{Sauret2012}, \citep{Duguet} and experimental studies \citep{QUOTE} of inertial waves in rotating cylinders were performed.
 Inertial oscillations in spherical shells were investigated in \citep{Tilgner1999}.
 A further extension of these fluids systems is given by a coupling to magnetic fields.
@@ -12,32 +16,27 @@ The resulting equations are used for the study of dynamos, i.e. the magnetic fie
 Numerical studies of precession driven dynamos can be found in \citep{Tilgner2005},\citep{Tilgner2007a},
 rotating and convection driven dynamos were studied in \citep{Tilgner2012}.
 An on going experimental research project is the DRESDYN dynamo \citep{Stefani2015}.
+
+
 In the fluid dynamics research group of the institute for geophysics
 a recent development is the numerical simulation of such fluid flows using GPU optimized algorithms.
 
 The use of GPUs for scientific computing has become increasingly popular in the last years.
-A vast number of applications  can obtain a massive speed-up with the use of GPUs.
-High oriented frameworks like the NVIDIA CUDA API simplify the creation
+A vast number of applications  can obtain a massive speed-up with the use of GPUs and
+high oriented frameworks like the NVIDIA CUDA API simplify the creation
 and maintance of parallelized algorithms.
-For example machine learning algorithms are easy to parallelize and to implement on a GPU.
+
+
+
+
+-the algorithm problem
+
 However, the parallelization of CFD algorithms can become a complex task.
 On a GPU a regular and homogenous memory access is required to enable a high memory bandwith \citep{CUDABP}.
 For curved geometries the numerical solution of CFD problems is often performed
 on unstructured  or structured but body conforming grids \citep{Mittal2005}.
 As a result the access to memory locations is heterogenous.
 Adjacent memory cells are not accessed successively.
-
-Immersed Boundary methods are a common approach to perform simulations of curved geometries, using cartesian grids.
-An overview of these methods is given in \citep{Mittal2005}, \citep{Gornak2013}.
-The concept behind this methods is the embedding of the curved boundary into the cartesian grid
-by using additional forcing terms and intepolation methods at the boundaries.
-Certain Immersed Boundary methods use a continous forcing approach where the boundarie is approximated by lagrangian points,
-and the forcing term acts over multiple grid points \citep{Mittal2005}, a
-similiar approach is given by the Volume-Penaliztaion method \citep{Lulff2011}.
-Direct forcing approaches exist where the boundary conditions is obtained by setting the
-velocities values directly at the nearest points to the boundary \citep{Fadlun2000}.
-A bilinear interpolated version of the Direct Forcing approach is used in \citep{Gornak2013},
-which was furthermore extended to work on a GPU \citep{DeLeon2012}.
 
 
 The current GPU implementation of the algorithm used in the research group is not suitable
@@ -53,25 +52,36 @@ An theoretical and experimantal studies are available for a comparison \citep{Sa
 
 -idea reflection and turbulence evtl dynamo studies
 
+
+Immersed Boundary methods are a common approach to perform simulations of curved geometries, using cartesian grids.
+An overview of these methods is given in \citep{Mittal2005}, \citep{Gornak2013}.
+The concept behind this methods is the embedding of the curved boundary into the cartesian grid
+by using additional forcing terms and intepolation methods at the boundaries.
+Certain Immersed Boundary methods use a continous forcing approach where the boundarie is approximated by lagrangian points,
+and the forcing term acts over multiple grid points \citep{Mittal2005}, a
+similiar approach is given by the Volume-Penaliztaion method \citep{Lulff2011}.
+Direct forcing approaches exist where the boundary conditions is obtained by setting the
+velocities values directly at the nearest points to the boundary \citep{Fadlun2000}.
+A bilinear interpolated version of the Direct Forcing approach is used in \citep{Gornak2013},
+which was furthermore extended to work on a GPU \citep{DeLeon2012}.
+
+
+
 \bigbreak
 
-The content of this  master thesis is can be categorized into three  parts.
-The first part is given by the  chapters \RN{1} to \RN{3}
-In the first chapter an introduction to the theoretical concepts is given.
-This includes a description of the Navier-Stokes equations and the properties of fluid flows in rotating systems.
-The second chapter introduces the numerical methods, in particular the use of finite difference methods.
-Furthermore numerical stability criterions and the method of artifical incompressibility is introduced.
-In the last chapter of this part an overview over the default implemented GPU algorithm will be given.
+The content of this thesis is seperated into the following chapters
+\begin{description}
+\item[Chapter 1] An introduction to the theoretical concepts is given.  This includes a description of the Navier-Stokes equations
+                    and the properties of fluid flows in rotating systems.
+\item[Chapter 2] This capter introduces the numerical methods, in particular the use of finite difference methods,
+                    numerical stability criteria and the method of artifical incompressibility is introduced.
+\item[Chapter 3] This chapter presenfts the implemention of a finitite difference  algorithm on GPU
 
-The second part is given by the chapters \RN{4} to \RN{5}
-This part introduces the Immersed Boundar Methods in chapter \RN{4}.
-For a validation of these methods different validaion test cases will be introduced in chapter \RN{5}.
-A laminar Poiseuille flow, Hagen-Poiseuille flow and the Taylor-Couette system.
+\item[Chapter 4] An introduction to  the Immersed Boundary methods used in this thesis will be given, followed by
+                 the numerical validation with different test cases
 
-The third part of this thesis is chapter \RN{5}.
-In this chapter
--librating cylinder
--librating cone and frustum
+\item[Chapter 5] The results of simulations in a librating cylinder, a librating cone and frustum will be presented and discussed
+\end{description}
 
 %The first obective can  be described as fallow
 %- combine the use of gpu with ibm to enable simulation of curved geometries on a gpu
