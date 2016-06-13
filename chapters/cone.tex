@@ -333,15 +333,15 @@ For the discretization of the rotation operator, a central difference scheme of 
 \label{cone:sec:lib_cylinder}
 
 As a first step towards the implementation of the librating cone, simulations of fluid flow in a librating cylinder were carried out.
-Despite the theoretical and experimental results we discussed so far,
+Despite the theoretical and experimental results which are discussed so far,
 it is difficult to find results in literature which would be suitable for an appropriate validation for the cone.
-For the cylinder on the other hand, theoretical and numerical results are available \citep{Greenspan1990}, \citep{Sauret2012}.\\
+For the cylinder otherwise, theoretical and numerical results are available \citep{Greenspan1990, Sauret2012}.\\
 The theoretical solution for the inviscid case was introduced in Sec. \ref{theorie:rotating:cyl_modes}.
 Due to the excitation by libration the possible observable modes have to be axially symmetric, meaning the azimuthal wavenumber is zero.
-All possible modes are therefore defined by the indices $(n, m)$, corresponding to the radial and axial wavenumber.\\
+Therefore, all possible modes are defined by the indices $(n, m)$, corresponding to the radial and axial wavenumber.\\
 The simulations were performed with a librating cylinder, of aspect ratio $\Gamma=r/H=\nicefrac{0.5}{1.1}$
-\footnote{Due to a misunderstanding the aspect ratio of the cylinder was set to $\Gamma=r/H=\nicefrac{0.5}{1.1}$ instead of $\frac{1}{2}$.}
-, and a varying libration frequency.
+\footnote{Due to a misunderstanding the aspect ratio of the cylinder was set to $\Gamma=r/H=\nicefrac{0.5}{1.1}$ instead of $\frac{1}{2}$.},
+and a varying libration frequency.
 The main simulation parameters are given by
 
 
@@ -364,7 +364,7 @@ The results are presented and discussed separately in comparison to the results 
 \subsection{Results}
 \subsubsection{Frequency Spectrum}
 
-For all simulations, the kinetic energy of the $z$-component of the velocity was computed.
+For all simulations the kinetic energy of the $z$-component of the velocity was computed.
 The results for the computation of the amplitude $A\left(\left<v_z^3\right>\right)$, in dependcy of the libration
 frequency are shown in Fig. \ref{fig:cone:cyl}.
 All IB methods show a similar profile.
@@ -372,7 +372,7 @@ The largest amplitude deviations can be spotted at a frequency of $\omega=1.2$ a
 It can be noted that at this position the largest resonance M\RN{1} occurs which is about $3.5\cdot10^{-2}$.
 Two other resonances can be observed at $\omega=0.75$ (M\RN{2}) and $\omega\approx1.7$ (M\RN{2}), which are
 about ${\approx1.3\cdot10^{-2}}$.
-To make the deviations between the methods more visible, two inset plots which are
+To make the deviations between the methods more visible two inset plots, which are
 set to the location $\omega=0.8$ and $\omega=1.0$., are shown.
 For both positions, the largest amplitude is given by the Direct-Forcing method of second order, followed by
 the Volume-Penalization method of second and fourth order.
@@ -388,17 +388,19 @@ The results are shown in Table \ref{cone_cyleigenvalues}.
 There are four possible candidates,  which could correspond to the peaks in the spectrum.
 The largest peak at M\RN{1} is close to the eigenvalues of the (2, 1) and (4, 2) mode.
 The left peak  M\RN{2} could be related to the (2, 2) mode,  whereas the peak on the right side M\RN{3} is close to the eigenvalue of the (4, 1) mode.
-The eigenvalues for uneven $n$ are not considered. Due to the excitation by libration,  only azimuthal velocity fields which are even,
-in relation to the plane $z=H/2$ are possible \citep{Sauret2012}.
+The eigenvalues for uneven $n$ are not considered. Due to the excitation by libration only azimuthal velocity fields are possible, which are even
+in relation to the plane $z=H/2$ \citep{Sauret2012}.
 \footnote{An uneven pressure gradient from the theoretical solution results in an even velocity field.}
-Furthermore we are not considering modes with $m\geq2$. These modes are not even visible at an Ekman number of $5\cdot10^{-5}$,
-due to viscous damping of large wave numbers, according to \citep{Sauret2012}.\\
+Furthermore we are not considering modes with $m\geq2$.
+According to \citep{Sauret2012}, these modes are not visible at an Ekman number of $5\cdot10^{-5}$ as a
+result of the viscous damping at large wave numbers.
+
 A further comparison was done by computing the eigenmodes for the possible (n, m) values of M\RN{1}, M\RN{2} and M\RN{3}.
 The results are shown in Fig. \ref{cone:cyl_modes}.
-The assumed (4, 2) mode is not shown since the profiles do not match.
+The assumed mode (4, 2) is not shown since the profiles do not match.
 The theoretical solution yields the pressure field of the inertial mode.
 Since this quantity is not directly accessible from the simulation results,
-the absolute velocity in $z$-direction, integrated over the simulation time, is computed.
+the absolute velocity in $z$-direction integrated over the simulation time is computed.
 This expression should be proportional to the theoretical pressure gradient in $z$-direction.
 With exception of the sign, which is eliminated by taking the absolute value of $v_z$.
 \clearpage

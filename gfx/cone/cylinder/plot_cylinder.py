@@ -67,7 +67,7 @@ def main():
 
 
     modes = list(it.product(['df', 'vp', 'dffrac', 'vpfrac'], [1, 0]))
-    labels = list(it.product(['DF', 'VP', 'DF-Vol.Frac.', 'VP-Vol.Frac'], ['o2', 'o4']))
+    labels = list(it.product(['DF', 'VP', 'DF-Vol.Frac.', 'VP-Vol.Frac'], ['FD2', 'FD4']))
 
     labels = [' '.join([x[0], x[1]]) for x in labels]
 
@@ -78,6 +78,7 @@ def main():
 
     for idx, ((method, order), label) in enumerate(zip(modes, labels)):
         on = 'o2' if order else 'o4'
+        onn = 'FD2' if on=='o2' else 'FD4'
         a_ekin, a_vz, a_vphi = [], [], []
         omgs = []
         omgfs = np.arange(0.2, 2.1, 0.1)
