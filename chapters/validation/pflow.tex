@@ -9,14 +9,14 @@
 %In the second part of the chapter the result for the different test cases will be presented and discussed.
 %In the first part of the chapter an introduction to different test cases
 %will be given.
-This section presents the numerical validation of the immersed boundary methods.
+This section presents the numerical validation of the Immersed Boundary methods.
 The objective of the validation is to determine the numerical accuracy and
 the numerical stability for each method.
 Furthermore, it is important to test if conservation laws, in particular the conservation of mass,
 are fulfilled.
 For the validation three different test problems were chosen.
-The flow between two parallel planes, also known as planar Poiseuille flow, the flow in a Pipe, referred to as Hagen-Poiseuille flow and the flow
-between two rotating cylinders, known as the Taylor-Couette system.
+The flow between two parallel planes which is also known as planar Poiseuille flow, the flow in a Pipe which is referred to as Hagen-Poiseuille flow and the flow
+between two rotating cylinders which is known as the Taylor-Couette system.
 
 \paragraph{Conventions}\mbox{}\\
 
@@ -34,14 +34,14 @@ In this section the following abbreviations will be used
 \end{multicols}
 
 For example, DF-VF FD2 method, refers to the Direct-Forcing method, extended with the Volume-Fraction
-method and the use of 2nd order finite difference schemes.
+method and the use of second order finite difference schemes.
 
 \paragraph{Grid Convergence Studys}\mbox{}\\
 
 For the validation multiple grid convergence studys were performed.
 The concept of a grid convergence study is to vary the grid resolution of the numerical domain and
 calculate the error of the simulation with respect to an assumed theoretical solution.
-The relative error $\epsilon$ is computed by the $l_2$-norm by (see \citep{QUELLE})
+The relative error $\epsilon$ is computed by the $l_2$-norm by
 
 \begin{align}
     \epsilon = \frac{\int \dif V \left(\Phi^{\text{th}} - \Phi^{\text{num}}\right)^2}{\int \dif V \left( \Phi^{\text{th}} \right)^2}
@@ -51,9 +51,9 @@ The relative error $\epsilon$ is computed by the $l_2$-norm by (see \citep{QUELL
  \end{align}
 
 where $\Phi^{\text{th}}$ corresponds to the theoretical and $\Phi^{\text{num}}$ to the numerical solution of any field variable $\Phi$.
-The numerical error is often given by a power law of the form $\epsilon = N^\lambda$, i.e for a finite difference scheme of 2nd order
-this is the truncation error given by the remaining terms  of the taylor expansion.
-For an evaluation of the error convergence the results of the grid convergence study are, if possible, linear fitted in the log-log space, to obtain the
+Often the numerical error is given by a power law of the form $\epsilon = N^\lambda$, i.e. for a finite difference scheme of second order
+this is the truncation error given by the remaining terms  of the Taylor expansion.
+For an evaluation of the error convergence the results of the grid convergence study are, if possible, fitted linearly in the log-log space, to obtain the
 convergence rate $\lambda$.
 
 %In general it is necessary to obtain a good evaluation of the numerical truncation error,
@@ -84,14 +84,14 @@ convergence rate $\lambda$.
 
 The numerical setup of this test case is presented in Fig. \ref{validation:setup_pf}.
 It consist of two infinite extending  planes at $z=h_1$ and $z=h_2$, which are oriented
-parallel to the xy-plane, at a distance $\Delta h = h_2 - h_1$.
-A infinite long channel is numerically realized by using periodic boundaries in x- and y-direction.
+parallel to the xy-plane, with a distance $\Delta h = h_2 - h_1$.
+An infinite long channel is numerically realized by using periodic boundaries in x- and y-direction.
 For the walls immersed boundaries, or in case of the default algorithm No-Slip boundaries, are used.
 The fluid flow in the channel is a result from a predefined constant pressure gradient $\nicefrac{\partial p}{\partial x}$
 in the fluid domain.
 In the implementation this pressure gradient is added into the Navier-Stokes equation as an additional forcing term.
 For the steady state the flow is independent of the $x$ and $y$ coordinate.
-The equations of motion, here in the non-dimensional form, are according to \citep{Kundu2012} given by
+According to \citep{Kundu2012}, the equations of motion, here in the non-dimensionalized form, are given by
 
 \begin{align}
     \label{vali:pflow_navstok}
@@ -127,12 +127,12 @@ with the definition $A:=\frac{1}{2}\frac{\partial p}{\partial x} Re$.
 The velocity is then given by the quadratic function
 \begin{align}
 \label{vali:pflow_theosol}
-v_x &= A(z^2 - z(h_1 + h_2) + h_1h_2)
+v_x &= A(z^2 - z(h_1 + h_2) + h_1h_2).
 \end{align}
 
 The maximum velocity and position are given by
 \begin{align}
-z_{\text{M}} &= \frac{h_1+h_2}{2} \wedge v_{\text{M}} = A\left(h_1h_2 - \frac{(h_1 + h_2)^2}{4}\right)
+z_{\text{M}} &= \frac{h_1+h_2}{2} \wedge v_{\text{M}} = A\left(h_1h_2 - \frac{(h_1 + h_2)^2}{4}\right).
 \end{align}
 
 Due to the non-dimensionalization it is necessary that $V_{\text{M}} \overset{!}{=}  1$.
@@ -153,7 +153,7 @@ for the VP, DF method  and the basic implementation.
 \subsubsection{Test of the Basic Algorithm}
 
 The purpose of the first simulation is to test  the basic
-implementation of the algorithm which does not use immersed boundaries.
+implementation of the algorithm which does not use Immersed Boundary methods.
 For the Poiseuille flow this is still possible since the geometry is non-curved
 and parallel to the cartesian grid. The heights for this setup are set to $h_1=0$ and $h_2=1$.
 A grid convergence test was performed with the main simulation parameters given by
@@ -180,13 +180,13 @@ The simulation was performed for FD2 and FD4 methods.
 %For the comparision with a theoretical solution it is necessary to ensure that
 % the surface grid points match with the total height $h$ of the channel.
 
-For the immersed boundary methods the upper and lower boundaries of the channel are realized by the masking function
+For the Immersed Boundary methods the upper and lower boundaries of the channel are realized by the masking function
 \begin{align}
 H(z) = \begin{cases}
                     0, & \text{for \  }  h_1 \leq z \leq h_2 \\
                     1, & \text{else}.
-             \end{cases}.
-\end{align}
+             \end{cases}
+\end{align}.
 
 For the VP-method an additional forcing term for Eq. \ref{vali:pflow_navstok} of the form
 
@@ -194,22 +194,22 @@ For the VP-method an additional forcing term for Eq. \ref{vali:pflow_navstok} of
     \vec{f} = -\frac{H}{J}\vec{v}
 \end{align}
 
-has to be introduced (see Sec. \ref{chap:ibm_volpen}),
-where the non-dimensionalized damping coefficient is given by $J = \nicefrac{V_{m}}{\eta}$.
-A first test is an investigation of the error of the velocity profile, with a variation of the Reynolds-number and the damping coefficient $J$.
+has to be introduced (see Sec. \ref{chap:ibm_volpen}).
+Where the non-dimensionalized damping coefficient is given by $J = \nicefrac{V_{m}}{\eta}$.
+A first test is an investigation of the error of the velocity profile, with a variation of the Reynolds number and the damping coefficient $J$.
 To ensure that the channel width is equal to $\Delta h = 1$, the total height of the simulation domain was set to $l_z\approx2.01587$,
 with $h_1=0.5$ and $h_2=1.5$.
 This ensures that the grid points overlap exactly with the masking function at $h_1$ and $h_2$.
 A simulation series was performed for the VP-FD2 method with the simulation parameters
 
 \begin{center}
-\vspace*{0.7ex}
-\begin{tabular}{c|c|c|c|c|c|c|c|c }
+\vspace*{0.5ex}
+\begin{tabular}{c|c|c|c|c|c|c|c }
  $ \Rey  $                      & $J$ & $N_z$ &  $\Delta t$ & $\Delta z$            & $c^2$   & $l_z, l_x/l_y$ & $T_{end}$\\
 \hline
  $[100, 500], \Delta \Rey = 25 $& $[10^{-5}, 5\cdot10^{-1}]  $ & 64 &  $10^{-4}$ & $\nicefrac{1}{N - 1}$   & $500$   & $\approx{2.015871}, 8\Delta z$ & 10\\
 \end{tabular}
-\vspace*{0.7ex}
+\vspace*{0.5ex}
 \end{center}
 
 The stepping of $J$ was varied such that each order of magnitude is covered by two values, i.e. $10^{-1}$ and $5\cdot10^{-1}$.
@@ -218,13 +218,13 @@ As a second test a grid convergence study was carried out with a constant Reynol
 where the resolution was varied between $N_z\in [8, 280]$ with $\Delta N_z = 8$. VP-FD2 and VP-FD4 methods were tested with the parameters
 
 \begin{center}
-\vspace*{0.7ex}
+\vspace*{0.5ex}
 \begin{tabular}{c|c|c|c|c|c|c|c }
  $ N_z  $                      & $J$ &  $\Delta t$ & $\Delta z$            & $\Rey$  & $c^2$   & $l_z, l_x/l_y$ & $T_{end}$\\
 \hline
  $[8, 280], \Delta N_z = 4 $& $[10^{-4}, 5\cdot10^{-2}]  $ &  $10^{-4}$ & $\nicefrac{1}{N - 1}$ & 500     & $500$   & $\approx{2.015871}, 8\Delta z$  & 10\\
 \end{tabular}
-\vspace*{0.7ex}
+\vspace*{0.5ex}
 \end{center}
 
 \subsubsection{Test of the Direct-Forcing Method}
@@ -233,16 +233,15 @@ Since the DF method does not depend on a damping coefficient (see Sec. \ref{chap
 it is sufficient enough to carry out a grid convergence study.  The simulation parameters are given by
 
 \begin{center}
-\vspace*{0.5ex}
+\vspace*{0.3ex}
 \begin{tabular}{c|c|c|c|c|c|c }
  $ N_z  $                       &  $\Delta t$ & $\Delta z$            & $\Rey$  & $c^2$   & $l_z, l_x/l_y$ & $T_{end}$\\
 \hline
  $[8, 280], \Delta N_z = 4 $ &  $10^{-4}$ & $\nicefrac{1}{N - 1}$ & 500     & $500$   & $\approx{2.015871}, 8\Delta z$  & 10\\
 \end{tabular}
-\vspace*{0.5ex}
+\vspace*{0.3ex}
 \end{center}
-
-The simulations were performed for FD2 and FD4 methods.
+The simulation was performed for FD2 and FD4 methods.
 
 \clearpage
 
@@ -257,9 +256,9 @@ On this scale, the FD4 has a linear decreasing error.
 For the smallest resolution $N=8$ the error is of order $10^{-3}$,
 in contrast to the highest resolution $N=256$ with an error of order $10^{-6}$.
 A convergence rate of the error  was computed  according to $\lambda\approx -2.26$.
-Hence, it can be said that the accuracy of the method is above 2nd order for this test case,
-which is is in contradiction with the theory assuming a 4th order.
-The error of the 2nd order finite difference scheme is of the order $10^{-8}$.
+Hence, it can be said that the accuracy of the method is above secnd order for this test case,
+which is in contradiction with the theory assuming a 4th order.
+The error of the second order finite difference scheme is of the order $10^{-8}$.
 The value is approximately constant and does not depend on the grid resolution.
 
 \begin{figure}[!bp]
@@ -270,12 +269,12 @@ The value is approximately constant and does not depend on the grid resolution.
 
 
 \subsubsection{Test of the Volume Penalization Method}
-,
-The first simulation was  a parameter study with variable Reynolds number and damping.
+
+The first simulation was  a parameter study with variable Reynolds number and damping coefficient.
 A first impression of the influence of the damping coefficient $J$ is given by the velocity profiles of the numerical solution.
-This is exemplarily shown in Fig. \ref{fig:vp_flow}, for varying $J$ and $Re=500$ .
-It can be noted that with an decrease of $J$, the numerical solution converges against the theoretical one.
-Furthermore it can be seen that the quadratic part of the velocity profile,
+For varying $J$ and $Re=500$, this is exemplarily shown in Fig. \ref{fig:vp_flow}.
+ It can be noted that with an decrease of $J$, the numerical solution converges against the theoretical one.
+Furthermore, it can be seen that the quadratic part of the velocity profile,
 inside of the fluid domain ($0.5\leq z \leq 1.5$), is independent of the damping constant $J$.
 Merely a slight offset at the boundaries creates a constant shift upwards of the velocity profile.
 In the masked area of the volume a decrease in velocity is visible which could  eventually be described by an
@@ -314,11 +313,11 @@ A linear fit in the log-log space gives a  decay rate of about $1.106$ for  $J$ 
 The second part of the test was a grid convergence study with a constant Reynolds number, variable $J$ and grid resolution $N$.
 The results are shown in Fig. \ref{fig:pflowvali_vp_conv}.
 It can be noticed that a decrease in $J$ creates a shift in the error profile to overall smaller values.
-However it is also noticable that the error of the FD2 method increases together with the resolution.
+However, it is also noticable that the error of the FD2 method increases together with the resolution.
 
-Even less understandable is the error function for the FD4 method.
-With increasing resolution  a decrease into a minimum, followed by an increase can be observed.
-The position of minimum is shifted to the right with an decrease of $J$.
+The error convergence for the FD4 method is even less understandable.
+With increasing resolution  a decrease into a minimum which is followed by an increase can be observed.
+The position of the minimum is shifted to the right with an decrease of $J$.
 For a constant $J>10^{-4}$ it is visible that the error for both methods converges against a
 the same error  with an increase in the resolution.
 
@@ -332,7 +331,7 @@ A plot of the relative $l_2$-error can be found in the Appendix in Fig.\ref{fig:
 The FD4 method has a linear decreasing error in the log-log space.
 For the smallest resolution $N=8$ the error is of order $10^{-2}$,
 in contrast to the highest resolution $N=256$, with an error of order $10^{-4}$.
-The convergence rate is about $\lambda\approx1.267$
+The convergence rate is about $\lambda\approx1.267$.
 Hence, it can be said that the accuracy of the method is above first order for this test case.
 The error of the second order finite difference scheme is of the order $10^{-8}$.
 The value is approximately constant and not depend of the grid resolution.
@@ -358,7 +357,7 @@ The second derivative of Eq. \ref{vali:pflow_navstok}  is given by
 
 where $C_f$ is the constant curvature of the theoretical solution in the fluid domain.
 The basic algorithm uses a mirroring method at the boundaries of the fluid domain to fulfill the No-Slip condition (see Sec. \ref{sec:cuda_boundaries}).
-Let $C_b$ be the curvature of the velocity profile in the immersed boundary, it follows that $C_b = - C_f$, as a result of the mirroring method.
+Let $C_b$ be the curvature of the velocity profile in the boundaries, it follows that $C_b = - C_f$, as a result of the mirroring method.
 Therefore a discontinuity of the second derivative is created at the boundaries.
 When using FD2 method the 3-Point stencil evaluates to the correct value.
 The 5-Point stencil of the FD4 method evaluates to a false value, since it uses one point behind the boundary.
@@ -369,18 +368,18 @@ As a result the discontinuity creates an error in this approximation.
 \subsubsection{Test of the Volume Penalization Method}
 
 The offset on the boundaries arises since the VP method cannot fulfill the exact boundary conditions.
-For the steady state a force equilibrium at the boundaries is given by the pressure gradient, the viscous force and the damping force.
+For the steady state a force equilibrium at the boundaries is given by the pressure gradient, the viscous force and the damping force
 
 \begin{align}
 \label{valid:steady_state_pflow}
- \frac{H}{J} v_x &=  \frac{1}{\Rey}\frac{\partial^2 v_x}{\partial z^2} -\pdn[p]{x}
+ \frac{H}{J} v_x &=  \frac{1}{\Rey}\frac{\partial^2 v_x}{\partial z^2} -\pdn[p]{x}.
 \end{align}
 
 The result is a constant offset $v_x(h_1) = v_x(h_2) =: C\in\mathbb{R}$.
 The simultaneous decrease of the $l_2$-error with $J$ is as expected, since a stronger damping force $\propto \nicefrac{1}{J}$ creates a smaller
 error at the boundaries.
-However it is counterintuitive that the $l_2$-error decreases with an increase of the Reynolds number.
-An explanation for this is, that the viscous force and the pressure gradient are proportional to $\nicefrac{1}{\Rey}$
+However, it is counterintuitive that the $l_2$-error decreases with an increase of the Reynolds number.
+An explanation is that the viscous force and the pressure gradient are proportional to $\nicefrac{1}{\Rey}$
 (see Eq. \ref{vali:pflow_pcondi}).
 With an increase of the Reynolds number the left side of Eq. \ref{valid:steady_state_pflow} becomes smaller,
 the damping force becomes larger in comparison and the  offset $C=v_x(h_1)=v_x(h_2)$ decreases.
@@ -396,24 +395,25 @@ the damping force becomes larger in comparison and the  offset $C=v_x(h_1)=v_x(h
     \label{fig:example_b}%
       \includegraphics{gfx/immersed_boundary/poiseuille_flow/discussion/profile.pdf}
         }}%
+    \caption{}
 \end{figure}
 
 The grid convergence study with a constant Reynolds number and variable damping coefficient, generates an error
 which increases simultaneously with the grid resolution.
-An explanation for this behavior can by given by revising the theoretical solution
-and the finite difference stencils at the immersed boundary.
+An explanation can by given by revising the theoretical solution
+and the finite difference stencils at the fluid boundaries.
 
-The error for both methods does not converge towards zero, which means there has to be some discrepancy to the theoretical solution given by
+The error for both methods does not converge towards zero. This means there has to be some discrepancy to the theoretical solution given by
 Eq. \ref{vali:pflow_theosol}.
 For a constant $J$ there is an offset $C$ to the theoretical solution,
-which is given by the equillibrium accord to Eq.  \ref{valid:steady_state_pflow}.
-This means that the theoretical solution which was assumed in the first place, is wrong for the VP method.
-An additional offset in the flow, which is dependent on the damping coefficient $J$ has to be considered.
+which is given by the equilibrium accord to Eq.  \ref{valid:steady_state_pflow}.
+This further means that the theoretical solution which was assumed in the first place, is wrong for the VP method.
+An additional offset in the flow which is dependent on the damping coefficient $J$ has to be considered.
 For a low resolution, the profile of the FD2  method is closer to the assumed theoretical one, which results in a smaller
 error. With an increase to a higher resolution the error with respect to the real solution decreases.
 
-An explanation for the convergence of the FD4 method can be given by furthermore considering the discretization error at the immersed boundaries.
-Fig. \ref{fig:example_a} shows exemplarily the velocity profile near to the immersed boundary, for the Volume-Penalization method of FD2 and FD4 order
+An explanation for the convergence of the FD4 method can be given by further considering the discretization error at the fluid boundaries.
+Fig. \ref{fig:example_a} shows exemplarily the velocity profile near to the fluid boundary, for the Volume-Penalization method of FD2 and FD4 order
 at a resolution of $N=100$.
 It can be seen that the velocity profile for the FD4  method  is slightly negative.
 The reason for this is the use of a 5-Point stencil for the discretization.
@@ -421,15 +421,15 @@ The stencil reaches over the immersed boundary which results in a wrong computat
 
 The  error convergence is a result from  the velocity profiles for different resolutions,
 as shown schematically in Fig. \ref{fig:example_b}.
-\footnote{The difference in the computed velocity profiles is barely visible, therefore an exaggerated version is used.}
+\footnote{The difference in the computed velocity profiles is barely visible. Therefore, an exaggerated version is used.}
 The velocity profiles for three different resolutions are considered for a constant $J$,
 the minimum of the error shall be defined as $N_{min}$.
 Due to the negative velocity at the boundary the first profile $N<N_{min}$ lies below the theoretical solution,
-given by Eq. \ref{vali:pflow_theosol}
+given by Eq. \ref{vali:pflow_theosol}.
 The second profile is at $N=N_{min}$. The error at the boundary is smaller due to the increase of the resolution.
 The velocity profile overlaps best with the theoretical solution resulting in a minimal error.
-With a further increase of the resolution  $N>N_{min}$ the velocity profile drifts away from the theoretical solution,
-the error increases.  Finally the method converges towards the same solution as the 2nd order scheme.
+With a further increase of the resolution  $N>N_{min}$ the velocity profile drifts away from the theoretical solution.
+The error increases.  Finally, the method converges towards the same solution as the second order scheme.
 
 
 \subsubsection{Test of the Direct Forcing Method}
@@ -439,7 +439,7 @@ The FD2 method is capable of a perfect approximation and
 the remaining error terms of the order $10^{-8}$
 occur due to the round-off error of the single precision floating-point format.
 
-The convergence of the FD4 is above first order, in comparsion to the basic algorithm which was above second order.
-Once more this error is a result of the used 5-Point stencil.  All values behind the immersed boundary are set
+In comparison to the basic algorithm which was above second order, the convergence of the FD4 method is above first order.
+Once more this error is a result of the used 5-Point stencil.  All values behind the fluid boundary are set
 to zero. The 5-Point stencil uses one grid point behind the boundary which results in a incorrect computation.
 

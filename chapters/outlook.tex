@@ -24,7 +24,7 @@ A simple extension of the Volume-Penalization method was performed in \citep{Lul
 to enable No-Flux walls for the temperature, a inhomogeneous thermal diffusivity $\kappa (x, y, z)$ was introduced.
 By setting $\kappa(x, y, z) \ll 1$ in the boundary domain  a decent approximation of No-Flux walls  is achieved \citep{Lulff2011}.
 A further improved version of the Volume-Penalization method for No-Flux walls can be found in \citep{Brown-Dymkoski2014}.
-Here, the No-Flux boundaries are obtained by introducing a forcing term of the form
+Here the No-Flux boundaries are obtained by introducing a forcing term of the form
 
 \begin{align}
     \vec{f}  = -\frac{H}{\nu_c}\left( n_k\pdn[v]{x_k} - q(\vec{r}, t) \right)
@@ -32,20 +32,16 @@ Here, the No-Flux boundaries are obtained by introducing a forcing term of the f
 
 where $\nu_c$ is a regulation parameter, $\vec{n}$ the normal and $\vec{q}$  the desired flux through the boundary.
 With this implementation the temperature flux is forced to zero in direction of $\vec{n}$.
-
 Both of these methods were implemented and a first simulation of a test case verified the numerically stability.
 However, a proper validation needs to be carried out in the future.
 With a validated method it would  particular interesting to simulate
 the Rayleigh-B\'{e}nard system in a cylindric domain.
-
-
+\clearpage
 The use of Free-Slip boundaries could reduce the numerical oscillations in the simulations of the librating cone.
 These oscillations are the result of the large Peclet number of the system and are generated
 close to the boundaries where the velocity gradients are the largest.
-
 In simulations of precession driven dynamos in a cube with small Ekman numbers ($\propto 10^{-5}$),
 no oscillations occur when using Free-Slip boundaries \footnote{Private communication O.Goepfert}.
-
 A first implementation of Free-Slip boundaries was performed
 by inserting diagonal walls into the fluid domain which overlap with the grid points.
 On these walls the Free-Slip condition can simply be applied just like in the basic GPU algorithm,
@@ -64,18 +60,18 @@ One popular method in particular is the Rhie-Chow interpolation \citep{Rhie1983}
 different improvements of this method can be found in literature that could be used for a future implementation.
 
 It could be of further interest to implement an unstructured cartesian grid into the GPU algorithm.
-This is a really difficult task brings some drastically improvements in return.
+This is a really difficult task which would bring some drastically improvements in return.
 The error of the Immersed Boundary methods could be decreased by using a higher resolved grid in the vicinity to the boundary.
 Furthermore, this would improve the resolution of boundary layers  and reduce the oscillations resulting from the use of high Peclet numbers.
 
-In the second part of this thesis the Immersed Boundary methods were applied to different setups of a librating cylinder,  a cone and a frustum.
+In the second part of the present work the Immersed Boundary methods were applied to different setups of a librating cylinder,  a cone and a frustum.
 The results of these simulations are in agreement with theoretical
 predictions \citep{Greenspan1969} and experimental results \cite{Beardsley1970}.
 An experimental study of these systems is in discussion as a possible future research project.
 A possible experimental setup is already in development.
 It contains a rotating table, which can be controlled over a serial interface to enable different angular velocities and acceleration rates.
 A camera module is integrated into the rotating frame and could be used for the computation
-of the velocity files with a PIV\footnote{Particle Image Velocimetry}
+of the velocity profiles with a PIV\footnote{Particle Image Velocimetry}
 method.
 With this setup it would be possible to validate the numerical results of this thesis.
 Furthermore different excitation mechanism of inertial waves could be studied.

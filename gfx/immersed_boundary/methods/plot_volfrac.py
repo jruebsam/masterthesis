@@ -33,7 +33,7 @@ def main():
         #error[i] = np.mean(np.abs(mask[b]-best[b])/np.abs(best[b]))
 
     plt.plot(samples, error, 'bo--', ms=4, mew = 0.2, alpha=0.7)
-    plt.xlabel('Samples')
+    plt.xlabel('Samples N')
     plt.ylabel('rel. $l_2$-error')
 
     plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))

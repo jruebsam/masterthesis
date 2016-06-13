@@ -2,13 +2,14 @@
 \addcontentsline{toc}{chapter}{Introduction}
 
 Fluid flows play an important role in the study of geophysical systems.
-Of particular interest are the flows on large scales in the ocean and the atmosphere.
-Furthermore rotating and convection driven flows in the core of the earth are a potential mechanism
-for magnetic field generation and current interest of research.
+Subject of current research are rotating and convection driven flows on large scale, for instance in the ocean, atmosphere as
+well as in the core of the earth which are a potential mechanism for magnetic field generation.
+%Of particular interest are the flows on large scales in the ocean and the atmosphere.
+%Furthermore rotating and convection driven flows in the core of the earth are a potential mechanism
+%for magnetic field generation and current interest of research.
 
 As a result of the Coriolis force the flow in rotating fluids exhibits characteristic properties with
 physical solutions in the form of inertial waves.
-
 Numerical \citep{Sauret2012}, \citep{Duguet} and experimental
 studies \citep{Fultz1959} of inertial waves excitation in rotating cylinders have been performed.
 Inertial oscillations in spherical shells were investigated for example by \citep{Tilgner1999}.
@@ -18,13 +19,13 @@ Inertial oscillations in spherical shells were investigated for example by \cite
 The study of dynamos, i.e. the magnetic field of the earth, is obtained by additionally
 considering an electrically conducting fluid.
 Numerical simulations of precession driven dynamos \citep{Tilgner2005}
-and convection driven dynamos \citep{Tilgner2012} were performed, furthermore
-an on going experimental research project is the DRESDYN dynamo \citep{Stefani2015}.
+and convection driven dynamos \citep{Tilgner2012} were performed. Furthermore
+an ongoing experimental research project is the DRESDYN dynamo \citep{Stefani2015}.
 
 In the fluid dynamics research group of the institute for geophysics
-a recent development is the numerical simulation of such fluid flows using GPU optimized algorithms.
-The use of GPUs for scientific computing has become increasingly popular in the last years.
-A vast number of applications  can obtain a massive speed-up and
+a recent development is the numerical simulation of such fluid flows using GPU\footnote{Graphics Processing Unit} optimized algorithms.
+The use of GPUs for scientific computing has become increasingly popular in the last years because
+a vast number of applications  can obtain a massive speed-up and
 high oriented frameworks like the NVIDIA CUDA API simplify the creation
 and maintenance of parallelized algorithms.
 The current GPU implementation of the algorithm used in the research group is restricted
@@ -35,7 +36,7 @@ because the boundaries of the fluid domain  do not coincide with the grid points
 
 \bigbreak
 
-The first goal of this master thesis is to extend the existing GPU algorithm
+Consequently the first goal of this master thesis is to extend the existing GPU algorithm
 in order to enable the simulation of fluid flows in complex-shaped geometries.
 The use of unstructured or body conforming grids is difficult to implement,
 since on a GPU a regular and homogeneous memory access is required to enable a high memory bandwidth \citep{CUDABP}.
@@ -47,7 +48,7 @@ The concept behind these methods is the embedding of the curved boundary into th
 by using additional forcing terms and interpolation methods close to the fluid boundaries.
 Certain Immersed Boundary methods use a continuous forcing approach where the boundary is approximated by Lagrangian points
 and the forcing term acts over multiple grid points \citep{Mittal2005},
-similar approach is given by the Volume-Penalization method \citep{Lulff2011}.
+a similar approach is given by the Volume-Penalization method \citep{Lulff2011}.
 Direct forcing approaches exist where the boundary conditions are obtained by setting the
 velocity values directly at the nearest points to the boundary \citep{Fadlun2000}.
 A bilinear interpolated version of the Direct Forcing approach is used in \citep{Gornak2013},
@@ -57,37 +58,38 @@ validated for different test cases.
 
 \bigbreak
 
-The second goal of this master thesis is to perform a numerical study on a rotating fluid system.
+%is master thesis is to perform a numerical study on a rotating fluid system.
+The second goal of the present work are numerical studies on a rotating fluid system.
 In particular this system is given by a cone whose rotation rate is modulated which is used as a mechanism for inertial waves excitation.
 An experimental study by  \citeauthor{Beardsley1970} \citep{Beardsley1970} of this system shows that the apex of the cone acts as an attractor,
-inertial waves travel into the apex an dissipate at the tip of the cone.
+where inertial waves travel into the apex and dissipate at the tip of the cone.
 By inserting a plate into the apex of the cone an inertial wave is reflected at the bottom and inertial modes are observable.
 The objective of this part of the thesis is to investigate if these results
-are reproducible with the use of an immersed boundary method.
+are reproducible with the use of Immersed Boundary methods.
 
 \bigbreak
 
 The content of this thesis is separated into different chapters contain different topics which shall be summarized here
 
 \begin{description}
-\item[Chapter 1] An introduction to the theoretical concepts is given. This includes a description of the Navier-Stokes equations and
-                 the concept of non-dimensionalization. In the second part of this chapter rotating fluid systems are investigated and
-                 fundamental properties of inertial waves will be discussed.
+\item[Chapter 1] gives an introduction to the theoretical concepts. This includes a description of the Navier-Stokes equations and
+                 the concept of non-dimensionalization. Moreover, rotating fluid systems are investigated and
+                 fundamental properties of inertial waves are discussed.
 
-\item[Chapter 2] This chapter gives an introduction to  the numerical methods used in this thesis.
+\item[Chapter 2] introduces the numerical methods used in the present work.
                  The use of finite difference schemes in combination with Runge-Kutta methods for the temporal integration is discussed.
                  Furthermore a brief overview over numerical stability criteria and the method of artifical incompressibility is given.
 
-\item[Chapter 3] This chapter presents the implementation of a finite difference algorithm on a GPU with the NVIDIA CUDA API.
-                 In the first part a short description of the CUDA API is given. The second part discusses the implementation of
+\item[Chapter 3] shows the implementation of a finite difference algorithm on a GPU with the NVIDIA CUDA API.
+                 A short description of the CUDA API is given, followed by a discussion of the implementation of
                  a time step integration algorithm on the GPU.
 
-\item[Chapter 4] An introduction to  the Immersed Boundary methods will be given,
-                    followed by the numerical validation with different test cases.
+\item[Chapter 4] gives an introduction to the Immersed Boundary methods, as well as to the
+                 the numerical validation with different test cases.
 
-\item[Chapter 5] The first part of this chapter introduces theoretical and experimental results of the fluid flow in a librating cone.
+\item[Chapter 5] presents theoretical and experimental results of the fluid flow in a librating cone.
                  A first simulation is implemented and validated by using a librating cylinder.
-                 Finally different  simulations of a librating cone and a frustum will be discussed.
+                 Finally different  simulations of a librating cone and a frustum are discussed.
 
 \end{description}
 
