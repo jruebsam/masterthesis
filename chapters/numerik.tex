@@ -3,17 +3,17 @@
 \section{Introduction}
 
 This chapter focuses on the methods that are used for the numerical computations in this thesis.
-In order to compute the temporal evolvement of a fluid system from its initial state, it is necessary to discretize
+In order to compute the temporal evolution of a fluid system from its initial state, it is necessary to discretize
 the equations of motion by using different numerical schemes.\\
 For this purpose various discretization approaches, for example finite element and finite volume methods, exist.
 Here the method of finite differences will be introduced for the spatial discretization and a third order Runge-Kutta method for the temporal discretization in time.
-Furthermore we will introduce the method of artificial compressibility, which can be used to avoid the numerical expensive solution of a poisson equation.
-The choice of these methods in combination with the usage of cartesian grids is in particular time saving when performing computations on the GPU, as we
-will see in chapter \ref{chapter:cuda}.
+Furthermore we will introduce the method of artificial compressibility, which can be used to avoid the numerical expensive solution of a Poisson equation.
+The choice of these methods in combination with the usage of cartesian grids is in particular time saving when performing computations on the GPU as we
+will see in chapter \ref{CHAPTER:CUDA}.
 
 \section{Finite Difference Schemes}
 
-In this section a  brief introduction to the method of finite differences will be gilen.
+In this section a  brief introduction to the method of finite differences will be given.
 The interested reader is referred to \citep{ferziger99} for a more general overview, which this section is based on.
 The partial differential equations which are numerically solved in this thesis are of the generalized form
 
@@ -23,42 +23,43 @@ The partial differential equations which are numerically solved in this thesis a
 \end{align}
     %\pdn[\Phi]{t} = A \pdn[^2\Phi]{x^2}  + B \pdn[^2\Phi]{x^2}     + C(\vec{r}, \vec{u}, t) +  \vec{u}\left(\pdn[^2\Phi]{x^2} +  \pdn[^2\Phi]{x^2} + \pdn[\Phi]{x}\right) = \mathcal{L}
 
-where $\Phi(\vec{r}, t)\in\mathbb{R}$ and $\mathcal{L}$ is a differential operator, containing spatial derivatives up to second order and non-linear advection term.
+where $\Phi(\vec{r}, t)\in\mathbb{R}$ and $\mathcal{L}$ is a differential operator, containing spatial derivatives up to second order and a non-linear advection term.
 The numerical integration can be divided into two steps: the calculation of $\mathcal{L}$, which we want to discuss in this
 section and secondly the integration in time.
 In this section the numerical approximation of $\mathcal{L}$ with finite differences shall be discussed for the one-dimensional case,
-the implementation for three dimensions will be discussed in chapter \ref{chapter:cuda}.
+the implementation for three dimensions will be discussed in chapter \ref{CHAPTER:CUDA}.
+
 
 Let $I = \{x \in \mathbb{R} \;|\; 0 \leq x \leq L\}$ be the domain on which Eq. \ref{numerik:pde_allg} shall be solved.
 For the discretization $I$ is divided into $N$ equidistant points $x_i = \sum_i \Delta x_i$, with the index ${i\in\{[0, N-1]|i\in\mathbb{N}\}}$
 and ${\Delta x_i = x_{i+1} - x_i = L/(N-1)}$.
 Furthermore it is assumed that $\Phi$ is a  continuous differentiable function.
-In the vicinity of a grid point $x_i$, $\Phi$ can than be expressed by a Taylor series.
+In the vicinity of a grid point $x_i$, $\Phi$ can than be expressed by a Taylor series
 
 \begin{align}
     \label{num:taylor}
-    \Phi(x) = \sum_{n=0}^{\infty} \pdn[^n\Phi(x_i)]{x^n} \frac{(x - x_i)^n}{n!}
+    \Phi(x) = \sum_{n=0}^{\infty} \pdn[^n\Phi(x_i)]{x^n} \frac{(x - x_i)^n}{n!}.
 \end{align}
 
 By evaluating the Taylor expansion at different points, different expressions for the first derivative can be obtained.
 For example the evaluation at $x_{i+1}$ gives\footnote{From here on the abbreviation $\Phi_i=\Phi(x_i)$ is used.}
 \begin{align}
     \Phi_{i+1}  = \Phi_i + (x_{i+1} - x_i)\left(\pdn[\Phi]{x}\right)_i &+ \frac{(x_{i+1} -x_i)^2}{2}\left(\pdn[^2\Phi]{x^2}\right)_i + \mathcal{O}(\Delta x^3)\\
-            \Rightarrow \left(\pdn[\Phi]{x}\right)_i &\approx \frac{\Phi_{i+1} - \Phi_{i}}{x_{i+1} - x_i}
+            \Rightarrow \left(\pdn[\Phi]{x}\right)_i &\approx \frac{\Phi_{i+1} - \Phi_{i}}{x_{i+1} - x_i}.
 \end{align}
-This approximation is denoted as a forward difference scheme (FDS). The same evaluation at $x_{i-1}$ leads to the backward difference scheme (BDs), see table \ref{num:df_table}.
+This approximation is denoted as a forward difference scheme (FDS). The same evaluation at $x_{i-1}$ leads to the backward difference scheme (BDS), see Table \ref{num:df_table}.
 Furthermore it can be shown that the combined evaluation at the points $x_{i+1}$, $x_{i-1}$ leads to the expression
 
 \begin{align}
     \label{num:cds}
     \left(\pdn[\Phi]{x}\right)_{i} = \frac{\Phi_{i+1} - \Phi_{i-1}}{x_{i+1} - x_{i-1}}
-     - \frac{(x_{i+1} - x_i)^2 - (x_i - x_{i-1})^2}{2 (x_{i+1} - x_{i-1})}\left(\pdn[^2\Phi]{x^2}\right)_i + \mathcal{O}(\Delta x^3)
+     - \frac{(x_{i+1} - x_i)^2 - (x_i - x_{i-1})^2}{2 (x_{i+1} - x_{i-1})}\left(\pdn[^2\Phi]{x^2}\right)_i + \mathcal{O}(\Delta x^3).
 \end{align}
 
 For a constant grid size, that is $\Delta x := \Delta x_i = \text{const.}$, the second order term in equation \ref{num:cds} vanishes.
-By neglecting all terms of higher order, the approximation for $\partial_x \Phi$ is of second order.
-This is the so-called central-difference (CDS) scheme. A comparison of the FD-schemes is given in table \ref{num:df_table}
-The numerical error which is made by neglecting the higher order terms, is in general referred to as the truncation error of a finite difference scheme.
+By neglecting all terms of higher order, the approximation for $\partial_x \Phi_i$ is of second order.
+This is the so-called central-difference (CDS) scheme. A comparison of the FD-schemes is given in Table \ref{num:df_table}
+The numerical error which is made by neglecting the higher order terms is in general referred to as the truncation error of a finite difference scheme.
 
 
 \bgroup\large
@@ -91,7 +92,7 @@ Central  (CDS) & $\left(\pdn[\Phi]{x}\right)_i = \frac{\Phi_{i+1}  - f\Phi{i-1}}
 \end{figure}
 
 Finally Fig. \ref{num:fd_image} shows a visual comparison for the three different finite difference schemes.
-For the computation of the second derivative, one approach is to evaluate equation \ref{num:taylor} halfway between two points at the positions $x_{i\pm\frac{1}{2}}$
+For the computation of the second derivative one approach is to evaluate equation \ref{num:taylor} halfway between two points at the positions $x_{i\pm\frac{1}{2}}$
 
 \begin{align}
     \label{numerik:eq_2dfo2}
@@ -102,7 +103,8 @@ For the computation of the second derivative, one approach is to evaluate equati
     \frac{\Phi_{i+1} - 2\Phi_i + \Phi_{i-1}}{\Delta x^2}
 \end{align}
 
-For the approximation of the first derivatives, it is necessary to use the FDS-scheme at $x_{i+1/2}$ and the BDS-scheme at $x_{i-1/2}$ to obtain
+For the approximation of the first derivatives in \ref{numerik:eq_2dfo2},
+it is necessary to use the FDS-scheme at $x_{i+1/2}$ and the BDS-scheme at $x_{i-1/2}$ to obtain
 a second order accuracy.\\
 So far we introduced methods up to an accuracy of second order. The fourth order methods which are used in this thesis are given by
 
@@ -112,7 +114,7 @@ So far we introduced methods up to an accuracy of second order. The fourth order
     \label{num:fd_o4_methods}
 \end{align}
 
-The derivation of these equations can be performed in analogy to the second order schemes, but by using a more points for the
+The derivation of these equations can be performed in analogy to the second order schemes, but by using more points for the
 approximation. The interested reader is referred to \citep{Fornberg1988}.
 
 \newpage
@@ -120,35 +122,31 @@ approximation. The interested reader is referred to \citep{Fornberg1988}.
 \section{Runge-Kutta Method}
 \label{numerik:rk_williamson_sec}
 
-With the finite difference approximation $\mathcal{L^*}$ of the differential operator $\mathcal{L}$,
-it is possible to solve Eq.~\ref{numerik:pde_allg} by separation of variables.
+With the finite difference approximation $\mathcal{L^*}$ of the differential operator $\mathcal{L}$
+it is possible to solve Eq.~\ref{numerik:pde_allg} by separation of variables,
 
 \begin{align}
-    \Phi(t) = \Phi(t_0) + \int_{t_0}^{t} \mathcal{L^*} (t, \Phi(t)) \dif t
+    \Phi(t) = \Phi(t_0) + \int_{t_0}^{t} \mathcal{L^*} (t, \Phi(t)) \dif t.
 \end{align}
 
-For a numerical computation, the integration interval $[t_0, t]$  is splitted into sub-intervals  of length $\Delta t$ and integrated piecewiese.
-In order to approximate the integration on a sub-interval a Runge-Kutta method is used, an introduction based \citep{Sarbach2012} shall be given.
-The idea behind this method is to iteratively evaluate $\mathcal{L^*}$ at $s$ different times $\tau_i$ within one sub-interval $\Delta t$,
-where $\tau_i=c_i \Delta t$, $c_i \in \mathbb{R}$ and  $(2\leq i \leq s)$, that is
+For a numerical computation the integration interval $[t_0, t]$  is split into sub-intervals  of length $\Delta t$ and integrated piecewise.
+In order to approximate the integration on a sub-interval a Runge-Kutta  (RK) method is used, a brief introduction based  on \citep{umwelt} shall be given.
+The idea behind this method is to iteratively evaluate $\mathcal{L^*}$ at $s$ different times $\tau_i$ within one sub-interval $\Delta t$.
 
 \begin{align}
- k_i = \mathcal{L^*} \left(\tau_i, \Phi(t_n) + \Delta t \left(a_{i1} k_{1} + \dots + a_{i, i-1} k_{i-1} \right)\right)
+ k_i = \mathcal{L^*} \left(\tau_i, \Phi(t_n) + \Delta t \left( \sum_{j=1}^{i-1}a_{ij} k_j \right)\right)
 \end{align}
 
-with  $a_{ij} \in \mathbb{R}$ and $(2\leq i \leq j -1 )$.
-Using a  weighted average of the $k_i$  gives
+where $\tau_i=c_i \Delta t$ with $c_i =\sum_{j=1}^{s}a_{ij}$ with $a_{ij} \in \mathbb{R}$.
+Using a  weighted average of the $k_i$, with the coefficients $b_j\in\mathbb{R}$ gives
 
 \begin{align}
-    \Phi(t^{n+1}) = \Phi(t) + \Delta t \left( \sum_{i=1}^s b_i k_i \right)
+    \Phi(t^{n+1}) = \Phi(t^n) + \Delta t \left( \sum_{j=1}^s b_j k_j \right)
 \end{align}
 
-with $b_i\in\mathbb{R}$ and $(1\leq i \leq s)$.
-
-The accuracy of an s-stage runge-kutta method depends of the right choice of coefficients.
+The accuracy of an s-stage RK method depends of the right choice of the coefficients.
 In this thesis a third-order accurate scheme is used.
-The coefficients are given by the butcher tableau \citep{QUELLE}
-\footnote{oder quelle}
+The coefficients are given by the butcher tableau
 
 \begin{align}
     \label{num:butcher}
@@ -167,14 +165,14 @@ The coefficients are given by the butcher tableau \citep{QUELLE}
     \end{array}
 \end{align}
 
-where the components of $\mathbf{c}$, $\mathbf{b}$ and $\mathbf{A}$ are $a_{ij}$, $b_i$ and $c_j$.
+where the components of $\mathbf{c}$, $\mathbf{b}$ and $\mathbf{A}$ are $a_{ij}$, $c_i$ and $b_j$ \citep{umwelt}.
 
-For the implementation of this method, it has to be concerned that in the simulations a large number of variables is used
+For the implementation of this method it has to be concerned that in the simulations a large number of variables is used
 and the number of grid points scales with a power of three, with an increase in the resolution.
 Hence, the required amount of storage should be as small as possible.
-A low-storage scheme first introduced by \citep{Williamson1980}, is used in this thesis.
-The  RK-method \ref{num:butcher} is translated into an iterative algorithm, by keeping informations from previous computation steps.
-The required amount of storage is reduced to two registers, one for $\Phi$ and one for the intermediate step $Q$.
+A low-storage scheme first introduced by \citep{Williamson1980} is used in this thesis.
+The RK method \ref{num:butcher} is translated into an iterative algorithm by keeping informations from previous computation steps.
+The required amount of storage is reduced to two registers, one for $\Phi$ and one for the intermediate step $Q$  \citep{umwelt}.
 
 \begin{align}
     \begin{split}
@@ -187,7 +185,7 @@ The required amount of storage is reduced to two registers, one for $\Phi$ and o
 
 \section{Numerical Stability}
 
-It is important to consider the stability of a numerical method. In general it is said that a method is numerical stable if the error
+It is important to consider the stability of a numerical method. In general it is said that a method is numerically stable if the error
 introduced by truncation and roundoff errors does not grow over time \citep{ferziger99}.\\
 
 \subsection{Runge-Kutta Scheme}
@@ -196,14 +194,15 @@ Suppose  a stationary solution for equation \ref{numerik:pde_allg} exist.
 The system should remain unaffected by further integration, even with the introduction of small numerical errors.
 In order to obtain a stability criterion it is sufficient enough to perform a linear stability analysis.
 A common approach is to study the one-dimensional linearized and diagonalized test case
+
 \begin{align}
 \label{num:rk_stab}
 \frac{\dif \Phi}{\dif t} = \lambda \Phi
 \end{align}
 
 with the eigenvalue $\lambda \in \mathbb{C}$ of a linearized operator \citep{Williamson1980}.
-It can be shown that the discretization of equation \ref{num:rk_stab}, using a Runge-Kutta scheme of $s$-order,
-results in  the mapping (\citep{Williamson1980}
+It can be shown that the discretization of equation \ref{num:rk_stab} using a RK scheme of $s^{\text{th}}$-order
+results in  the mapping \citep{Williamson1980}
 
 \begin{align}
     \Phi_{i+1}  = \left(\sum_{p=1}^s \frac{(\Delta t \lambda)^p}{p!}  + 1 \right) \Phi_i =: 1 + P(\Delta t\lambda)\Phi_i.
@@ -214,7 +213,7 @@ results in  the mapping (\citep{Williamson1980}
       \includegraphics{gfx/numerik/rk_stability.pdf}
   \end{minipage}\hfill
   \begin{minipage}[c]{0.3\textwidth}
-  \caption{Stability regions for $\Omega_s$ for different Runge-Kutta methods}
+  \caption{Stability regions $\Omega_s$ for different Runge-Kutta methods}
   \label{fig:num_rkstab}
   \end{minipage}
 \end{figure}
@@ -223,7 +222,7 @@ The discretized system contains a stable fixed point when the condition $|P(\Del
 Fig.~\ref{fig:num_rkstab} shows the different stability regions for Runge-Kutta schemes up to fourth order.
 The calculation can be found in the Appendix~\ref{lst:appendix_rkstab}.
 For a $s$ order scheme the region of stability is independent of the used implementation \citep{canuto2007}.
-\footnote{For an $s$-th order RK-scheme different coeffiicent $a_{ij}$, $b_j$ and $c_i$ can be used.}
+\footnote{For an $s$-th order RK-scheme different coefficient $a_{ij}$, $b_j$ and $c_i$ can be used.}
 It can be noted that the stability region $\Omega_s$ increases with the use of higher order schemes.
 The substantial detail is that for the  methods of third and fourth order, the imaginary axis lies within $\Omega_s$.
 These methods are often preferred for  CFD-simulations, since they tend to stabilize numerical oscillations \footnote{Private communication A.Tilgner}.
@@ -231,10 +230,10 @@ These methods are often preferred for  CFD-simulations, since they tend to stabi
 \subsection{Finite difference schemes}
 
 The numerical stability of the finite difference schemes can be estimated with a Von-Neumann stability analysis.
-In this section the stability criterion will be exeplarily computed for a one-dimensional diffusion equation of the form
+In this section the stability criterion will be exemplarily computed for a one-dimensional diffusion equation of the form
 \begin{align}
     \label{num:vne_diffusion_theo}
-    \pdn[\Phi]{t} = \alpha \Delta \Phi
+    \pdn[\Phi]{t} = \alpha  \pdn[^2\Phi]{x^2}
 \end{align}
 
 for a scalar $\Phi$ and  the diffusion coefficient $\alpha$.
@@ -256,8 +255,8 @@ With the use of Eq.  \ref{numerik:eq_2dfo2}, the discretized version of the diff
     \frac{\Phi^{n+1} - \Phi^n}{\Delta t} = \frac{\alpha}{\Delta x^2}\left(\Phi_{i+1}^n - 2\Phi_{i}^n + \Phi_{i-1}^n\right).
 \end{align}
 
-In this example the time is discretized by the explizit euler method, which is equivalent to a Runge-Kutta method of first order.
-Inserting $\epsilon_m$ in Eq. \ref{num:neumann_diffusion_eq} for $\Phi$ and using some trigonometric identities  gives
+In this example the time is discretized by the explicit Euler method, which is equivalent to a RK method of first order.
+Inserting $\epsilon_m$ in Eq. \ref{num:neumann_diffusion_eq} for $\Phi$ and using trigonometric identities  gives
 
 \begin{align}
     e^{a \Delta t} = 1 -  \frac{4\alpha \Delta t}{\Delta x^2} \sin^2\left(\frac{k_m \Delta x}{2}\right).
@@ -270,7 +269,7 @@ Furthermore it holds that
     \left|\frac{e^{a(t + \Delta t)}e^{ik_mx}}{ e^{at}e^{ik_m x}}\right| = \left|e^{a\Delta t}\right|.
 \end{align}
 
-The stability of the finite difference scheme is given when the numerical error does not grow over time. This is fullfilled when the inequality
+The stability of the finite difference scheme is given when the numerical error does not grow over time. This is fulfilled when the inequality
 
 \begin{align}
     \label{num:stab_ineq}
@@ -278,14 +277,15 @@ The stability of the finite difference scheme is given when the numerical error 
     \underbrace{\left|1 -  \frac{4\alpha \Delta t}{\Delta x^2} \sin^2\left(\frac{k_m \Delta x}{2}\right)\right|}_{=:G} \leq 1
 \end{align}
 
-holds, where $G$ is denoted as the amplification factor. From the inequality from Eq. \ref{num:stab_ineq}
-the stability can be estimated to be fulfilled when
+holds, where $G$ is denoted as the amplification factor. The stability is fulfilled when $G\leq1$, which holds for
 
 \begin{align}
+    \label{num:stab_eq_first}
    \frac{\alpha \Delta t}{\Delta x^2} \leq \frac{1}{2}.
 \end{align}
 
-From this equation it can be seen that with an increase in the resolution, the timestep has to been scaled by the square of the resolution, in order to
+From Eq. \ref{num:stab_eq_first} it can be seen that with an increase in the resolution,
+the time step has to been scaled by the square of the resolution, in order to
 maintain stability. The same approach introduced for the diffusion equation can be repeated for a first-order wave equation (see \citep{janderson})
 and for an advection-diffusion equation (see \citep{ferziger99}).
 %Given by
@@ -295,14 +295,14 @@ and for an advection-diffusion equation (see \citep{ferziger99}).
 %where $c$ is velocitiy ect.
 %By inserting the error
 
-As a result two additional stability criterions are given.
+As a result two additional stability criteria are given.
 The first one is (see \citep{janderson})
 \begin{align}
     \label{num:stab_soundspeed}
    \frac{c \Delta t}{\Delta x} \leq 1.
 \end{align}
-where $c$ denotes the maximal velocity of the system, i.e. this could be the sound speed for a compressible system.
-The second criterion is given by (see \citep{ferziger99})
+where $c$ denotes the maximal velocity of the system, for example this could be the speed of sound for a compressible system.
+The second criterion is given by
 
 \begin{align}
     \Pe  < 2.
@@ -311,18 +311,20 @@ The second criterion is given by (see \citep{ferziger99})
 where $ Pe := \nicefrac{u \Delta x}{\alpha}$ is defined as the Peclet number \citep{ferziger99}.
 The Peclet number can be interpreted as the ratio between the advection and diffusion of a fluid system.
 
-\paragraph{Third Order Upwinding Scheme}\mbox{}\\
+\paragraph{Third-Order Upwinding Scheme}\mbox{}\\
 \label{num:sec_para:upwindingscheme}
 
 For large Peclet numbers it is a common problem that numerical oscillations emerge in the numerical solution.
-Additional to the central differences, the upwinding scheme, which tends to reduce
-numerical oscillations, is used in this thesis. Consider the one-dimensional advection equation
+Additional to the central differences the upwinding scheme described in \citep{ferziger99} is used in this thesis.
+This method tends to reduce numerical oscillations by interpolating
+the advection term into the upstream direction of the velocity field.
+Consider the one-dimensional advection equation
 
 \begin{align}
     \pdn[\Phi]{t} + v\pdn[\Phi]{x} = 0
 \end{align}
 
-The discretization for the advection term at the position $x=i$ is given by (see \citep{FINDQUOTE})
+The discretization for the advection term at the position $x=i$ is given by
 
 \begin{align}
     v\pdn[\Phi]{x} &\approx  v_i \cdot \left(\frac{2\Phi_{i+1} + 3\Phi_i     - 6\Phi_{i-1} + \Phi_{i-2}}{6\Delta x}\right)
@@ -331,28 +333,30 @@ for v(x) > 0 and
 \begin{align}
     v\pdn[\Phi]{x} &\approx  v_i \cdot \left( \frac{-\Phi_{i+2} + 6\Phi_{i+1} - 3\Phi_{i-1} - 2\Phi_{i-1}}{6\Delta x}\right)
 \end{align}
-for v(x) < 0.
+for v(x) < 0,
+with the use of third-order finite difference approximations from \citep{ferziger99}.
 
 \newpage
 
 \section{Numerical Viscosity}
 
-In this thesis the finite difference schemes Eq.  \ref{num:fd_o4_methods} and Eq.  \ref{numerik:eq_2dfo2}
-are used for the approximation of the viscous stress in the Navier-Stokes Equation.
-However due to the approximation, the numerical viscosicty $D_N$ of the approximation may differ from the physical viscosity $D_P$.
-An estimation for $D_N$ can be given by the following estimation. Consider the  equation
+In this thesis the finite difference schemes Eq. \ref{num:fd_o4_methods} and Eq. \ref{numerik:eq_2dfo2}
+are used for the approximation of the viscous stress in the Navier-Stokes equation.
+However, due to the approximation the numerical viscoscity $D_N$ of the approximation may differ from the physical viscosity $D_P$.
+An estimation for $D_N$ can be given by considering the diffusion equation
 
 \begin{align}
     \label{num:nvis_eqdiff}
-    \pdn[v]{t} = D_P\pdn[^2v]{x^2}
+    \pdn[v]{t} = D_P\pdn[^2v]{x^2}.
 \end{align}
 
-A solution is given by $v = V(t)e^{ikx}$. Inserting this solution in Eq. \ref{num:nvis_eqdiff} one obtains
+A solution is given by $v = V(t)e^{ikx}$. Inserting this ansatz in Eq. \ref{num:nvis_eqdiff} gives
+
 \begin{align}
-    V(t) = V_0 \exp^{-D_Pk^2t}
+    V(t) = V_0 \exp^{-D_Pk^2t}.
 \end{align}
 
-By using a  second order approximation of Eq.  \label{num:nvis_eqdiff} it follows that
+By inserting $V(t)$ into a  second order approximation of Eq. \label{ref:nvis_eqdiff} it follows that
 
 \begin{align}
                       D_P \Delta v  &\approx \frac{D_P}{\Delta x^2} \left(v_{x+\Delta x} - 2 v_x + v_{x - \Delta x}\right) \\
@@ -361,36 +365,37 @@ By using a  second order approximation of Eq.  \label{num:nvis_eqdiff} it follow
     \label{numerik:numvis_sol}
 \end{align}
 
-From Eq. \ref{numerik:numvis_sol}
-it can be seen that the numerical viscosity is given by
+The numerical viscosity is given by the approximation of $D_P$  from Eq. \ref{numerik:numvis_sol},
 
 \begin{align}
  \label{NUMERIC:NUMVIS}
     D_N = -\frac{D}{k^2 \Delta x^2} \left(2\cos(k\Delta x) - 2\right)
-\end{align}
-The same approach for the fourth order scheme gives
+\end{align}.
+
+The same ansatz for the fourth order scheme gives
 \begin{align}
  \label{NUMERIC:NUMVIS2}
     D_N = -\frac{D}{k^2 \Delta x^2} \left(32\cos(k\Delta ) - 2\cos(k\Delta x) - 30\right)
 \end{align}
-\clearpage
 
+It can be noted that the numerical viscosity is not constant but depends on the wave number $k$.
+\clearpage
 
 
 \section{Method of Artificial Compressibility}
 \label{num:sec_articomp}
 
-For now the fact was ignored that the Navier-Stokes Eq. \ref{theorie:eqns} cannot directly be solved for the pressure.
+For now the fact was ignored that the Navier-Stokes equation cannot directly be solved for the pressure.
 An equation for $p$ can be obtained by taking the divergence of Eq. \ref{theorie:eqns} and apply the continuity equation.
-The resulting equation is \citep{QUOTE}
+The resulting equation is of the form \citep{Lulff2011}
 
 \begin{align}
-    \Delta p =  -\nabla \left( \sum \vec{F}_{\text{ext.}} - (\vec{v} \vec{\nabla}) \vec{v}\right)
+    \Delta p =  -\nabla \cdot \left((\vec{v} \vec{\nabla}) \vec{v}\right).
 \end{align}
 
-In order to determine the pressure it would be necessary to solve a poisson equation.
-The numerical solution  however, can be very time consuming is  furthermore difficult to implement on a GPU \citep{TILGNER}.
-Instead here the method of artificial compressibility, developed by \citep{Chorin1997}, will be introduced.
+In order to determine the pressure it would be necessary to solve this Poisson equation.
+The numerical solution  however, can be very time consuming is and furthermore difficult to implement on a GPU \footnoteref{notepc_arti}.
+Instead here the method of artificial compressibility, first presented in \citep{Chorin1997}, will be introduced.
 The concept of this method is to introduce the artificial equations of state
 
 \noindent\begin{minipage}{0.4\textwidth}
@@ -411,27 +416,26 @@ The concept of this method is to introduce the artificial equations of state
     \end{align}
 \end{minipage}\vskip1em
 
-where $\rho$ is the artifical density, $\delta$ the artificial compressibility and $c$ the artificial speed of sound.
+where $\rho$ is the artificial density, $\delta$ the artificial compressibility and $c$ the artificial speed of sound.
 Eq.  \ref{num:arti_cont}  is a modified version of the continuity equation and Eq. \ref{num:arti_pressure} introduces
-an artificial equation for the pressure. A substitution of Eq. \ref{num:arti_pressure} into Eq. \ref{theorie:eqns} gives
+an artificial equation for the pressure. A substitution of Eq. \ref{num:arti_pressure} into the Navier-Stokes equation gives
 
 \begin{align}
     \label{numerik:nsac}
     \pdn[v]{t} + \left(\vec{v} \vec{\nabla}\right) \vec{v} &= -c^2\nabla\rho + \Rey \Delta \vec{v}+\sum \vec{F}_{\text{ext.}}
 \end{align}
 
-
-The system now has an artificial compressibility. The motivation behind this approach is to set the artifical speed of sound
-to a high value such that the mach number given by
+The system now has an artificial compressibility. The motivation behind this approach is to set the artificial speed of sound
+to a high value such that the Mach number given by
 
 \begin{align}
     \Mach= \frac{v}{c} =  \frac{1}{c}\max\left(\sum_i |\vec{u_i}]^2\right)^{1/2}
 \end{align}
 
-is small, a good estimation is $\Mach<0.1$ \footnote{Private Communication A.Tilgner}.
+is small, a good estimation is $\Mach<0.1$ \footnote{\label{notepc_arti}Private Communication A.Tilgner}.
 In this case the fluid can be considered as incompressible.
 One major drawback of this method is a stiff numerical problem. Due to the stability criterion (see Eq. \ref{num:stab_soundspeed})
-a small timestep is needed since $v=c^2$.
+a small time step is needed since $v=c^2$.
 
 
 

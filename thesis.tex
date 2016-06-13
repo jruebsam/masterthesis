@@ -20,6 +20,9 @@
 \usepackage{microtype}
 \usepackage[super]{nth}
 
+\makeatletter
+\newcommand\footnoteref[1]{\protected@xdef\@thefnmark{\ref{#1}}\@footnotemark}
+\makeatother
 
 \usepackage{import}
 \usepackage{fancyvrb}
@@ -196,6 +199,7 @@ rulecolor=\color{black}
     \newcommand{\im}{\mathrm{Im}} % Imaginärteil
 
 
+
     \newcommand\Rey{\mbox{\textit{Re}}}  % Reynolds number
     \newcommand\Pran{\mbox{\textit{Pr}}} % Prandtl number, cf TeX's \Pr product
     \newcommand\Ekman{\mbox{\textit{Ek}}}  % Peclet number
@@ -224,15 +228,16 @@ rulecolor=\color{black}
 
 
     \titleformat{\section}[block]
-      {\Large}{\thesection.~#1}{1em}{}
+    {\Large}{\thesection.~#1}{1em}{}
 
-      \titleformat{\subsection}[block]
-      {\large}{\thesubsection.~#1}{1em}{}
+    \titleformat{\subsection}[block]
+    {\large}{\thesubsection.~#1}{1em}{}
 
-      \titleformat{\subsubsection}[block]
-      {\normalsize}{\thesubsection.~#1}{1em}{}
-      %\titlespacing*{\subsection}{0pt}{15pt}{10pt}
-      \titlespacing*{\section}{0pt}{25pt}{20pt}
+    \titleformat{\subsubsection}[block]
+    {\normalsize}{\thesubsubsection.~#1}{1em}{}
+
+    %\titlespacing*{\subsection}{0pt}{15pt}{10pt}
+    \titlespacing*{\section}{0pt}{25pt}{20pt}
 
     %\colorlet{myrulecolor}{black}
     \definecolor{myrulecolor}{RGB}{13,105,154}% define the color for the rules
@@ -251,12 +256,14 @@ rulecolor=\color{black}
 
     %\usepackage{tgpagella}
     \usepackage{fourier}
+    %\usepackage{sectsty}
+    \setcounter{tocdepth}{3}
+    \setcounter{secnumdepth}{3}
 
 \includeonly{chapters/immersed_boundary, chapters/validation/pflow, chapters/validation/hp_flow, chapters/validation/tc_flow, chapters/appendix, chapters/python_api}
 %\includeonly{chapters/validation/tc_flow, chapters/appendix}
 %\includeonly{chapters/immersed_boundary}
-%\includeonly{chapters/introduction}
-
+%\includeonly{chapters/cone}
 
 
 \begin{document}
@@ -322,7 +329,6 @@ rulecolor=\color{black}
 \mbox{}
 \thispagestyle{empty}
 \newpage
-\setcounter{secnumdepth}{3}
 
 %\newpage
 \setcounter{page}{1}

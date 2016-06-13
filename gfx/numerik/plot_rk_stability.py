@@ -68,8 +68,8 @@ def main():
     ax.legend(ncol = 4,  loc='upper center', bbox_to_anchor=(0.5, 1.3),
            fancybox=True, shadow=True, title='RK-Method Order')
 
-    plt.xlabel(r'$\Im(\lambda\Delta t)$')
-    plt.ylabel(r'$\Re(\lambda\Delta t)$')
+    plt.xlabel(r'$\mathrm{Im}(\lambda\Delta t)$')
+    plt.ylabel(r'$\mathrm{Re}(\lambda\Delta t)$')
     plt.axes().set_aspect('equal')
 
     plt.savefig('rk_stability.pdf')

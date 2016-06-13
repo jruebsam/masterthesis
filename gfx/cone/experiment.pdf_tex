@@ -51,8 +51,7 @@
   \begin{picture}(1,0.47616978)%
     \put(0,0){\includegraphics[width=\unitlength]{experiment.pdf}}%
     \put(0.50149781,0.20084352){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$H$}}}%
-    \put(0.18310628,0.08352176){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\beta$}}}%
-    \put(0.29995798,0.33873174){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$R$}}}%
-    \put(0.783447,0.07321083){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$h$}}}%
+    \put(0.16902199,0.08440202){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\beta$}}}%
+    \put(0.3011901,0.01799906){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$r$}}}%
   \end{picture}%
 \endgroup%

@@ -2,33 +2,33 @@
 
 \section{Introduction}
 
-Following the introduction and validation of the immersed boundary methods,
-we now want to exemplarily investigate a rotating fluid system using these methods.
-The objective is to reproduce  physical properties, with respect to theoretical and experimental results.
+Following the introduction and validation of the IB methods, now
+a rotating fluid system is exemplarily investigated by using these methods.
+The objective is to reproduce  physical properties with respect to theoretical and experimental results.
 In relation to the research focus of the geophysical fluid mechanics research group, there are a variety
 of topics of interest.\\
 One area of research lies in the exploration of dynamo effects in geological and stellar systems.
 In particular this means the generation of magnetic fields by electrically conducting fluids on large scales.
 In this thesis we will not consider MHD-equations.  \footnote{MHD - Magnetohydrodynamic}
-However in general it is considered that the helicity of a fluid domain $V$, given by
+However, in general it is considered that the helicity of a fluid domain $V$, given by
 
 \begin{align}
-    \int_{V}\dif V  \vec{v} \cdot \left( \nabla \times \vec{v} \right)
+    \int_{V}\dif V  \vec{v} \cdot \left( \nabla \times \vec{v} \right),
 \end{align}
 
 is directly linked to dynamo action \citep{moffat1978}.
-It would be interesting to find a system which exhibits a large helicity,
-as a possible candidate for future researches of the geodynamo.
+It would be interesting to find a system which exhibits a large helicity
+as a possible candidate for future researches on dynamos.
 Furthermore another interest is the propagation of inertial waves in different fluid domains.\\
-The system we want to study in this thesis is given by a rotating cone, which is compared to
+The studied system in this chapter is given by a rotating cone, which is compared to
 a frustum, by inserting a bottom plate into the apex.
 Inertial waves are excited by a temporal modulation of the rotation frequency, which is denoted as libration.
 The objective is to examine the ability to generate inertial modes or wave attractors.
-Furthermore we want to study the properties of the helicity of the system and investigate the
-decay of inertial oscillations.\\
-In this chapter we will use linearized equations. Due to the axial symmetry with the rotating axis,
+Furthermore the properties of the helicity of the system are investigated and the
+decay of inertial oscillations is studied.\\
+In this chapter linearized equations are used. Due to the axial symmetry with the rotating axis,
 this problem could be reduced to two dimensions.
-However, we want to test the code in a three dimensional setup.
+However, the code in tested a three-dimensional setup.
 One reason for this is a possible future application.
 The objective would be to study the decay of turbulence in the apex of the cone.
 A simulation in three dimensions can not be avoided in this case.
@@ -45,7 +45,7 @@ In the remaining sections of this chapter we want to use the following conventio
 \begin{description}
     \item[$H$]{Total height of the simulation domain}
     \item[$h_c$]{Height of the cone/frustum}
-    \item[$h_b$]{Height of the bottom plate}
+    \item[$h_b$]{Height of the bottom plate (not shown)}
     \item[$R$]{Radius at the top of the cone/frustum}
     \item[$r$]{Radius at the bottom  of the frustum,\\ for the cone $r=0$}
     \item[$O$]{Offset at the top of the cone/frustum}
@@ -53,7 +53,7 @@ In the remaining sections of this chapter we want to use the following conventio
     \item[$\theta$]{Propagation angle of an inertial wave, with respect to the horizontal axis.}
     \item[$\Omega$]{Rotation rate}
     \item[$\omega$]{Frequency of the libration}
-    \item[$\epsilon$]{Amplitude of the libration, default is 1}%\footnote{Not important due to the linearization}}
+    \item[$\epsilon_0$]{Amplitude of the libration, default is 1}%\footnote{Not important due to the linearization}}
     \item[$l_x, l_y, l_z$]{Size of the total simulation domain in x, y and z direction}
     \item[Cone] {The entire cone with apex, and a possible offset at the top, this setup is obtained by setting $r=0$}
     \item[Frustum]{The cone but with a bottom plate at the bottom with $r>0$}
@@ -76,19 +76,20 @@ In the remaining sections of this chapter we want to use the following conventio
 \section{Theoretical Description}
 \label{cone:theorie_theo}
 
-This section gives a brief theoretical description of the problem we adapted from \citep{Greenspan1969}, \citep{Beardsley1970}.
+This section gives a brief theoretical description of the problem which is adapted from \citep{Greenspan1969, Beardsley1970}.
 Instead of a cone, a comparison to the two-dimensional analogy of a wedge, is made.
 This system is based on the idea to introduce a geometric shape containing a singularity.\\
-Let us consider the propagation of an inertial wave ray, emitted at one of the upper edges of
+Considering the propagation of an inertial wave ray, emitted at one of the upper edges of
 the wedge, as shown in Fig. \ref{cone:theorie}.
 The wave propagates under the angle $\theta$, with respect to the horizontal axis.
 For each reflection the propagation angle with respect to the rotation axis is preserved.
-In the case of $\theta<\alpha$ we have a supercritical reflection,
-thus a downward traveling wave ray is reflected downslope.
+In the case of $\theta<\alpha$ a supercritical occurs.
+Thus, a downward traveling wave ray is reflected downslope.
 As a result the wave travels towards the lower vertex of the wedge.
-It can be shown from the reflection properties, given by Eq. \ref{theorie:reflections},
-that the time for a wave ray to travel the path between two reflections is constant \citep{Beardsley1970}.
-To be more precise
+In respect to the reflection properties, given by Eq. \ref{theorie:reflections},
+the time for a wave ray to travel the path between two reflections is constant \citep{Beardsley1970}.
+To be more precise,
+
 \begin{figure}[!bp]
   \begin{minipage}[c]{0.6\textwidth}
       \centering
@@ -114,15 +115,15 @@ To be more precise
 where $L$ is the path length between to reflections, the prime denotes the properties after a reflection.
 This means that the overall propagation time into the apex of the cone becomes infinity, along with the energy density and the wave number.
 Thus, the apex is acting as an attractor to inertial waves.
-As a conclusion it follows that since no reflection out of the cone apex can occur, the possibility of inertial modes is not given.
+Since no reflection out of the cone apex can occur it follows that  inertial modes can not exist.
 
 \section{Experiment}
 \label{cone:theorie_exp}
 
-For a test of these theoretical assumptions, an experimental study was performed by \citep{Beardsley1970}.
+To test these theoretical assumptions, an experimental study was performed by Beardsley \citep{Beardsley1970}.
 The schematic setup is shown in Fig. \ref{cone:setup_experiment}.
-In the first part of the experiment, a plexiglass cylinder, containing a conical shaped cavity,
-of height $H=\SI{19.95}{\centi\meter}$ and a radius of $r=\SI{8.91}{\centi\meter}$ was used and filled with water.
+In the first part of the experiment a plexiglass cylinder, containing a conical shaped cavity,
+with the height $H=\SI{19.95}{\centi\meter}$ and the radius $r=\SI{8.91}{\centi\meter}$ was used and filled with water.
 The apex half angle was set to $\beta=24^{\circ}3.7^{\prime}$ degree.
 For the rotation rate a frequency of $\Omega_0 =\SI{6.28}{\radian\per\second}$ was chosen.
 The resulting Ekman number is
@@ -136,7 +137,7 @@ In order to exite inertial waves the cone is librating.
 The total rotation rate is proportional to
 
 \begin{align}
-\Omega(t) = \Omega_0 + \epsilon_0 \omega \cos(\omega t)
+\Omega(t) = \Omega_0 + \epsilon_0 \omega \cos(\omega t),
 \end{align}
 
 where $\omega$ is the libration frequency with the amplitude $\epsilon_0=\SI{0.2}{\radian}$.
@@ -157,46 +158,46 @@ by the modulation of the constant rotation frequency $\Omega_0$.
 
 For the analysis the dynamic pressure field was measured at different depths along the rotation axis.
 The ratio of libration to the constant rotation frequency was varied in the range of ${0.25\leq\omega/2\Omega_0\leq1}$.
-The pressure and phase lag spectrum  show that no consistent peaks are observable for different measurment heights.
+The pressure and phase lag spectrum  show that no consistent peaks are observable for different measurement heights.
 Hence, no inertial modes are existing.
 \\
 In the second part of the experiment, the apex of the cone was replaced by a frustum,
-with a bottom plate at the position $z/H = 0.261$.
+with a bottom plate at the position $h_b=z/H = 0.261$.
 This setup yields the possibility that a wave ray can be reflected on the bottom.
 The pressure and phase lag spectrum in this setup show that
 independent of measurement depth of the pressure, resonances occur which can be associated with standing waves.
 Hence, inertial modes exist.
 \\
 \\
-One objective in this thesis is to compare the simulation results to this experiment.
-Some considerations regarding the experiment shall be briefly discussed here.
-For our setup the relation between libration frequency $\omega$ and the propagation angle $\theta$
-is given by Eq. \ref{theorie:eq_rot_dispersion}, which can be simplified to
+One aim of this thesis is to compare the simulation results to this experiment.
+Some considerations regarding the experiment are briefly discussed here.
+For the setup the relation between libration frequency $\omega$ and the propagation angle $\theta$
+is given by Eq. \ref{theorie:eq_rot_dispersion}. This can be simplified to
 
 \begin{align}
-    \omega = 2\cos(\theta)
+    \omega = 2\cos(\theta).
 \end{align}
 
-This means that for $\omega = 2\cos(\alpha)$ the propagation angle of an inertial wave is parallel to the slope of the cone.
-Depending on the libration frequency two different motions can occur in the cone
+This means for $\omega = 2\cos(\alpha)$ the propagation angle of an inertial wave is parallel to the slope of the cone.
+Depending on the libration frequency two different motions can occur in the cone.
 
 \begin{description}
-    \item[$\omega < \omega_c$]{It holds that $\theta > \alpha$. A downward traveling wave is reflected upwards on the slope of the cone}
-    \item[$\omega > \omega_c$]{It holds that $\theta < \alpha$. A downward traveling wave is reflected downwards on the slope of the cone}
+    \item[$\omega < \omega_c$]{It holds that $\theta > \alpha$. A downward traveling wave is reflected upwards on the slope of the cone.}
+    \item[$\omega > \omega_c$]{It holds that $\theta < \alpha$. A downward traveling wave is reflected downwards on the slope of the cone.}
 \end{description}
 
-For the first case the apex of the cone will not act as an attractor.
-This first scenario is not addressed directly in the experiment, in this chapter it will be investigated in more detail.
+For the first case the apex of the cone will not act as an attractor,
+This first scenario is not addressed directly in the experiment. In this chapter it will be investigated in more detail.
 
 \section{Numerical Implementation of Libration}
 
-For the numerical implementation of the experiment, a modified set of the equations
+For the numerical implementation of the experiment a modified set of the equations
 introduced in Sec. \ref{THEORIE:ROT}, is presented here.
-It has to be concerned, that the system has now a time-dependent rotation rate.
+It has to be concerned that the system has now a time-dependent rotation rate.
 For the non-dimensional system we set
 
 \begin{align}
-    \vec{\Omega}(t) = 1 \; + \; \epsilon \sin(\omega t)\vec{e}_z
+    \vec{\Omega}(t) = 1 \; + \; \epsilon_0 \sin(\omega t)\vec{e}_z.
 \end{align}
 
 There are two options for an implementation.
@@ -206,10 +207,10 @@ modulated, it is necessary to introduce the boundary conditions
 
 \begin{align}
     \vec{v}|_{Border}  = \Omega \times \vec{r} = \begin{pmatrix}
-           -y ( 1 + \epsilon \sin(\omega t)) \\
-            x ( 1 + \epsilon \sin(\omega t)) \\
+           -y ( 1 + \epsilon_0 \sin(\omega t)) \\
+            x ( 1 + \epsilon_0 \sin(\omega t)) \\
            0\\
-         \end{pmatrix}
+         \end{pmatrix}.
 \end{align}
 
 However, obtaining a linearized version of the boundary methods is not as easy.
@@ -221,18 +222,18 @@ In this case the boundary conditions do not need to be modified, but the corioli
 \begin{align}
     \vec{f} &= 2 \vec{\Omega} \times \vec{v} + \pdn[]{t}\left(\vec{\Omega} \times \vec{v} \right)
             = \begin{pmatrix}
-           -y \omega \epsilon \cos(\omega t) \\
-           -x \omega \epsilon \cos(\omega t) \\
+           -y \omega \epsilon_0 \cos(\omega t) \\
+           -x \omega \epsilon_0 \cos(\omega t) \\
            0\\
          \end{pmatrix}
             + 2\begin{pmatrix}
-           - ( 1 + \epsilon \sin(\omega t)v_x \\
-             ( 1 + \epsilon \sin(\omega t)v_y \\
+           - ( 1 + \epsilon_0 \sin(\omega t)v_x \\
+             ( 1 + \epsilon_0 \sin(\omega t)v_y \\
            0\\
          \end{pmatrix}
             = \begin{pmatrix}
-           -y \epsilon \cos(\omega t) \\
-           -x \epsilon \cos(\omega t) \\
+           -y \epsilon_0 \cos(\omega t) \\
+           -x \epsilon_0 \cos(\omega t) \\
            0\\
          \end{pmatrix}
 \end{align}
@@ -248,18 +249,18 @@ are then given by
 
 Finally, one additional stability criterion shall be introduced.
 It is important that the time for propagating information from on side of the domain
-to the other is much smaller than the overall rotation rate.
+to the other side is much smaller than the overall rotation rate.
 \footnote{Private communication with A. Tilgner}
 This can be estimated by
 
 \begin{align}
-    t = \sqrt{\frac{2}{c^2}} << 2\pi
+    t = \sqrt{\frac{2}{c^2}} \ll 2\pi
 \end{align}
 
 where $c$ is the artificial speed of sound.
-Thus the propagation time and therefore this criterion, depends on the artificial sound speed $c$.
+Thus, the propagation time and therefore this criterion, depends on the artificial sound speed $c$.
 A good estimation is given by setting $c^2 = 500$.
-It could be observed that otherwise, not only physical wrong results are obtained but also
+It could be observed that otherwise not only physical wrong results are obtained but also
 numerical instabilities can occur.
 \footnote{Private communication with O. Goepfert}
 
@@ -267,29 +268,29 @@ numerical instabilities can occur.
 
 \section{Data Analysis}
 
-The main interest, in the analysis of the simulation data, lies in the identification of possible inertial modes.
+The main interest in the analysis of the simulation data is given by the identification of possible inertial modes.
 An appropriate choice is to consider the energy in the $z$-component of the  velocity, which is given by
 
 \begin{align}
-    \left<v_z^2 \right>(t) =  \int \dif V v_z(t)^2 \approx \sum_{i, j, k}^{N_x,N_y,N_z} \Delta x \Delta y \Delta z \left.v_z(t)^2 \right|_{i,j,k}
+    \left<v_z^2 \right>(t) =  \int \dif V v_z(t)^2 \approx \sum_{i, j, k}^{N_x,N_y,N_z} \Delta x \Delta y \Delta z \left.v_z(t)^2 \right|_{i,j,k}.
 \end{align}
 
 This has multiple benefits
 
 \begin{itemize}
-    \item The $v_z$-velocity component is independent of the coordinate system which is used, it is not necessary
+    \item The $v_z$-velocity component is independent of the coordinate system which is used. It is not necessary
                 to compute a transformation to inertial frame.
-    \item The energy induced by the libration is perpendicular to this component, thus all components
+    \item The energy induced by the libration is perpendicular to this component. Thus, all components
             in the $v_z$-component are created by inertial oscillations.
 \end{itemize}
 
-In Fig. \ref{fig:cone:cyl_vzmode}, this energy is shown exemplarily for two libration frequencies for a cylinder.
+In Fig. \ref{fig:cone:cyl_vzmode} this energy is shown exemplarily for two libration frequencies for a cylinder.
 \footnote{The results are taken from Sec. \ref{cone:sec:lib_cylinder}}
-For a resonance of the system ($\omega=1.2$), it takes further time until a steady state, with a constant oscillation is reached.
+For a resonance of the system ($\omega=1.2$), it takes further time until a steady state with a constant oscillation is reached.
 
 \begin{figure}[!pb]
   \includegraphics{gfx/cone/cylinder/cyl_vz.pdf}
-  \caption{Kinetic energy in $z$-direction for the Direct-Forcing method of 2nd order, at different libration frequencies.
+  \caption{Kinetic energy in $z$-direction for the Direct-Forcing method of second order, at different libration frequencies.
   \label{fig:cone:cyl_vzmode}
   }
 \end{figure}
@@ -304,8 +305,8 @@ The computation is given by
 
 Since the error of this calculation depends on the total simulation time, it was ensured that all simulations
 were carried out long enough.
-For the same simulation times, the error of one resonance is estimated in the range $\sigma_A \approx 5\% - 10\%$,
-When no resonances are present, the error is estimated to be of order $\sigma_A \approx 2.5\% - 5\%$.\\
+For the same simulation times, the error of one resonance is estimated in the range $\sigma_A \approx 5\% - 10\%$.
+The error is estimated to be of order $\sigma_A \approx 2.5\% - 5\%$, when no resonances are present.
 Another part of the analysis is the computation of the relative helicity of the system
 
 \begin{align}
@@ -314,10 +315,10 @@ H(t) = \frac{\int_V \dif V \vec{v} (\nabla \times \vec{v})}
  = \frac{\sum_{i,j,k=0}^{N_x, N_y, N_z} \vec{v}_{i,j,k} (\nabla \times \vec{v}_{i, j, k})}
  {\sqrt{\left(\sum_{i,j,k=0}^{N_x, N_y, N_z}\vec{v}_{i,j,k}^2\right)
  \left(\sum_{i,j,k=0}^{N_x, N_y, N_z}
-  (\nabla \times \vec{v}_{i, j, k})^2\right)}}
+  (\nabla \times \vec{v}_{i, j, k})^2\right)}}.
 \end{align}
 
-For the discretization of the rotation operator, a central difference scheme of 2nd order is used.
+For the discretization of the rotation operator, a central difference scheme of second order is used.
 \clearpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -354,7 +355,7 @@ The main simulation parameters are given by
 \vspace*{0.7ex}
 \end{center}
 
-The simulations were performed for all immersed boundary methods used in this thesis, with 2nd and 4th order finite difference schemes.
+The simulations were performed for all IB methods used in this thesis, with second and fourth order finite difference schemes.
 The results are presented and discussed separately in comparison to the results of the librating cone in the next section, for reasons of clarity.
 
 \clearpage
@@ -366,15 +367,15 @@ The results are presented and discussed separately in comparison to the results 
 For all simulations, the kinetic energy of the $z$-component of the velocity was computed.
 The results for the computation of the amplitude $A\left(\left<v_z^3\right>\right)$, in dependcy of the libration
 frequency are shown in Fig. \ref{fig:cone:cyl}.
-All immersed boundary methods show a similar profile.
+All IB methods show a similar profile.
 The largest amplitude deviations can be spotted at a frequency of $\omega=1.2$ and are about $5\cdot10^{-3}$.\\
 It can be noted that at this position the largest resonance M\RN{1} occurs which is about $3.5\cdot10^{-2}$.
 Two other resonances can be observed at $\omega=0.75$ (M\RN{2}) and $\omega\approx1.7$ (M\RN{2}), which are
 about ${\approx1.3\cdot10^{-2}}$.
 To make the deviations between the methods more visible, two inset plots which are
 set to the location $\omega=0.8$ and $\omega=1.0$., are shown.
-For both positions, the largest amplitude is given by the Direct-Forcing method of 2nd order, followed by
-the Volume-Penalization method of 2nd and 4th order.
+For both positions, the largest amplitude is given by the Direct-Forcing method of second order, followed by
+the Volume-Penalization method of second and fourth order.
 The amplitude difference between the first two methods is just slightly visible when looking at the right inset plot.
 It seems like these three methods yield nearly the same results for all frequencies.
 For all remaining methods  no strict order or grouping can be recognized.\\
@@ -406,7 +407,7 @@ With exception of the sign, which is eliminated by taking the absolute value of 
   \includegraphics{gfx/cone/cylinder/cylinder.pdf}  \caption{\label{fig:cone:cyl}
     Amplitude of the kinectic energy in $v_z$, as function of the liberating frequency $\omega$.
    For the Direct-Forcing (DF), Volume-Penalization (VP) method with and without Volume-Fraction and
-      2nd(o2)  and 4th(o4) order finite differences.}
+      second(o2)  and fourth(o4) order finite differences.}
 \end{figure}
 
 \bgroup\large
@@ -458,18 +459,18 @@ As a result it, the total helicity of the cylinder is zero for all times.
 \begin{figure}[!p]
   \centering
   \includegraphics{gfx/cone/cylinder/helicity.pdf}  \caption{
-      Time-dependent Helicity $H(t)$ for $\omega=1.5$. The Direct-Forcing method of 2nd order was used.
+      Time-dependent Helicity $H(t)$ for $\omega=1.5$. The Direct-Forcing method of second order was used.
       \label{cone:cyl_helicity}
       }
   \centering
   \includegraphics{gfx/cone/cylinder/oscillations.pdf}  \caption{
       Numerical oscillations along the $z$ axis trough $(x,y) = 0.5, 0.5$.
-      For Direct-Forcing method of 2nd (o2) and 4th (o4) order, at $\omega=1.5$.
+      For Direct-Forcing method of second (o2) and fourth (o4) order, at $\omega=1.5$.
       \label{cone:cyl_oscillations}
       }
   \centering
   \includegraphics{gfx/cone/cylinder/numvis.pdf}  \caption{
-      Ratio $D_N/D_P$ of  numerical viscosity  $D_N$ and physical viscosity computed for $\Ekman=10^{-4}$. For 2nd and 4th- order central differencing schemes.
+      Ratio $D_N/D_P$ of  numerical viscosity  $D_N$ and physical viscosity computed for $\Ekman=10^{-4}$. For second and fourth- order central differencing schemes.
       The red line indicates the wave number of an inertial wave with width $\Ekman^{1/3}$.
       \label{cone:cyl_numvis}
       }
@@ -477,14 +478,14 @@ As a result it, the total helicity of the cylinder is zero for all times.
 
 \subsubsection{Numerical Oscillations}
 
-For all immersed boundary methods numerical oscillations are observable.
-Fig. \ref{cone:cyl_oscillations} shows this for the Direct-forcing method of 2nd and 4th order and $\omega=1.5$.
+For all IB methods numerical oscillations are observable.
+Fig. \ref{cone:cyl_oscillations} shows this for the Direct-forcing method of second and fourth order and $\omega=1.5$.
 The profile is taken along the $z$-Axis at $(x,y)=(\nicefrac{1}{2},\nicefrac{1}{2})$.
 It can be noted that the error is larger in the regions near to the wall.
 One important detail is that the oscillations are only observable in $z$-direction, not
 in th $(x,y)$ plane.
-For the 4th order method the upwind scheme has been used, in contrast to the FTCS-Scheme at 2nd order.
-It is visible that the oscillations are slightly diminished, when using the 4th order scheme.
+For the fourth order method the upwind scheme has been used, in contrast to the FTCS-Scheme at second order.
+It is visible that the oscillations are slightly diminished, when using the fourth order scheme.
 
 \subsubsection{Numerical Viscosity}
 
@@ -493,7 +494,7 @@ The results are shown in Fig. \ref{cone:cyl_numvis}.
 The red bar denotes the wave number for the width of an inertial wave, which is $\propto \Ekman^{1/3.}$.
 For this value the ratio is $\approx{0.977}$.
 For both methods a decrease in the numerical viscosity can  be observed.
-At larger wave numbers, the 4th order method has a better approximation than the 2nd order method.
+At larger wave numbers, the fourth order method has a better approximation than the second order method.
 The largest wave number of the  system is possible for $\lambda = 2\Delta x$,
 it follows that $K_{\text{max}} = \nicefrac{2\pi}{\lambda} \approx 402.1$.
 \clearpage
@@ -523,7 +524,7 @@ The width of a resonance peak is proportional to the damping rate of the system,
 Due to the stronger damping in our simulations the spectrum shows broader resonance peaks than in the study of \citep{Sauret2012}.\\
 All methods are able to reproduce these results, with exception of the interpolation method.
 Unfortunately, it was not possible to figure out the reason for the numerical instability.
-The almost identical errors of the Volume-Penalization and Direct-Forcing method of 2nd order
+The almost identical errors of the Volume-Penalization and Direct-Forcing method of second order
 indicate that the timestep could be to small.
 The velocities local to the domain boundaries are so small, that the damping force (Volume-Penalization method) is almost identical
 to setting the velocity direct to zero (Direct-Forcing method).
@@ -572,7 +573,7 @@ with a librating cone. The first simulation is a setup inspired by the experimen
 In the second setup the geometrical transition from a cylinder to a librating cone is investigated.
 A study of the influence of different offsets on top of the cone is performed in the last simulation.
 All simulations use the conventions and setup from Sec. \ref{cone:convsetup}.
-As an immersed boundary method the Direct-Forcing method of 2nd order is used.
+As an IB method the Direct-Forcing method of second order is used.
 
 \subsection{Simulation of the Experimental Setup}
 
@@ -827,7 +828,7 @@ As a consequence the ending time  of all simulations is set to the point, where 
 The scenario we want to study from there on is the decay of inertial waves.
 
 To achieve this, a simulation with the previously computed end state is continued,
-with the libration amplitude $\epsilon$ set to zero.
+with the libration amplitude $\epsilon_0$ set to zero.
 With the use of the modified endtime, the assumption is that all intertial waves are
 approximately in the same phase with respect to their libration frequency.
 The end time for this simulations is set to  $T_{end} = 150$.
@@ -918,8 +919,8 @@ Therefore an additional offset in the velocity,  given by
 \begin{align}
     \vec{v} = \vec{v}|_{\text{rot.}} + \Omega(t) \times \vec{r} = \vec{v}|_{\text{rot.}} +
      \begin{pmatrix}
-           -y (1 + \epsilon \sin(\omega t)) \\
-           x ( 1 + \epsilon \sin(\omega t)) \\
+           -y (1 + \epsilon_0 \sin(\omega t)) \\
+           x ( 1 + \epsilon_0 \sin(\omega t)) \\
            0\\
          \end{pmatrix}
 \end{align}
@@ -1167,7 +1168,7 @@ The simulation was performed as a validation test case for the cone,
 since for this system more literature is available for comparison.
 The obtained frequency spectra revealed three inertial modes,
 which are in good agreement with the theoretical results from \citep{Greenspan1990},  and the  numerical results from \citep{Sauret2012}.
-Furthermore it could be shown that all immersed boundary methods were able to reproduce these modes.
+Furthermore it could be shown that all IB methods were able to reproduce these modes.
 The only exception is the interpolation method, which is numerically unstable.
 This is a little bit of a disappointing result, since this methods tends to contain
 the smallest numerical error.
