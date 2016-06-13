@@ -2,57 +2,60 @@
 
 \section{Introduction}
 
-In this chapter we want to give a brief overview to the high object oriented simulation API which
+In this chapter a brief overview will be given to the high object oriented simulation API which
 was written in the context of this thesis, with the python programming language.
 The purpose of the library in general is to simplify the execution of simulations, but furthermore
 includes the possibility to analyse the results and use visualization techniques to study the overall
-behaviour of the simulations during runtime.
-Before we talk about the general workflow with the API, we first want to introduce the usage
-and concepts of the different API classes and objects.
+behavior of the simulations during runtime.
+At first some of the the different API classes and objects will be introduced,
+followed by a small application in form of a grid convergence study.
+REMARKS SRC ETC
 
 \section{Parameter File}
 
 The Parameter File contains every flag and parameter which is used during the runtime of the simulation.
 During compile time all parameters are converted into a specific set of C-macros which are then compiled
-into the cuda code. As a file format we choose the open-standard format \textbf{Json} \footnote{Javascript Object Notation},
-which is human-readable and furthermore very easy to parse in any programming language.
-An example of a Parameter file is shown in Listing ()
+into the cuda code. As a file format the open-standard format \textbf{Json} \footnote{Javascript Object Notation} is used.
+An example of a Parameter file is shown in Listing \ref{lst_json}
 The parameter file contains of two sections.
-\begin{enumerate}
-\item{conditions} Flags which are set to a constant value during runtime mostly zero or one. For example the boundary conditions and
-                  interpolation methods. Not all flags have to be set for a simultaion.
-\item{parameters} The parameter set defines all parameters which care used  for a simulation. In contrast to the conditions, each
+
+\begin{description}
+\item[Conditions] Flags which are set to a constant value during runtime mostly zero or one. For example the boundary conditions and
+                  interpolation methods. Not all flags have to be set for a simulation.
+\item[Parameters] The parameter set defines all parameters which are used  for a simulation. In contrast to the conditions, each
                   parameter has to be defined in order to enable a proper execution.
-\end{enumerate}
+\end{description}
+
 \begin{minipage}{\linewidth}
-\begin{lstlisting}[language=json,firstnumber=1, caption='Example of a "paramater.json" file.]
+\begin{lstlisting}[language=json, caption={'Example of a "parameter.json" file.}, label={lst_json} ]
 {
     "conditions": {
-        "all_periodic" :1
+        "all_periodic" :1  //periodioc boundaries in all directions
     },
     "parameters": {
-        "BLOCKSIZE": 8,
-        "STEPMAX": 200000,
-        "IC_NAME": "\"c2_1000\"",
-        "RAYLEIGH":0,
-        "DELTA_T": 0.0001,
-        "SOUND_SPEED_SQUARED": 400,
-        "PRANDTL": 0.01,
-        "GPU_ID": 2,
-        "EKMAN": 0.0001,
-        "NX": 64,
-        "NY": 64,
-        "NZ": 8,
-        "LX": 1.0,
-        "LY": 1.0,
-        "LZ": 0.125,
-        "RUN_NAME": "\"c2_1000\"",
-        "NUM_GPU": 1,
-        "SAMPLING_RATE": 5000,
-        "NX_D": "NX/NUM_GPU",
-        "NU": 0.0001,
-        "PM": 1,
-        "KAPPA": 0.0001
+        "BLOCKSIZE": 8,                //Defaultl GPU blocksize
+        "STEPMAX": 200000,             //Number of timesteps
+        "IC_NAME": "\"c2_1000\"",      // Initial condition files (not in use anymore)
+        "RAYLEIGH":0,                  // Rayleigh number, not used in this thesis
+        "DELTA_T": 0.0001,             // Time step
+        "SOUND_SPEED_SQUARED": 400,    // Speed of sound squared
+        "PRANDTL": 0.01,               // Prandtl number, not used in this thesis
+        "GPU_ID": 2,                   // GPU id, there are up to 8 gpus in one system
+        "EKMAN": 0.0001,               // Ekman number
+        "NX": 64,                      // Resolution in x-direction
+        "NY": 64,                      // Resolution in y-direction
+        "NZ": 64,                      // Resolution in z-direction
+        "LX": 1.0,                     // Length in x-direction
+        "LX": 1.0,                     // Length in y-direction
+        "LZ": 1.0,                     // Length in z-direction
+        "LZ": 1.0,
+        "RUN_NAME": "\"c2_1000\"",     //Name of .ekin output files
+        "NUM_GPU": 1,                  //Number of GPUs used for the computation
+        "SAMPLING_RATE": 5000,         //Number of samplings for data analysis
+        "NX_D": "NX/NUM_GPU",          //NX for one GPU with threadings
+        "NU": 0.0001,                  //Damping force
+        "PM": 1,                       //Magnetic Prandtl number (not used)
+        "KAPPA": 0.0001                //Thermal diffusivity (not used)
     }
 }
 \end{lstlisting}
@@ -66,33 +69,28 @@ and the computation of interpolation and domain masks which are necessary for th
 immersed boundary methods.\\
 During the execution of a simulation all precomputed arrays are stored within a
 HDF5-File format, which is optimized for the storage and structuring of large amounts of data.
-Furthermore the format simplifies the data exchange between the python api and the cuda programm.\\
+Furthermore the format simplifies the data exchange between the python API and the CUDA programm.\\
 For the generation of data a generator object has to be initialized with a generator function,
-there are currently implemented three types of these functions.
+there are currently implemented two different types of these functions.
 
 \begin{description}
-\item[Initial  Conditions] These functions simply generate the initial conditions for a certain flow problem, for example the taylor couette
-                            flow or a simple cylndric domain. The definition of the functions can be found in pycurb.ic
-\item[Testcase] The testcase functions extend the initial conditions by having the possibility to add certain forcing parameters into the timestep
-                for example a pressure gradient is necessary for the poiseuill-flow setup described in section ().
+\item[Initial  Conditions] These functions simply generate the initial conditions for a certain flow problem, for example the Taylor-Couette
+                            flow or a simple cylindric domain. The definition of the functions can be found in \textbf{pycurb.ic}
+\item[Testcase] The test case functions extend the initial conditions by having the possibility to add certain forcing parameters into the time step
+                for example a pressure gradient is necessary for the Poiseuille flow test case described in Sec. \ref{vali:sec_lpflow_setup}
                 All defined functions can be found in pycurb.testcase.
-\item[MASA]     MASA functions enable the possibility to perform a  manufactured solution analysis, by defining a solution of the flow problem.
-                The python api then computes additional source terms from the navier stokes equation which are inserted into the equations of motion (see section ()).
-                All defined functions can be found in pycurb.mase
 \end{description}
 
-
-It should be noted that it is quit easy to add a new function to the library, an example for an ic function definition can be found in appendix (x).
-Additionally it is possible to create a generator which takes the data from an old simulation. In listing () the creation of a generator object is
-exemplary shown. At first the generator is created by using a generator function, afterwards it is possible to define certain attributes
+Additionally it is possible to create a generator which takes the data from an old simulation. In listing \ref{gen_class_usage} the creation of a generator object is
+exemplary shown. In a first step the generator is created by using a generator function. In the next step it is possible to define certain attributes
 for example the radius of a cylindric fluid domain.\\
 
-\begin{python} [caption='Generator class usage']
+\begin{python} [caption='Generator class usage', label={gen_class_usage}]
 import pycurb as pc #import the simulation API
 import pycurb.testcase as tf #import testcases
 import pycurb.ic as as ic    #import initial conditions
 
-#create a generator object for pipe flow in z direction
+#create a generator object for hagen poiseuille flow in z direction
 generator = pc.Generator.from_testcase(tf.cylinder_flow_z)
 #set the default velocity profile, pressure gradient and radius
 generator.add_option('SETV', True)
@@ -120,30 +118,34 @@ to perform a grid convergence study.
 Before the execution of the cuda code, the simulation object has to be bind to a generator object
 with the \textbf{generate\_files} class function, in return the generator object will begin
 with the data creation. The last step is execution of the cuda code which can be done with the \textbf{start\_simulation}
-class function.  A minimal usecase of the complete procedure shown in listing (X).
+class function.  A minimal use case of the complete procedure is shown in listing \ref{gen_usage_nextone}.
 
+\clearpage
 
-\begin{python}[caption='Generator class usage']
+\begin{python}[caption='Simulation class usage', label={gen_usage_nextone}]
 import pycurb as pc
 import pycurb.ic as ic
 
+#create a generator
 generator = pc.Generator.from_ic(ic.taylor_couette)
+#create a simulation object
 sim = pc.Simulation('data', 'parameter.json')
 sim.parameter.set('NX', 128)
 sim.parameter.set('NY', 128)
 sim.parameter.set_condition('o2', order)
 sim.generate_files(generator)
+#start the simulation
 sim.start_simulation()
 \end{python}
 
 \section{Usage Example}
 
 Finally we want to give a usage example for a grid convergence study using
-the Simulation API. The source code is shown in listing (X).
-In the example we simulate a pipe flow, for a more detailed discussion we refer to section ().
+the Simulation API. The source code is shown in listing \ref{gcstudy_papi}.
+In the example we simulate a Hagen-Poiseuille flow, for a more detailed discussion of this test case  we refer to section \ref{vali:section_hpflow_start}.
 We start by importing the relevant modules from the API and defining all relevant constants like the
 Reynolds number, $Re=100$ in this case.
-Finally we create and loop over an numpy array which contains all resolutions on which we want to test
+Finally we create and loop over an  array which contains all resolutions on which we want to test
 our fluid problem.\\
 Inside the for loop we begin by defining a unique simulation path for each resolution.
 The we create the generator with the pipe-flow settings from the \textbf{pycurb.testcase} module and
@@ -151,14 +153,16 @@ the options for the pressure gradient, the initial velocity field and the pipe r
 Finally the simulation object is created, here we set all parameters like resolution and domain size,
 the order of the finite difference scheme and the direct forcing method which will be introduced in section ().
 The last step is to execute a single simulation.\\
-The given example is build to be executed on a single machine in order to further parallize the computations on
-more than one gpu an additional python script \textbf{worker.py} was written which is not yet included in the simulation API (see Appendix A(XX)).
-To parallelize the example some small adaptions has to be made. For each resolution the simulation path has to be stored into a textfile, which
-is than opened by the python script, furthermore the execution of the simulation has to be removed from the for-loop.
-Finally we start by generating all simulation data by executing the modified version of our script. Afterwards we start
-the parallelization script for which we have to specify the file including the simulation path and the number of gpus and cuda machines we want to use.
+%The given example is build to be executed on a single machine in order to further parallize the computations on
+%more than one gpu an additional python script \textbf{worker.py} was written which is not yet included in the simulation API (see Appendix A(XX)).
+%To parallelize the example some small adaptions has to be made. For each resolution the simulation path has to be stored into a textfile, which
+%is than opened by the python script, furthermore the execution of the simulation has to be removed from the for-loop.
+%Finally we start by generating all simulation data by executing the modified version of our script. Afterwards we start
+%the parallelization script for which we have to specify the file including the simulation path and the number of gpus and cuda machines we want to use.
 
-\begin{python}[caption='Grid Convergence Study Example']
+\clearpage
+
+\begin{python}[caption='Grid Convergence Study Example', label={gcstudy_papi}]
 import pycurb as pc
 import pycurb.testcase as tf
 import numpy as np
@@ -205,8 +209,8 @@ if __name__=='__main__':
     main()
 \end{python}
 
-The script creates a thread-safe queue and a number of threads, one for each gpu per machine.
-Each thread automatically fetches a job from the queue, than logs into the assigned cuda machine
-and executes the job on the given gpu.
-For time consuming simulations also a modificated version of the script was written where one thread
-can use more than one gpu, see Appendix A(XX).
+%The script creates a thread-safe queue and a number of threads, one for each gpu per machine.
+%Each thread automatically fetches a job from the queue, than logs into the assigned cuda machine
+%and executes the job on the given gpu.
+%For time consuming simulations also a modificated version of the script was written where one thread
+%can use more than one gpu, see Appendix A(XX).
