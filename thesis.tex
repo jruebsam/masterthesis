@@ -30,7 +30,12 @@
 
 \usepackage{algorithmic}
 
-
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+                                    {3.25ex \@plus1ex \@minus.2ex}%
+                                    {-1em}%
+                                    {\normalfont\normalsize}}
+\makeatother
 %\setlength{\oddsidemargin}{+1mm}%
 %\setlength{\evensidemargin}{-1mm}%
 \setlength{\oddsidemargin}{+1pt}%
@@ -228,13 +233,13 @@ rulecolor=\color{black}
 
 
     \titleformat{\section}[block]
-    {\Large}{\thesection~#1}{1em}{}
+    {\Large\bfseries}{\thesection~#1}{1em}{}
 
     \titleformat{\subsection}[block]
-    {\large}{\thesubsection~#1}{1em}{}
+    {\large\bfseries}{\thesubsection~#1}{1em}{}
 
     \titleformat{\subsubsection}[block]
-    {\normalsize}{\thesubsubsection~#1}{1em}{}
+    {\normalsize\bfseries}{\thesubsubsection~#1}{1em}{}
 
     %\titlespacing*{\subsection}{0pt}{15pt}{10pt}
     \titlespacing*{\section}{0pt}{25pt}{20pt}
@@ -261,7 +266,8 @@ rulecolor=\color{black}
     \setcounter{secnumdepth}{3}
 
 %\includeonly{chapters/immersed_boundary, chapters/validation/pflow, chapters/validation/hp_flow, chapters/validation/tc_flow, chapters/appendix, chapters/python_api}
-\includeonly{chapters/validation/tc_flow, chapters/appendix}
+\includeonly{chapters/immersed_boundary, chapters/testcases, chapters/valiresults, chapters/validiscuss, chapters/appendix, chapters/python_api}
+%\includeonly{chapters/validation/tc_flow, chapters/appendix}
 %\includeonly{chapters/immersed_boundary}
 %\includeonly{chapters/cuda}
 %\renewcommand{\descriptionlabel}[1]{\hspace{\labelsep}\emph{#1}}
@@ -347,10 +353,13 @@ rulecolor=\color{black}
 \include{chapters/numerik}
 \include{chapters/cuda}
 \include{chapters/immersed_boundary}
+\include{chapters/testcases}
+\include{chapters/valiresults}
+\include{chapters/validiscuss}
 
-\include{chapters/validation/pflow}
-\include{chapters/validation/hp_flow}
-\include{chapters/validation/tc_flow}
+%\include{chapters/validation/pflow}
+%\include{chapters/validation/hp_flow}
+%%%\include{chapters/validation/tc_flow}
 
 \include{chapters/cone}
 \include{chapters/outlook}

@@ -1,0 +1,445 @@
+\section{Validation}
+
+%This part of the thesis the thesis deals with the numerical validation of the immersed
+%boundary methods
+%In the first part of the chapter an introduction to different test cases
+%will be given. Three different test problems were chosen.
+%The flow between to planes, also known as Planar Poiseuille flow, the flow in a Pipe, referred to as Hagen-Poiseuille flow and the flow
+%between two rotating cylinders, know as the Taylor-Couette system.
+%In the second part of the chapter the result for the different test cases will be presented and discussed.
+%In the first part of the chapter an introduction to different test cases
+%will be given.
+This section presents the numerical validation of the Immersed Boundary methods.
+The objective of the validation is to determine the numerical accuracy and
+the numerical stability for each method.
+Furthermore, it is important to test if conservation laws, in particular the conservation of mass,
+are fulfilled.
+For the validation three different test problems were chosen.
+The flow between two parallel planes which is also known as planar Poiseuille flow, the flow in a Pipe which is referred to as Hagen-Poiseuille flow and the flow
+between two rotating cylinders which is known as the Taylor-Couette system.
+
+%\paragraph{Conventions}\mbox{}\\
+\subsection{Conventions}
+
+In this section the following abbreviations will be used
+
+\begin{multicols}{2}
+\begin{description}
+    \item[VP]{Volume-Penalization Method}
+    \item[DF]{Direct Forcing Method}
+    \item[IP]{Interpolation Method}
+    \item[VF]{Volume-Fraction Method}
+    \item[FD2]{Finite Difference Schemes of second order}
+    \item[FD4]{Finite Difference Schemes of fourth order}
+\end{description}
+\end{multicols}
+
+For example, DF-VF FD2 method, refers to the Direct-Forcing method, extended with the Volume-Fraction
+method and the use of second order finite difference schemes.
+
+%\paragraph{Grid Convergence Studys}\mbox{}\\
+\subsection{Grid Convergence Studies}
+
+For the validation multiple grid convergence studys were performed.
+The concept of a grid convergence study is to vary the grid resolution of the numerical domain and
+calculate the error of the simulation with respect to an assumed theoretical solution.
+The relative error $\epsilon$ is computed by the $l_2$-norm by
+
+\begin{align}
+    \epsilon = \frac{\int \dif V \left(\Phi^{\text{th}} - \Phi^{\text{num}}\right)^2}{\int \dif V \left( \Phi^{\text{th}} \right)^2}
+     = \frac{\sum_{i,j,k}^{N_x, N_y, N_z}
+      \left(\Phi^{\text{th}}_{i,j,k}  - \Phi^{\text{num}}_{i, j, k}  \right)^2}
+     {\sum_{i,j,k}^{N_x, N_y, N_z} \left( \Phi^{\text{th}}_{i,j,k} \right)^2}
+ \end{align}
+
+where $\Phi^{\text{th}}$ corresponds to the theoretical and $\Phi^{\text{num}}$ to the numerical solution of any field variable $\Phi$.
+Often the numerical error is given by a power law of the form $\epsilon = N^\lambda$, i.e. for a finite difference scheme of second order
+this is the truncation error given by the remaining terms  of the Taylor expansion.
+For an evaluation of the error convergence the results of the grid convergence study are, if possible, fitted linearly in the log-log space, to obtain the
+convergence rate $\lambda$.
+The following testcases are used for a numerical validation.
+
+%In general it is necessary to obtain a good evaluation of the numerical truncation error,
+% the numerical stability over longer periods of time
+%and Grid convergence studys against theoretical and high-resolution numerical solutions
+%will be performed and compared for the different IBMs.
+%In order to ensure a correct numerical behavior of the introduced methods, a
+%Multiple examples from simple to more complex test cases are introduced in this section.
+
+\subsection{Laminar Poiseuille Flow}
+\label{vali:sec_lpflow_setup}
+
+\begin{figure}[!bp]
+  \begin{minipage}[c]{0.6\textwidth}
+      \centering
+        \resizebox{0.9 \textwidth}{!}{
+       \import{gfx/immersed_boundary/poiseuille_flow//}{setup.pdf_tex}
+      }
+  \end{minipage}
+  \begin{minipage}[c]{0.3\textwidth}
+      \caption{Flow in a channel of height $\Delta h = h_2 - h_1$, with periodic boundaries in $x$ and $y$ direction and
+       a predefined pressure gradient $\nabla p$.
+      \label{validation:setup_pf}
+      }
+  \end{minipage}
+\end{figure}
+
+The numerical setup of this test case is presented in Fig. \ref{validation:setup_pf}.
+It consist of two infinite extending  planes at $z=h_1$ and $z=h_2$, which are oriented
+parallel to the xy-plane, with a distance $\Delta h = h_2 - h_1$.
+An infinite long channel is numerically realized by using periodic boundaries in x- and y-direction.
+For the walls immersed boundaries, or in case of the default algorithm No-Slip boundaries, are used.
+The fluid flow in the channel is a result from a predefined constant pressure gradient $\nicefrac{\partial p}{\partial x}$
+in the fluid domain.
+In the implementation this pressure gradient is added into the Navier-Stokes equation as an additional forcing term.
+For the steady state the flow is independent of the $x$ and $y$ coordinate.
+According to \citep{Kundu2012}, the equations of motion, here in the non-dimensionalized form, are given by
+
+\begin{align}
+    \label{vali:pflow_navstok}
+    \frac{\partial v_x}{\partial t} &= - \frac{\partial p}{\partial x}
+     + \frac{1}{Re} \frac{\partial^2 v_x}{\partial z^2} = 0,
+\end{align}
+
+where $Re = \nicefrac{V_{m}\Delta h}{\nu}$, with the non-dimensionalization defined as
+
+\begin{align}
+    \text{Length:}\qquad &  \vec{r} = \frac{\vec{r^*}}{\Delta h}  &
+    \qquad \text{Velocity:}\qquad& \vec{v} =  \frac{\vec{v^*}}{V_{\text{M}}}\\
+    \text{Time:}  \qquad & t = \frac{t^* \cdot V_\text{M}}{\Delta h}&
+    \qquad  \text{Pressure:}\qquad & p = \frac{\nabla p^*}{\rho V_\text{M}^2}
+\end{align}
+%For this system the non-dimenzionalization is given by the scales
+%    $r^* = \nicefrac{r}{\Delta h}$, $v^*=\nicefrac{V_(\text{m})}{\Delta h}$,
+%    $t^* = \nicefrac{V_{\text{m}}}{\Delta h}$ and $p^* = p \rho V_{\text{max}}^2$.
+
+where $V_\text{M}$ is defined by the maximal velocity in the channel $\max(v_x(z))$.
+By the integration of Eq. \ref{vali:pflow_navstok} it follows that
+\begin{align}
+v_x &= \frac{1}{2}\frac{\partial p}{\partial x}\Rey z^2 + zc_1 + c_2.
+\end{align}
+
+The integration constants are obtained by setting $v_x(h_1) = v_x(h_2) = 0$:
+\begin{align}
+c_1 = A\frac{h_1^2 -h_2^2}{h_2 - h_1} = -A(h_1+h_2)\qquad ,& \qquad
+c_2 = A(h_1(h_1 + h_2) - h_1^2) = Ah_1h_2,
+\end{align}
+
+with the definition $A:=\frac{1}{2}\frac{\partial p}{\partial x} Re$.
+The velocity is then given by the quadratic function
+\begin{align}
+\label{vali:pflow_theosol}
+v_x &= A(z^2 - z(h_1 + h_2) + h_1h_2).
+\end{align}
+
+The maximum velocity and position are given by
+\begin{align}
+z_{\text{M}} &= \frac{h_1+h_2}{2} \wedge v_{\text{M}} = A\left(h_1h_2 - \frac{(h_1 + h_2)^2}{4}\right).
+\end{align}
+
+Due to the non-dimensionalization it is necessary that $V_{\text{M}} \overset{!}{=}  1$.
+It follows that
+
+\begin{align}
+    \label{vali:pflow_pcondi}
+\frac{\partial p}{\partial x} &= \frac{2}{Re}\frac{1}{\left(h_1h_2 - \frac{(h_1+h_2)^2}{4} \right)}
+\end{align}
+
+has to be fullfilled as a necessary condition for the pressure gradient.
+The Poiseuille flow is used in particular as a first validation test case
+for the VP, DF method  and the basic implementation.
+
+%\paragraph{Test of the Basic Algorithm}\mbox{}\\
+\subsubsection{Simulation: Test of the Basic Algorithm}
+
+The purpose of the first simulation is to test  the basic
+implementation of the algorithm which does not use Immersed Boundary methods.
+For the Poiseuille flow this is still possible since the geometry is non-curved
+and parallel to the cartesian grid. The heights for this setup are set to $h_1=0$ and $h_2=1$.
+A grid convergence test was performed with the main simulation parameters given by
+\footnote{For reasons of clarity only the important simulation parameters, depending on the setup and the performed simulation,  will be presented in this thesis.}
+\footnote{The size in $l_x/l_y$ direction is set to the smallest possible value which is 8 grid points due to the GPU algorithm which uses a blocksize of 8x8.}
+
+\begin{center}
+\vspace*{0.7ex}
+\begin{tabular}{c|c|c|c|c|c|c }
+ $ N_z  $                   & $\Delta t$ & $\Delta z$            & $\Rey$  & $c^2$   & $l_z, l_x/l_y$ & $T_{end}$\\
+\hline
+ $[8, 256], \Delta N = 8 $& $10^{-4}$ & $\nicefrac{1}{N - 1}$ & 500     & $500$   &  1, 8$\Delta z$ &  10\\
+\end{tabular}
+\vspace*{0.7ex}
+\end{center}
+
+The simulation was performed for FD2 and FD4 methods.
+
+\subsubsection{Simulation: Test of the Volume-Penalization Method}
+%\paragraph{Test of the Volume-Penalization Method}\mbox{}\\
+
+%With the given theoretical solution, the next objective is the comparison
+%to the default implementation, the volume penalization method and the direct forcing method.
+%Since we have a flow parallel to the grid  it does not make sence to compare it to the interpolation methods
+%For the comparision with a theoretical solution it is necessary to ensure that
+% the surface grid points match with the total height $h$ of the channel.
+
+For the Immersed Boundary methods the upper and lower boundaries of the channel are realized by the masking function
+\begin{align}
+H(z) = \begin{cases}
+                    0, & \text{for \  }  h_1 \leq z \leq h_2 \\
+                    1, & \text{else}.
+             \end{cases}
+\end{align}.
+
+For the VP-method an additional forcing term for Eq. \ref{vali:pflow_navstok} of the form
+
+\begin{align}
+    \vec{f} = -\frac{H}{J}\vec{v}
+\end{align}
+
+has to be introduced (see Sec. \ref{chap:ibm_volpen}).
+Where the non-dimensionalized damping coefficient is given by $J = \nicefrac{V_{m}}{\eta}$.
+A first test is an investigation of the error of the velocity profile, with a variation of the Reynolds number and the damping coefficient $J$.
+To ensure that the channel width is equal to $\Delta h = 1$, the total height of the simulation domain was set to $l_z\approx2.01587$,
+with $h_1=0.5$ and $h_2=1.5$.
+This ensures that the grid points overlap exactly with the masking function at $h_1$ and $h_2$.
+A simulation series was performed for the VP-FD2 method with the simulation parameters
+
+\begin{center}
+\vspace*{0.5ex}
+\begin{tabular}{c|c|c|c|c|c|c|c }
+ $ \Rey  $                      & $J$ & $N_z$ &  $\Delta t$ & $\Delta z$            & $c^2$   & $l_z, l_x/l_y$ & $T_{end}$\\
+\hline
+ $[100, 500], \Delta \Rey = 25 $& $[10^{-5}, 5\cdot10^{-1}]  $ & 64 &  $10^{-4}$ & $\nicefrac{1}{N - 1}$   & $500$   & $\approx{2.015871}, 8\Delta z$ & 10\\
+\end{tabular}
+\vspace*{0.5ex}
+\end{center}
+
+The stepping of $J$ was varied such that each order of magnitude is covered by two values, i.e. $10^{-1}$ and $5\cdot10^{-1}$.
+A value of $J=10^{-5}$ corresponds to a relative strong damping force in comparison to a weak damping at a value of $J=10^{-1}$.
+As a second test a grid convergence study was carried out with a constant Reynolds number,
+where the resolution was varied between $N_z\in [8, 280]$ with $\Delta N_z = 8$. VP-FD2 and VP-FD4 methods were tested with the parameters
+
+\begin{center}
+\vspace*{0.5ex}
+\begin{tabular}{c|c|c|c|c|c|c|c }
+ $ N_z  $                      & $J$ &  $\Delta t$ & $\Delta z$            & $\Rey$  & $c^2$   & $l_z, l_x/l_y$ & $T_{end}$\\
+\hline
+ $[8, 280], \Delta N_z = 4 $& $[10^{-4}, 5\cdot10^{-2}]  $ &  $10^{-4}$ & $\nicefrac{1}{N - 1}$ & 500     & $500$   & $\approx{2.015871}, 8\Delta z$  & 10\\
+\end{tabular}
+\vspace*{0.5ex}
+\end{center}
+
+\subsubsection{Simulation: Test of the Direct-Forcing Method}
+%\paragraph{Test of the Direct-Forcing Method}\mbox{}\\
+
+Since the DF method does not depend on a damping coefficient (see Sec. \ref{chap:ibm_dirforce}),
+it is sufficient enough to carry out a grid convergence study.  The simulation parameters are given by
+
+\begin{center}
+\vspace*{0.3ex}
+\begin{tabular}{c|c|c|c|c|c|c }
+ $ N_z  $                       &  $\Delta t$ & $\Delta z$            & $\Rey$  & $c^2$   & $l_z, l_x/l_y$ & $T_{end}$\\
+\hline
+ $[8, 280], \Delta N_z = 4 $ &  $10^{-4}$ & $\nicefrac{1}{N - 1}$ & 500     & $500$   & $\approx{2.015871}, 8\Delta z$  & 10\\
+\end{tabular}
+\vspace*{0.3ex}
+\end{center}
+The simulation was performed for FD2 and FD4 methods.
+
+\subsection{Hagen-Poiseuille Flow}
+
+\label{vali:section_hpflow_start}
+
+In the previous test case the channel walls were aligned parallel to the simulation grid. Hence, no further interpolation procedures
+are necessary to mimic the exact boundaries.
+In order to test the accuracy of the VF and the IP method, a test case with a curved geometry is necessary.
+Furthermore it is possible to investigate the discretization error of the non-interpolating VP and DF method, with respect to curved geometries.
+
+A simple adaption of the planar Poiseuille flow, is the laminar flow through a pipe, also referred to as Hagen-Poiseuille flow \citep{tritton88}.
+The setup of the fluid domain is schematically shown in Fig. \ref{validation:setup_hpflow}.
+It consist of a circular pipe with the radius $r_0$, which extends infinitely parallel to the $x$ axis.
+This is realized similar to Sec. \ref{vali:sec_lpflow_setup} by using periodic boundaries in $x$-direction
+and Immersed Boundary methods for the channel wall.
+The center of the pipe is set to the center of the simulation domain ${(y_0, z_0) = (\nicefrac{l_y}{2}, \nicefrac{l_z}{2})}$.
+In analogy to the Poiseuille flow, the velocity profile is a result from a predefined pressure gradient $\nicefrac{\partial p}{\partial x}$ in x-direction,
+which  is added into the Navier-Stokes equation as an additional forcing term.
+
+\begin{figure}[!bp]
+      \centering
+        \resizebox{0.75 \textwidth}{!}{
+       \import{gfx/immersed_boundary/hpflow///}{setup.pdf_tex}
+      }
+      \caption{Setup for the Hagen-Poiseuille flow, consisting of a pipe of radius $r_0$ with the center at  ${(\nicefrac{l_y}{2}, \nicefrac{l_z}{2})}$ and of infinitesimal length.}
+    \label{validation:setup_hpflow}
+\end{figure}
+
+An analytical solution of this problem is based of \citep{Kundu2012}.
+Once again a steady state flow can be assumed, which implies that $\partial v_x/\partial t = 0$. With the introduction of cylindrical coordinates $(r, \phi, x)$
+and the assumption that the flow is independent of $\phi$ the equation of motion reduces to
+
+\begin{align}
+    \label{vali:hpflow:navstok}
+        0 &= - \frac{\partial p}{\partial x}  +  \frac{1}{\Rey} \frac{1}{r}\frac{\partial}{\partial r}\left(r\frac{\partial v_x}{\partial r}\right)
+\end{align}
+
+where $Re = \nicefrac{V_{m}r_0}{\nu}$.
+The non-dimensional scales are similar to Sec. \ref{vali:sec_lpflow_setup}  except that the length scale is set to $r_0$ instead of $\Delta h$.
+
+The integration of Eq. \ref{vali:hpflow:navstok} gives
+\begin{align}
+    v_x(r) &= \frac{r^2}{4}\frac{\partial p}{\partial x}\Rey + A \ln r + B.
+\end{align}
+
+It holds that $v_x(0)= V_{\text{M}}$ this condition can only be fulfilled if $A=0$.
+With the use of the boundary conditions $v(r_0) = 0$ the velocity profile is given by
+\begin{align}
+    v_x(r) &= \frac{r^2 - r_0^2}{4}\frac{\partial p}{\partial x}Re.
+\end{align}
+Since $V_{M} \stackrel{!}{=} 1$ by definition (see Sec. \ref{vali:sec_lpflow_setup}),
+ the pressure condition for the domain needs to be set to
+\begin{align}
+    \frac{\partial p}{\partial x} = -\frac{4 r_o^2}{Re}.
+\end{align}
+
+\subsubsection{Simulation: Grid Convergence Study}
+%\paragraph{Simulation: Grid Convergence Study}\mbox{}\\
+
+For an error evaluation a grid convergence study was performed with the Reynolds number set to $Re=100$.
+The number of grid points was varied in the interval $N\in[32, 256]$. Furthermore, a
+simulation with a resolution of $N=512$ was carried out.
+Since the maximum velocity of the channel is $V_{M}=1$,
+the sound speed was set to $c^2 = 100$ to fulfill the incompressibility condition $Ma = v/c < 0.1$.
+The resulting time step for the highest resolution is $\Delta t = 10^{-4}$.
+The main parameters of the simulation are  given by
+
+\begin{center}
+\vspace*{0.7ex}
+\begin{tabular}{c|c|c|c|c|c|c|c }
+ $ N  $                   & $\Delta t$ & $\Delta z, \Delta y$            & $\Rey$  & $c^2$   & $l_y, l_z, l_x$ & $r_0$ & $T_{end}$\\
+\hline
+ $512; [16, 256], \Delta N = 16 $& $10^{-4}$ & $\nicefrac{1}{N}$ & 100     & $100$   & 2.5, 2.5, $8\Delta y$ & 1     & 20\\
+\end{tabular}
+\vspace*{0.7ex}
+\end{center}
+
+With this setup the VP, DF and IP methods were tested with FD2 and FD4 methods and optional with the VF method.
+The IP method was additionally tested with the DF method. Thus, the velocity is interpolated on the
+fluid boundary and set to zero outside of fluid domain.
+For the VP method the non-dimensionalized damping was set to $J=10^{-4}$.
+It would be possible to choose a larger time step for the lower resolution cases, which means that in general
+one would apply a larger $J$ in a case of an application, due to the stability criterion $J>\Delta t$.
+As a result the damping force on the boundaries $\propto \nicefrac{1}{J}$ would be smaller.
+To remain consistent in the error convergence, here $\Delta t$ and
+therefore $J$ are not altered.
+
+\subsubsection{Simulation: Long-Term}
+%\paragraph{Long-Term Simulations}\mbox{}\\
+
+In order to test the  numerical stability and conservation of mass, a long-term simulation was performed.
+A Reynolds number of $Re=100$ was chosen. The resolution is set to $N=96$ grid points and
+the ending time was set to $T_{\text{end}}=1600$.
+The main parameters of the simulation are  given by
+
+\begin{center}
+\vspace*{0.7ex}
+\begin{tabular}{c|c|c|c|c|c|c|c }
+ $ N  $                   & $\Delta t$ & $\Delta z, \Delta y$            & $\Rey$  & $c^2$   & $l_y, l_z, l_x $ &$r_0$ & $T_{end}$\\
+\hline
+ $96 $& $10^{-4}$ & $\nicefrac{1}{N}$ & 100     & $100$   & 2.5, 2.5, $8\Delta y $ & 1     & 1600\\
+\end{tabular}
+\vspace*{0.7ex}
+\end{center}
+
+With this setup the same methods as in the grid convergence study were tested.
+
+\subsection{Taylor-Couette Flow}
+
+\begin{figure}[!bp]
+  \begin{minipage}[c]{0.6\textwidth}
+      \centering
+        \resizebox{0.9 \textwidth}{!}{
+       \import{gfx/immersed_boundary/tcflow//}{tcsystem.pdf_tex}
+      }
+  \end{minipage}
+  \begin{minipage}[c]{0.3\textwidth}
+      \caption{Setup of the Taylor-Couette flow, consisting of  two cylinders with radii $r_i$ and $r_o$ with angular velocities $\Omega_i$ and $\Omega_o$, that are oriented coaxial
+       and parallel to the $z$ axis.
+      \label{validation:setup_tcflow}
+      }
+  \end{minipage}
+\end{figure}
+
+The numerical setup of this test case is shown in Fig. \ref{validation:setup_tcflow}.
+It contains two coaxial cylinders which are oriented parallel to the z-axis.
+The inner cylinder has a radius and angular velocity $r_i$ and $\Omega_i$. In analogy these properties are defined as
+$r_o$ and $\Omega_o$ for the outer cylinder.
+The fluid domain is given by the gap of width $d = r_o - r_i$ between the cylinders and extends to infinite.
+For the simulation  periodic boundaries are used in $z$-direction.
+
+In contrast to the previously examined test cases this system provides new characteristics
+of the flow regime at the fluid boundaries. The flow is not orthogonal to the curvature of the geometry and
+Furthermore the velocities at the boundaries are not zero but have to fulfill  a Dirichlet condition given by
+$\vec{v}(\vec{r})|_{r_i}  = \Omega_i \times \vec{r}$.
+
+In dependency of the defined parameters different flow regimes exist.
+For small differences in the rotation rates the flow is laminar and azimuthal.
+
+An increase of the angular velocity $r_i$ above a critical value leads to an physical instability. The flow becomes unsteady.
+In this flow regime toroidal vortices form, which are also denoted as Taylor cells.
+The flow is not purely azimuthal \citep{tritton88}.
+In this test case only the laminar and azimuthal flow regime will be considered, when the outer cylinder is not rotating ($\Omega_o = 0$).
+In literature, this system is usually referred to as Circular Couette flow (CCF) \citep{Kundu2012}.
+
+This problem can be reduced to two dimensions and described in polar coordinates $(r, \phi)$. The equations of motion for the steady state are given by \citep{Kundu2012}
+\begin{align}
+    \label{vali:tc_flow_eqnavstok}
+    -\frac{v^2_\phi}{r} = - \frac{\partial p}{\partial r} \qquad ;& \qquad 0 = \frac{1}{Re}\frac{\partial}{\partial r}\left(\frac{1}{r}\frac{\partial}{\partial r}(r v_\phi)\right).
+\end{align}
+
+
+For the non-dimensionalization the default convention is chosen according to  \citep{Chen2015}
+\begin{align}
+    \text{Length:}\qquad &  \vec{r} = \frac{\vec{r}^*}{r_o - r_i}  &,
+    \qquad \text{Velocity:}\qquad& \vec{v} =  \frac{\vec{v}^*}{r_i\Omega_i},\\
+    \text{Time:}  \qquad & t = t^* \cdot \frac{r_i \Omega_i}{r_o - r_i}&,
+    \qquad  \text{Pressure:}\qquad & p = \frac{p^* - p_\infty}{\rho r_i^2\Omega_i^2}.
+\end{align}
+
+
+The flow is then characterized by the Reynolds number $Re = \nicefrac{\Omega_i R_i d}{\nu}$.
+With the integration of Eq. \ref{vali:tc_flow_eqnavstok} the solution is given by (see [\citep{Kundu2012}])
+\begin{align}
+    v_\phi = Ar + \frac{B}{r}
+\end{align}
+where $A$ and $B$ are defined as
+\begin{align}
+    A := \frac{-\Omega_i r_i^2}{r^2_o - r^2_i} \qquad ,& \qquad B := \frac{\Omega_i r^2_i r^2_o}{r^2_o - r^2_i}.
+\end{align}
+
+\subsubsection{Simulations}
+
+The simulations for this test case were carried out in analogy to the Hagen-Poiseuille flow, see Sec. \ref{vali:section_hpflow_start}.
+Here the resolution is varied on the $x$ and $y$ axis, the radii are set to $r_i=1$ and $r_o=2$ and $l_x=l_y=2.5$.
+The main parameters of the grid convergence study simulation are  given by
+
+\begin{center}
+\vspace*{0.7ex}
+\begin{tabular}{c|c|c|c|c|c|c|c }
+ $ N  $                   & $\Delta t$ & $\Delta x, \Delta y$            & $\Rey$  & $c^2$   & $l_x, l_y, l_z$ & $r_o, r_i$ & $T_{end}$\\
+\hline
+ $512, [16, 256], \Delta N = 16 $& $10^{-4}$ & $\nicefrac{1}{N}$ & 100     & $100$   & 2.5, 2.5, 8$\Delta x$ & 2, 1    & 20\\
+\end{tabular}.
+\vspace*{0.7ex}
+\end{center}
+
+The main parameters of the long-term simulations are  given by
+
+\begin{center}
+\vspace*{0.7ex}
+\begin{tabular}{c|c|c|c|c|c|c|c }
+ $ N  $                   & $\Delta t$ & $\Delta x, \Delta y$            & $\Rey$  & $c^2$   & $l_x, l_y, l_z$ &$r_o, r_i$ & $T_{end}$\\
+\hline
+ $96 $& $10^{-4}$ & $\nicefrac{1}{N}$ & 100     & $100$   & 2.5, 2.5, 8$\Delta x$   & 2, 1& 1600\\
+\end{tabular}.
+\vspace*{0.7ex}
+\end{center}
+
