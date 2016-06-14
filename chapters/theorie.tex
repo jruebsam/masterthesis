@@ -1,11 +1,11 @@
 \chapter{Theoretical Principles}
 
-Prior to the development of a numerical model it is necessary to give an exact theoretical description of the
-fluid systems, which are investigated in the context of this thesis.
-Hence this section contains a brief overview of the derivation and the properties of the fundamental equations of motions.
-For a more detailed description, the interested reader is referred to \citep{ferziger99} on which section \ref{theorie:eqm1} is based.\\
+For the development of a numerical model it is necessary to give an exact theoretical description of the
+fluid systems which are investigated in this thesis.
+Hence, this chapter contains a brief overview of the derivation and the properties of the fundamental equations of motions.
+For a more detailed description, the interested reader is referred to \citep{ferziger99}, on which Sec. \ref{theorie:eqm1} is based.
 In the second part of this chapter, the equations will be extended to rotating fluid systems.
-The physical solution, known as inertial waves, of this system will be discussed.
+The physical solutions of this system, which are known as inertial waves, will be discussed.
 
 \section{The Equations of Motion}\label{theorie:eqm1}
 
@@ -17,43 +17,43 @@ meanwhile the mass distribution is given by the density distribution $\rho(\vec{
 \subsection{Mass Conservation}
 
 Let $\partial V$ be the enclosing surface and $\vec{n}$ the normal vector to the control volume.
-We know consider a control mass with the volume $V_M$, traversing the control volume, such that for a fixed point in time it holds that $V_M = V$.
+A control mass with the volume $V_M$ is consider, traversing this control volume. For a fixed point in time it holds that $V_M = V$.
 For any intensive property $\phi$ the Reynolds transport theorem states that
 
 \begin{align}
     \label{theorie:reynolds}
-    \frac{\dif}{\dif t} \int_{V_M}\dif V \rho \phi  = \frac{\dif}{\dif t}\int_{V} \dif V \rho \phi + \int_{\partial V}\dif S \rho \phi \vec{v} \vec{n}
+    \frac{\dif}{\dif t} \int_{V_M}\dif V \rho \phi  = \frac{\dif}{\dif t}\int_{V} \dif V \rho \phi + \int_{\partial V}\dif S \rho \phi \vec{v} \vec{n}.
 \end{align}
 
 The assumption of a conservation law requires that the left side of equation \ref{theorie:reynolds} has to be zero.
-By setting $\phi = 1$ one obtains the integral form of mass conversation.
+By setting $\phi = 1$ one obtains the integral form of mass conservation
 
 \begin{align}
     \frac{\dif}{\dif t} \int_V \dif V \rho(t) + \int_{\partial V}\dif S \rho \vec{v}\vec{n}
      \stackrel{\text{Gauss} \atop \text{ Law}}{=}
-    \int_V \dif V \left( \frac{\dif}{\dif t} \rho(t) + \vec{\nabla}\left(\rho \vec{u}\right)\right)
+    \int_V \dif V \left( \frac{\dif}{\dif t} \rho(t) + \vec{\nabla}\left(\rho \vec{u}\right)\right).
 \end{align}
 
-The differential form of the equation is obtained by applying gauss law and considering an infinitesimal small control volume.
+The differential form of the equation is obtained by applying Gauss's law and considering an infinitesimal small control volume
 \begin{align}
-     \frac{\partial \rho}{\partial t}  + \nabla \left(\rho \vec{v}\right) &= 0
+     \frac{\partial \rho}{\partial t}  + \nabla \left(\rho \vec{v}\right) &= 0.
 \end{align}
-As an incompressible fluid is investigated, that is $\rho = \text{const.}$, the incompressible continuity equation reduces to
+As an incompressible fluid is investigated, where $\rho = \text{const.}$, the incompressible continuity equation reduces to
 \begin{align}
-     \nabla \cdot \vec{v} &= 0
+     \nabla \cdot \vec{v} &= 0.
 \end{align}
 
 \subsection{Momentum Conservation}
 
-Using the same approach, but with setting $\phi = \vec{v}$, results in the integral form of the momentum equation
+Using the same approach, but with setting $\phi = \vec{v}$, results in the integral form of the momentum equation,
 
 \begin{align}
     \label{theorie:intimpulse}
-    \frac{\dif}{\dif t} \int_V \dif V \rho \vec{v} + \int_{\partial V} \dif S \rho\vec{v}\vec{v}\cdot \vec{n}  =  \sum \vec{F}_{\text{ext.}} + \sum \vec{F}_{\text{int.}}
+    \frac{\dif}{\dif t} \int_V \dif V \rho \vec{v} + \int_{\partial V} \dif S \rho\vec{v}\vec{v}\cdot \vec{n}  =  \sum \vec{F}_{\text{ext.}} + \sum \vec{F}_{\text{int.}}.
 \end{align}
 
-In addition to the left hand side, the equation is extended by additional internal and external forces, which may act on the fluid inside the control volume.
-The external forces depend on the specific physical system, for example the buyont or the coriolis force, whereas the internal forces
+In addition, to the left hand side the equation is extended by additional internal and external forces which may act on the fluid inside the control volume.
+The external forces depend on the specific physical system, for example Buoyancy or the Coriolis force. Internal forces
 are given by the pressure and the normal and shear stresses acting on a fluid element.\\
 For a newtonian fluid the internal forces can be described by the stress tensor $\bm{T}$
 
@@ -62,98 +62,89 @@ For a newtonian fluid the internal forces can be described by the stress tensor 
      \int_{V} \dif V \nabla \left(- \left(p + \frac{2}{3}\mu\nabla\vec{u} \right) + 2\mu \bm{D} \right)
 \end{align}
 with the static pressure $p$, the dynamic viscosity $\mu$ and the deformation tensor $\bm{D}$.
-By applying Gauss's law to equation \ref{theorie:intimpulse} and consider an infinitesimal volume,
-the differential form of the impulse equation, also known as Navier-Stokes equation is given by
-\footnote{The term Navier-Stokes equation is generally referred to as the complete set of equations of motion or
-just the impulse equation here we use the latter convention.}
+Applying Gauss's law to equation \ref{theorie:intimpulse} and consider an infinitesimal volume,
+the differential form of the impulse equation, also known as Navier-Stokes equation, is given by
+\footnote{The Navier-Stokes term is generally referred to as the complete set of equations of motion or
+just the impulse equation here using the latter convention.}
 \begin{align}
     \label{theorie:eqns}
-    \pdn[v]{t} + \underbrace{\left(\vec{v} \vec{\nabla}\right) \vec{v}}_{\text{I}} &= \underbrace{- \frac{1}{\rho} \nabla p + \nu \Delta \vec{v}}_{\text{II}} +\sum \vec{F}_{\text{ext.}}
+    \pdn[v]{t} + \underbrace{\left(\vec{v} \vec{\nabla}\right) \vec{v}}_{\text{I}} &= \underbrace{- \frac{1}{\rho} \nabla p + \nu \Delta \vec{v}}_{\text{II}} +\sum \vec{F}_{\text{ext.}}.
 \end{align}
-where  the kinematic viscosity is given by the definition $\nu = \mu/\rho$.
-For an incompressible fluid the force term generated by $\bm{T}$ reduces to term (II).\\
-Altogether the internal force is now given by the pressure gradient and an diffusive impulse transport proportional to $\nu$.
-The non-linearity of the fluid originates through term (I), which is also denoted as the advection operator.
-It basically describes the change of impulse of a fluid element when moving through the velocity field.
-\footnote{For example the velocity of a fluid element will change when no forces but a velocity field is present.}
+Where  the kinematic viscosity is given by the definition $\nu = \mu/\rho$.
+For an incompressible fluid the force term generated by $\bm{T}$ reduces to term \RN{2}.
+In summary, the internal force is now represented by the pressure gradient and an diffusive impulse transport proportional to $\nu$.
+The non-linearity of the fluid originates through term \RN{1}, which is also denoted as the advection operator.
+It basically describes the change of the impulse of a fluid element when moving through the velocity field
+\footnote{For example the velocity of a fluid element will change when a velocity field is present and forces are absent.}.
 It should be noted that the set of equations is not yet solvable as the pressure variable is still undetermined.
 
 \subsection{Initial State and Boundary Conditions}
 
-The solution of a partial differential equation, if it exists, is always undetermined by a constant of integration.
+The solution of a partial differential equation is undetermined by a constant of integration.
 In order to determine the temporal evolution of a fluid system, it is necessary to define its initial state and therefore
-to determine one specific solution.\\
-This means that for every variable we have to choose an initial condition.
+one specific solution.\\
+For every variable an initial condition must be chosen.
 With respect to a numerical solution it has to be considered that, for example an instability, is always triggered by some kind of disturbance.
-Thus it might be advisable to not choose a trivial solution like a zero velocity field, but instead a solution which quickly evolves in the state
-of the system one wants to achieve. Often it is useful to add pseudo random noise.\\
+
+Thus, it might be advisable to not choose a trivial solution like a zero velocity field, but instead a solution which quickly evolves into the preferred state
+of the system. Often it is useful to add pseudo random noise.\\
 \\
-Since the fluid domain is spatial restricted it is as well necessary to define the physical behavior at its boundaries.
-For a fluid domain $V$ with the boundary $\partial V$, the following boundaries are considered, as defined in \citep{Griebel1998} and \citep{ferziger99}.
+Since the fluid domain is spatial restricted it is necessary to define the physical behavior at its boundaries as well.
+For a fluid domain $V$ with the boundary $\partial V$ the following boundaries are defined in \citep{Griebel199, ferziger99}.
 
 \begin{description}
-    \item[No-Slip Boundaries] All velocities components are set to zero $\vec{v}|_{\partial V} = 0$. The fluid is at rest on $\partial V$ and no flux through
+    \item[No-Slip Boundaries] All velocity components are set to zero $\vec{v}|_{\partial V} = 0$. The fluid is at rest on $\partial V$ and no flux through
                               the boundary occurs.
-                              In a more general case, this kind of condition is  also referred to as Dirichlet-Condition where $\Phi|_{\partial V} = c\in\mathbb{R} $,
+                              In a more general case, this kind of condition is  also referred to as Dirichlet-Condition where $\Phi|_{\partial V} = c\in\mathbb{R}$
                               for any variable $\Phi$.
 
-    \item[Free-Slip Boundaries] The velocity component in normal direction to the wall is set to zero, hence $\vec{n} \nabla \vec{v} = 0$ and $\vec{n}\vec{v}=0$ is required.
+    \item[Free-Slip Boundaries] The velocity component in normal direction to the wall has to be zero. Hence, $\vec{n} \nabla \vec{v} = 0$ and $\vec{n}\vec{v}=0$ is required.
                                 No flux through $\partial V$ occurs and no friction is imposed on the fluid.
 
-    \item[No-Flux Boundaries] For a scalar $\Phi$, the flux through the boundary is zero, hence $\vec{n}\nabla \Phi = 0$.
-                              Here the general case is referred to as Neumann boundary condition, where $\vec{n}\nabla \Phi = c\in \mathbb{R}$.
-                              This boundary conditions is used i.e. to avoid energy flux through the domain boundary.
+    \item[No-Flux Boundaries] For a scalar $\Phi$ the flux through the boundary has to be zero. Hence, $\vec{n}\nabla \Phi = 0$.
+                              The general case is referred to as Neumann boundary condition, where $\vec{n}\nabla \Phi = c\in \mathbb{R}$.
+                              This boundary condition is used for example to obtain adiabatic walls.
 
-    \item[Periodic boundaries] Periodic boundaries can be applied in all directions of a system. For example if the system is periodic in x-direction with a period of length $L$,
-                                one has to ensure that all variables match on the boundaries, that is $\Phi(x) = \Phi(x + L)$, for any variable $\Phi$.
+    \item[Periodic boundaries] These boundaries can be applied in all directions of a system. For example if the system is periodic in x-direction with a period of length $L$,
+                               it has to be ensured that all variables match on the boundaries that is $\Phi(x) = \Phi(x + L)$, for any variable $\Phi$.
 \end{description}
+
+\clearpage
 
 \subsection{Nondimensionalization}
 
-For many fluid systems nondimensionalization is used to further simplify the equations of motion and reduce the number of free parameters.
-The approach behind this scheme is to define variable substitutions, such that the overall systems is free from any physical units.\\
-After the nondimensionalization the system is described by one or more dimensionless quantity, which characterize the overall physical behavior.
-As a result it is easier to compare numerical simulations and experimental setups to one another.
-We can choose the following scales for the variables of time, position, velocity and pressure (see \cite{Kundu2012}), the nondimensional variables are denoted by an asterisk.
+For many fluid systems nondimensionalization is used to simplify the equations of motion and to reduce the number free parameters.
+The approach behind this scheme is to define variable substitutions, such that the overall system is free from any physical units.\\
+After the nondimensionalization the system is described by one or more dimensionless quantities, which characterize the overall physical behavior.
+As a result, it is easier to compare numerical simulations and experimental setups to each other.
+The following scales for the variables of time, position, velocity and pressure can be chosen \cite{Kundu2012}
+\footnote{In this thesis the dimensional variables are denoted by an asterisk when compared to non-dimensional variables.}
 
 \begin{align}
-    \text{Length:}\qquad &  \vec{r}^* = \frac{\vec{r}}{L}  & \qquad \text{Velocity:}\qquad& \vec{v}^* = \frac{\vec{v}}{V}\\
-    \text{Time:}  \qquad & t^* = t \cdot \frac{V}{L}      & \qquad  \text{Pressure:}\qquad & p^* = \frac{p - p_\infty}{\rho V^2}
+    \text{Length:}\qquad &  \vec{r} = \frac{\vec{r^*}}{L}  &, \qquad \text{Velocity:}\qquad& \vec{v}^* = \frac{\vec{v^*}}{V}\\
+    \text{Time:}  \qquad & t = t^* \cdot \frac{V}{L}      &,  \qquad  \text{Pressure:}\qquad & p = \frac{p^* - p_\infty}{\rho V^2},
 \end{align}
 
-where  $L$ is a length and $V$  a velocity, given by characteristic scales from the fluid system, which is examined.
+where  $L$ is a length and $V$  a velocity both given by characteristic scales from the fluid system.
 The pressure scale is set as a difference with respect to a characteristic pressure $p_\infty$.
-With the above defined scales the nondimensionalized Navier-Stokes equation is given by \footnote{
-From now on we ignore the * for all dimensionless variables }:
+The nondimensionalized Navier-Stokes equation is given by
+%\footnote{ From now on we ignore the * for all dimensionless variables }x:
 
 \begin{align}
-    \pdn[v]{t} + \vec{v} \cdot \vec{\nabla} \vec{v} &= -\nabla p + \frac{1}{Re} \Delta \vec{v} + \vec{F}_{ext.}
+    \pdn[v]{t} + \vec{v} \cdot \vec{\nabla} \vec{v} &= -\nabla p + \frac{1}{Re} \Delta \vec{v} + \vec{F}_{\text{ext.}}.
 \end{align}
 
-The dynamic of the system is reduced to the dimensionless quantity $\Rey$, also referred to as the Reynolds number,
-defined by (\citep{Kundu2012}):
+The dynamic of the system is reduced to the dimensionless quantity $\Rey$, also referred to as the Reynolds number \citep{Kundu2012}
 
 \begin{align}
     \label{theorie:renumber}
-    Re := \frac{VL}{\nu} = \frac{\rho VL}{\mu}
+    Re := \frac{VL}{\nu} = \frac{\rho VL}{\mu}.
 \end{align}
 
-From equation \ref{theorie:renumber}, it can be seen that the Reynolds number gives the ratio between the inertial forces $\propto VL$
+Eq. \ref{theorie:renumber} shows that the Reynolds number gives the ratio between the inertial forces $\propto VL$
 to the viscous forces $\propto \nu$, of the fluid system.
-This means that for a small Reynolds numbers the viscosity determines the flow, a laminar flow can be expected.
-For a large Reynolds number an  advection driven, maybe even turbulent flow, dominates.\\
-
-%To illustrate the behaviour, figure \ref{theorie:re_example} exemplarly shows the airflow around a cylinder at different reynolds numbers.
-%TODO:\\
-%- bild\\
-%- comparison\\
-%
-%\begin{figure}[!pb]
-%    \label{theorie:re_example}
-%  \centering
-%    \missingfigure[figwidth=\textwidth]{Flow over a cylinder for different Reynolds numbers}
-%\end{figure}
-%\newpage
+This means for small Reynolds numbers the viscosity determines the flow and a laminar flow can be expected.
+For a large Reynolds numbers an  advection driven maybe even turbulent flow dominates.
 \clearpage
 
 \section{Rotational Fluid Dynamics}
