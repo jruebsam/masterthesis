@@ -21,21 +21,21 @@ The last important aspect is the implementation on the GPU.
 Like discussed in section \ref{cuda:sec_performance} it is more efficient to use homogeneous storage and calculation pattern on a CUDA-device.
 Using complex data structures that are required for body-fitted meshes makes this very difficult.
 
-A set of alternative methods to resolve the problems described above, are so called Immersed Boundary methods.
+A set of alternative methods to resolve the problems described above, are so called Immersed Boundary (IB) methods\footnote{From here on the term IB method is used as an abbreviation.}.
 The term was first mentioned in \citep{peskin72}, where the method was used for the simulation of blood flow through a heart valve.
 Since then this term has been used for a variety of methods \citep{Mittal2005}.
 All of them have the idea in common to perform the simulations on a cartesian grid which does not conform to the domain boundary.
 To satisfy the desired boundary conditions additional terms are introduced into the equations of motion.
 In general it can be distinguished between continuous forcing methods and direct forcing methods.
 Continuous forcing methods try to mimic the boundary using a localized forcing term which acts on all points near to the boundary.
-Since the surface is often described by lagrangian points, these methods are well suited for moving boundaries \citep{Mittal2005}.
+Since the surface is often described by Lagrangian points, these methods are well suited for moving boundaries \citep{Mittal2005}.
 Direct forcing approaches try to satisfies the boundary conditions by imposing them directly to points at the fluid boundaries  often by using  an interpolation procedures.
-Some of the major drawbacks using Immersed Boundary methods is the loss in  spatial accuracy at the boundary due to interpolation or approximations.
+Some of the major drawbacks using IB methods is the loss in  spatial accuracy at the boundary due to interpolation or approximations.
 Therefore, it can be necessary to use a higher grid resolution
 compared to a body-fitted mesh.
 The benefits of these methods is the use of a cartesian grid, which is more suitable for a GPU-based implementation, see Sec. \ref{cuda:sec_threadmanage}.
-One objective of this chapter is to introduce implementation of No-Slip boundaries for cartesian grids, with the use of Immersed Boundary methods.
-The term Immersed Boundary method is vaguely defined in literature, in this thesis we refer with it to all methods introduced in this chapter..
+One objective of this chapter is to introduce implementation of No-Slip boundaries for cartesian grids, with the use of IB methods.
+The term IB method is vaguely defined in literature, in this thesis we refer with it to all methods introduced in this chapter..
 
 \section{Immersed Boundary Methods}
 
@@ -186,7 +186,7 @@ It can be concluded that the integration should be accurate enough by using $N=1
 \clearpage
 \subsection{Interpolation Method}
 
-The last Immersed Boundary method introduced in this thesis is a bilinear interpolation method, first presented by \citep{Gilmanov2003}.
+The last IB method introduced in this thesis is a bilinear interpolation method, first presented by \citep{Gilmanov2003}.
 The main difference to the previous methods is an exact representation of the immersed boundary, instead of a pixelated one.
 The interpolation method is applied to all grid points which posses a nearest neighbor outside of the fluid domain.
 A schematic representation of the interpolation procedure is shown in Fig. \ref{ibm:ip_method_algo},

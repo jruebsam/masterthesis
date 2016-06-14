@@ -19,20 +19,20 @@ The numerical setup of this test case is shown in Fig. \ref{validation:setup_tcf
 It contains two coaxial cylinders which are oriented parallel to the z-axis.
 The inner cylinder has a radius and angular velocity $r_i$ and $\Omega_i$. In analogy these properties are defined as
 $r_o$ and $\Omega_o$ for the outer cylinder.
-The fluid domain is given by the gap of width $d = r_o - r_i$ between the cylinder and extends to infinite.
+The fluid domain is given by the gap of width $d = r_o - r_i$ between the cylinders and extends to infinite.
 For the simulation  periodic boundaries are used in $z$-direction.
 
 In contrast to the previously examined test cases this system provides new characteristics
 of the flow regime at the fluid boundaries. The flow is not orthogonal to the curvature of the geometry and
 Furthermore the velocities at the boundaries are not zero but have to fulfill  a Dirichlet condition given by
-$|\vec{v}(\vec{r})|_{r_i} | = |\Omega_i \times \vec{r}|$.
+$\vec{v}(\vec{r})|_{r_i}  = \Omega_i \times \vec{r}$.
 
 In dependency of the defined parameters different flow regimes exist.
 For small differences in the rotation rates the flow is laminar and azimuthal.
 
-An increase of the angular velocity $r_i$ above a critical value leads an instability. The flow becomes unsteady.
-In this flow regime toroidally vortices form, which are also denoted as Taylor cells,
-the flow is not pure azimuthal \citep{tritton88}.
+An increase of the angular velocity $r_i$ above a critical value leads to an physical instability. The flow becomes unsteady.
+In this flow regime toroidal vortices form, which are also denoted as Taylor cells.
+The flow is not purely azimuthal \citep{tritton88}.
 In this test case only the laminar and azimuthal flow regime will be considered, when the outer cylinder is not rotating ($\Omega_o = 0$).
 In literature, this system is usually referred to as Circular Couette flow (CCF) \citep{Kundu2012}.
 
@@ -44,16 +44,16 @@ This problem can be reduced to two dimensions and described in polar coordinates
 
 \clearpage
 
-For the non-dimensionalization the default convention is chosen , according to  \citep{Chen2015}, is chosen
+For the non-dimensionalization the default convention is chosen according to  \citep{Chen2015}
 \begin{align}
-    \text{Length:}\qquad &  \vec{r}^* = \frac{\vec{r}}{r_o - r_i}  &
-    \qquad \text{Velocity:}\qquad& \vec{v}^* =  \frac{\vec{v}}{r_i\Omega_i}\\
-    \text{Time:}  \qquad & t^* = t \cdot \frac{r_i \Omega_i}{r_o - r_i}&
-    \qquad  \text{Pressure:}\qquad & p^* = \frac{\nabla p_\infty}{r_i^2\Omega_i^2}
+    \text{Length:}\qquad &  \vec{r} = \frac{\vec{r}^*}{r_o - r_i}  &,
+    \qquad \text{Velocity:}\qquad& \vec{v} =  \frac{\vec{v}^*}{r_i\Omega_i},\\
+    \text{Time:}  \qquad & t = t^* \cdot \frac{r_i \Omega_i}{r_o - r_i}&,
+    \qquad  \text{Pressure:}\qquad & p = \frac{p^* - p_\infty}{\rho r_i^2\Omega_i^2}.
 \end{align}
 
 
-Then the flow is then characterized by the Reynolds number $Re = \nicefrac{\Omega_i R_i d}{\nu}$.
+The flow is then characterized by the Reynolds number $Re = \nicefrac{\Omega_i R_i d}{\nu}$.
 With the integration of Eq. \ref{vali:tc_flow_eqnavstok} the solution is given by (see [\citep{Kundu2012}])
 \begin{align}
     v_\phi = Ar + \frac{B}{r}
@@ -76,7 +76,7 @@ The main parameters of the grid convergence study simulation are  given by
  $ N  $                   & $\Delta t$ & $\Delta x, \Delta y$            & $\Rey$  & $c^2$   & $l_x, l_y, l_z$ & $r_o, r_i$ & $T_{end}$\\
 \hline
  $512, [16, 256], \Delta N = 16 $& $10^{-4}$ & $\nicefrac{1}{N}$ & 100     & $100$   & 2.5, 2.5, 8$\Delta x$ & 2, 1    & 20\\
-\end{tabular}
+\end{tabular}.
 \vspace*{0.7ex}
 \end{center}
 
@@ -88,7 +88,7 @@ The main parameters of the long-term simulations are  given by
  $ N  $                   & $\Delta t$ & $\Delta x, \Delta y$            & $\Rey$  & $c^2$   & $l_x, l_y, l_z$ &$r_o, r_i$ & $T_{end}$\\
 \hline
  $96 $& $10^{-4}$ & $\nicefrac{1}{N}$ & 100     & $100$   & 2.5, 2.5, 8$\Delta x$   & 2, 1& 1600\\
-\end{tabular}
+\end{tabular}.
 \vspace*{0.7ex}
 \end{center}
 
@@ -104,14 +104,14 @@ For a better overview the results are distributed into four plots.
 
 In Fig. \ref{vali:tc_flow_gc_vp} the relative $l_2$-error is shown for different VP methods.
 For the VP FD2 method the error convergence rate is about $\lambda=1.07$,
-for the VP FD4 method about $\lambda=1.16$. However, it can be seen that the convergence rates decrease above $N\approx100$.
+for the VP FD4 method it is about $\lambda=1.16$. However, it can be seen that the convergence rates decrease above $N\approx100$.
 In this interval the error of the VP FD4 method remains approximately constant.
 The VP-VF methods have a larger error (about $5\cdot 10^{-2}$ at $N=100$) in comparison the VP methods (about $0.9 \cdot 10^{-3}$ and  $2\cdot10^{-2}$ at $N=100$).
 In contrast a higher convergence can be observed (about $\lambda=1.3$) for the VP-VF methods.
 
 In Fig. \ref{vali:tc_flow_gc_df} the relative $l_2$-error is shown for different DF methods.
 For all methods the error convergence rate is about first order, except the DF FD4 method which is about $\lambda=0.9$ .
-The smallest error is given by the DF FD2 method which is about $\approx 2 \cdot 10^{-2}$ for $N=100$.
+The smallest error is given by the DF FD2 method which is about $2 \cdot 10^{-2}$ for $N=100$.
 In comparison the error of the remaining methods is about $5\cdot10^{-2}$.
 
 In Fig. \ref{vali:tc_flow_gc_ip} the relative $l_2$-error is shown for different IP methods.
@@ -128,14 +128,14 @@ Again it can be seen that the convergence rate decreases above $N\approx100$ for
 
 Finally Fig. \ref{vali:tc_flow_gc_all} shows the methods with the best convergence
 rates from the different DF, VP and IP methods in one plot.
-It can be noted that in this validation the errors are not decreasing linearly.
+It can be noted that in this validation the errors are not decreasing linearly in the log-log space.
 The best results are given by the interpolation methods with small differences in the overall error
 and convergence rates.
 
 \paragraph{Differences in the Velocity Profiles}\mbox{}\\
 
-Beside the computation of the $l_2$-error the local difference between the theoretical and numerical velocity
-profile was computed, by subtracting the vector fields from each other in the $(x, y)$ plane for a constant $z$
+Beside the computation of the $l_2$-error, the local difference between the theoretical and numerical velocity
+profile was computed by subtracting the vector fields from each other in the $(x, y)$ plane for a constant $z$
 \footnote{Since $\partial_z \vec{v} = 0$ an arbitrary $z$ value can be used, i.e. $z=0$}.
 The results for the FD2 schemes are presented in Fig. \ref{tcflow:results_vprofiles_o2}. The profiles
 for the FD4 schemes are shown in the Appendix in Fig. \ref{tcflow:results_vprofiles_o4}.
@@ -201,7 +201,7 @@ In this region the error is of order $10^{-2}$ for all methods.
 For all methods the simulations were numerically stable, except the IP FD4 method.
 The density was averaged over the fluid domain by Eq. \ref{vali:density_calc},
 the results of the computation are shown in Fig. \ref{tcflow:results_long_ts_o2}.
-For the IP+DF FD2 method the density increases until a convergence is reached at $T\approx 1000$ of about $1.6\cdot10^{-3}$.
+For the IP+DF FD2 method the density increases from zero until a convergence is reached at $T\approx 1000$ of about $1.6\cdot10^{-3}$.
 The density of the  DF-VF FD4 decreases to $-1.4\cdot10^{-3}$ with a convergence at $T\approx1400$.
 For all other methods a faster convergence is reached at $T\approx200$ with an  averaged density in the order $10^{-4}$.
 
@@ -209,15 +209,15 @@ For all methods numerical oscillations in the density can be
 observed, which  are similar to the Hagen-Poiseuille flow test case.
 In Fig. \ref{tcflow:rho_example} these oscillations are exemplarily shown for the VP-VF FD2 method.
 In Appendix \ref{tcflow:results_rho_profiles_o2} the remaining FD2 methods are presented.
-Beside these oscillations of order $10^{-4}$ it can be noted that the density in the inner cylinder
-decreases to about $-6\cdot10^{-3}$, in contrast to $\approx10^{-3}$ in the fluid domain.
+Besides these oscillations of order $10^{-4}$ it can be noted that the density in the inner cylinder
+where the VP method is applied decreases to about $-6\cdot10^{-3}$, in contrast to $\approx10^{-3}$ in the fluid domain.
 
 \subsection{Discussion}
 
 In this validation test case the density changes for the FD2 methods as well.
-The convergence of the averaged density to the order $10^{-4}$
+The convergence of the averaged density to the order of $10^{-4}$
 is similar to the previous test case with exception of the IP+DF FD2 and DF-VF FD4 method ($\approx10^{-3}$).
-The decrease of the density in the inner cylinder is physical correct.
+The decrease of the density in the inner cylinder is physically correct.
 The angular velocity $\Omega_i$ creates a centrifugal force in the inner cylinder,
 This results in a density distribution which is large at the outer cylinder walls and small in the center.
 The negative value is not a concern since the density is undetermined by a constant.
@@ -226,10 +226,10 @@ However, it is noticeable that for the DF methods the density in the inner cylin
 Since the velocities are directly set to $\vec{\Omega_i} \times \vec{r}$ in the inner cylinder,
 the fluid can be considered incompressible in this domain because $\partial_t \rho = \nabla (\vec{\Omega_i} \times \vec{r}) = 0$.
 
-The oscillations in the density can be observed for the FD2 and FD4 methods.
+The spatial oscillations in the density can be observed for the FD2 and FD4 methods.
 It can be assumed that just like in the Hagen-Poiseuille flow  an odd-even decoupling occurs.
 These oscillations do not affect the numerical solutions, since
-the change of velocity is proportional to $\partial \rho$ and this expression is not computed on neighboring cells.
+the change of velocity is proportional to $\partial_t \rho$ and this expression is not computed on neighboring cells.
 The oscillations also occur in the FD2 methods since the density is no longer zero for these methods.%evtl rand fehler
 
 \begin{figure}[!bp]
@@ -247,21 +247,18 @@ The oscillations also occur in the FD2 methods since the density is no longer ze
 It can be noted that the results of the IP FD2 and the IP+DF FD2 method are not equal.
 This refutes the previous assumption (see Sec. \ref{sec:hpflow_discussion}),
 that the velocity fields of the fluid domain and the boundaries are decoupled for FD2 methods.
-Fig.\ref{valid:hpflow_velodiff_discussion} shows the subtracted velocity profiles for the IP FD2 and IP+DF FD2 method in the $(x, y)$-plane.
-The largest differences between these profiles occur at the boundary of the inner cylinder, about $10^{-2}$.
-Both methods create different numerical approximations at this location.
-It can be noted that  the error of the IP methods is increased about one order, in comparison to the Hagen-Poiseuille flow.
+%Fig.\ref{valid:hpflow_velodiff_discussion} shows the subtracted velocity profiles for the IP FD2 and IP+DF FD2 method in the $(x, y)$-plane.
+%The largest differences between these profiles occur at the boundary of the inner cylinder, about $10^{-2}$.
+%Both methods create different numerical approximations at this location.
+It can be noted that  the error of the IP methods is about one order higher in comparison to the Hagen-Poiseuille flow.
 For the DF and VP methods the error and convergence rates are similar.
 The use of the VF method leads to an increase of the overall error, which is contrary to the Hagen-Poiseuille flow results.
-The velocity difference profiles for all methods indicate a erroneous approximation of the inner boundary.
+The velocity difference profiles for all methods (Fig. and Fig. ) indicate a erroneous approximation of the inner boundary.
 It can be assumed that the approximation of moving boundaries with Immersed Boundary methods can
 lead to an overall larger numerical error.
-
 %This is not unexpected for the VP and DF methods, since a pixelated moving boundary probably creates a to the roughness of the surface.
 %From the velocity profiles it can be seen that the error of the interpolation methods is smaller at the inner boundaries.
 %But still the error here is larger at the outer boundaries which indicates that moving boundaries are also difficult to interpolate with good results.
-
-
 %In summary
 %comparsion is much larger in compariso
 %- overaall larger error and non linear decrease

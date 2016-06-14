@@ -6,7 +6,7 @@ The objective of this chapter is to give an overview of the basic implementation
 The source code used for the computations is based on an existing and validated version from A. Tilgner.
 It was furthermore extended by the immersed boundary methods that will be explained in more detail in chapter \ref{CHAPTER:IBM}.
 In this context an introduction to the aspects of GPGPU\footnote{General Purpose Computation on Graphics Processing Units}-Computing
-with the CUDA \footnote{Computing Uniform Device Architecture} architecture will be given.
+with the CUDA \footnote{Computing Uniform Device Architecture} architecture will is given.
 For the computations in this thesis Tesla C1060 and Tesla K20m GPUs by NVIDIA were used. %, the complete system configurations can be looked up at (AX.X).
 In this chapter all informations related to GPGPU-Computing and CUDA are adapted from the CUDA Programming Guide and the CUDA Best Practices Guide from NVIDIA
 \citep{CUDAPG}, \citep{CUDABP}. All details about the implementation of the algorithm were obtained by studying the source code
@@ -17,14 +17,14 @@ and from private communication with A.Tilgner.
 CUDA is an architecture developed by NVIDIA to enable an easy approach to the implementation of GPGPU-based algorithms.
 The underlying idea is to hide the complexity of the hardware under a more high oriented and generalized software abstraction layer.
 This is done by introducing some additional programming language extensions for example in C/C++.
-Furthermore it is necessary to use a CUDA suited compiler like NVCC.
+Furthermore, it is necessary to use a CUDA suited compiler like NVCC.
 
 \subsection{Hardware and Memory Architecture}
 
 A cuda device contains an array of so called streaming multiprocessors (SM).
 Each of these SMs contains a group of small execution units, which are called cuda cores.
-For the exchange of data between different SMs, cuda cores and the CPU side of the computer, there exist different
-types of memory, as shown  in Fig.  \ref{fig:gpu_memory_layout}.
+For the exchange of data between different SMs, the cuda cores and the CPU side of the computer, different
+types of memory are existing, as shown  in Fig.  \ref{fig:gpu_memory_layout}.
 \newpage
 
 \begin{figure}[!tbp]
@@ -37,21 +37,21 @@ types of memory, as shown  in Fig.  \ref{fig:gpu_memory_layout}.
 \begin{description}
     \item[Global Memory] The global memory is the largest memory on the GPU and can be accessed by all cuda cores.
                          It is  used to exchange data with the RAM and distribute it between different SMs.
-                         Writing and reading from the global memory is slow. A part of the global memory can furthermore be used as a constant memory.
+                         Writing and reading from the global memory is slow. A part of the global memory can be used furthermore  as a constant memory.
                          In this case multiple memory accesses  are temporary\footnote{Memory access is cached when multiple reads are performed on the same memory location.}
                           cached.
                          In addition the use of the global memory as a texture memory is possible. The memory access is then spatially
                          \footnote{Memory access is cached when multiple reads are performed simultaneous on adjacent memory locations.} cached.
 
-    \item[Shared Memory] Each SM contains a shared memory, much smaller than the global memory \footnote{Around 16kb on c1060 and 64kb on k20m}. It is accessible
+    \item[Shared Memory] Each SM contains a shared memory, much smaller than the global memory \footnote{Around 16kb on c1060 and 64kb on k20m.}. It is accessible
                          by all cuda cores of the SM.
-                         This memory type is much faster (x100) than the global memory and is usefull when multiple operations
+                         This memory type is much faster (x100) than the global memory. It is useful when multiple operations
                          by different cuda cores of one SM are carried out on the same data.
 
     \item[Register / Local Memory] Each cuda core possesses an own set of registers and local memory.
                                    The register access is slightly faster than the access  on the shared memory.
                                    Local memory access is very slow since the storage is
-                                    created on the global memory, when a cuda core runs out of registers.
+                                    created on the global memory when a cuda core runs out of registers.
 \end{description}
 
 \clearpage
@@ -60,11 +60,11 @@ types of memory, as shown  in Fig.  \ref{fig:gpu_memory_layout}.
 \label{cuda:sec_threadmanage}
 
 In order to distribute the workload between different SMs and cuda cores an additional syntax is necessary.
-The CUDA API therefore  introduces the notion of a thread and a block.
+Therefore, the CUDA API introduces the notion of a thread and a block.
 
 \begin{description}
-    \item[Thread] A Thread is the software abstraction of a single cuda core. It can be identified with
-                   a maximum of three IDs, \textbf{threadIdx.x}, \textbf{threadIdx.y} and\textbf{threadIdx.z}.
+    \item[Thread] A thread is the software abstraction of a single cuda core. It can be identified with
+                   a maximum of three IDs, \textbf{threadIdx.x}, \textbf{threadIdx.y} and \textbf{threadIdx.z}.
 
     \item[Block] A block is defined as a group of threads, i.e. in Fig. \ref{cuda:grid_example} a block contains 64 threads.
                  There  is no direct hardware equivalent to a block.
@@ -77,8 +77,8 @@ The CUDA API therefore  introduces the notion of a thread and a block.
     \item[Gridsize] The gridsize defines the total number of blocks, i.e. (2, 2) in the example.
 \end{description}
 
-The concept of a grid containing blocks of threads is a little bit confusing at first.
-However these abstractions are necessary to enable a high and parallelized workload on the GPU,
+The concept of a grid containing blocks of threads might be confusing but
+these abstractions are necessary to enable a high and parallelized workload on the GPU,
 since each block can be dynamically assigned to a different SM.
 
 
@@ -88,24 +88,23 @@ since each block can be dynamically assigned to a different SM.
        \import{gfx/cuda//}{grid.pdf_tex}
         }
        \caption{Thread management of the CUDA API, exeplarily shown for a
-        grid of blocks.  Each block contains a sub-grid with 8x8 threads.}
        \label{cuda:grid_example}
+        grid of blocks. Each block contains a sub-grid with 8x8 threads.}
 \end{figure}
 
 
 \subsection{Performance Considerations}
 \label{cuda:sec_performance}
 
-For the programming of a CUDA device a vast number of optimization techniques exist (see \citep{CUDABP}),
-to explain all of these methods would go beyond the scope of this thesis.
-Here a short description of the most import ones is given
+For the programming of a CUDA device a vast number of optimization techniques exist (see \citep{CUDABP}).
+A a short description of the most import ones is presented below.
 
 \begin{description}
     \item[Memory Coalescing]
         During the runtime a SM executes a number of 32 threads in parallel, this thread group is denoted as a warp.
         In order to enable a fast memory access on the global memory, threads which are adjacent in a warp should read from adjacent memory cells.
         This access pattern is denoted as coalesced memory access. Inhomogeneous access pattern on the global memory can lead to so called bank
-        conflicts, as a result the performance of a cuda program can drastically decrease.
+        conflicts. As a result the performance of a cuda program can drastically decrease.
 
     \item[Sparse global Memory Access]
         The global memory should be used for data transfer and distribution with as little as possible global reads and writes.
@@ -119,9 +118,9 @@ Here a short description of the most import ones is given
 
 \subsection{Simulation Domain and  Memory Layout}
 
-The three-dimensional simulation domain is given by a cuboid that is discretized by a
+The three-dimensional simulation domain is given by a cuboid which is discretized by a
 collocated cartesian grid with a constant step size in each direction.
-From here on the following conventions will be used.
+From this section on the following conventions will be used.
 
 \begin{description}
     \item[$l_i$] The length of the cuboid in $x$, $y$ or $z$ direction, $i\in{x, y, z}$
@@ -131,21 +130,21 @@ From here on the following conventions will be used.
 
 A single grid point is determined by the set of indices $i,j,k$ where ${0\leq i < N_x}$,
 ${0\leq j < N_y}$ and ${0\leq k < N_z}$. The position vector is given by ${\vec{r} = (i\cdot\Delta x, j\cdot \Delta y, k\cdot \Delta z)^T}$.
-Each grid point lies in the center of a grid cell of size $\Delta x \cdot \Delta y \cdot \Delta z$,
-since a collocated grid is used all variables are located in the cell center.
-\footnote{For example on a staggered grid, the velocity components are stored on the cell faces.}
+Each grid point lies in the center of a grid cell of size $\Delta x \cdot \Delta y \cdot \Delta z$.
+Since a collocated grid is used all variables are located in the cell center.
+\footnote{For example the velocity components are stored on the cell faces on a staggered grid.}
 For the computation a variable $\Phi\in\{v_x, v_y, v_z, \rho\}$, is stored into three registers
 
 \begin{description}
     \item[$C_\Phi$] Located on the RAM. Used mainly for data transfer and analysis
-    \item[$R_\Phi$] Located on the global memory on GPU. A variable $\Phi$ is stored here after the computation of a time step.
+    \item[$R_\Phi$] Located on the global memory on GPU. A variable $\Phi$ is stored after the computation of a time step.
     \item[$B_\Phi$] Located on the global memory on GPU. This is the buffer register for the Williamson RK scheme, see Sec. \ref{numerik:rk_williamson_sec}.
 \end{description}
 
 The size of a storage register is given by $(N_x+4)(N_y+4)(N_z+4)$.
 An additional offset $+4$ is given since two additional layers of ghost points are attached to each side of the simulation domain.
 This points are used for a computation of the boundary conditions, see Sec. \ref{sec:cuda_boundaries}.
-All registers have a one dimensional memory layout.
+All registers have a one-dimensional memory layout.
 Hence, the register position of a grid point is calculated by
 
 \begin{align}
@@ -157,8 +156,8 @@ which is a row-major access pattern.
 \section{Time Step Algorithm}
 \label{sec:cuda_timestep}
 
-In this section an overview of the computation of a single time step will be given.
-For this example the Navier-Stokes equation, given by Eq. \ref{theorie:eqns}, will be used.
+In this section an overview of the computation of a single time step is presented.
+For this example the Navier-Stokes equation, given by Eq. \ref{theorie:eqns}, is used.
 Before the computation of the time step all initial conditions are saved to the
 registers $C_{\Phi}$ and  $R_{\Phi}$.
 The time integration is performed with the Willamson-RK3 scheme, see Sec. \ref{numerik:rk_williamson_sec}.
@@ -176,12 +175,12 @@ will be considered.  The computation of the remaining steps is similar.
 The simulation domain is divided into a grid of  $N_y/8 \times N_z/8$ blocks. On each of these blocks the integration is performed separately.
 This segmentation is similar to the example introduced in Sec. \ref{cuda:sec_threadmanage} (see Fig. \ref{cuda:grid_example}), except an
 additional index \textbf{threadIdx.z} is used.
-This index seperates the variables during the integration
-For example, for $\rho$ it is threadIdx.z = 0, for $v_x$  it is threadIdx.z=1 and so respective.
+This index seperates the variables during the integration.
+For example for $\rho$ it is threadIdx.z = 0, for $v_x$  it is threadIdx.z=1 and so respective.
 with this convention each block contains a total number of 8x8x4 threads.
 For a computation of the finite difference schemes  a 5-Point stencil is used, as shown in Fig. \ref{cuda:stencil}.
-Each cell in this Stencil corresponds to one grid cell in the numerical domain.
-The inner points of the stencil are enumerated with 1, the outer with 2.
+Each cell in this stencil corresponds to one grid cell in the numerical domain.
+The inner points of the stencil are enumerated with 1, the outer points with 2.
 
 
 \begin{figure}[!bp]
@@ -210,7 +209,7 @@ The inner points of the stencil are enumerated with 1, the outer with 2.
 
 For example in $x$ direction the points are denoted as West2,
 West, Center, East and East2 in $x$ direction or with the abbreviations W2, W1, C, E1 and E2.
-For second order finite difference schemes, only the inner points  are used, we refer to a 3-Point stencil in this case.
+For second order finite difference schemes only the inner points  are used. It is referred to a  3-Point stencil in this case.
 The computation of one time step can be separated into an initialization part and a for-loop which iterates by the index $i$, over the simulation domain.
 In the initialization part a block from the simulation domain is loaded into the shared memory of the GPU.
 As a first step each thread is assigned to a grid point $(i, j, k)$.
@@ -224,19 +223,19 @@ As a first step each thread is assigned to a grid point $(i, j, k)$.
 \end{align}
 
 %The offset 2 is a again result of the ghost points, more on this in Sect. ()
-The position of the center $C$ for each thread, is then given by $P(i, j, k)$.
+The position of the Center $C$ is given by $P(i, j, k)$ for each thread.
 Then each thread has to load the neighbor points W2, W1, E1 and E2.
 The offset to $C$ is given by a multiple of ${L=(N_y+4)(N_z+4)}$, for example ${W2= C - 2L}$.
 Furthermore, on the sides of the Block additional boundary points (B) are necessary for the discretization
 in the directions U, D, N and S.
 With the calculated positions the variables are now loaded into the shared memory of the GPU.
-Fig. \ref{cuda:timestep_algo_img} shows how this memory structure is located in the simulation domain  for $i>2$.
+How this memory structure is located in the simulation domain  for $i>2$ is shown inFig. \ref{cuda:timestep_algo_img}.
 The 5-Point stencil is exemplarily shown for one center point and the boundary points (B) on the sides of the block are shown.
 The initialization procedure is now finished.
 
 In the first step of the for-loop the spatial derivatives are computed.
-Since these terms are quite large this will be shown exemplarily for the laplace operator,
-with a central difference scheme of fourth order, given by Eq. \ref{num:fd_o4_methods}, for the $v_x$ component.
+Since these terms are quite large this will be shown exemplarily for the laplace operator.
+A central difference scheme of fourth order, given by Eq. \ref{num:fd_o4_methods}, is used for the $v_x$ component.
 
 \begin{align}
     \begin{split}
@@ -279,7 +278,7 @@ After this step the computation for the center points (C) is finished.
 The results are stored in the buffer registers $R_\Phi$.
 
 In the next pass of the loop the index $i$ is incremented and the algorithm loads the next layer (NL) as indicated in Fig.\ref{cuda:timestep_algo_img}.
-All other layers are shifted by one position, With this approach each layer only gets loaded once in the shared memory.
+All other layers are shifted by one position. With this approach each layer only gets only loaded once into the shared memory.
 After the for-loop has iterated over the simulation domain the first part of the time step is finished.
 The remaining computation is
 \begin{align}
@@ -292,7 +291,7 @@ the border points (B) are redundant.
 \subsection{Boundary Conditions}
 \label{sec:cuda_boundaries}
 
-For the implementation of the boundary conditions two additional layer of grid points are added on each side of the simulation domain.
+For the implementation of the boundary conditions two additional layers of grid points are added on each side of the simulation domain.
 In this section the implementation of boundary conditions is presented for the one-dimensional case in $x$-direction.
 
 \paragraph{No-Slip Boundaries}\mbox{}\\
@@ -312,7 +311,7 @@ Due to the symmetry of the velocity profile on the boundary the viscous stress v
 \paragraph{No-Flux Boundaries}\mbox{}\\
 
 Consider the left side of the simulation domain.
-The ghost point are given by the points ${g_{l2}=(0, j, k)}$, ${g_{l1}=(1, j, k)}$,
+The ghost points are given by the points ${g_{l2}=(0, j, k)}$, ${g_{l1}=(1, j, k)}$,
 the boundary is set to  ${b=(2, j, k)}$ and the next inner points are
 $i_{l1}=(3, j, k)$ and $i_{l2}=(4, j, k)$.
 For No-Flux boundaries it is necessary that $\partial_x\Phi = 0$ for any variable $\Phi$.
@@ -338,9 +337,9 @@ the $v_y$ and $v_z$ components and No-Slip boundaries for the $v_x$ component.
 
 Consider the ghost points $g_l2=(0, j, k)$, $g_l1=(1, j, k)$ and the inner points $i_{l1}=(2, j, k)$ and $i_{l2}=(3, j, k)$ on the left side of
 the simulation domain.
-On the right sides of the simulation domain the ghost points are $g_{r2}=(N_x+1, j, k)$, $g_{r1}=(N_x, j, k)$
+On the right side of the simulation domain the ghost points are $g_{r2}=(N_x+1, j, k)$, $g_{r1}=(N_x, j, k)$
 and the inner points $i_{r1}=(N_x-1, j, k)$ and $i_{r2}=(N_x - 2, j, k)$.
-For periodic boundaries the regions on the left and right side of the simulation domain are simply exchanged by
+For Periodic boundaries the regions on the left and right side of the simulation domain are simply exchanged by
 
 \begin{align}
     v_x(g_{l2}) = v(i_{r2}) \qquad ; \qquad v(g_{l1}) = v(i_{r1})\\
