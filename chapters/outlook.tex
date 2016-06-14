@@ -3,12 +3,12 @@
 
 In the first part of this thesis different Immersed Boundary methods were
 implemented and successfully tested with a GPU based algorithm.
-The validation provided good results for No-Slip boundaries, however the implementation of velocities different from zero at the boundaries tends to be problematic.
-One concern of the validation is that only steady-state flows were used as test cases.
-This approach is justified since the local error created trough approximations of the boundaries
+The validation provided good results for No-Slip boundaries, however the implementation of velocities differing from zero at the boundaries tended to be problematic.
+One concern of this validation is that only steady-state flows were used as test cases.
+This approach is justified since the local error created through approximations of the boundaries
 has a larger influence on the global error.
-However, for further validations unsteady flows could be of interest.
-The validation results of the interpolation method showed the smallest numerical error by far.
+However for further validations unsteady flows could be of interest.
+The validation of the interpolation method resulted in the smallest numerical error by far.
 Unfortunately this method became numerically unstable for the simulations of the librating cylinder and cone.
 For possible future applications it would be important to find and eliminate the origin of this instability.
 
@@ -20,11 +20,11 @@ The resulting heat transport is purely diffusive for small temperature gradients
 becomes convective for large temperature gradients above a critical instability.
 For experiments and numerical simulations of this system adiabatic side walls are used \citep{Lulff2011}.
 
-A simple extension of the Volume-Penalization method was performed in \citep{Lulff2011},
+A simple extension of the Volume-Penalization method was performed \citep{Lulff2011} and
 to enable No-Flux walls for the temperature, a inhomogeneous thermal diffusivity $\kappa (x, y, z)$ was introduced.
-By setting $\kappa(x, y, z) \ll 1$ in the boundary domain  a decent approximation of No-Flux walls  is achieved \citep{Lulff2011}.
+By setting $\kappa(x, y, z) \ll 1$ in the boundary domain, a decent approximation of No-Flux walls  was achieved \citep{Lulff2011}.
 A further improved version of the Volume-Penalization method for No-Flux walls can be found in \citep{Brown-Dymkoski2014}.
-Here the No-Flux boundaries are obtained by introducing a forcing term of the form
+Here the No-Flux boundaries were obtained by introducing a forcing term of the form
 
 \begin{align}
     \vec{f}  = -\frac{H}{\nu_c}\left( n_k\pdn[v]{x_k} - q(\vec{r}, t) \right)
@@ -46,7 +46,7 @@ A first implementation of Free-Slip boundaries was performed
 by inserting diagonal walls into the fluid domain which overlap with the grid points.
 On these walls the Free-Slip condition can simply be applied just like in the basic GPU algorithm,
 using the mirroring method introduced in Sec. \ref{sec:cuda_boundaries}.
-However, a first test of this implementation became numerically unstable which is not understood so far.
+However, a first test of this implementation became numerically unstable which is yet to be understood.
 It would be desirable to obtain a stable Free-Slip implementation for future applications.
 
 There are some proposals regarding the basic implementation of the algorithm on the GPU.
@@ -54,17 +54,16 @@ Numerical oscillations in the density could be a concern for future simulations.
 This problem seems to be quiet common for numerical computations involving first order derivatives in CFD problems.
 A common approach to avoid this is the use of a staggered grid, where the velocities
 are stored on the cell faces and the scalar fields in the cell center.
-
 Alternatively, different methods exist for pressure-based solvers where the pressure is interpolated to the cell faces.
-One popular method in particular is the Rhie-Chow interpolation \citep{Rhie1983},
-different improvements of this method can be found in literature that could be used for a future implementation.
+One popular method in particular is the Rhie-Chow interpolation \citep{Rhie1983}.
+Different improvements of this method that could be used for a future implementation can be found in literature.
 
 It could be of further interest to implement an unstructured cartesian grid into the GPU algorithm.
-This is a really difficult task which would bring some drastically improvements in return.
+This is a very difficult task which would bring some drastic improvements in return.
 The error of the Immersed Boundary methods could be decreased by using a higher resolved grid in the vicinity to the boundary.
 Furthermore, this would improve the resolution of boundary layers  and reduce the oscillations resulting from the use of high Peclet numbers.
 
-In the second part of the present work the Immersed Boundary methods were applied to different setups of a librating cylinder,  a cone and a frustum.
+In the second part of this thesis the Immersed Boundary methods were applied to different setups of a librating cylinder,  a cone and a frustum.
 The results of these simulations are in agreement with theoretical
 predictions \citep{Greenspan1969} and experimental results \cite{Beardsley1970}.
 An experimental study of these systems is in discussion as a possible future research project.
