@@ -20,7 +20,7 @@ def main():
 
     x = np.linspace(0 , 1.1, 128)
 
-    for i, (p, o) in enumerate(zip([dpath, dpath2], ['o2', 'o4'])):
+    for i, (p, o) in enumerate(zip([dpath, dpath2], ['FD2', 'FD4'])):
         with tb.open_file(p, 'r') as d:
             vz = d.root.simdata.vz[-1]
         ax.plot(x, vz[64, 64]+i*0.01, label=o)

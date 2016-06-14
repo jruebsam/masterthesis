@@ -65,7 +65,7 @@ def main():
         phi = jn(0, eps*r/a)*np.cos(n*np.pi*Z)
         gx, gz = np.gradient(phi)
         phi = gz#np.sqrt(gx**2 + gz**2)
-        ax.imshow(phi.T, cmap=c, origin='lower', extent=[0, 1, 0, 1.1] )
+        ax.imshow(phi.T, origin='lower', extent=[0, 1, 0, 1.1] )
         ax.set_title(r'$(n,m)=(%i,%i)$' % (n, m))
 
     for ax, p in zip(axes[1], ps):
@@ -74,7 +74,7 @@ def main():
 
         v = np.sum(np.abs(d.planes.xz.vz[800:]), axis=0)
 
-        ax.imshow(v.T, cmap=c, origin='lower', extent=[-0.05, 1.05, 0, 1.1] )
+        ax.imshow(v.T, origin='lower', extent=[-0.05, 1.05, 0, 1.1] )
         ax.set_xlim(0, 1)
 
 

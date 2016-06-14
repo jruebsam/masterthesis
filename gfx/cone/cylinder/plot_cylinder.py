@@ -67,7 +67,7 @@ def main():
 
 
     modes = list(it.product(['df', 'vp', 'dffrac', 'vpfrac'], [1, 0]))
-    labels = list(it.product(['DF', 'VP', 'DF-Vol.Frac.', 'VP-Vol.Frac'], ['FD2', 'FD4']))
+    labels = list(it.product(['DF', 'VP', 'DF-VF', 'VP-VF'], ['FD2', 'FD4']))
 
     labels = [' '.join([x[0], x[1]]) for x in labels]
 

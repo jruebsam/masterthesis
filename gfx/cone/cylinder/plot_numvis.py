@@ -35,8 +35,8 @@ def main():
 
     k = np.linspace(kmin, kmax, 1001)
 
-    ax.plot(k, nvis_o2(k, ek, dx), lw = 0.8, label = r'o2')
-    ax.plot(k, nvis_o4(k, ek, dx), lw = 0.8,  label = r'o4')
+    ax.plot(k, nvis_o2(k, ek, dx), lw = 0.8, label = r'FD2')
+    ax.plot(k, nvis_o4(k, ek, dx), lw = 0.8,  label = r'FD4')
 
     plt.legend(ncol = 1, fontsize=8, loc='upper right',
            fancybox=True, shadow=True)
