@@ -55,10 +55,10 @@
     \put(0.09572405,0.28965165){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\theta$}}}%
     \put(0.1813998,0.16290757){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\vec{c}_g$}}}%
     \put(0.43352189,0.07751861){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\alpha$}}}%
-    \put(0.50733068,0.1970622){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\beta$}}}%
+    \put(0.50733068,0.1970622){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\theta$}}}%
     \put(0.50957531,0.00243045){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{(b)}}}%
     \put(0.82697869,0.07540408){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\alpha$}}}%
-    \put(0.92387173,0.21912799){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\beta$}}}%
+    \put(0.92387173,0.21912799){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\theta$}}}%
     \put(0.89380698,0.00243942){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{(c)}}}%
   \end{picture}%
 \endgroup%
