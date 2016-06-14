@@ -122,7 +122,7 @@ The 5-Point stencil reaches over the domain boundaries an incorporates errors by
 This is not a problem for the FD2 method due to the use of a 3-Point stencil.
 The motivation of the combination of IP and DF methods was to set the velocities in the wall region to zero.
 However, the computation is numerically unstable.
-\begin{figure}[!bp]
+\begin{figure}[!tp]
   \begin{minipage}[c]{0.4\textwidth}
       \centering
       \includegraphics{gfx/immersed_boundary/hpflow/discussion/vzdiff.pdf}
@@ -186,56 +186,65 @@ One reason for this could be the lack of complexity in the Hagen-Poiseuille flow
 
 In this validation test case the density changes for the FD2 methods as well.
 The convergence of the averaged density to the order of $10^{-4}$
-is similar to the previous test case with exception of the IP+DF FD2 and DF-VF FD4 method ($\approx10^{-3}$).
-The decrease of the density in the inner cylinder is physically correct.
+is similar to the Hagen-Poiseuille flow with exception of the IP+DF FD2 and DF-VF FD4 method ($\approx10^{-3}$).
+The change in density is related to the numerical setup which is more complex in this testcase.
+Due to the boundary conditions the divergence of the velocity field is not zero at the start of a simulation.
+A density field emerges and grows until a steady state is reached.
+This is a result of the method of articficial compressibilty, see Sec. \ref{num:sec_articomp}
+Even with the use of a large speed of sound (here $\Mach=\nicefrac{v}{c}\approx0.05$)
+the fluid is still not completely incompressible. However, the overall change in density is small.
+The spatial oscillations in this test case also occur in the FD2 methods since the density is no longer zero.
+It can be assumed that just like in the Hagen-Poiseuille flow an odd-even decoupling occurs.
+The decrease of the density in the inner cylinder for the VP-method can assumed to be physically correct.
 The angular velocity $\Omega_i$ creates a centrifugal force in the inner cylinder,
 This results in a density distribution which is large at the outer cylinder walls and small in the center.
 The negative value is not a concern since the density is undetermined by a constant.
 
-However, it is noticeable that for the DF methods the density in the inner cylinder is zero, see Appendix \ref{tcflow:results_rho_profiles_o2}.
-Since the velocities are directly set to $\vec{\Omega_i} \times \vec{r}$ in the inner cylinder,
-the fluid can be considered incompressible in this domain because $\partial_t \rho = \nabla (\vec{\Omega_i} \times \vec{r}) = 0$.
-
-The spatial oscillations in the density can be observed for the FD2 and FD4 methods.
-It can be assumed that just like in the Hagen-Poiseuille flow  an odd-even decoupling occurs.
-These oscillations do not affect the numerical solutions, since
-the change of velocity is proportional to $\partial_t \rho$ and this expression is not computed on neighboring cells.
-The oscillations also occur in the FD2 methods since the density is no longer zero for these methods.%evtl rand fehler
-
-\begin{figure}[!bp]
-  \begin{minipage}[c]{0.4\textwidth}
-      \centering
-      \includegraphics{gfx/immersed_boundary/tcflow/discussion/vzdiff.pdf}
-  \end{minipage}
-  \begin{minipage}[c]{0.6\textwidth}
-      \caption{Absolute value of the velocity difference between the IP-FD2 and IP+DF-FD2 in the (x, y)-plane.
-      \label{valid:hpflow_velodiff_discussion}
-      }
-  \end{minipage}
-\end{figure}
-
 It can be noted that the results of the IP FD2 and the IP+DF FD2 method are not equal.
 This refutes the previous assumption (see Sec. \ref{sec:hpflow_discussion}),
 that the velocity fields of the fluid domain and the boundaries are decoupled for FD2 methods.
+
+For the DF and VP methods the error and convergence rates are similar,
+but the error of the IP methods is about one order higher in comparison to the Hagen-Poiseuille flow.
+The use of the VF method leads to an increase of the overall error, which is contrary to results of the Hagen-Poiseuille flow.
+
+The velocity difference profiles for all methods (Fig. \ref{tcflow:results_vprofiles_o2} and Fig. \ref{tcflow:results_vprofiles_o4})
+indicate a erroneous approximation of the inner boundary.
+Hence, it can be assumed that the approximation of Dirichlet boundaries, with velocities differing from zero at the boundaries,
+creates an overall larger numerical error.
+
+A comparison to results in litetature is difficult.
+THere
+
+%- nicht auszuschliefen wegen druckmethode blabla
+%-a comparison to literature ...
+%- studies with moving boundaries where blab la howvere this cannot be compared
+
+%-short comp literature?
+%-not found bot oscillation with moving boundaries
+%However, it is noticeable that for the DF methods the density in the inner cylinder is zero, see Appendix \ref{tcflow:results_rho_profiles_o2}.
+%Since the velocities are directly set to $\vec{\Omega_i} \times \vec{r}$ in the inner cylinder,
+%the fluid can be considered incompressible in this domain because $\partial_t \rho = \nabla (\vec{\Omega_i} \times \vec{r}) = 0$.
+%
 %Fig.\ref{valid:hpflow_velodiff_discussion} shows the subtracted velocity profiles for the IP FD2 and IP+DF FD2 method in the $(x, y)$-plane.
 %The largest differences between these profiles occur at the boundary of the inner cylinder, about $10^{-2}$.
 %Both methods create different numerical approximations at this location.
-It can be noted that  the error of the IP methods is about one order higher in comparison to the Hagen-Poiseuille flow.
-For the DF and VP methods the error and convergence rates are similar.
-The use of the VF method leads to an increase of the overall error, which is contrary to the Hagen-Poiseuille flow results.
-The velocity difference profiles for all methods (Fig. and Fig. ) indicate a erroneous approximation of the inner boundary.
-It can be assumed that the approximation of moving boundaries with Immersed Boundary methods can
-lead to an overall larger numerical error.
+%
+%\begin{figure}[!bp]
+%  \begin{minipage}[c]{0.4\textwidth}
+%      \centering
+%      \includegraphics{gfx/immersed_boundary/tcflow/discussion/vzdiff.pdf}
+%  \end{minipage}
+%  \begin{minipage}[c]{0.6\textwidth}
+%      \caption{Absolute value of the velocity difference between the IP-FD2 and IP+DF-FD2 in the (x, y)-plane.
+%      \label{valid:hpflow_velodiff_discussion}
+%      }
+%  \end{minipage}
+%\end{figure}
+
 %This is not unexpected for the VP and DF methods, since a pixelated moving boundary probably creates a to the roughness of the surface.
 %From the velocity profiles it can be seen that the error of the interpolation methods is smaller at the inner boundaries.
 %But still the error here is larger at the outer boundaries which indicates that moving boundaries are also difficult to interpolate with good results.
-%In summary
-%comparsion is much larger in compariso
-%- overaall larger error and non linear decrease
-%- vfrac
-%- assumption inner border
-%-comparison errors to the previous
-%-velocity profiles indicate that the error of the methos  comes from the inner border
 
 \clearpage
 
