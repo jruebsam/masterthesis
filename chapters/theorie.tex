@@ -149,33 +149,33 @@ For a large Reynolds numbers an  advection driven maybe even turbulent flow domi
 
 \section{Rotational Fluid Dynamics}
 
-In this section the Navier-Stokes equations are extended to govern the physical attributes of rotating systems,
-which play an important role in the context of geophysical fluid dynamics.\\
-Due to the continuous acceleration acting on the fluid, these systems exhibit some fundamental different behavior, than one would expect.
-One important case which shall be discussed, is the propagation of inertial waves inside a stratified rotating fluid.\\
+In this second part of the chapter, the Navier-Stokes equations are extended to govern the physical attributes of rotating systems,
+which play an important role in the context of geophysical fluid dynamics.
+Due to the continuous acceleration acting on the fluid, these systems exhibit new characteristic properties.
+One important case which shall be discussed, is the propagation of inertial waves inside a stratified rotating fluid.
 
 \subsection{Equations of Motion}
 \label{THEORIE:ROT}
 
-We initially consider the motion of fluid in a coordinate system (\textbf{R}), rotating relative to the intertial system (\textbf{I}) around the axis $\vec{\Omega}$.
+The motion of a fluid in a coordinate system (\textbf{R}) is considered, rotating relative to the intertial system (\textbf{I}) around the axis $\vec{\Omega}$.
 The relation of the time derivate between the two frames of motion is given by the operator relation
 \begin{align}
     \left.{\pdn[]{t}}\right|_{\bm{I}} = \left.\pdn[]{t}\right|_{\bm{R}} + \Omega \times
 \end{align}
 according to \citep{Tilgner2007}.
-Applying this relation to the position vector relative to the coordinate systems \textbf{R} and \textbf{I}
-and by furthermore assuming a constant rotation rate, thus $\partial_t\vec{\Omega} = 0$, yields a coordinate transformation for the acceleration.
+Applying this relation to the position vector relative to the coordinate systems \textbf{R}, \textbf{I}
+and suppose a constant rotation rate $\partial_t\vec{\Omega} = 0$, yields a coordinate transformation for the acceleration,
 
 \begin{align}
     \label{theorie:rottrafo}
-    \left.\pdn[\vec{v}]{t}\right|_{\bm{I}} = \left(\left.\pdn[\vec{v}]{t}  + \underbrace{2\vec{\Omega} \times \vec{v}|_R}_{\text{I}}
+    \left.\pdn[\vec{v}]{t}\right|_{\bm{I}} = \left(\left.\pdn[\vec{v}]{t}  + \underbrace{2\vec{\Omega} \times \vec{v}|_R}_{\text{I}}.
     - \underbrace{\vec{\Omega} \times (\vec{\Omega} \times \vec{r|_R}}_{\text{II}})\right)\right|_{\bm{R}}
 \end{align}
 
 Hence, the transition into a rotating coordinate system introduces two additional pseudo forces, the coriolis force (I)  and the centrifugal force (II).\\
 A substitution of expression \ref{theorie:rottrafo} into the Navier-Stokes equation gives the equations of motion for the rotating system.
-A further simplification can be obtained by considering that the centrifugal force is independent of the velocity field,
-hence it can be written in terms of a potential $\Phi$
+A further simplification can be obtained by considering that the centrifugal force is independent of the velocity field.
+Hence, it can be written in terms of a potential $\Phi$
 
 \begin{align}
     \Omega \times (\Omega \times \vec{r}) = - \nabla \left(\frac{1}{2}\Omega^2\vec{r}^{'2}\right) = -\Phi
@@ -183,34 +183,34 @@ hence it can be written in terms of a potential $\Phi$
 
 which can be substituted into the pressure gradient by defining $p^* = p - \Phi$ \citep{tritton88}.
 \newpage
-Last but not least the following scales are introduced to obtain a nondimensional equation
+The following scales are introduced in order to obtain a nondimensional equation
 
 \begin{align}
-    \text{Length:}\qquad &  \vec{r}^* = \frac{\vec{r}}{L}  &
-    \qquad \text{Velocity:}\qquad& \vec{u}^* =  \frac{\vec{u}}{|\vec{\Omega}|L}\\
-    \text{Time:}  \qquad & t^* = t \cdot |\vec{\Omega}| &
-    \qquad  \text{Pressure:}\qquad & p^* = \frac{p - p_\infty}{\rho L^2{|\vec{\Omega}|}^2}
+    \text{Length:}\qquad &  \vec{r} = \frac{\vec{r}^*}{L}  &
+    \qquad \text{Velocity:}\qquad& \vec{u} =  \frac{\vec{u}^*}{|\vec{\Omega}|L}\\
+    \text{Time:}  \qquad & t = t^* \cdot |\vec{\Omega}| &
+    \qquad  \text{Pressure:}\qquad & p = \frac{p^* - p_\infty}{\rho L^2{|\vec{\Omega}|}^2}
 \end{align}
 
-The final nondimensionalized form of the Navier-Stokes equation for the rotating coordinate system reads
+The final nondimensionalized form of the Navier-Stokes equation for the rotating coordinate system is given by
 
 \begin{align}
     \label{theorie:rotns}
-    \pdn[v]{t}+ \left(\vec{v}  \vec{\nabla}\right) \vec{v} + 2\Omega \times \vec{v}  &= -  \nabla p + \Ekman \Delta \vec{v} + \vec{F}_{\text{ext.}}
+    \pdn[v]{t}+ \left(\vec{v}  \vec{\nabla}\right) \vec{v} + 2\Omega \times \vec{v}  &= -  \nabla p + \Ekman \Delta \vec{v} + \vec{F}_{\text{ext.}},
 \end{align}
 
-with the dimensionless quantity $\Ekman$ the Ekman-Number, which is defined by
+with the dimensionless quantity the Ekman number which is defined by
 
 \begin{align}
-    \Ekman := \frac{\nu}{|\vec{\Omega}| L^2} \hat{=} \frac{\text{viscous forces}}{\text{coriolis forces}}.
+    \Ekman := \frac{\nu}{|\vec{\Omega}| L^2} \hat{=} \frac{\text{viscous force}}{\text{coriolis force}}.
 \end{align}
 
-The Ekman number describes the ratio between viscous and coriolis forces.
+The Ekman number describes the ratio between viscous force and  Coriolis force.
 
 \subsection{Inertial Waves}
 
-One solution of Eq. \ref{theorie:rotns} are inertial waves, which will be described here.
-We begin this section by briefly recapture some of the fundamental properties of mechanical waves, as quoted by \cite[p.194]{Kundu2012}.
+Inertial waves are a solution of Eq. \ref{theorie:rotns} and will be described here.
+This section represents a short recapture of some of the fundamental properties of mechanical waves. According to {Kundu2012}:
 
 \begin{quote}
 It is perhaps not an overstatement to say that wave motion is the most basic feature
@@ -220,48 +220,49 @@ two points. The energy and phase of some disturbance travel during a wave motion
 but motion of the matter is generally small. Waves are generated due to the existence of
 some kind of “restoring force” that tends to bring the system back to its undisturbed
 state, and of some kind of “inertia” that causes the system to overshoot after the
-system has returned to the undisturbed state.
+system has returned to the undisturbed state.\cite[p.194]{Kundu2012}.
 \end{quote}
 
 The propagation of inertial waves requires a medium which contains a state of equilibrium and
 a restoring force pointing back to this state in response to a disturbance.
 In the context of geophysical fluid mechanics an equilibrium state can be given by a stratification.\\
-Consider for example a fluid with a continuous stratified density.
-This means that in the equilibrium, the density of the fluid has to decrease
-continuous with the height of the system. The displacement of a fluid element
+Considering a fluid with a continuous stratified density.
+This means, that in the equilibrium, the density of the fluid has to decrease
+continuously with the height of the system. The displacement of a fluid element
  from its resting position results in a restoring force, which is  given by the
 gravitation or the buoyant force.
-\footnote{This depends on the direction of the displacement}
-It can be seen therefore, that a disturbance of the equilibrium state can result in the
+\footnote{This depends on the direction of the displacement.}
+Therefore, it can be seen that a disturbance of the equilibrium state can result in the
 propagation of so-called  gravity waves\footnote{Not to be confused with gravitational waves.} \cite{Clausen2011}.
 \footnote{One import case we know from everyday life are surface waves, which emerge
 from the discontinuous density stratification between two fluids, i.e. water and air \cite{Clausen2011}.}\\
-We know consider a uniform rotating fluid without the presence of external forces.
+
+Now a uniform rotating fluid without the presence of external forces is considered.
 At some point in time a steady state is reached, as a result of the dynamic equilibrium between
 a radial stratification of the angular momentum and the pressure.
-The displacement of a fluid element in radial direction now results in
+The displacement of a fluid element in radial direction results in
 an imbalance of the preserved angular momentum and the pressure.
 Due to the restoring force, given by the coriolis force, an oscillation develops.
 Waves of this type are denoted as inertial waves \cite{Clausen2011}.
 
 \subsubsection{Plane Inertial Waves}
 
-Here a short introduction of the porperties of plane inertial waves shall be given.
+A short introduction of the properties of plane inertial waves shall be given here.
 All results presented in this section are adopted from \citep{Greenspan1990}.%[p.185]
 The non-linear advection operator and the viscous stress in Eq. \ref{theorie:rotns} are neglected, $\Ekman =0$.
-In case of the a linear inviscid fluid, the equations of motion are fullfiled by plane wave solutions of the form
+In case of  a linear inviscid fluid the equations of motion are fulfilled by plane wave solutions of the form
 
 \begin{align}
     \vec{v} = \vec{V} e^{i(\vec{k}\vec{r}  - \omega t )}, \qquad
-    p = P e^{i(\vec{k}\vec{r}  - \omega t )}
+    p = P e^{i(\vec{k}\vec{r}  - \omega t )}.
 \end{align}
 
-The wave is transverse, since an insertion into the continuity equation yields $\vec{V}\vec{k} = 0$.
+The wave is transverse since an insertion into the continuity equation yields $\vec{V}\vec{k} = 0$.
 From the momentum equation the dispersion relation is given by
 
 \begin{align}
     \label{theorie:eq_rot_dispersion}
-    \omega = \pm \frac{ 2\vec{\Omega}\vec{K}}{|\vec{K}|} = \pm 2|\vec{\Omega}|\cos(\theta)
+    \omega = \pm \frac{ 2\vec{\Omega}\vec{K}}{|\vec{K}|} = \pm 2|\vec{\Omega}|\cos(\theta).
 \end{align}
 
 where $\theta$ is the polar angle with respect to the rotation axis,
@@ -286,32 +287,35 @@ see Fig. \ref{theorie:reflection_img}(a).
 \label{theorie:sec:iwreflec}
 
 The reflection of an inertial wave contradict's snells law, since the propagation angle $\theta$ is preserved upon a reflection.
-It can be shown that the following relations holds (see \cite{Beardsley1970}),
+It can be shown that the following relations holds \cite{Beardsley1970},
 
 \begin{align}
 \label{theorie:reflections}
 \vec{\Omega}\cdot \vec{K} =  \vec{\Omega}\cdot\vec{K}^\dagger, \qquad \hat{n} \times \vec{K} = \hat{n} \times \vec{K}^\dagger
 \end{align}
 
-where $\dagger$ denotes wave number upon reflection and $\hat{n}$ corresponds to the the normal vector of the wall.
-As a result inertial waves exhibit a fundamental different reflection behavior, which shall be summarized here.
-Fig. \ref{theorie:reflection_img} exemplarily shows the reflection of an inertial wave with propagation angle $\theta$,
+where $\dagger$ denotes wave number upon reflection and $\hat{n}$ corresponds to the normal vector of the wall.
+As a result, inertial waves exhibit a fundamental different reflection behavior, which is summarized here.
+Fig. \ref{theorie:reflection_img} shows exemplarily the reflection of an inertial wave with the propagation angle $\theta$,
 on a wall with the slope $\alpha$ to the rotation axis. Three scenarios exist \citep{Clausen2011}:
 
 \begin{description}
-    \item[$\theta < \alpha$] See Fig. \ref{theorie:reflection_img}(b). A downward propagating wave is reflecting upwards,
-                             this is also referred to as subcritical reflection.
+    \item[$\theta < \alpha$] See Fig. \ref{theorie:reflection_img}(b). A downward propagating wave is reflecting upwards.
+                             This is also referred to as subcritical reflection.
                              The distance between two parallel waves is decreased upon a reflection which is denoted as focusing.
     \item[$\theta > \alpha$] See Fig. \ref{theorie:reflection_img}(c). A downward propagating wave is reflecting downwards.
-                             this is also referred to as supercritical reflection.
-                             The distance between two parallel waves is decreased upon a reflection which is denoted as defocusing.
-    \item[$\theta = \alpha$] All waves are reflected parallel to the slope and infinitely focussed.
+                             This is also referred to as supercritical reflection.
+                             The distance between two upward traveling parallel waves is increases upon a reflection which is denoted as defocusing.
+    \item[$\theta = \alpha$] All waves are reflected parallel to the slope and infinitely focused.
 \end{description}
 
 \begin{figure}[!bp]
       \centering
-        \includegraphics[width=0.7\textwidth]{gfx/theorie/reflection.pdf}
-       \caption{Reflection of inertial waves, apapted from \citep{Clausen2011}.
+          \centering
+            \resizebox{0.8\textwidth}{!}{
+           \import{gfx/theorie//}{reflection.pdf_tex}
+          }
+       \caption{Reflection of inertial waves:
         (a) Propagation of inertial waves with the propagation angle $\theta$.
         (b) Subcritical reflection of a downward traveling wave.
         (c) Supercritical reflection of a downward traveling wave.
@@ -325,9 +329,9 @@ on a wall with the slope $\alpha$ to the rotation axis. Three scenarios exist \c
 \subsubsection{Inertial Modes in a Cylinder}
 \label{theorie:rotating:cyl_modes}
 
-In a closed geometry the possible number of solutions of Eq. \ref{theorie:rotns} can be finite \citep{Clausen2011}.
+Within  a enclosed geometry the possible number of solutions of Eq. \ref{theorie:rotns} can be finite \citep{Clausen2011}.
 For the scenario of a rotating cylinder the solutions are given by a discrete spectrum of  inertial modes.
-A analytical solution can be found in \citep{Greenspan1990}, and shall be summarized here.
+A analytical solution can be found in \citep{Greenspan1990} and is summarized here.
 
 For the linear inviscid case with $\Ekman~=~0$ and without the advection term, the problem can be reduced to a Poincar\'{e} equation for the pressure,
 which is solved in cylindrical coordinates by
@@ -338,7 +342,7 @@ which is solved in cylindrical coordinates by
 
 where $a=\nicefrac{r}{H}$ is the aspect ratio of the cylinder,
 $n\in\mathbb{N}$ is the vertical and $k\in\mathbb{Z}$ the azimuthal wave number.
-$m\in\mathbb{N}$ is equal to the number of nodes in radial direcion.
+$m\in\mathbb{N}$ is equal to the number of nodes in radial direction.
 $J_{|k|}$ denotes a Bessel function of $k$-th order.
 The radial wavenumber $\xi$  can be solved for any given $k$ by the transcendental equation
 \begin{align}
