@@ -43,7 +43,7 @@ types of memory are existing, as shown  in Fig.  \ref{fig:gpu_memory_layout}.
                          In addition the use of the global memory as a texture memory is possible. The memory access is then spatially
                          \footnote{Memory access is cached when multiple reads are performed simultaneous on adjacent memory locations.} cached.
 
-    \item[Shared Memory] Each SM contains a shared memory, much smaller than the global memory \footnote{Around 16kb on c1060 and 64kb on k20m.}. It is accessible
+    \item[Shared Memory] Each SM contains a shared memory, much smaller than the global memory.\footnote{Around 16kb on c1060 and 64kb on k20m.} It is accessible
                          by all cuda cores of the SM.
                          This memory type is much faster (x100) than the global memory. It is useful when multiple operations
                          by different cuda cores of one SM are carried out on the same data.
@@ -216,9 +216,9 @@ As a first step each thread is assigned to a grid point $(i, j, k)$.
 
 \begin{align}
     \begin{split}
-    i &= 2\\
-    j &= \text{blockIdx.x}\cdot 8 + \text{threadIdx.y} + 2\\
-    k &= \text{blockIdx.y}\cdot 8 + \text{threadIdx.x} + 2
+    i &= 2,\\
+    j &= \text{blockIdx.x}\cdot 8 + \text{threadIdx.y} + 2,\\
+    k &= \text{blockIdx.y}\cdot 8 + \text{threadIdx.x} + 2.
     \end{split}
 \end{align}
 
@@ -282,7 +282,7 @@ All other layers are shifted by one position. With this approach each layer only
 After the for-loop has iterated over the simulation domain the first part of the time step is finished.
 The remaining computation is
 \begin{align}
-     \Phi^{1} = \Phi^n + \frac{1}{3}Q_1
+     \Phi^{1} = \Phi^n + \frac{1}{3}Q_1.
 \end{align}
 
 The algorithm for this computation performs identical except no derivatives need to be calculated and
@@ -302,7 +302,7 @@ the boundary is at ${b=(2, j, k)}$ where $\vec{v}=0$ and the next inner points a
 $i_{l1}=(3, j, k)$ and $i_{l2}=(4, j, k)$.
 For No-Slip boundaries the velocity profile is mirrored and inverted at $b$.
 \begin{align}
-    v_x(g_{l2}) = -v_x(i_{l2}) \qquad ; \qquad v_x(g_{l1}) = -v_x(i_{l1})
+    v_x(g_{l2}) = -v_x(i_{l2}) \qquad , \qquad v_x(g_{l1}) = -v_x(i_{l1}).
 \end{align}
 The same procedure is performed for $v_y$ and $v_z$.
 Due to the symmetry of the velocity profile on the boundary the viscous stress vanishes and $\partial_t\vec{v} = 0$. Hence, $\vec{v}(t)=0$.
@@ -318,7 +318,7 @@ For No-Flux boundaries it is necessary that $\partial_x\Phi = 0$ for any variabl
 By setting
 
 \begin{align}
-    \Phi(g_{l2}) = \Phi(i_{l2})\qquad ; \qquad \Phi(g_{l2}) = \Phi(i_{l1})
+    \Phi(g_{l2}) = \Phi(i_{l2})\qquad , \qquad \Phi(g_{l2}) = \Phi(i_{l1})
 \end{align}
 it follows that
 \begin{align}
@@ -342,8 +342,8 @@ and the inner points $i_{r1}=(N_x-1, j, k)$ and $i_{r2}=(N_x - 2, j, k)$.
 For Periodic boundaries the regions on the left and right side of the simulation domain are simply exchanged by
 
 \begin{align}
-    v_x(g_{l2}) = v(i_{r2}) \qquad ; \qquad v(g_{l1}) = v(i_{r1})\\
-    v_x(g_{r2}) = v(i_{l2}) \qquad ; \qquad v(g_{r1}) = v(i_{l1})
+    v_x(g_{l2}) = v(i_{r2}) \qquad , \qquad v(g_{l1}) = v(i_{r1}),\\
+    v_x(g_{r2}) = v(i_{l2}) \qquad , \qquad v(g_{r1}) = v(i_{l1}).
 \end{align}
 
 The same procedure is performed for $v_y$ and $v_z$ and $\rho$.

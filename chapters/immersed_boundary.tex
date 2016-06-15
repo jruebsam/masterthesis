@@ -122,7 +122,7 @@ With the use of the Euler method the discretization of the Navier-Stokes Equatio
 
 \begin{align}
     \label{ibm_df_method_lame}
-    \frac{\vec{v}^{n+1} -\vec{v}^n}{\Delta t} = \mathscr{L}^* + \vec{f},
+    \frac{\vec{v}^{n+1} -\vec{v}^n}{\Delta t} = \mathscr{L}^* + \vec{f}
 \end{align}
 
 where $\mathscr{L^*}$ are the discretized advection and viscous terms and the density gradient and $\vec{f}$ is the forcing term.
@@ -241,7 +241,7 @@ The distance is
 
 and the normal direction
 \begin{align}
-    \vec{g}(x, y, z) = \left(-\left(x - \frac{l_x}{2}\right),  - \left(y - \frac{l_y}{2}\right), 0\right)^T
+    \vec{g}(x, y, z) = \left(-\left(x - \frac{l_x}{2}\right),  - \left(y - \frac{l_y}{2}\right), 0\right)^T.
 \end{align}
 
 A normalization of $\vec{g}(x, y, z)$ is performed in the algorithm.
