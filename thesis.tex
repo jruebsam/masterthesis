@@ -20,6 +20,9 @@
 \usepackage{microtype}
 \usepackage[super]{nth}
 
+\newcommand{\tabheadfont}[1]{\textbf{#1}} %% Tabellenkopf in Fett
+\usepackage{longtable}
+
 \makeatletter
 \newcommand\footnoteref[1]{\protected@xdef\@thefnmark{\ref{#1}}\@footnotemark}
 \makeatother
@@ -268,10 +271,8 @@ rulecolor=\color{black}
 %\includeonly{chapters/immersed_boundary, chapters/validation/pflow, chapters/validation/hp_flow, chapters/validation/tc_flow, chapters/appendix, chapters/python_api}
 %\includeonly{chapters/immersed_boundary, chapters/testcases, chapters/valiresults, chapters/validiscuss, chapters/appendix, chapters/python_api}
 %\includeonly{chapters/validation/tc_flow, chapters/appendix}
-%\includeonly{chapters/immersed_boundary}
-%\includeonly{chapters/theorie}
-
-%\renewcommand{\descriptionlabel}[1]{\hspace{\labelsep}\emph{#1}}
+%\includeonly{chapters/danksagung}
+%\includeonly{chapters/nomenklatur, chapters/cone}
 
 
 \begin{document}
@@ -341,8 +342,8 @@ rulecolor=\color{black}
 \vfill
 \begin{tabbing}
   \hspace{3cm}\=\kill
-   Erstgutachter: \quad  Prof. Dr. Andreas Tilgner - Universität Göttingen\\
-   Zweitgutachter: \quad  Apl. Prof. Dr. Parlitz - Universität Göttingen\\
+   Erstgutachter: \quad  Prof. Dr. Andreas Tilgner\\
+   Zweitgutachter: \quad  Apl. Prof. Dr. Ulrich Parlitz\\
 \end{tabbing}
 
 \newpage
@@ -356,6 +357,7 @@ rulecolor=\color{black}
 
 \tableofcontents
 
+\include{chapters/nomenklatur}
 \cleardoublepage
 
 \setcounter{page}{1}

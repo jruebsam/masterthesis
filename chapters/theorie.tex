@@ -4,8 +4,6 @@ For the development of a numerical model it is necessary to give an exact theore
 fluid systems which are investigated in this thesis.
 Hence, this chapter contains a brief overview of the derivation and the properties of the fundamental equations of motions.
 For a more detailed description, the interested reader is referred to \citep{ferziger99}, on which Sec. \ref{theorie:eqm1} is based.
-In the second part of this chapter, the equations will be extended to rotating fluid systems.
-The physical solutions of this system, which are known as inertial waves, will be discussed.
 
 \section{The Equations of Motion}\label{theorie:eqm1}
 
@@ -30,7 +28,7 @@ By setting $\phi = 1$ one obtains the integral form of mass conservation
 
 \begin{align}
     \frac{\dif}{\dif t} \int_V \dif V \rho(t) + \int_{\partial V}\dif S \rho \vec{v}\vec{n}
-     \stackrel{\text{Gauss} \atop \text{ Law}}{=}
+     \stackrel{\text{Gauss's} \atop \text{ Law}}{=}
     \int_V \dif V \left( \frac{\dif}{\dif t} \rho(t) + \vec{\nabla}\left(\rho \vec{u}\right)\right).
 \end{align}
 
@@ -90,7 +88,7 @@ Thus, it might be advisable to not choose a trivial solution like a zero velocit
 of the system. Often it is useful to add pseudo random noise.\\
 \\
 Since the fluid domain is spatial restricted it is necessary to define the physical behavior at its boundaries as well.
-For a fluid domain $V$ with the boundary $\partial V$ the following boundaries are defined in \citep{Griebel199, ferziger99}.
+For a fluid domain $V$ with the boundary $\partial V$ the following boundaries are defined in \citep{Griebel1998, ferziger99}.
 
 \begin{description}
     \item[No-Slip Boundaries] All velocity components are set to zero $\vec{v}|_{\partial V} = 0$. The fluid is at rest on $\partial V$ and no flux through
@@ -121,7 +119,7 @@ The following scales for the variables of time, position, velocity and pressure 
 \footnote{In this thesis the dimensional variables are denoted by an asterisk when compared to non-dimensional variables.}
 
 \begin{align}
-    \text{Length:}\qquad &  \vec{r} = \frac{\vec{r^*}}{L}  &, \qquad \text{Velocity:}\qquad& \vec{v}^* = \frac{\vec{v^*}}{V}\\
+    \text{Length:}\qquad &  \vec{r} = \frac{\vec{r^*}}{L}  &, \qquad \text{Velocity:}\qquad& \vec{v} = \frac{\vec{v^*}}{V}\\
     \text{Time:}  \qquad & t = t^* \cdot \frac{V}{L}      &,  \qquad  \text{Pressure:}\qquad & p = \frac{p^* - p_\infty}{\rho V^2},
 \end{align}
 
@@ -157,10 +155,11 @@ One important case which shall be discussed, is the propagation of inertial wave
 \subsection{Equations of Motion}
 \label{THEORIE:ROT}
 
-The motion of a fluid in a coordinate system (\textbf{R}) is considered, rotating relative to the intertial system (\textbf{I}) around the axis $\vec{\Omega}$.
+The motion of a fluid in a coordinate system (\textbf{R}) is considered, rotating with the angular velocity $\vec{\Omega}$
+relative to the intertial system (\textbf{I}) around the axis $\vec{\Omega}$.
 The relation of the time derivate between the two frames of motion is given by the operator relation
 \begin{align}
-    \left.{\pdn[]{t}}\right|_{\bm{I}} = \left.\pdn[]{t}\right|_{\bm{R}} + \Omega \times
+    \left.{\pdn[]{t}}\right|_{\bm{I}} = \left.\pdn[]{t}\right|_{\bm{R}} + \vec{\Omega} \times
 \end{align}
 according to \citep{Tilgner2007}.
 Applying this relation to the position vector relative to the coordinate systems \textbf{R}, \textbf{I}
@@ -168,8 +167,8 @@ and suppose a constant rotation rate $\partial_t\vec{\Omega} = 0$, yields a coor
 
 \begin{align}
     \label{theorie:rottrafo}
-    \left.\pdn[\vec{v}]{t}\right|_{\bm{I}} = \left(\left.\pdn[\vec{v}]{t}  + \underbrace{2\vec{\Omega} \times \vec{v}|_R}_{\text{I}}.
-    - \underbrace{\vec{\Omega} \times (\vec{\Omega} \times \vec{r|_R}}_{\text{II}})\right)\right|_{\bm{R}}
+    \left.\pdn[\vec{v}]{t}\right|_{\bm{I}} = \left(\left.\pdn[\vec{v}]{t}  + \underbrace{2\vec{\Omega} \times \vec{v}|_R}_{\text{I}}
+    - \underbrace{\vec{\Omega} \times (\vec{\Omega} \times \vec{r|_R}}_{\text{II}})\right)\right|_{\bm{R}}.
 \end{align}
 
 Hence, the transition into a rotating coordinate system introduces two additional pseudo forces, the coriolis force (I)  and the centrifugal force (II).\\
@@ -257,22 +256,23 @@ In case of  a linear inviscid fluid the equations of motion are fulfilled by pla
     p = P e^{i(\vec{k}\vec{r}  - \omega t )}.
 \end{align}
 
+where $\vec{k}$ is the wave vector and $\omega$ the frequency.
 The wave is transverse since an insertion into the continuity equation yields $\vec{V}\vec{k} = 0$.
 From the momentum equation the dispersion relation is given by
 
 \begin{align}
     \label{theorie:eq_rot_dispersion}
-    \omega = \pm \frac{ 2\vec{\Omega}\vec{K}}{|\vec{K}|} = \pm 2|\vec{\Omega}|\cos(\theta).
+    \omega = \pm \frac{ 2\vec{\Omega}\vec{k}}{|\vec{k}|} = \pm 2|\vec{\Omega}|\cos(\theta).
 \end{align}
 
 where $\theta$ is the polar angle with respect to the rotation axis,
-such that $\vec{K}\vec{\Omega} = |\vec{K}||\vec{\Omega}|\cos{\theta}$.
+such that $\vec{k}\vec{\Omega} = |\vec{k}||\vec{\Omega}|\cos{\theta}$.
 This means that an inertial wave can only exist for a wave frequency smaller than twice of the rotation rate $\vec{\Omega}$.
 The phase velocity $\vec{c}_p$ and the group velocity $\vec{c}_g$ are given by
 
 \begin{align}
-    \vec{c}_p = 2 \frac{\vec{\Omega} \vec{K} }{|\vec{K}|^3} \vec{K}, \qquad
-    \vec{c}_g = \frac{2 \vec{K} \times (\vec{\Omega} \times \vec{K})}{|\vec{K}|^3}
+    \vec{c}_p = 2 \frac{\vec{\Omega} \vec{k} }{|\vec{k}|^3} \vec{k}, \qquad
+    \vec{c}_g = \frac{2 \vec{k} \times (\vec{\Omega} \times \vec{k})}{|\vec{k}|^3}
 \end{align}
 
 \clearpage
@@ -291,7 +291,7 @@ It can be shown that the following relations holds \cite{Beardsley1970},
 
 \begin{align}
 \label{theorie:reflections}
-\vec{\Omega}\cdot \vec{K} =  \vec{\Omega}\cdot\vec{K}^\dagger, \qquad \hat{n} \times \vec{K} = \hat{n} \times \vec{K}^\dagger
+\vec{\Omega}\cdot \vec{k} =  \vec{\Omega}\cdot\vec{k}^\dagger, \qquad \hat{n} \times \vec{k} = \hat{n} \times \vec{k}^\dagger
 \end{align}
 
 where $\dagger$ denotes wave number upon reflection and $\hat{n}$ corresponds to the normal vector of the wall.
@@ -305,7 +305,7 @@ on a wall with the slope $\alpha$ to the rotation axis. Three scenarios exist \c
                              The distance between two parallel waves is decreased upon a reflection which is denoted as focusing.
     \item[$\theta > \alpha$] See Fig. \ref{theorie:reflection_img}(c). A downward propagating wave is reflecting downwards.
                              This is also referred to as supercritical reflection.
-                             The distance between two upward traveling parallel waves is increases upon a reflection which is denoted as defocusing.
+                             The distance between two upward traveling parallel waves increases upon a reflection which is denoted as defocusing.
     \item[$\theta = \alpha$] All waves are reflected parallel to the slope and infinitely focused.
 \end{description}
 

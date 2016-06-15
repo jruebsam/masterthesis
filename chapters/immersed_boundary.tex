@@ -6,12 +6,12 @@
 For many problems in computational fluid mechanics it is mandatory to solve the equations of motion with respect to complex-shaped geometries.
 The algorithm introduced in chapter \ref{CHAPTER:CUDA} is not yet suitable for such a scenario.
 For instance the simulation inside a spheric geometry is not possible, since the boundaries
-do not coincide with the implemented cartesian grid. Nevertheless,  different approaches are existing to overcome this problem
+do not coincide with the implemented cartesian grid. Nevertheless,  different approaches are existing to overcome this problem,
 which shall be introduced here.
 
 One common approach to extend the algorithm is the use of a body-fitted mesh,
 different advantages and disadvantages arise with this kind of implementation, see \citep{Mittal2005}.
-One benefit is a much simpler deployment of the desired boundary condition, due to the overlap of the numerical grid with domain borders.
+One benefit is a much simpler deployment of the desired boundary condition, due to the overlap of the numerical grid with the domain borders.
 Furthermore a higher accuracy can be achieved \citep{Gornak2013}.
 However, using an such grids generates  computational overhead, during and before the execution of a simulation.
 The grid generation algorithm is complicated in contrast to the use of a cartesian grid. This can be even more difficult when
@@ -35,7 +35,7 @@ Therefore, it can be necessary to use a higher grid resolution
 compared to a body-fitted mesh.
 The benefits of these methods is the use of a cartesian grid, which is more suitable for a GPU-based implementation, see Sec. \ref{cuda:sec_threadmanage}.
 One objective of this chapter is to introduce implementation of No-Slip boundaries for cartesian grids, with the use of IB methods.
-The term IB method is vaguely defined in literature, in this thesis we refer with it to all methods introduced in this chapter..
+The term IB method is vaguely defined in literature, in this thesis we refer with it to all methods introduced in this chapter.
 
 \section{Immersed Boundary Methods}
 
@@ -108,7 +108,7 @@ The exact boundary can only be satisfied for $\Delta x$, $\Delta y$ and $\Delta 
 \begin{figure}[!t]
     \centering
     \includegraphics{gfx/immersed_boundary/methods/mask_volpen.pdf}
-    \caption{Masking array $H(i,j,k=const.)$ for a cylinder, in the (x,y) plane.}
+    \caption{Masking array $H(x,y,z=const.)$ for a cylinder, in the (x,y) plane.}
     \label{fig:ibm_maskvolpen}
 \end{figure}
 
@@ -155,7 +155,7 @@ The force acting on the points inside the boundary cells is than weighted by a s
 
 \begin{figure}[!bt]
     \centering
-    \subfloat[Masking array H(i, j, k=const.) for the Volume-Fraction method]{{
+    \subfloat[Masking array H(x,y,z=const.) for the Volume-Fraction method]{{
       \includegraphics{gfx/immersed_boundary/methods/mask_volfrac.pdf}\label{fig:mask_volfrac}
       \label{ibm_volfrac_masking_array}
         }}%
@@ -210,7 +210,7 @@ $a$ is defined as the closest surface point where the normal of the surface meet
 The point $b$ is  projected into the direction of the normal $\vec{n}$, onto the plane defined by
 the nearest grid points $\alpha$, $\beta$, $\gamma$ and $\delta$.
 After the position calculation of the point $c$, the velocity $\vec{v}(c)$ is obtained by a bilinear interpolation
-of the velocities at the points $\alpha$, $\beta$, $\gamma$ and $\delta$, that is (see \citep{numrecipes})
+of the velocities at the points $\alpha$, $\beta$, $\gamma$ and $\delta$, that is \citep{numrecipes}
 
 \begin{align}
     \vec{v}(c) =  \frac{1}{\Delta x\Delta y} \left(\vec{v}(\beta)(\Delta x -  c_1)(\Delta y -  c_2) +
@@ -271,7 +271,7 @@ The values obtained from this pre-computation are the offsets  $p00$, $p01$, $p1
 the ratio $W$. Each values is stored into an array of shape $N_x \cdot N_y \cdot N_z$, which is loaded during the simulation.
 All values in the coefficient arrays which are not close to the immersed boundary are set to zero.
 During the interpolation procedure the ratio $W$ is checked and if larger than zero an interpolation for the grid point is computed.
-An example of the interpolation procedure is given by:
+An example of the implemented interpolation procedure is given by:
 
 \begin{Verbatim} [fontsize=\footnotesize]
     if ((distance != 0 )){

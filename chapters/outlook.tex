@@ -1,5 +1,6 @@
-\chapter*{Conclusions and Outlook}
-\addcontentsline{toc}{chapter}{Conclusions and Outlook}
+%\chapter*{Conclusions and Outlook}
+\addchap{Conclusions and Outlook}
+%\addcontentsline{toc}{chapter}{Conclusions and Outlook}
 
 In the first part of this thesis different Immersed Boundary methods were
 implemented and successfully tested with a GPU based algorithm.
@@ -7,7 +8,7 @@ The validation provided good results for No-Slip boundaries, however the impleme
 One concern of this validation is that only steady-state flows were used as test cases.
 This approach is justified since the local error created through approximations of the boundaries
 has a larger influence on the global error.
-However for further validations unsteady flows could be of interest.
+However, for further validations unsteady flows could be of interest.
 The validation of the interpolation method resulted in the smallest numerical error by far.
 Unfortunately this method became numerically unstable for the simulations of the librating cylinder and cone.
 For possible future applications it would be important to find and eliminate the origin of this instability.
@@ -41,7 +42,7 @@ The use of Free-Slip boundaries could reduce the numerical oscillations in the s
 These oscillations are the result of the large Peclet number of the system and are generated
 close to the boundaries where the velocity gradients are the largest.
 In simulations of precession driven dynamos in a cube with small Ekman numbers ($\propto 10^{-5}$),
-no oscillations occur when using Free-Slip boundaries \footnote{Private communication O.Goepfert}.
+no oscillations occur when using Free-Slip boundaries \footnote{Private communication with O.Goepfert}.
 A first implementation of Free-Slip boundaries was performed
 by inserting diagonal walls into the fluid domain which overlap with the grid points.
 On these walls the Free-Slip condition can simply be applied just like in the basic GPU algorithm,
@@ -77,6 +78,4 @@ Furthermore different excitation mechanism of inertial waves could be studied.
 The study of the decay of turbulent flows in the apex of the cone is of particular interest.
 %A similar numerical study has been performed in \citep{ANRD} where a oscillating grid
 %was used to induction of turbulent flows.
-
-
 

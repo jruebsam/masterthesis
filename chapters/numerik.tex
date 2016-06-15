@@ -1,7 +1,5 @@
 \chapter{Numerical Methods}
 
-\section{Introduction}
-
 This chapter focuses on the methods that are used for the numerical computations in this thesis.
 In order to compute the temporal evolution of a fluid system from its initial state, it is necessary to discretize
 the equations of motion by using different numerical schemes.\\
@@ -311,7 +309,7 @@ The second criterion is given by
 where $ Pe := \nicefrac{u \Delta x}{\alpha}$ is defined as the Peclet number \citep{ferziger99}.
 The Peclet number can be interpreted as the ratio between the advection and diffusion of a fluid system.
 
-\paragraph{Third-Order Upwinding Scheme}\mbox{}\\
+\subsubsection{Third-Order Upwinding Scheme}
 \label{num:sec_para:upwindingscheme}
 
 For large Peclet numbers it is a common problem that numerical oscillations emerge in the numerical solution.
@@ -340,7 +338,7 @@ with the use of third order finite difference approximations from \citep{ferzige
 
 \section{Numerical Viscosity}
 
-In this thesis the finite difference schemes Eq. \ref{num:fd_o4_methods} and Eq. \ref{numerik:eq_2dfo2}
+In this thesis the finite difference schemes Eq. \ref{numerik:eq_2dfo2} and Eq. \ref{num:fd_o4_methods}
 are used for the approximation of the viscous stress in the Navier-Stokes equation.
 However, due to the approximation the numerical viscoscity $D_N$ of the approximation may differ from the physical viscosity $D_P$.
 An estimation for $D_N$ can be given by considering the diffusion equation
@@ -356,7 +354,7 @@ A solution is given by $v = V(t)e^{ikx}$. Inserting this ansatz in Eq. \ref{num:
     V(t) = V_0 \exp^{-D_Pk^2t}.
 \end{align}
 
-By inserting $V(t)$ into a  second order approximation of Eq. \label{ref:nvis_eqdiff} it follows that
+By inserting $V(t)$ into a  second order approximation of Eq.~\ref{num:nvis_eqdiff} it follows that
 
 \begin{align}
                       D_P \Delta v  &\approx \frac{D_P}{\Delta x^2} \left(v_{x+\Delta x} - 2 v_x + v_{x - \Delta x}\right) \\
@@ -370,7 +368,7 @@ The numerical viscosity is given by the approximation of $D_P$  from Eq. \ref{nu
 \begin{align}
  \label{NUMERIC:NUMVIS}
     D_N = -\frac{D}{k^2 \Delta x^2} \left(2\cos(k\Delta x) - 2\right).
-\end{align}.
+\end{align}
 
 The same ansatz for the fourth order scheme gives
 \begin{align}
@@ -386,7 +384,7 @@ It can be noted that the numerical viscosity is not constant but depends on the 
 \label{num:sec_articomp}
 
 For now the fact was ignored that the Navier-Stokes equation cannot directly be solved for the pressure.
-An equation for $p$ can be obtained by taking the divergence of Eq. \ref{theorie:eqns} and apply the continuity equation.
+An equation for $p$ can be obtained by taking the divergence of Eq.~\ref{theorie:eqns} and apply the continuity equation.
 The resulting equation is of the form \citep{Lulff2011}
 
 \begin{align}
@@ -417,7 +415,7 @@ The concept of this method is to introduce the artificial equations of state
 \end{minipage}\vskip1em
 
 where $\rho$ is the artificial density, $\delta$ the artificial compressibility and $c$ the artificial speed of sound.
-Eq.  \ref{num:arti_cont}  is a modified version of the continuity equation and Eq. \ref{num:arti_pressure} introduces
+Eq.~\ref{num:arti_cont}  is a modified version of the continuity equation and Eq.~\ref{num:arti_pressure} introduces
 an artificial equation for the pressure. A substitution of Eq. \ref{num:arti_pressure} into the Navier-Stokes equation gives
 
 \begin{align}
@@ -435,7 +433,7 @@ to a high value such that the Mach number given by
 is small, a well estimation is $\Mach<0.1$ \footnote{\label{notepc_arti}Private Communication with A.Tilgner}.
 In this case the fluid can be considered as incompressible.
 One major drawback of this method is a stiff numerical problem. Due to the stability criterion (see Eq. \ref{num:stab_soundspeed})
-a small time step is needed since $v=c^2$.
+a small time step is needed since $v=c$.
 
 
 

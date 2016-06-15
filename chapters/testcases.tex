@@ -166,7 +166,7 @@ A grid convergence test was performed with the main simulation parameters given 
  $ N_z  $                   & $\Delta t$ & $\Delta z$            & $\Rey$  & $c^2$   & $l_z, l_x/l_y$ & $T_{end}$\\
 \hline
  $[8, 256], \Delta N = 8 $& $10^{-4}$ & $\nicefrac{1}{N - 1}$ & 500     & $500$   &  1, 8$\Delta z$ &  10\\
-\end{tabular}
+\end{tabular}.
 \vspace*{0.7ex}
 \end{center}
 
@@ -209,7 +209,7 @@ A simulation series was performed for the VP-FD2 method with the simulation para
  $ \Rey  $                      & $J$ & $N_z$ &  $\Delta t$ & $\Delta z$            & $c^2$   & $l_z, l_x/l_y$ & $T_{end}$\\
 \hline
  $[100, 500], \Delta \Rey = 25 $& $[10^{-5}, 5\cdot10^{-1}]  $ & 64 &  $10^{-4}$ & $\nicefrac{1}{N - 1}$   & $500$   & $\approx{2.015871}, 8\Delta z$ & 10\\
-\end{tabular}
+\end{tabular}.
 \vspace*{0.5ex}
 \end{center}
 
@@ -224,7 +224,7 @@ where the resolution was varied between $N_z\in [8, 280]$ with $\Delta N_z = 8$.
  $ N_z  $                      & $J$ &  $\Delta t$ & $\Delta z$            & $\Rey$  & $c^2$   & $l_z, l_x/l_y$ & $T_{end}$\\
 \hline
  $[8, 280], \Delta N_z = 4 $& $[10^{-4}, 5\cdot10^{-2}]  $ &  $10^{-4}$ & $\nicefrac{1}{N - 1}$ & 500     & $500$   & $\approx{2.015871}, 8\Delta z$  & 10\\
-\end{tabular}
+\end{tabular}.
 \vspace*{0.5ex}
 \end{center}
 
@@ -240,7 +240,7 @@ it is sufficient enough to carry out a grid convergence study.  The simulation p
  $ N_z  $                       &  $\Delta t$ & $\Delta z$            & $\Rey$  & $c^2$   & $l_z, l_x/l_y$ & $T_{end}$\\
 \hline
  $[8, 280], \Delta N_z = 4 $ &  $10^{-4}$ & $\nicefrac{1}{N - 1}$ & 500     & $500$   & $\approx{2.015871}, 8\Delta z$  & 10\\
-\end{tabular}
+\end{tabular}.
 \vspace*{0.3ex}
 \end{center}
 The simulation was performed for FD2 and FD4 methods.
@@ -251,7 +251,7 @@ The simulation was performed for FD2 and FD4 methods.
 
 In the previous test case the channel walls were aligned parallel to the simulation grid. Hence, no further interpolation procedures
 are necessary to mimic the exact boundaries.
-In order to test the accuracy of the VF and the IP method, a test case with a curved geometry is necessary.
+In order to test the accuracy of the VF and the IP method a test case with a curved geometry is necessary.
 Furthermore it is possible to investigate the discretization error of the non-interpolating VP and DF method, with respect to curved geometries.
 
 A simple adaption of the planar Poiseuille flow, is the laminar flow through a pipe, also referred to as Hagen-Poiseuille flow \citep{tritton88}.
@@ -317,7 +317,7 @@ The main parameters of the simulation are  given by
  $ N  $                   & $\Delta t$ & $\Delta z, \Delta y$            & $\Rey$  & $c^2$   & $l_y, l_z, l_x$ & $r_0$ & $T_{end}$\\
 \hline
  $512; [16, 256], \Delta N = 16 $& $10^{-4}$ & $\nicefrac{1}{N}$ & 100     & $100$   & 2.5, 2.5, $8\Delta y$ & 1     & 20\\
-\end{tabular}
+\end{tabular}.
 \vspace*{0.7ex}
 \end{center}
 
@@ -345,7 +345,7 @@ The main parameters of the simulation are  given by
  $ N  $                   & $\Delta t$ & $\Delta z, \Delta y$            & $\Rey$  & $c^2$   & $l_y, l_z, l_x $ &$r_0$ & $T_{end}$\\
 \hline
  $96 $& $10^{-4}$ & $\nicefrac{1}{N}$ & 100     & $100$   & 2.5, 2.5, $8\Delta y $ & 1     & 1600\\
-\end{tabular}
+\end{tabular}.
 \vspace*{0.7ex}
 \end{center}
 
@@ -389,7 +389,7 @@ The flow is not purely azimuthal \citep{tritton88}.
 In this test case only the laminar and azimuthal flow regime will be considered, when the outer cylinder is not rotating ($\Omega_o = 0$).
 In literature, this system is usually referred to as Circular Couette flow (CCF) \citep{Kundu2012}.
 
-This problem can be reduced to two dimensions and described in polar coordinates $(r, \phi)$. The equations of motion for the steady state are given by \citep{Kundu2012}
+This problem can be reduced to two dimensions and be described in polar coordinates $(r, \phi)$. The equations of motion for the steady state are given by \citep{Kundu2012}
 \begin{align}
     \label{vali:tc_flow_eqnavstok}
     -\frac{v^2_\phi}{r} = - \frac{\partial p}{\partial r} \qquad ;& \qquad 0 = \frac{1}{Re}\frac{\partial}{\partial r}\left(\frac{1}{r}\frac{\partial}{\partial r}(r v_\phi)\right).

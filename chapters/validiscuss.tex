@@ -190,7 +190,7 @@ is similar to the Hagen-Poiseuille flow with exception of the IP+DF FD2 and DF-V
 The change in density is related to the numerical setup which is more complex in this test case.
 Due to the boundary conditions the divergence of the velocity field is not zero at the start of a simulation.
 A change in the density field emerges and grows until a steady state is reached.
-This is a result of the method of artificial compressibility, see Sec. \ref{num:sec_articomp}
+This is a result of the method of artificial compressibility, see Sec. \ref{num:sec_articomp}.
 Even with the use of a large speed of sound (here $\Mach=\nicefrac{v}{c}\approx0.05$)
 the fluid is still not completely incompressible.
 The decrease of the density in the inner cylinder for the VP method can be assumed to be physically correct.
@@ -210,7 +210,7 @@ but the error of the IP methods is about one order higher in comparison to the H
 The use of the VF method leads to an increase of the overall error, which is contrary to results of the Hagen-Poiseuille flow.
 
 The velocity difference profiles for all methods (Fig. \ref{tcflow:results_vprofiles_o2} and Fig. \ref{tcflow:results_vprofiles_o4})
-indicate a erroneous approximation of the inner boundary.
+indicate an erroneous approximation of the inner boundary.
 The error is larger in comparison to the outer boundary where $\vec{v} = 0$.
 Hence, it can be assumed that the approximation of Dirichlet boundaries, with velocities differing from zero at the boundaries,
 creates an overall larger numerical error.
@@ -280,6 +280,7 @@ It can be noted that using the Volume-Fraction method  the error of the DF and V
 In summary all errors are approximately below the order  $10^{-2}$ for $N>100$,
 The smallest error was obtained with the IP-DF2 method.
 All convergence rates are at least as good as those from validation test cases from literature \citep{Gilmanov2003, Gilmanov2005, Fadlun2000}.
+
 The last test case was given by a Taylor-Couette system.
 In comparison to the Hagen-Poiseuille flow the computed numerical error is larger,
 up to one order for the VF methods, which perform inferior in this test case.
@@ -287,7 +288,7 @@ In this simulation for both the FD2 and FD4 methods small pressure oscillations 
 caused by a decoupling of the density field.
 The velocity profiles show that the error is the largest to the inner domain boundary $r_i$.
 This indicates that the Immersed Boundary methods in combination with implemented basic GPU algorithm
-are not a good choice for Dirchlet boundaries with velocities differing from zero.
+are not a good choice for Dirichlet boundaries with velocities differing from zero.
 
 
 
