@@ -150,7 +150,7 @@ The numercial change in the density is  proportional to \footnote{o.t. = other t
      \propto \frac{\rho^{j-1}_{i+2} - 2 \rho^{j-1}_{i}  + \rho^{j-1}_{i-2}}{\Delta x^2} + \text{o. t.}
 \end{align}
 
-where $j$ is the time step and $i$ a grid point. Here the one-dimensional case is considered with an FD2 discretization and an explicit Euler step in time.
+where $j$ is the time step and $i$ a grid point. Here, the one-dimensional case is considered with an FD2 discretization and an explicit Euler step in time.
 This means that the density field is implicitly coupled over the velocity to itself,
 but neighbor points are independent of each other.\footnote{This example also holds for the FD4 method.}
 For the three dimensional setup six decoupled pressure fields would be possible.
@@ -163,6 +163,7 @@ Due to the decoupling the computed error evolves differently on the decoupled pr
 %for the points where the 5-Point stencil reaches over the domain bounday.
 %Due to the odd-even decoupling the computed error is different in the grids .
 %Overall the oscillation are small and therefore not yet a concern
+\bigbreak
 
 Finally a comparison of the error shall be given.
 In \citep{Fadlun2000} the DF method was tested with and without the VF method.
@@ -175,30 +176,30 @@ For all methods the error is of order $10^{-2}$ at $N=100$.
 This result for the IP-method is in argreement with this thesis. However, the DF-method has a better convergence rate of first order and
 the additional use of the VF method has a smaller influence.
 
-A validation of the IP method can be found in \citep{Gilmanov2003}, \citep{Gilmanov2005}.
+A validation of the IP method can be found in \citep{Gilmanov2003, Gilmanov2005}.
 In \citep{Gilmanov2003} the IP method is tested by the steady flow in a lid-driven cavity containing a sphere, the error convergence of order $1.74$.
 In  \citep{Gilmanov2005} a flow caused by an oscillating sphere in a cavitiy is studied, with an error convergence of order $1.77$.
 In this thesis the IP-FD2 method has a convergence rate about $2.35$, above second order, which is slightly better in comparison to these validations.
 One reason for this could be the lack of complexity in the Hagen-Poiseuille flow as the theoretical solution is a polynom of second order.
-
 
 \subsection{Taylor-Couette Flow}
 
 In this validation test case the density changes for the FD2 methods as well.
 The convergence of the averaged density to the order of $10^{-4}$
 is similar to the Hagen-Poiseuille flow with exception of the IP+DF FD2 and DF-VF FD4 method ($\approx10^{-3}$).
-The change in density is related to the numerical setup which is more complex in this testcase.
+The change in density is related to the numerical setup which is more complex in this test case.
 Due to the boundary conditions the divergence of the velocity field is not zero at the start of a simulation.
-A density field emerges and grows until a steady state is reached.
-This is a result of the method of articficial compressibilty, see Sec. \ref{num:sec_articomp}
+A change in the density field emerges and grows until a steady state is reached.
+This is a result of the method of artificial compressibility, see Sec. \ref{num:sec_articomp}
 Even with the use of a large speed of sound (here $\Mach=\nicefrac{v}{c}\approx0.05$)
-the fluid is still not completely incompressible. However, the overall change in density is small.
-The spatial oscillations in this test case also occur in the FD2 methods since the density is no longer zero.
-It can be assumed that just like in the Hagen-Poiseuille flow an odd-even decoupling occurs.
-The decrease of the density in the inner cylinder for the VP-method can assumed to be physically correct.
-The angular velocity $\Omega_i$ creates a centrifugal force in the inner cylinder,
+the fluid is still not completely incompressible.
+The decrease of the density in the inner cylinder for the VP method can be assumed to be physically correct.
+The angular velocity $\Omega_i$ creates a centrifugal force in the inner cylinder.
 This results in a density distribution which is large at the outer cylinder walls and small in the center.
 The negative value is not a concern since the density is undetermined by a constant.
+Moreover, the overall change in density is small.
+The spatial oscillations in this test case also occur in the FD2 methods since the density is no longer zero.
+It can be assumed that just like in the Hagen-Poiseuille flow an odd-even decoupling occurs.
 
 It can be noted that the results of the IP FD2 and the IP+DF FD2 method are not equal.
 This refutes the previous assumption (see Sec. \ref{sec:hpflow_discussion}),
@@ -210,11 +211,17 @@ The use of the VF method leads to an increase of the overall error, which is con
 
 The velocity difference profiles for all methods (Fig. \ref{tcflow:results_vprofiles_o2} and Fig. \ref{tcflow:results_vprofiles_o4})
 indicate a erroneous approximation of the inner boundary.
+The error is larger in comparison to the outer boundary where $\vec{v} = 0$.
 Hence, it can be assumed that the approximation of Dirichlet boundaries, with velocities differing from zero at the boundaries,
 creates an overall larger numerical error.
 
-A comparison to results in litetature is difficult.
-THere
+%A comparison of this test case to results from literature proves to be difficult (is diffcult).
+%.Numerical studies for immersed boundary methods with moving boundaries  are available, see for example ().
+%'However, these studies can not be directly related to this test case.
+%Here the surface is rotating but not moving in space.
+
+
+
 
 %- nicht auszuschliefen wegen druckmethode blabla
 %-a comparison to literature ...
@@ -255,8 +262,8 @@ The volume-penalization method, adapted from  \citep{Lulff2011} uses a forcing t
 In case of the Direct-Forcing method, adapted from \citep{Fadlun2000} the forcing term is calculated implicitly.
 Both methods were extended by the Volume-Fraction method, adapted from \citep{Fadlun2000}, which computes the fluid domain volume ratio inside a boundary
 cell and uses this value as a weighting coefficient for the forcing.
-Finally an interpolation method adapted from  \citep{ Gilmanov2003} was introduced. In the first step this method performs a bilinear interpolation on a surface
-next to the fluid boundary, in the second step this value is linear interpolated to a grid point close to the boundary.
+Finally, an interpolation method adapted from  \citep{ Gilmanov2003} was introduced. In the first step this method performs a bilinear interpolation on a surface
+next to the fluid boundary, in the second step this value is linearly interpolated to a grid point close to the boundary.
 
 In the second part of the chapter three different test cases were introduced as a validation for the Immersed Boundary methods.
 The laminar Poiseuille flow was used as a first validation test case for the DF and VP methods.
@@ -266,23 +273,21 @@ Furthermore it could be shown that the use of a 5-Point stencil leads to discret
 In the second test case a simulation of a Hagen-Poiseuille flow was performed.
 The results of this simulation pointed out possible numerical issues.
 One possible problem are numerical oscillations which are assumed to be caused
-by a decoupling of density field.
+by a decoupling in the density field.
 Furthermore this test case showed that the use of a 5-Point stencil creates a numerical error,
 which results in a large error for the IP-DF4 method.
-It can be noted that using the volume fraction method  the error of the DF and VP method can be improved.
-In summary all errors are approximately below the order  $10^2$ for $N>100$,
-by far the smallest error was obtained with the IP-DF2 method.
-All convergence rates are at least as good in a comparison
-to the results from validation test cases from literature.
-
+It can be noted that using the Volume-Fraction method  the error of the DF and VP method can be improved.
+In summary all errors are approximately below the order  $10^{-2}$ for $N>100$,
+The smallest error was obtained with the IP-DF2 method.
+All convergence rates are at least as good as those from validation test cases from literature \citep{Gilmanov2003, Gilmanov2005, Fadlun2000}.
 The last test case was given by a Taylor-Couette system.
 In comparison to the Hagen-Poiseuille flow the computed numerical error is larger,
-up to an order for the VF methods, which perform inferior in this test case.
+up to one order for the VF methods, which perform inferior in this test case.
 In this simulation for both the FD2 and FD4 methods small pressure oscillations can be observed which are again assumed to be
 caused by a decoupling of the density field.
 The velocity profiles show that the error is the largest to the inner domain boundary $r_i$.
 This indicates that the Immersed Boundary methods in combination with implemented basic GPU algorithm
-are not a good choice for moving boundaries.
+are not a good choice for Dirchlet boundaries with velocities differing from zero.
 
 
 

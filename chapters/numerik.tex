@@ -6,7 +6,7 @@ This chapter focuses on the methods that are used for the numerical computations
 In order to compute the temporal evolution of a fluid system from its initial state, it is necessary to discretize
 the equations of motion by using different numerical schemes.\\
 For this purpose various discretization approaches, for example finite element and finite volume methods, exist.
-Here the method of finite differences will be introduced for the spatial discretization and a third order Runge-Kutta method for the temporal discretization in time.
+Here, the method of finite differences will be introduced for the spatial discretization and a third order Runge-Kutta method for the temporal discretization in time.
 Furthermore we will introduce the method of artificial compressibility, which can be used to avoid the numerical expensive solution of a Poisson equation.
 The choice of these methods in combination with the usage of cartesian grids is in particular time saving when performing computations on the GPU as we
 will see in chapter \ref{CHAPTER:CUDA}.
@@ -75,7 +75,7 @@ Central  (CDS) & $\left(\pdn[\Phi]{x}\right)_i = \frac{\Phi_{i+1}  - f\Phi{i-1}}
 \\
 \bottomrule
 \end{tabular}
-\caption{Different finite difference chemes}
+\caption{Different finite difference schemes}
 \label{num:df_table}
 \end{table}
 \egroup
@@ -91,7 +91,7 @@ Central  (CDS) & $\left(\pdn[\Phi]{x}\right)_i = \frac{\Phi_{i+1}  - f\Phi{i-1}}
   \label{num:fd_image}
 \end{figure}
 
-Finally Fig. \ref{num:fd_image} shows a visual comparison for the three different finite difference schemes.
+Finally, Fig. \ref{num:fd_image} shows a visual comparison for the three different finite difference schemes.
 For the computation of the second derivative one approach is to evaluate equation \ref{num:taylor} halfway between two points at the positions $x_{i\pm\frac{1}{2}}$
 
 \begin{align}
@@ -100,7 +100,7 @@ For the computation of the second derivative one approach is to evaluate equatio
      \frac{\left.\left(\pdn[\Phi]{x}\right)\right|_{i+\frac{1}{2}}-
      \left.\left(\pdn[\Phi]{x}\right)\right|_{i-\frac{1}{2}}}
     {\frac{1}{2}(x_{i+1} - x_{i-1})} + \mathcal{O}(\Delta ^2)  \approx
-    \frac{\Phi_{i+1} - 2\Phi_i + \Phi_{i-1}}{\Delta x^2}
+    \frac{\Phi_{i+1} - 2\Phi_i + \Phi_{i-1}}{\Delta x^2}.
 \end{align}
 
 For the approximation of the first derivatives in \ref{numerik:eq_2dfo2},
@@ -110,7 +110,7 @@ So far we introduced methods up to an accuracy of second order. The fourth order
 
 \begin{align}
     \left(\pdn[\Phi]{x}\right)_i &\approx \frac{-\Phi_{i+2} + 8\Phi_{i+1} - 8\Phi_{i-1} + \Phi_{i-2}}{12\Delta x} \\
-    \left(\pdn[^2\Phi]{x^2}\right)_i &\approx \frac{-\Phi_{i+2} + 16\Phi_{i+1} -30\Phi_i + 16\Phi_{i-1} - \Phi_{i-2}}{12\Delta x^2}
+    \left(\pdn[^2\Phi]{x^2}\right)_i &\approx \frac{-\Phi_{i+2} + 16\Phi_{i+1} -30\Phi_i + 16\Phi_{i-1} - \Phi_{i-2}}{12\Delta x^2}.
     \label{num:fd_o4_methods}
 \end{align}
 
@@ -141,7 +141,7 @@ where $\tau_i=c_i \Delta t$ with $c_i =\sum_{j=1}^{s}a_{ij}$ with $a_{ij} \in \m
 Using a  weighted average of the $k_i$, with the coefficients $b_j\in\mathbb{R}$ gives
 
 \begin{align}
-    \Phi(t^{n+1}) = \Phi(t^n) + \Delta t \left( \sum_{j=1}^s b_j k_j \right)
+    \Phi(t^{n+1}) = \Phi(t^n) + \Delta t \left( \sum_{j=1}^s b_j k_j \right).
 \end{align}
 
 The accuracy of an s-stage RK method depends of the right choice of the coefficients.
@@ -162,7 +162,7 @@ The coefficients are given by the butcher tableau
                     \frac{1}{3} & \frac{1}{3} \\
             \frac{3}{4} & \frac{-3}{16} & \frac{15}{16} \\
             \hline & \frac{1}{6} & \frac{3}{10} & \frac{8}{15}
-    \end{array}
+    \end{array}.
 \end{align}
 
 where the components of $\mathbf{c}$, $\mathbf{b}$ and $\mathbf{A}$ are $a_{ij}$, $c_i$ and $b_j$ \citep{umwelt}.
@@ -213,7 +213,7 @@ results in  the mapping \citep{Williamson1980}
       \includegraphics{gfx/numerik/rk_stability.pdf}
   \end{minipage}\hfill
   \begin{minipage}[c]{0.3\textwidth}
-  \caption{Stability regions $\Omega_s$ for different Runge-Kutta methods}
+  \caption{Stability regions $\Omega_s$ for different Runge-Kutta methods.}
   \label{fig:num_rkstab}
   \end{minipage}
 \end{figure}
@@ -225,7 +225,7 @@ For a $s$ order scheme the region of stability is independent of the used implem
 \footnote{For an $s$-th order RK-scheme different coefficient $a_{ij}$, $b_j$ and $c_i$ can be used.}
 It can be noted that the stability region $\Omega_s$ increases with the use of higher order schemes.
 The substantial detail is that for the  methods of third and fourth order, the imaginary axis lies within $\Omega_s$.
-These methods are often preferred for  CFD-simulations, since they tend to stabilize numerical oscillations \footnote{Private communication A.Tilgner}.
+These methods are often preferred for  CFD-simulations, since they tend to stabilize numerical oscillations \footnote{Private communication with A.Tilgner}.
 
 \subsection{Finite difference schemes}
 
@@ -262,7 +262,7 @@ Inserting $\epsilon_m$ in Eq. \ref{num:neumann_diffusion_eq} for $\Phi$ and usin
     e^{a \Delta t} = 1 -  \frac{4\alpha \Delta t}{\Delta x^2} \sin^2\left(\frac{k_m \Delta x}{2}\right).
 \end{align}
 
-Furthermore it holds that
+Furthermore, it holds that
 
 \begin{align}
     \left|\frac{\epsilon_i^{n+1}}{\epsilon_i^n}\right| =
@@ -321,7 +321,7 @@ the advection term into the upstream direction of the velocity field.
 Consider the one-dimensional advection equation
 
 \begin{align}
-    \pdn[\Phi]{t} + v\pdn[\Phi]{x} = 0
+    \pdn[\Phi]{t} + v\pdn[\Phi]{x} = 0.
 \end{align}
 
 The discretization for the advection term at the position $x=i$ is given by
@@ -334,7 +334,7 @@ for v(x) > 0 and
     v\pdn[\Phi]{x} &\approx  v_i \cdot \left( \frac{-\Phi_{i+2} + 6\Phi_{i+1} - 3\Phi_{i-1} - 2\Phi_{i-1}}{6\Delta x}\right)
 \end{align}
 for v(x) < 0,
-with the use of third-order finite difference approximations from \citep{ferziger99}.
+with the use of third order finite difference approximations from \citep{ferziger99}.
 
 \newpage
 
@@ -361,7 +361,7 @@ By inserting $V(t)$ into a  second order approximation of Eq. \label{ref:nvis_eq
 \begin{align}
                       D_P \Delta v  &\approx \frac{D_P}{\Delta x^2} \left(v_{x+\Delta x} - 2 v_x + v_{x - \Delta x}\right) \\
     \Leftrightarrow   -D_P k^2        &\approx \frac{D_P}{\Delta x^2} \left(\exp^{ik\Delta x} - 2 + \exp^{-ik\Delta x}\right) =   \frac{D_P}{\Delta x^2} \left(2\cos(k\Delta x) - 2\right)\\
-    \Rightarrow   D_P      &\approx - \frac{D_P}{k^2 \Delta x^2} \left(2\cos(k\Delta x) - 2\right)
+    \Rightarrow   D_P      &\approx - \frac{D_P}{k^2 \Delta x^2} \left(2\cos(k\Delta x) - 2\right).
     \label{numerik:numvis_sol}
 \end{align}
 
@@ -369,13 +369,13 @@ The numerical viscosity is given by the approximation of $D_P$  from Eq. \ref{nu
 
 \begin{align}
  \label{NUMERIC:NUMVIS}
-    D_N = -\frac{D}{k^2 \Delta x^2} \left(2\cos(k\Delta x) - 2\right)
+    D_N = -\frac{D}{k^2 \Delta x^2} \left(2\cos(k\Delta x) - 2\right).
 \end{align}.
 
 The same ansatz for the fourth order scheme gives
 \begin{align}
  \label{NUMERIC:NUMVIS2}
-    D_N = -\frac{D}{k^2 \Delta x^2} \left(32\cos(k\Delta ) - 2\cos(k\Delta x) - 30\right)
+    D_N = -\frac{D}{k^2 \Delta x^2} \left(32\cos(k\Delta ) - 2\cos(k\Delta x) - 30\right).
 \end{align}
 
 It can be noted that the numerical viscosity is not constant but depends on the wave number $k$.
@@ -393,8 +393,8 @@ The resulting equation is of the form \citep{Lulff2011}
     \Delta p =  -\nabla \cdot \left((\vec{v} \vec{\nabla}) \vec{v}\right).
 \end{align}
 
-In order to determine the pressure it would be necessary to solve this Poisson equation.
-The numerical solution  however, can be very time consuming is and furthermore difficult to implement on a GPU \footnoteref{notepc_arti}.
+In order to determine the pressure it would be necessary to solve this Poisson equation. However,
+the numerical solution can be very time consuming and difficult to implement on a GPU \footnoteref{notepc_arti}.
 Instead here the method of artificial compressibility, first presented in \citep{Chorin1997}, will be introduced.
 The concept of this method is to introduce the artificial equations of state
 
@@ -432,7 +432,7 @@ to a high value such that the Mach number given by
     \Mach= \frac{v}{c} =  \frac{1}{c}\max\left(\sum_i |\vec{u_i}]^2\right)^{1/2}
 \end{align}
 
-is small, a good estimation is $\Mach<0.1$ \footnote{\label{notepc_arti}Private Communication A.Tilgner}.
+is small, a well estimation is $\Mach<0.1$ \footnote{\label{notepc_arti}Private Communication with A.Tilgner}.
 In this case the fluid can be considered as incompressible.
 One major drawback of this method is a stiff numerical problem. Due to the stability criterion (see Eq. \ref{num:stab_soundspeed})
 a small time step is needed since $v=c^2$.

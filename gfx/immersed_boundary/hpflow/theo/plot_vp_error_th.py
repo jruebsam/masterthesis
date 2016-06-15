@@ -15,6 +15,7 @@ cmap = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#
 
 from cycler import cycler
 plt.rc('axes', prop_cycle=(cycler('color', cmap)))
+import matplotlib
 
 def main():
     dpath = '/home/upgp/jruebsam/simulations/april16/week1/hpflow/gc/'
@@ -77,12 +78,16 @@ def main():
     ax.legend(ncol = 1, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, 1.5),
            fancybox=True, shadow=True)
 
+
     ax.set_yscale('log')
     ax.set_xscale('log')
     ax.set_ylim(1e-4, 2*1e-1)
     ax.set_xlim(15, 550)
     ax.set_xlabel(r'grid points N')
     ax.set_ylabel(r'rel. $l_2$-error $\epsilon$')
+
+    ax.set_xticks([20, 100, 500])
+    ax.get_xaxis().set_major_formatter(matplotlib.ticker.ScalarFormatter())
 
     plt.grid()
     plt.savefig('vp.pdf')
