@@ -87,7 +87,7 @@ since each block can be dynamically assigned to a different SM.
         \resizebox{0.5 \textwidth}{!}{
        \import{gfx/cuda//}{grid.pdf_tex}
         }
-       \caption{Thread management of the CUDA API, exeplarily shown for a
+       \caption{Thread management of the CUDA API, exemplarily shown for a
        \label{cuda:grid_example}
         grid of blocks. Each block contains a sub-grid with 8x8 threads.}
 \end{figure}
@@ -96,8 +96,8 @@ since each block can be dynamically assigned to a different SM.
 \subsection{Performance Considerations}
 \label{cuda:sec_performance}
 
-For the programming of a CUDA device a vast number of optimization techniques exist (see \citep{CUDABP}).
-A a short description of the most import ones is presented below.
+For the programming of a CUDA device a vast number of optimization techniques exist \citep{CUDABP}.
+A  short description of the most import ones is presented below.
 
 \begin{description}
     \item[Memory Coalescing]
@@ -294,7 +294,7 @@ the border points (B) are redundant.
 For the implementation of the boundary conditions two additional layers of grid points are added on each side of the simulation domain.
 In this section the implementation of boundary conditions is presented for the one-dimensional case in $x$-direction.
 
-\paragraph{No-Slip Boundaries}\mbox{}\\
+\subsubsection{No-Slip Boundaries}
 
 Consider the left side of the simulation domain.
 The ghost points are given by the points ${g_{l2}=(0, j, k)}$, ${g_{l1}=(1, j, k)}$,
@@ -308,7 +308,7 @@ The same procedure is performed for $v_y$ and $v_z$.
 Due to the symmetry of the velocity profile on the boundary the viscous stress vanishes and $\partial_t\vec{v} = 0$. Hence, $\vec{v}(t)=0$.
 
 
-\paragraph{No-Flux Boundaries}\mbox{}\\
+\subsubsection{No-Flux Boundaries}
 
 Consider the left side of the simulation domain.
 The ghost points are given by the points ${g_{l2}=(0, j, k)}$, ${g_{l1}=(1, j, k)}$,
@@ -328,12 +328,12 @@ it follows that
 with the use of a fourth order central difference scheme.
 This boundary condition is used for $\rho$ to satisfy the mass conservation.
 
-\paragraph{Free-Slip Boundaries}\mbox{}\\
+\subsubsection{Free-Slip Boundaries}
 
 The Free-Slip boundaries are implemented by using No-Flux boundaries for
 the $v_y$ and $v_z$ components and No-Slip boundaries for the $v_x$ component.
 
-\paragraph{Periodic Boundaries}\mbox{}\\
+\subsubsection{Periodic Boundaries}
 
 Consider the ghost points $g_l2=(0, j, k)$, $g_l1=(1, j, k)$ and the inner points $i_{l1}=(2, j, k)$ and $i_{l2}=(3, j, k)$ on the left side of
 the simulation domain.
