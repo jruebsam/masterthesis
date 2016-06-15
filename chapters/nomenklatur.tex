@@ -8,48 +8,59 @@
 \begin{longtable}[h]{p{0.2\textwidth}p{0.7\textwidth-6\tabcolsep}}
   \tabheadfont{variable}&\tabheadfont{meaning}\\\midrule\endhead
 
-  $\rho$       & density\\
-  $\vec{v}$    & velocity with components $v_x, v_y, v_z$\\
-
-  $V$      & fluid volume\\
-  $V_M$      & control mass volume\\
-  $\partial V$      & surface of a fluid volume\\
-
-  $\phi$ & A scalar field for any intensive property\\
-  $\Phi$ & An arbitrary scalar variable \\
-
-  $L$ & A charateristic length scale of a fluid system\\
-  $V$ & A charateristic velocity scale of a fluid system\\
-  $p_\infty$ & A characteristic reference presusre of a fluid system\\
-
   $\vec{r}$ & position vector\\
   $\vec{t}$ & time\\
-  $\vec{p}$ & static pressure\\
-  $\vec{\mu}$ & dynamic viscosity\\
+  $\vec{v}(\vec{r}, t)$    & velocity with components $v_x, v_y, v_z$\\
+  $\rho$       & density\\
+  $p$ & static pressure\\
+  $\Phi$ & an arbitrary scalar variable \\
   $\vec{\nu}$ & kinematic viscosity\\
+  $\vec{\Omega}$ & angular velocity of the rotating system\\
 
+  $V$      & fluid volume\\
+  $\partial V$      & surface of a fluid volume\\
   $\vec{n}$ & normal of a surface\\
 
-  $\vec{\Omega}$ & Angular velocity\\
+  $L$ &  characteristic length scale of a fluid system\\
+  $V$ &  characteristic velocity scale of a fluid system\\
+  $p_\infty$ &  characteristic reference pressure of a fluid system\\
 
-  $\bm{T}$  & stress tensor\\
-  $\bm{D}$  & deformation tensor\\
 
   $\Rey$    & Reynolds number\\
   $\Ekman$    & Ekman number\\
+  $\Mach$    & Mach number\\
+  $\Pe$    & Peclet number\\
 
-  $\Theta$ & Propagation angle of an inertial wave\\
+  $\Theta$ & propagation angle of an inertial wave\\
+  $\vec{c}_g$ & group velocity of an inertial wave\\
+  $\vec{c}_p$ & phase velocity of an inertial wave\\
 
-  $\vec{K}$ & Wave vector\\
-  $\omega$  & Wave frequency\\
+  $D_P$ & physical viscosity\\
+  $D_N$ & numerical viscosity\\
 
-  $p_{nmk}$   & Theoretical solution for the pressure of an inertial mode in a cylinder\\
-  ${n, m, k}$ & Wave numbers for the inertial mode in a cylinder\\
-  $J_|k|$     & Bessel function of $k$-th order \\
-  $a$         & Aspect ratio $r/H$ of a cylinder\\
-  $\lambda_{nmk}$ & Eigenvalue of an inertial mode in a cylinder\\
 
-  $\mathcal{L}$ & Differential operator containing spatial derivaties and the advection term\\
+  $\mathcal{L}$ & differential operator containing spatial derivaties\\
+  $\mathcal{L}^*$ & discretizied differential operator $\mathcal{L}$\\
 
+  $\Delta x, \Delta y, \Delta z$ & step size in the numerical grid in $x, y$ and $z$ direction\\
+  $l_x, l_y, l_z$ & length of the simulation domain in $x, y$ and $z$ direction\\
+  $N_x, N_y, N_z$ & number of grid points in $x, y$ and $z$ direction\\
+  $i, j, k$ & indexes for a single grid cell \\
+
+  $\epsilon$ & numerical error\\
+  $\lambda$ & decay rate of the numerical error\\
+
+  $c$ & articficial speed of sound\\
+  $\delta$ & articficial compressibility\\
+
+  $H(x, y, z)$ & masking function of the IB methods\\
+  $\eta$ & damping coefficient of the VP method\\
+  $J$ & non-dimensional Damping coefficient of the VP method\\
+
+  $\mathcal{H}$ & Helicity\\
+  $\omega_c$ & critical libration frequency\\
+
+  $\left<v_z^2\right>(t)$ & energy in the $v_z$ velocity component\\
+  $A\left(\left<v_z^2\right> \right)$ & amplitude of $\left<v_z^2 \right>$ \\
 
 \end{longtable}

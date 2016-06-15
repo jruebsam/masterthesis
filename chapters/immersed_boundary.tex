@@ -75,23 +75,23 @@ With this function an additional forcing term can be added into the Navier-Stoke
 \begin{align}
     \label{ibm:vp_navstok}
     \pdn[v]{t} + \vec{v} \cdot \vec{\nabla} \vec{v} &= -c^2 \nabla \rho + \frac{1}{Re} \Delta \vec{v} + \vec{F}_{ext}
-     +\underbrace{ \frac{H(x, y, z)}{\nu}(\vec{v} - \vec{v_0})}_{\text{Vol. Pen. Forcing}}.
+     +\underbrace{ \frac{H(x, y, z)}{\eta}(\vec{v} - \vec{v_0})}_{\text{Vol. Pen. Forcing}}.
 \end{align}
 
-Where $\nu$ is a regulation parameter also denoted as damping rate of the forcing and $\vec{v}_0$ is the desired Dirichlet boundary condition.
+Where $\eta$ is a regulation parameter also denoted as damping rate of the forcing and $\vec{v}_0$ is the desired Dirichlet boundary condition.
 Hence, for No-Slip boundaries it is $\vec{v}_0 = 0 $.
 The additional term in Eq. \ref{ibm:vp_navstok} acts as an exponential damping force on a single grid point.
 The forcing acts inside of $\Omega_w$ as $H(x, y, z) = 1$ and vanishes in $\Omega_f$.
-The strength of the forcing is scaled by the damping rate $\nu$.
-For a small $\nu$ a stronger forcing is applied to the points in $\Omega_w$.
-It can be shown that for $\nu\rightarrow 0$ the velocity in $\Omega_w$ converges against zero
+The strength of the forcing is scaled by the damping rate $\eta$.
+For a small $\eta$ a stronger forcing is applied to the points in $\Omega_w$.
+It can be shown that for $\eta\rightarrow 0$ the velocity in $\Omega_w$ converges against zero
 and the No-Slip boundaries are fulfilled \citep{Lulff2011}.
 However, the additional term in Eq. \ref{ibm:vp_navstok}
 also introduces an additional stability criterion \citep{Lulff2011}
 
 \begin{align}
     \label{ibm:eq_vpcrit}
-    \Delta t < \Delta t_{VP} := \nu.
+    \Delta t < \Delta t_{VP} := \eta.
 \end{align}
 
 The time step is already severely restricted due to the method of artificial compressibility, see Sec. \ref{num:sec_articomp}.

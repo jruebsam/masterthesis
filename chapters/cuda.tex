@@ -302,7 +302,7 @@ the boundary is at ${b=(2, j, k)}$ where $\vec{v}=0$ and the next inner points a
 $i_{l1}=(3, j, k)$ and $i_{l2}=(4, j, k)$.
 For No-Slip boundaries the velocity profile is mirrored and inverted at $b$.
 \begin{align}
-    v_x(g_{l2}) = -v(i_{l2}) \qquad ; \qquad v(g_{l1}) = -v(i_{l1})
+    v_x(g_{l2}) = -v_x(i_{l2}) \qquad ; \qquad v_x(g_{l1}) = -v_x(i_{l1})
 \end{align}
 The same procedure is performed for $v_y$ and $v_z$.
 Due to the symmetry of the velocity profile on the boundary the viscous stress vanishes and $\partial_t\vec{v} = 0$. Hence, $\vec{v}(t)=0$.
@@ -346,6 +346,7 @@ For Periodic boundaries the regions on the left and right side of the simulation
     v_x(g_{r2}) = v(i_{l2}) \qquad ; \qquad v(g_{r1}) = v(i_{l1})
 \end{align}
 
+The same procedure is performed for $v_y$ and $v_z$ and $\rho$.
 
 %\subsection{Remarks}
 %-performance blabla

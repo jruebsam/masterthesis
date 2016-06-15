@@ -13,7 +13,7 @@ In this thesis we will not consider MHD-equations.  \footnote{MHD - Magnetohydro
 However, in general it is considered that the helicity of a fluid domain $V$, given by
 
 \begin{align}
-    \int_{V}\dif V  \vec{v} \cdot \left( \nabla \times \vec{v} \right),
+    \mathcal{H} = \int_{V}\dif V  \vec{v} \cdot \left( \nabla \times \vec{v} \right),
 \end{align}
 
 is directly linked to dynamo action \citep{moffat1978}.
@@ -310,7 +310,7 @@ The error is estimated to be of order $\sigma_A \approx 2.5\% - 5\%$, when no re
 Another part of the analysis is the computation of the relative helicity of the system
 
 \begin{align}
-H(t) = \frac{\int_V \dif V \vec{v} (\nabla \times \vec{v})}
+\mathcal{H}(t) = \frac{\int_V \dif V \vec{v} (\nabla \times \vec{v})}
 {\sqrt{\int_V \dif V \vec{v}^2 \int_V \dif V (\nabla \times \vec{v})^2}}
  = \frac{\sum_{i,j,k=0}^{N_x, N_y, N_z} \vec{v}_{i,j,k} (\nabla \times \vec{v}_{i, j, k})}
  {\sqrt{\left(\sum_{i,j,k=0}^{N_x, N_y, N_z}\vec{v}_{i,j,k}^2\right)
