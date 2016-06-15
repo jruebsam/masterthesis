@@ -98,15 +98,15 @@ According to \citep{Kundu2012}, the equations of motion, here in the non-dimensi
 \begin{align}
     \label{vali:pflow_navstok}
     \frac{\partial v_x}{\partial t} &= - \frac{\partial p}{\partial x}
-     + \frac{1}{Re} \frac{\partial^2 v_x}{\partial z^2} = 0,
+     + \frac{1}{Re} \frac{\partial^2 v_x}{\partial z^2} = 0
 \end{align}
 
 where $Re = \nicefrac{V_{m}\Delta h}{\nu}$, with the non-dimensionalization defined as
 
 \begin{align}
-    \text{Length:}\qquad &  \vec{r} = \frac{\vec{r^*}}{\Delta h}  &
-    \qquad \text{Velocity:}\qquad& \vec{v} =  \frac{\vec{v^*}}{V_{\text{M}}}\\
-    \text{Time:}  \qquad & t = \frac{t^* \cdot V_\text{M}}{\Delta h}&
+    \text{Length:}\qquad &  \vec{r} = \frac{\vec{r^*}}{\Delta h}  &,
+    \qquad \text{Velocity:}\qquad& \vec{v} =  \frac{\vec{v^*}}{V_{\text{M}}},\\
+    \text{Time:}  \qquad & t = \frac{t^* \cdot V_\text{M}}{\Delta h}&,
     \qquad  \text{Pressure:}\qquad & p = \frac{\nabla p^*}{\rho V_\text{M}^2}
 \end{align}
 %For this system the non-dimenzionalization is given by the scales
@@ -122,7 +122,7 @@ v_x &= \frac{1}{2}\frac{\partial p}{\partial x}\Rey z^2 + zc_1 + c_2.
 The integration constants are obtained by setting $v_x(h_1) = v_x(h_2) = 0$:
 \begin{align}
 c_1 = A\frac{h_1^2 -h_2^2}{h_2 - h_1} = -A(h_1+h_2)\qquad ,& \qquad
-c_2 = A(h_1(h_1 + h_2) - h_1^2) = Ah_1h_2,
+c_2 = A(h_1(h_1 + h_2) - h_1^2) = Ah_1h_2
 \end{align}
 
 with the definition $A:=\frac{1}{2}\frac{\partial p}{\partial x} Re$.
@@ -187,7 +187,7 @@ H(z) = \begin{cases}
                     0, & \text{for \  }  h_1 \leq z \leq h_2 \\
                     1, & \text{else}.
              \end{cases}
-\end{align}.
+\end{align}
 
 For the VP-method an additional forcing term for Eq. \ref{vali:pflow_navstok} of the form
 
@@ -392,7 +392,7 @@ In literature, this system is usually referred to as Circular Couette flow (CCF)
 This problem can be reduced to two dimensions and be described in polar coordinates $(r, \phi)$. The equations of motion for the steady state are given by \citep{Kundu2012}
 \begin{align}
     \label{vali:tc_flow_eqnavstok}
-    -\frac{v^2_\phi}{r} = - \frac{\partial p}{\partial r} \qquad ;& \qquad 0 = \frac{1}{Re}\frac{\partial}{\partial r}\left(\frac{1}{r}\frac{\partial}{\partial r}(r v_\phi)\right).
+    -\frac{v^2_\phi}{r} = - \frac{\partial p}{\partial r} \qquad ,& \qquad 0 = \frac{1}{Re}\frac{\partial}{\partial r}\left(\frac{1}{r}\frac{\partial}{\partial r}(r v_\phi)\right).
 \end{align}
 
 
@@ -406,7 +406,7 @@ For the non-dimensionalization the default convention is chosen according to  \c
 
 
 The flow is then characterized by the Reynolds number $Re = \nicefrac{\Omega_i R_i d}{\nu}$.
-With the integration of Eq. \ref{vali:tc_flow_eqnavstok} the solution is given by (see [\citep{Kundu2012}])
+With the integration of Eq. \ref{vali:tc_flow_eqnavstok} the solution is given by \citep{Kundu2012}
 \begin{align}
     v_\phi = Ar + \frac{B}{r}
 \end{align}

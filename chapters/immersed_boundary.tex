@@ -259,8 +259,9 @@ Before the execution of a simulation the following steps are precomputed:
 
     \item The offsets $p00$, $p01$, $p10$, $p11$ of the points $\beta$, $\alpha$, $\gamma$, $\delta$ to the point $b$ are computed.
 
-    \item $\vec{n}$ is normalized by $\vec{n}^* = \frac{\vec{n}}{|n_0|}\cdot \Delta z$. The length of $\vec{n^*}$ is $[cb]$.
+    \item $\vec{n}$ is normalized by $\vec{n}^* = \frac{\vec{n}}{|n_0|}\cdot \Delta z$.
             \footnote{For $n_0=n_z$ this is $\Delta x$ and for $n_0=n_y$ it is $\Delta y$.}
+            The length of $\vec{n^*}$ is $[cb]$.
 
     \item The point $c$ is given by $c = a + \vec{n}^*$ and the coefficient $c_1$ and $c_2$ are computed and normalized to the values
            $c01 := \frac{c_1}{\Delta x}$ and $c10 := \frac{c_1}{\Delta y}$.

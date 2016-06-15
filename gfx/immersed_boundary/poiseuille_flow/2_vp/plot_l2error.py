@@ -146,7 +146,7 @@ def main():
     plt.gca().add_artist(legend_fit)
 
     ax2.set_xlabel(r'$Re$')
-    ax2.set_ylabel('$rel. l_2$-error $\epsilon$')
+    ax2.set_ylabel('rel. $l_2$-error $\epsilon$')
     ax2.set_xscale('log')
     ax2.set_yscale('log')
     ax2.set_xlim(90, 550)
